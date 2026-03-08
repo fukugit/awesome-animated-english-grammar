@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>不定詞 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f8f8f6;
+      --white: #fff;
+      --border: #e5e5e0;
+      --text: #1c1c1c;
+      --muted: #6b6b6b;
+      --blue: #4a90e2;
+      --orange: #e67e22;
+      --green: #27ae60;
+      --purple: #8e44ad;
+      --red: #e74c3c;
+      --teal: #16a085;
+      --radius: 14px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.6;
+    }
+
+    .nav {
+      height: 60px; background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 32px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1rem;
+      text-decoration: none; color: var(--text);
+    }
+    .logo-mark {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 8px; flex-shrink: 0;
+      animation: morphMark 4s ease-in-out infinite;
+    }
+    @keyframes morphMark {
+      0%, 100% { border-radius: 8px; transform: rotate(0deg); }
+      50% { border-radius: 50%; transform: rotate(180deg); }
+    }
+
+    .page-hero {
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 48px 32px 40px;
+    }
+    .page-hero-inner { max-width: 860px; margin: 0 auto; }
+    .back-link a {
+      font-size: 0.85rem; color: var(--muted); text-decoration: none;
+      font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+      margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 8px; }
+    .page-title span { color: var(--purple); }
+    .page-desc { color: var(--muted); font-size: 1rem; max-width: 560px; }
+
+    .content { max-width: 860px; margin: 0 auto; padding: 48px 32px 80px; }
+    .section { margin-bottom: 72px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+    .usage-badge {
+      display: inline-block; font-size: 0.82rem; font-weight: 800;
+      padding: 5px 14px; border-radius: 100px; color: white;
+    }
+    .section-title { font-size: 1.4rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 0.92rem; margin: 8px 0 24px; }
+
+    /* ── Infinitive Demo ── */
+    .inf-demo {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      margin-bottom: 20px; position: relative;
+    }
+    .inf-sentence {
+      font-size: 1.1rem; font-weight: 600;
+      line-height: 2; margin-bottom: 16px;
+    }
+    .inf-phrase {
+      display: inline-block;
+      padding: 2px 8px; border-radius: 6px;
+      color: white; font-weight: 800;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .inf-phrase.show { opacity: 1; transform: translateY(0); }
+
+    /* Function label */
+    .func-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      opacity: 0; transform: translateX(-8px);
+      transition: opacity 0.4s 0.3s, transform 0.4s 0.3s;
+    }
+    .func-label.show { opacity: 1; transform: translateX(0); }
+    .func-pill {
+      font-size: 0.75rem; font-weight: 800;
+      padding: 4px 12px; border-radius: 100px;
+      color: white;
+      letter-spacing: 0.06em;
+    }
+    .func-desc {
+      font-size: 0.85rem; color: var(--muted);
+    }
+
+    /* Roles grid */
+    .roles-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin-bottom: 4px;
+    }
+    .role-card {
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px;
+    }
+    .role-label {
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .role-example {
+      font-size: 0.9rem; font-weight: 600; line-height: 1.6;
+    }
+    .role-ja { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
+
+    .replay-btn {
+      position: absolute; top: 14px; right: 14px;
+      font-size: 0.72rem; font-weight: 700;
+      padding: 5px 12px; border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--bg); color: var(--muted);
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.1s;
+      letter-spacing: 0.05em;
+    }
+    .replay-btn:hover { background: var(--white); color: var(--text); }
+    .replay-btn:active { transform: scale(0.96); }
+
+    .note-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 3px solid var(--purple);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 18px; font-size: 0.87rem;
+      color: var(--muted); margin-bottom: 20px; line-height: 1.6;
+    }
+    .note-box.blue  { border-color: var(--blue); }
+    .note-box.green { border-color: var(--green); }
+
+    .ex-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .ex-table thead th {
+      text-align: left; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); padding: 8px 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .ex-table tbody td {
+      padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top;
+    }
+    .ex-table tbody tr:last-child td { border-bottom: none; }
+    .ex-table .en { font-weight: 600; line-height: 1.6; }
+    .ex-table .ja { color: var(--muted); }
+    .ex-table .role { font-size: 0.78rem; color: var(--muted); }
+
+    .divider { height: 1px; background: var(--border); margin: 0 0 72px; }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 32px 20px 28px; }
+      .content { padding: 32px 20px 60px; }
+      .roles-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    Animated English Grammar
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">不定詞 <span>Infinitives</span></h1>
+    <p class="page-desc">「to + 動詞の原形」は名詞・形容詞・副詞の3つの用法を持つ。それぞれの機能をアニメーションで学ぼう。</p>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- Overview -->
+  <div class="roles-grid" style="margin-bottom:48px">
+    <div class="role-card" style="border-color:rgba(74,144,226,0.4)">
+      <div class="role-label" style="color:var(--blue)">名詞的用法</div>
+      <div class="role-example"><span style="color:var(--purple);font-weight:800">To read</span> is fun.</div>
+      <div class="role-ja">読むことは楽しい。</div>
+    </div>
+    <div class="role-card" style="border-color:rgba(39,174,96,0.4)">
+      <div class="role-label" style="color:var(--green)">形容詞的用法</div>
+      <div class="role-example">a book <span style="color:var(--purple);font-weight:800">to read</span></div>
+      <div class="role-ja">読む（べき）本</div>
+    </div>
+    <div class="role-card" style="border-color:rgba(142,68,173,0.4)">
+      <div class="role-label" style="color:var(--purple)">副詞的用法</div>
+      <div class="role-example">I study <span style="color:var(--purple);font-weight:800">to pass</span>.</div>
+      <div class="role-ja">合格するために勉強する。</div>
+    </div>
+  </div>
+
+  <!-- ── 名詞的用法 ── -->
+  <section class="section" id="noun">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="usage-badge" style="background:var(--blue)">名詞的用法</span>
+      <h2 class="section-title">Noun Use</h2>
+    </div>
+    <p class="section-intro">不定詞が<strong>名詞</strong>と同じ働きをする。文の主語(S)・目的語(O)・補語(C)になれる。「〜すること」と訳すことが多い。</p>
+
+    <div class="inf-demo" id="demo-noun">
+      <button class="replay-btn">↺ Replay</button>
+      <div style="margin-bottom:20px">
+        <div class="inf-sentence">
+          <span class="inf-phrase" id="inf-n1" style="background:var(--purple)">To study English</span>
+          is important.
+        </div>
+        <div class="func-label" id="func-n1">
+          <div class="func-pill" style="background:var(--blue)">S 主語</div>
+          <div class="func-desc">「英語を勉強することは」大切だ</div>
+        </div>
+      </div>
+      <div style="margin-bottom:20px">
+        <div class="inf-sentence">
+          I want
+          <span class="inf-phrase" id="inf-n2" style="background:var(--purple)">to sleep</span>.
+        </div>
+        <div class="func-label" id="func-n2">
+          <div class="func-pill" style="background:var(--green)">O 目的語</div>
+          <div class="func-desc">私は「眠ること」がしたい</div>
+        </div>
+      </div>
+      <div>
+        <div class="inf-sentence">
+          My dream is
+          <span class="inf-phrase" id="inf-n3" style="background:var(--purple)">to become a doctor</span>.
+        </div>
+        <div class="func-label" id="func-n3">
+          <div class="func-pill" style="background:var(--purple)">C 補語</div>
+          <div class="func-desc">私の夢 = 「医者になること」</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box blue">
+      <strong>疑問詞 + to不定詞:</strong> 名詞的用法と一緒に使われることが多い。<br>
+      what to do（何をすべきか）/ how to swim（泳ぎ方）/ where to go（どこへ行くか）<br>
+      例: I don't know <em>what to do</em>. / She learned <em>how to cook</em>.
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th><th>用法</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="en"><span style="color:var(--purple);font-weight:700">To exercise</span> every day is good for your health.</td>
+          <td class="ja">毎日運動することは健康に良い。</td>
+          <td class="role">S</td>
+        </tr>
+        <tr>
+          <td class="en">She decided <span style="color:var(--purple);font-weight:700">to study abroad</span>.</td>
+          <td class="ja">彼女は留学することを決めた。</td>
+          <td class="role">O</td>
+        </tr>
+        <tr>
+          <td class="en">His goal is <span style="color:var(--purple);font-weight:700">to win the championship</span>.</td>
+          <td class="ja">彼の目標は優勝することだ。</td>
+          <td class="role">C</td>
+        </tr>
+        <tr>
+          <td class="en">I don't know <span style="color:var(--purple);font-weight:700">how to use</span> this machine.</td>
+          <td class="ja">この機械の使い方がわからない。</td>
+          <td class="role">疑問詞+to</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 形容詞的用法 ── -->
+  <section class="section" id="adjective">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="usage-badge" style="background:var(--green)">形容詞的用法</span>
+      <h2 class="section-title">Adjective Use</h2>
+    </div>
+    <p class="section-intro">不定詞が直前の<strong>名詞を修飾</strong>する。「〜するための」「〜すべき」と訳すことが多い。常に名詞の<strong>後ろ</strong>に置かれる。</p>
+
+    <div class="inf-demo" id="demo-adj">
+      <button class="replay-btn">↺ Replay</button>
+      <div style="margin-bottom:20px">
+        <div class="inf-sentence">
+          I need something
+          <span class="inf-phrase" id="inf-a1" style="background:var(--purple)">to eat</span>.
+        </div>
+        <div class="func-label" id="func-a1">
+          <div class="func-pill" style="background:var(--green)">something を修飾</div>
+          <div class="func-desc">「食べる（べき）もの」が必要だ</div>
+        </div>
+      </div>
+      <div>
+        <div class="inf-sentence">
+          He is the first person
+          <span class="inf-phrase" id="inf-a2" style="background:var(--purple)">to arrive</span>.
+        </div>
+        <div class="func-label" id="func-a2">
+          <div class="func-pill" style="background:var(--green)">person を修飾</div>
+          <div class="func-desc">「到着した」最初の人</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box green">
+      <strong>前置詞の残し方:</strong> 修飾する名詞が前置詞の目的語になる場合、前置詞を残す。<br>
+      a chair <em>to sit <strong>on</strong></em> （座るための椅子）<br>
+      a friend <em>to talk <strong>with</strong></em> （話す友人）<br>
+      a house <em>to live <strong>in</strong></em> （住む家）
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="en">I have a lot of homework <span style="color:var(--purple);font-weight:700">to do</span>.</td>
+          <td class="ja">やるべき宿題がたくさんある。</td>
+        </tr>
+        <tr>
+          <td class="en">She is looking for a place <span style="color:var(--purple);font-weight:700">to stay</span>.</td>
+          <td class="ja">彼女は泊まる場所を探している。</td>
+        </tr>
+        <tr>
+          <td class="en">Do you have anything <span style="color:var(--purple);font-weight:700">to drink</span>?</td>
+          <td class="ja">何か飲む物はありますか？</td>
+        </tr>
+        <tr>
+          <td class="en">She was the last person <span style="color:var(--purple);font-weight:700">to leave</span>.</td>
+          <td class="ja">彼女は最後に退出した人だった。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 副詞的用法 ── -->
+  <section class="section" id="adverb">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="usage-badge" style="background:var(--orange)">副詞的用法</span>
+      <h2 class="section-title">Adverb Use</h2>
+    </div>
+    <p class="section-intro">不定詞が<strong>動詞・形容詞・副詞を修飾</strong>する。目的・感情の原因・結果・判断の根拠などを表す。</p>
+
+    <div class="inf-demo" id="demo-adv">
+      <button class="replay-btn">↺ Replay</button>
+      <div style="margin-bottom:20px">
+        <div class="inf-sentence">
+          I study hard
+          <span class="inf-phrase" id="inf-v1" style="background:var(--purple)">to pass the exam</span>.
+        </div>
+        <div class="func-label" id="func-v1">
+          <div class="func-pill" style="background:var(--orange)">目的 "in order to"</div>
+          <div class="func-desc">試験に合格するために勉強する</div>
+        </div>
+      </div>
+      <div style="margin-bottom:20px">
+        <div class="inf-sentence">
+          I am happy
+          <span class="inf-phrase" id="inf-v2" style="background:var(--purple)">to meet you</span>.
+        </div>
+        <div class="func-label" id="func-v2">
+          <div class="func-pill" style="background:var(--orange)">感情の原因</div>
+          <div class="func-desc">会えて嬉しい → happy の原因</div>
+        </div>
+      </div>
+      <div>
+        <div class="inf-sentence">
+          He grew up
+          <span class="inf-phrase" id="inf-v3" style="background:var(--purple)">to be a great leader</span>.
+        </div>
+        <div class="func-label" id="func-v3">
+          <div class="func-pill" style="background:var(--orange)">結果</div>
+          <div class="func-desc">成長して（結果的に）偉大な指導者になった</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box" style="border-color:var(--orange)">
+      <strong>副詞的用法の見分け方:</strong><br>
+      • <em>目的</em>: 「〜するために」→ in order to に置き換えられる<br>
+      • <em>感情の原因</em>: 感情形容詞（happy / sad / surprised / glad）の後<br>
+      • <em>判断の根拠</em>: 「〜するとは〜だ」<br>
+      　例: He must be kind <em>to help everyone</em>.（親切にも皆を助けるとは）
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th><th>用法</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="en">She went to the store <span style="color:var(--purple);font-weight:700">to buy milk</span>.</td>
+          <td class="ja">牛乳を買いに店へ行った。</td>
+          <td class="role">目的</td>
+        </tr>
+        <tr>
+          <td class="en">I was surprised <span style="color:var(--purple);font-weight:700">to hear the news</span>.</td>
+          <td class="ja">その知らせを聞いて驚いた。</td>
+          <td class="role">感情の原因</td>
+        </tr>
+        <tr>
+          <td class="en">He lived <span style="color:var(--purple);font-weight:700">to be 100 years old</span>.</td>
+          <td class="ja">彼は100歳まで生きた。</td>
+          <td class="role">結果</td>
+        </tr>
+        <tr>
+          <td class="en">You must be brave <span style="color:var(--purple);font-weight:700">to do that</span>.</td>
+          <td class="ja">そんなことをするとは勇敢だ。</td>
+          <td class="role">判断の根拠</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+  function animateInf(prefix, count) {
+    for (let i = 1; i <= count; i++) {
+      const inf = document.getElementById('inf-' + prefix + i);
+      const func = document.getElementById('func-' + prefix + i);
+      if (inf) inf.classList.remove('show');
+      if (func) func.classList.remove('show');
+    }
+    for (let i = 1; i <= count; i++) {
+      const inf = document.getElementById('inf-' + prefix + i);
+      const func = document.getElementById('func-' + prefix + i);
+      const delay = (i - 1) * 500;
+      if (inf) setTimeout(() => inf.classList.add('show'), delay);
+      if (func) setTimeout(() => func.classList.add('show'), delay + 250);
+    }
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        if (id === 'demo-noun') animateInf('n', 3);
+        if (id === 'demo-adj')  animateInf('a', 2);
+        if (id === 'demo-adv')  animateInf('v', 3);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  ['demo-noun','demo-adj','demo-adv'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  document.querySelectorAll('.replay-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const demo = btn.closest('.inf-demo');
+      if (demo.id === 'demo-noun') animateInf('n', 3);
+      if (demo.id === 'demo-adj')  animateInf('a', 2);
+      if (demo.id === 'demo-adv')  animateInf('v', 3);
+    });
+  });
+</script>
+</body>
+</html>

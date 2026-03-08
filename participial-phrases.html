@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分詞 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f8f8f6;
+      --white: #fff;
+      --border: #e5e5e0;
+      --text: #1c1c1c;
+      --muted: #6b6b6b;
+      --blue: #4a90e2;
+      --orange: #e67e22;
+      --green: #27ae60;
+      --purple: #8e44ad;
+      --red: #e74c3c;
+      --teal: #16a085;
+      --radius: 14px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.6;
+    }
+
+    .nav {
+      height: 60px; background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 32px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1rem;
+      text-decoration: none; color: var(--text);
+    }
+    .logo-mark {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 8px; flex-shrink: 0;
+      animation: morphMark 4s ease-in-out infinite;
+    }
+    @keyframes morphMark {
+      0%, 100% { border-radius: 8px; transform: rotate(0deg); }
+      50% { border-radius: 50%; transform: rotate(180deg); }
+    }
+
+    .page-hero {
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 48px 32px 40px;
+    }
+    .page-hero-inner { max-width: 860px; margin: 0 auto; }
+    .back-link a {
+      font-size: 0.85rem; color: var(--muted); text-decoration: none;
+      font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+      margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 8px; }
+    .page-title span { color: var(--orange); }
+    .page-desc { color: var(--muted); font-size: 1rem; max-width: 560px; }
+
+    .content { max-width: 860px; margin: 0 auto; padding: 48px 32px 80px; }
+    .section { margin-bottom: 72px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+    .type-badge {
+      display: inline-block; font-size: 0.82rem; font-weight: 800;
+      padding: 5px 14px; border-radius: 100px; color: white;
+    }
+    .section-title { font-size: 1.4rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 0.92rem; margin: 8px 0 24px; }
+
+    /* ── Participle Demo ── */
+    .part-demo {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px 28px;
+      margin-bottom: 20px; position: relative;
+    }
+    .demo-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .demo-card {
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .demo-card-title {
+      font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Phrase display */
+    .phrase {
+      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+    }
+    .ph-noun {
+      padding: 8px 14px; border-radius: 8px;
+      font-weight: 700; font-size: 0.95rem;
+      background: rgba(74,144,226,0.15);
+      border: 2px solid var(--blue);
+      color: var(--blue);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .ph-part-present {
+      padding: 8px 14px; border-radius: 8px;
+      font-weight: 700; font-size: 0.95rem;
+      background: rgba(230,126,34,0.15);
+      border: 2px solid var(--orange);
+      color: var(--orange);
+      opacity: 0; transform: translateX(-12px);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .ph-part-past {
+      padding: 8px 14px; border-radius: 8px;
+      font-weight: 700; font-size: 0.95rem;
+      background: rgba(142,68,173,0.15);
+      border: 2px solid var(--purple);
+      color: var(--purple);
+      opacity: 0; transform: translateX(-12px);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .ph-part-present.show,
+    .ph-part-past.show {
+      opacity: 1; transform: translateX(0);
+    }
+
+    .demo-label {
+      font-size: 0.82rem; color: var(--muted);
+      font-style: italic;
+      opacity: 0; transition: opacity 0.4s 0.3s;
+    }
+    .demo-label.show { opacity: 1; }
+
+    /* connector arrow */
+    .mod-arrow {
+      display: flex; align-items: center; gap: 4px;
+      font-size: 0.72rem; color: var(--muted);
+      opacity: 0; transition: opacity 0.4s 0.2s;
+      margin-top: 4px;
+    }
+    .mod-arrow.show { opacity: 1; }
+    .arrow-line {
+      width: 32px; height: 2px;
+      background: var(--border);
+      position: relative;
+    }
+    .arrow-line::after {
+      content: '';
+      position: absolute; right: -1px; top: -4px;
+      border: 5px solid transparent;
+      border-left-color: var(--border);
+      border-right: none;
+    }
+
+    .replay-btn {
+      position: absolute; top: 14px; right: 14px;
+      font-size: 0.72rem; font-weight: 700;
+      padding: 5px 12px; border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--bg); color: var(--muted);
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.1s;
+      letter-spacing: 0.05em;
+    }
+    .replay-btn:hover { background: var(--white); color: var(--text); }
+    .replay-btn:active { transform: scale(0.96); }
+
+    /* ── Post-nominal demo ── */
+    .postnominal-demo {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 18px 20px;
+      margin-bottom: 8px;
+    }
+    .pn-sentence {
+      font-size: 1.05rem; font-weight: 600; line-height: 1.8;
+      margin-bottom: 6px;
+    }
+    .pn-noun { color: var(--blue); font-weight: 800; }
+    .pn-part-p { color: var(--orange); font-weight: 800; }
+    .pn-part-pp { color: var(--purple); font-weight: 800; }
+    .pn-note { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── Note ── */
+    .note-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 18px; font-size: 0.87rem;
+      color: var(--muted); margin-bottom: 20px; line-height: 1.6;
+    }
+    .note-box.purple { border-color: var(--purple); }
+
+    /* ── Table ── */
+    .ex-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .ex-table thead th {
+      text-align: left; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); padding: 8px 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .ex-table tbody td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border); vertical-align: top;
+    }
+    .ex-table tbody tr:last-child td { border-bottom: none; }
+    .ex-table .en { font-weight: 600; line-height: 1.6; }
+    .ex-table .ja { color: var(--muted); }
+
+    .divider { height: 1px; background: var(--border); margin: 0 0 72px; }
+
+    /* ── Participial Construction ── */
+    .construction-demo {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      margin-bottom: 20px;
+    }
+    .cd-row {
+      display: flex; gap: 16px; align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .cd-part-box {
+      background: rgba(230,126,34,0.1); border: 2px solid var(--orange);
+      border-radius: 8px; padding: 12px 16px;
+      flex: 1; min-width: 180px;
+    }
+    .cd-main-box {
+      background: rgba(74,144,226,0.1); border: 2px solid var(--blue);
+      border-radius: 8px; padding: 12px 16px;
+      flex: 2; min-width: 200px;
+    }
+    .cd-label {
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .cd-text { font-weight: 700; font-size: 0.95rem; }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 32px 20px 28px; }
+      .content { padding: 32px 20px 60px; }
+      .demo-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    Animated English Grammar
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">分詞 <span>Participial Phrases</span></h1>
+    <p class="page-desc">動詞が形容詞的に働く「分詞」。現在分詞と過去分詞が名詞をどう修飾するかを視覚的に学ぶ。</p>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- ── 現在分詞 ── -->
+  <section class="section" id="present">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="type-badge" style="background:var(--orange)">現在分詞</span>
+      <h2 class="section-title">Present Participle (-ing)</h2>
+    </div>
+    <p class="section-intro">動詞に <strong>-ing</strong> をつけた形。「〜している」「〜しつつある」という<strong>能動・進行</strong>の意味で名詞を修飾する。</p>
+
+    <div class="part-demo" id="demo-present">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="demo-grid">
+        <div class="demo-card">
+          <div class="demo-card-title">前置修飾（名詞の前）</div>
+          <div class="phrase">
+            <div class="ph-part-present" id="pp1">sleeping</div>
+            <div class="ph-noun">cat</div>
+          </div>
+          <div class="mod-arrow" id="arr1">
+            <span>修飾</span>
+            <div class="arrow-line"></div>
+          </div>
+          <div class="demo-label" id="lbl1">眠っている猫</div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-card-title">後置修飾（名詞の後）</div>
+          <div class="phrase">
+            <div class="ph-noun">the girl</div>
+            <div class="ph-part-present" id="pp2">playing the piano</div>
+          </div>
+          <div class="mod-arrow" id="arr2">
+            <span>修飾</span>
+            <div class="arrow-line"></div>
+          </div>
+          <div class="demo-label" id="lbl2">ピアノを弾いている少女</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>前置修飾</strong>（1語の場合）: sleeping cat / running dog / falling leaves<br>
+      <strong>後置修飾</strong>（句の場合）: the girl <em>playing the piano</em> / a man <em>walking down the street</em>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>分詞フレーズ</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr><td class="en">the <span style="color:var(--orange);font-weight:700">running</span> dog</td><td class="ja">走っている犬</td></tr>
+        <tr><td class="en">a <span style="color:var(--orange);font-weight:700">crying</span> baby</td><td class="ja">泣いている赤ちゃん</td></tr>
+        <tr><td class="en">the boy <span style="color:var(--orange);font-weight:700">reading a book</span></td><td class="ja">本を読んでいる少年</td></tr>
+        <tr><td class="en">a woman <span style="color:var(--orange);font-weight:700">wearing a red dress</span></td><td class="ja">赤いドレスを着ている女性</td></tr>
+        <tr><td class="en"><span style="color:var(--orange);font-weight:700">falling</span> leaves</td><td class="ja">散りゆく葉</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 過去分詞 ── -->
+  <section class="section" id="past">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="type-badge" style="background:var(--purple)">過去分詞</span>
+      <h2 class="section-title">Past Participle (-ed / -en)</h2>
+    </div>
+    <p class="section-intro">動詞の過去分詞形。「〜された」「〜されている」という<strong>受動・完了</strong>の意味で名詞を修飾する。</p>
+
+    <div class="part-demo" id="demo-past">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="demo-grid">
+        <div class="demo-card">
+          <div class="demo-card-title">前置修飾（名詞の前）</div>
+          <div class="phrase">
+            <div class="ph-part-past" id="ppp1">broken</div>
+            <div class="ph-noun">window</div>
+          </div>
+          <div class="mod-arrow" id="parr1">
+            <span>修飾</span>
+            <div class="arrow-line"></div>
+          </div>
+          <div class="demo-label" id="plbl1">壊れた窓</div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-card-title">後置修飾（名詞の後）</div>
+          <div class="phrase">
+            <div class="ph-noun">a letter</div>
+            <div class="ph-part-past" id="ppp2">written in French</div>
+          </div>
+          <div class="mod-arrow" id="parr2">
+            <span>修飾</span>
+            <div class="arrow-line"></div>
+          </div>
+          <div class="demo-label" id="plbl2">フランス語で書かれた手紙</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box purple">
+      <strong>能動 vs. 受動の見分け方:</strong><br>
+      • a <em>sleeping</em> cat → 猫が眠っている（能動）→ 現在分詞<br>
+      • a <em>broken</em> window → 窓が壊された（受動）→ 過去分詞<br>
+      意味が能動（自分がする）か受動（される）かで判断する。
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>分詞フレーズ</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr><td class="en">a <span style="color:var(--purple);font-weight:700">broken</span> cup</td><td class="ja">割れたカップ</td></tr>
+        <tr><td class="en">a <span style="color:var(--purple);font-weight:700">used</span> car</td><td class="ja">中古車</td></tr>
+        <tr><td class="en">a wall <span style="color:var(--purple);font-weight:700">painted white</span></td><td class="ja">白く塗られた壁</td></tr>
+        <tr><td class="en">a book <span style="color:var(--purple);font-weight:700">written by her</span></td><td class="ja">彼女によって書かれた本</td></tr>
+        <tr><td class="en">the language <span style="color:var(--purple);font-weight:700">spoken in Brazil</span></td><td class="ja">ブラジルで話されている言語</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 分詞構文 ── -->
+  <section class="section" id="construction">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="type-badge" style="background:var(--teal)">分詞構文</span>
+      <h2 class="section-title">Participial Construction</h2>
+    </div>
+    <p class="section-intro">分詞句が副詞的に主節を修飾する用法。時・理由・条件・譲歩・付帯状況などを表す。</p>
+
+    <div class="construction-demo">
+      <div class="cd-row">
+        <div class="cd-part-box">
+          <div class="cd-label" style="color:var(--orange)">分詞句（副詞的）</div>
+          <div class="cd-text">Walking down the street,</div>
+        </div>
+        <div class="cd-main-box">
+          <div class="cd-label" style="color:var(--blue)">主節</div>
+          <div class="cd-text">I met an old friend.</div>
+        </div>
+      </div>
+      <div style="margin-top:14px;font-size:0.87rem;color:var(--muted)">
+        → 通りを歩いていると、昔の友人に会った。（時・付帯状況）
+      </div>
+    </div>
+
+    <div class="note-box" style="border-color:var(--teal)">
+      分詞構文は接続詞を省略した副詞節の書き換え:<br>
+      <strong>When</strong> she heard the news, she cried.<br>
+      → <strong>Hearing</strong> the news, she cried.（時）<br><br>
+      <strong>Because</strong> he was tired, he went to bed early.<br>
+      → <strong>Being tired</strong>, he went to bed early.（理由）
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>分詞構文</th><th>意味</th><th>用法</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="en"><span style="color:var(--orange);font-weight:700">Turning left</span>, you'll see the station.</td>
+          <td class="ja">左に曲がると、駅が見えます。</td>
+          <td style="color:var(--muted);font-size:0.85rem">条件</td>
+        </tr>
+        <tr>
+          <td class="en"><span style="color:var(--orange);font-weight:700">Having finished</span> her homework, she watched TV.</td>
+          <td class="ja">宿題を終えてから、彼女はテレビを見た。</td>
+          <td style="color:var(--muted);font-size:0.85rem">完了（時）</td>
+        </tr>
+        <tr>
+          <td class="en">She sat on the bench, <span style="color:var(--orange);font-weight:700">reading a book</span>.</td>
+          <td class="ja">彼女は本を読みながらベンチに座っていた。</td>
+          <td style="color:var(--muted);font-size:0.85rem">付帯状況</td>
+        </tr>
+        <tr>
+          <td class="en"><span style="color:var(--purple);font-weight:700">Written in easy English</span>, the book is for beginners.</td>
+          <td class="ja">易しい英語で書かれているので、その本は初心者向けだ。</td>
+          <td style="color:var(--muted);font-size:0.85rem">理由（過去分詞）</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+  function animatePresent() {
+    const els = ['pp1','arr1','lbl1','pp2','arr2','lbl2'];
+    els.forEach(id => document.getElementById(id)?.classList.remove('show'));
+    const delays = [0, 300, 500, 200, 500, 700];
+    els.forEach((id, i) => {
+      setTimeout(() => document.getElementById(id)?.classList.add('show'), delays[i]);
+    });
+  }
+
+  function animatePast() {
+    const els = ['ppp1','parr1','plbl1','ppp2','parr2','plbl2'];
+    els.forEach(id => document.getElementById(id)?.classList.remove('show'));
+    const delays = [0, 300, 500, 200, 500, 700];
+    els.forEach((id, i) => {
+      setTimeout(() => document.getElementById(id)?.classList.add('show'), delays[i]);
+    });
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (entry.target.id === 'demo-present') animatePresent();
+        if (entry.target.id === 'demo-past') animatePast();
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  ['demo-present','demo-past'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  document.querySelectorAll('.replay-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const demo = btn.closest('.part-demo');
+      if (demo.id === 'demo-present') animatePresent();
+      if (demo.id === 'demo-past') animatePast();
+    });
+  });
+</script>
+</body>
+</html>

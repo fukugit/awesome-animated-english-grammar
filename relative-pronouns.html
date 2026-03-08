@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>関係代名詞 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f8f8f6;
+      --white: #fff;
+      --border: #e5e5e0;
+      --text: #1c1c1c;
+      --muted: #6b6b6b;
+      --blue: #4a90e2;
+      --orange: #e67e22;
+      --green: #27ae60;
+      --purple: #8e44ad;
+      --red: #e74c3c;
+      --teal: #16a085;
+      --radius: 14px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      height: 60px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center;
+      padding: 0 32px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1rem;
+      text-decoration: none; color: var(--text);
+    }
+    .logo-mark {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 8px; flex-shrink: 0;
+      animation: morphMark 4s ease-in-out infinite;
+    }
+    @keyframes morphMark {
+      0%, 100% { border-radius: 8px; transform: rotate(0deg); }
+      50% { border-radius: 50%; transform: rotate(180deg); }
+    }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 32px 40px;
+    }
+    .page-hero-inner { max-width: 860px; margin: 0 auto; }
+    .back-link a {
+      font-size: 0.85rem; color: var(--muted);
+      text-decoration: none; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 4px;
+      margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; margin-bottom: 8px;
+    }
+    .page-title span { color: var(--green); }
+    .page-desc { color: var(--muted); font-size: 1rem; max-width: 560px; }
+
+    /* ── Content ── */
+    .content { max-width: 860px; margin: 0 auto; padding: 48px 32px 80px; }
+
+    /* ── Section ── */
+    .section { margin-bottom: 72px; }
+    .section-header {
+      display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px;
+    }
+    .pronoun-badge {
+      display: inline-block;
+      font-size: 0.85rem; font-weight: 800;
+      padding: 5px 14px; border-radius: 100px;
+      color: white;
+    }
+    .section-title { font-size: 1.4rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 0.92rem; margin: 8px 0 24px; }
+
+    /* ── Merge Demo ── */
+    .merge-demo {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .merge-step {
+      margin-bottom: 16px;
+    }
+    .step-label {
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .sentence-boxes {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .s-box {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 16px;
+      font-size: 0.95rem; font-weight: 600;
+    }
+    .arrow-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 0;
+    }
+    .arrow {
+      font-size: 1.5rem; color: var(--muted);
+      animation: arrowPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes arrowPulse {
+      0%, 100% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(3px); opacity: 0.5; }
+    }
+    .result-sentence {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .result-sentence.show { opacity: 1; transform: translateY(0); }
+
+    /* Highlighted spans in result */
+    .hl-antecedent {
+      background: rgba(74,144,226,0.12);
+      border-bottom: 2px solid var(--blue);
+      border-radius: 2px;
+      padding: 0 2px;
+    }
+    .hl-pronoun {
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 5px;
+      color: white;
+    }
+    .hl-clause {
+      background: rgba(39,174,96,0.1);
+      border-bottom: 2px solid var(--green);
+      border-radius: 2px;
+      padding: 0 2px;
+    }
+
+    .annotation-row {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      margin-top: 10px;
+      opacity: 0; transition: opacity 0.5s 0.3s;
+    }
+    .annotation-row.show { opacity: 1; }
+    .ann-item {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; color: var(--muted);
+    }
+    .ann-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+    .play-btn {
+      position: absolute; top: 14px; right: 14px;
+      font-size: 0.72rem; font-weight: 700;
+      padding: 5px 12px; border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--bg); color: var(--muted);
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.1s;
+      letter-spacing: 0.05em;
+    }
+    .play-btn:hover { background: var(--white); color: var(--text); }
+    .play-btn:active { transform: scale(0.96); }
+
+    /* ── Note ── */
+    .note-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 18px;
+      font-size: 0.87rem; color: var(--muted);
+      margin-bottom: 20px; line-height: 1.6;
+    }
+
+    /* ── Table ── */
+    .ex-table {
+      width: 100%; border-collapse: collapse; font-size: 0.9rem;
+    }
+    .ex-table thead th {
+      text-align: left; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); padding: 8px 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .ex-table tbody td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .ex-table tbody tr:last-child td { border-bottom: none; }
+    .ex-table .en { font-weight: 600; line-height: 1.6; }
+    .ex-table .ja { color: var(--muted); }
+
+    .divider { height: 1px; background: var(--border); margin: 0 0 72px; }
+
+    /* ── Summary Table ── */
+    .summary-table {
+      width: 100%; border-collapse: collapse;
+      font-size: 0.9rem; margin-top: 8px;
+    }
+    .summary-table thead th {
+      text-align: left; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); padding: 9px 14px;
+      border-bottom: 2px solid var(--border);
+      background: var(--bg);
+    }
+    .summary-table tbody td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .summary-table tbody tr:last-child td { border-bottom: none; }
+    .pronoun-cell {
+      font-weight: 800; font-size: 1.05rem;
+    }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 32px 20px 28px; }
+      .content { padding: 32px 20px 60px; }
+      .sentence-boxes { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    Animated English Grammar
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">関係代名詞 <span>Relative Pronouns</span></h1>
+    <p class="page-desc">二つの文を一つに結ぶ関係代名詞。先行詞と関係詞節の関係をアニメーションで確認しましょう。</p>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- ── who ── -->
+  <section class="section" id="who">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="pronoun-badge" style="background:var(--blue)">who</span>
+      <h2 class="section-title">人が先行詞・主格</h2>
+    </div>
+    <p class="section-intro">先行詞が<strong>人</strong>で、関係代名詞が関係詞節の中で<strong>主語</strong>として働く場合に使う。</p>
+
+    <div class="merge-demo" id="demo-who">
+      <button class="play-btn">↺ Replay</button>
+      <div class="merge-step">
+        <div class="step-label">Before — 2つの文</div>
+        <div class="sentence-boxes">
+          <div class="s-box">I know a man.</div>
+          <div class="s-box">He speaks three languages.</div>
+        </div>
+      </div>
+      <div class="arrow-row">
+        <div class="arrow">↓</div>
+        <span style="font-size:0.82rem;color:var(--muted)">「He」を「who」に置き換えて結合</span>
+      </div>
+      <div class="merge-step">
+        <div class="step-label">After — 関係代名詞で結合</div>
+        <div class="result-sentence" id="result-who">
+          I know <span class="hl-antecedent">a man</span>
+          <span class="hl-pronoun" style="background:var(--blue)"> who </span>
+          <span class="hl-clause">speaks three languages</span>.
+        </div>
+        <div class="annotation-row" id="ann-who">
+          <div class="ann-item"><div class="ann-dot" style="background:var(--blue);opacity:0.3;border:2px solid var(--blue)"></div>先行詞 (antecedent)</div>
+          <div class="ann-item"><div class="ann-dot" style="background:var(--blue)"></div>関係代名詞 who</div>
+          <div class="ann-item"><div class="ann-dot" style="background:var(--green);opacity:0.3;border:2px solid var(--green)"></div>関係詞節</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="en">The woman <span class="hl-pronoun" style="background:var(--blue);font-size:0.85em">who</span> lives next door is a doctor.</td>
+          <td class="ja">隣に住む女性は医者だ。</td>
+        </tr>
+        <tr>
+          <td class="en">He is the teacher <span class="hl-pronoun" style="background:var(--blue);font-size:0.85em">who</span> helped me most.</td>
+          <td class="ja">彼は私を最も助けてくれた先生だ。</td>
+        </tr>
+        <tr>
+          <td class="en">I have a friend <span class="hl-pronoun" style="background:var(--blue);font-size:0.85em">who</span> can speak Japanese.</td>
+          <td class="ja">日本語を話せる友人がいる。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── whom ── -->
+  <section class="section" id="whom">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="pronoun-badge" style="background:var(--teal)">whom</span>
+      <h2 class="section-title">人が先行詞・目的格</h2>
+    </div>
+    <p class="section-intro">先行詞が<strong>人</strong>で、関係代名詞が関係詞節の中で<strong>目的語</strong>として働く場合に使う。口語では <strong>who</strong> や <strong>that</strong> で代用されることが多い。</p>
+
+    <div class="merge-demo" id="demo-whom">
+      <button class="play-btn">↺ Replay</button>
+      <div class="merge-step">
+        <div class="step-label">Before — 2つの文</div>
+        <div class="sentence-boxes">
+          <div class="s-box">She is the person.</div>
+          <div class="s-box">I trust her.</div>
+        </div>
+      </div>
+      <div class="arrow-row">
+        <div class="arrow">↓</div>
+        <span style="font-size:0.82rem;color:var(--muted)">「her」を「whom」に置き換えて結合</span>
+      </div>
+      <div class="merge-step">
+        <div class="step-label">After — 関係代名詞で結合</div>
+        <div class="result-sentence" id="result-whom">
+          She is <span class="hl-antecedent">the person</span>
+          <span class="hl-pronoun" style="background:var(--teal)"> whom </span>
+          <span class="hl-clause">I trust</span>.
+        </div>
+        <div class="annotation-row" id="ann-whom">
+          <div class="ann-item"><div class="ann-dot" style="background:var(--teal);opacity:0.3;border:2px solid var(--teal)"></div>先行詞</div>
+          <div class="ann-item"><div class="ann-dot" style="background:var(--teal)"></div>関係代名詞 whom（目的格）</div>
+          <div class="ann-item"><div class="ann-dot" style="background:var(--green);opacity:0.3;border:2px solid var(--green)"></div>関係詞節</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box" style="border-color:var(--teal)">
+      <strong>口語 vs. 書き言葉:</strong> 現代英語の口語では「whom」の代わりに「who」や「that」が多く使われる。フォーマルな文章や試験では「whom」が正式。<br>
+      例: She is the person <em>who/that</em> I trust. （口語的）
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="en">The man <span class="hl-pronoun" style="background:var(--teal);font-size:0.85em">whom</span> I met yesterday was kind.</td>
+          <td class="ja">昨日会った男性は親切だった。</td>
+        </tr>
+        <tr>
+          <td class="en">The teacher <span class="hl-pronoun" style="background:var(--teal);font-size:0.85em">whom</span> we respect has retired.</td>
+          <td class="ja">私たちが尊敬している先生が退職した。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── which ── -->
+  <section class="section" id="which">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="pronoun-badge" style="background:var(--orange)">which</span>
+      <h2 class="section-title">物・動物が先行詞</h2>
+    </div>
+    <p class="section-intro">先行詞が<strong>物・動物</strong>のときに使う。主格・目的格どちらにも使える。</p>
+
+    <div class="merge-demo" id="demo-which">
+      <button class="play-btn">↺ Replay</button>
+      <div class="merge-step">
+        <div class="step-label">Before — 2つの文</div>
+        <div class="sentence-boxes">
+          <div class="s-box">I read the book.</div>
+          <div class="s-box">It was on the table.</div>
+        </div>
+      </div>
+      <div class="arrow-row">
+        <div class="arrow">↓</div>
+        <span style="font-size:0.82rem;color:var(--muted)">「It」を「which」に置き換えて結合</span>
+      </div>
+      <div class="merge-step">
+        <div class="step-label">After — 関係代名詞で結合</div>
+        <div class="result-sentence" id="result-which">
+          I read <span class="hl-antecedent">the book</span>
+          <span class="hl-pronoun" style="background:var(--orange)"> which </span>
+          <span class="hl-clause">was on the table</span>.
+        </div>
+        <div class="annotation-row" id="ann-which">
+          <div class="ann-item"><div class="ann-dot" style="background:var(--orange);opacity:0.3;border:2px solid var(--orange)"></div>先行詞（物）</div>
+          <div class="ann-item"><div class="ann-dot" style="background:var(--orange)"></div>関係代名詞 which</div>
+          <div class="ann-item"><div class="ann-dot" style="background:var(--green);opacity:0.3;border:2px solid var(--green)"></div>関係詞節</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="en">The car <span class="hl-pronoun" style="background:var(--orange);font-size:0.85em">which</span> I bought last year broke down.</td>
+          <td class="ja">去年買った車が故障した。</td>
+        </tr>
+        <tr>
+          <td class="en">This is the house <span class="hl-pronoun" style="background:var(--orange);font-size:0.85em">which</span> my father built.</td>
+          <td class="ja">これは父が建てた家だ。</td>
+        </tr>
+        <tr>
+          <td class="en">The movie <span class="hl-pronoun" style="background:var(--orange);font-size:0.85em">which</span> we watched was amazing.</td>
+          <td class="ja">私たちが見た映画は素晴らしかった。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── whose ── -->
+  <section class="section" id="whose">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="pronoun-badge" style="background:var(--purple)">whose</span>
+      <h2 class="section-title">所有格（人・物）</h2>
+    </div>
+    <p class="section-intro">先行詞の<strong>所有関係</strong>を表す。「〜の」という意味。人にも物にも使える。</p>
+
+    <div class="merge-demo" id="demo-whose">
+      <button class="play-btn">↺ Replay</button>
+      <div class="merge-step">
+        <div class="step-label">Before — 2つの文</div>
+        <div class="sentence-boxes">
+          <div class="s-box">I met a girl.</div>
+          <div class="s-box">Her eyes were blue.</div>
+        </div>
+      </div>
+      <div class="arrow-row">
+        <div class="arrow">↓</div>
+        <span style="font-size:0.82rem;color:var(--muted)">「Her」を「whose」に置き換えて結合</span>
+      </div>
+      <div class="merge-step">
+        <div class="step-label">After — 関係代名詞で結合</div>
+        <div class="result-sentence" id="result-whose">
+          I met <span class="hl-antecedent">a girl</span>
+          <span class="hl-pronoun" style="background:var(--purple)"> whose </span>
+          <span class="hl-clause">eyes were blue</span>.
+        </div>
+        <div class="annotation-row" id="ann-whose">
+          <div class="ann-item"><div class="ann-dot" style="background:var(--purple);opacity:0.3;border:2px solid var(--purple)"></div>先行詞</div>
+          <div class="ann-item"><div class="ann-dot" style="background:var(--purple)"></div>関係代名詞 whose（所有格）</div>
+          <div class="ann-item"><div class="ann-dot" style="background:var(--green);opacity:0.3;border:2px solid var(--green)"></div>関係詞節</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="en">I know a boy <span class="hl-pronoun" style="background:var(--purple);font-size:0.85em">whose</span> father is a pilot.</td>
+          <td class="ja">父親がパイロットの少年を知っている。</td>
+        </tr>
+        <tr>
+          <td class="en">That is the building <span class="hl-pronoun" style="background:var(--purple);font-size:0.85em">whose</span> roof was damaged.</td>
+          <td class="ja">あれは屋根が損傷した建物だ。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── Summary ── -->
+  <section class="section" id="summary">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2 class="section-title">まとめ — 使い分けチャート</h2>
+    </div>
+    <p class="section-intro">先行詞と格によって使う関係代名詞が変わります。</p>
+
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>関係代名詞</th>
+          <th>先行詞</th>
+          <th>格</th>
+          <th>例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="pronoun-cell" style="color:var(--blue)">who</td>
+          <td>人</td>
+          <td>主格</td>
+          <td style="color:var(--muted);font-size:0.88rem">the man <strong>who</strong> came here</td>
+        </tr>
+        <tr>
+          <td class="pronoun-cell" style="color:var(--teal)">whom</td>
+          <td>人</td>
+          <td>目的格</td>
+          <td style="color:var(--muted);font-size:0.88rem">the man <strong>whom</strong> I met</td>
+        </tr>
+        <tr>
+          <td class="pronoun-cell" style="color:var(--orange)">which</td>
+          <td>物・動物</td>
+          <td>主格・目的格</td>
+          <td style="color:var(--muted);font-size:0.88rem">the book <strong>which</strong> is on the table</td>
+        </tr>
+        <tr>
+          <td class="pronoun-cell" style="color:var(--purple)">whose</td>
+          <td>人・物</td>
+          <td>所有格</td>
+          <td style="color:var(--muted);font-size:0.88rem">a girl <strong>whose</strong> hair is long</td>
+        </tr>
+        <tr>
+          <td class="pronoun-cell" style="color:var(--red)">that</td>
+          <td>人・物</td>
+          <td>主格・目的格</td>
+          <td style="color:var(--muted);font-size:0.88rem">the car <strong>that</strong> I drive</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note-box" style="margin-top:20px">
+      <strong>that しか使えないケース:</strong> 先行詞に最上級・序数・the only・all・every などが付くとき。<br>
+      例: She is the <em>best</em> singer <strong>that</strong> I know. / This is the <em>first</em> time <strong>that</strong> I've been here.
+    </div>
+  </section>
+
+</main>
+
+<script>
+  function playDemo(demoId) {
+    const result = document.getElementById('result-' + demoId);
+    const ann = document.getElementById('ann-' + demoId);
+    if (!result) return;
+    result.classList.remove('show');
+    if (ann) ann.classList.remove('show');
+    setTimeout(() => {
+      result.classList.add('show');
+      if (ann) ann.classList.add('show');
+    }, 400);
+  }
+
+  const demoIds = ['who', 'whom', 'which', 'whose'];
+
+  // IntersectionObserver
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id.replace('demo-', '');
+        playDemo(id);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  demoIds.forEach(id => {
+    const el = document.getElementById('demo-' + id);
+    if (el) observer.observe(el);
+  });
+
+  // Replay buttons
+  document.querySelectorAll('.play-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const demo = btn.closest('.merge-demo');
+      const id = demo.id.replace('demo-', '');
+      playDemo(id);
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>受動態 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f8f8f6;
+      --white: #fff;
+      --border: #e5e5e0;
+      --text: #1c1c1c;
+      --muted: #6b6b6b;
+      --blue: #4a90e2;
+      --orange: #e67e22;
+      --green: #27ae60;
+      --purple: #8e44ad;
+      --red: #e74c3c;
+      --teal: #16a085;
+      --radius: 14px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.6;
+    }
+
+    .nav {
+      height: 60px; background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 32px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1rem;
+      text-decoration: none; color: var(--text);
+    }
+    .logo-mark {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 8px; flex-shrink: 0;
+      animation: morphMark 4s ease-in-out infinite;
+    }
+    @keyframes morphMark {
+      0%, 100% { border-radius: 8px; transform: rotate(0deg); }
+      50% { border-radius: 50%; transform: rotate(180deg); }
+    }
+
+    .page-hero {
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 48px 32px 40px;
+    }
+    .page-hero-inner { max-width: 860px; margin: 0 auto; }
+    .back-link a {
+      font-size: 0.85rem; color: var(--muted); text-decoration: none;
+      font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+      margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 8px; }
+    .page-title span { color: var(--teal); }
+    .page-desc { color: var(--muted); font-size: 1rem; max-width: 560px; }
+
+    .content { max-width: 860px; margin: 0 auto; padding: 48px 32px 80px; }
+    .section { margin-bottom: 72px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+    .section-title { font-size: 1.4rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 0.92rem; margin: 8px 0 24px; }
+
+    /* ── Transform Demo ── */
+    .transform-demo {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px 28px;
+      margin-bottom: 20px; position: relative;
+    }
+
+    /* Sentence rows */
+    .voice-row {
+      margin-bottom: 16px;
+    }
+    .voice-label {
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .blocks-row {
+      display: flex; align-items: flex-end;
+      gap: 8px; flex-wrap: wrap;
+    }
+    .block {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 5px;
+    }
+    .block .word {
+      padding: 11px 16px; border-radius: 9px;
+      font-weight: 700; font-size: 0.95rem;
+      color: white; white-space: nowrap;
+      transition: all 0.5s ease;
+    }
+    .block .lbl {
+      font-size: 0.66rem; font-weight: 800;
+      letter-spacing: 0.1em; color: var(--muted);
+    }
+    .block.s  .word { background: var(--blue); }
+    .block.v  .word { background: var(--orange); }
+    .block.o  .word { background: var(--green); }
+    .block.by .word { background: #999; }
+    .block.be .word { background: var(--teal); }
+
+    /* Transform arrow */
+    .transform-arrow {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 0; color: var(--muted); font-size: 0.85rem;
+    }
+    .t-arrow-icon {
+      font-size: 1.4rem;
+      animation: arrowBounce 1.5s ease-in-out infinite;
+    }
+    @keyframes arrowBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
+    /* Passive row animation states */
+    .passive-row {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .passive-row.show { opacity: 1; transform: translateY(0); }
+
+    /* highlight the swapped elements */
+    .swapped {
+      animation: highlightSwap 0.6s ease forwards;
+    }
+    @keyframes highlightSwap {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    .play-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.85rem; font-weight: 700;
+      padding: 8px 20px; border-radius: 100px;
+      border: 1.5px solid var(--teal);
+      background: rgba(22,160,133,0.08);
+      color: var(--teal); cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 8px;
+    }
+    .play-btn:hover { background: rgba(22,160,133,0.15); }
+    .play-btn:active { transform: scale(0.97); }
+
+    /* ── Formula ── */
+    .formula-box {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 24px;
+      margin-bottom: 20px;
+    }
+    .formula {
+      font-size: 1rem; font-weight: 700;
+      display: flex; align-items: center;
+      gap: 8px; flex-wrap: wrap;
+    }
+    .f-box {
+      padding: 6px 12px; border-radius: 7px;
+      font-size: 0.88rem; color: white;
+    }
+    .f-plus { color: var(--muted); font-size: 1.2rem; }
+    .formula-note {
+      font-size: 0.82rem; color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* ── Tenses Table ── */
+    .tense-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; margin-bottom: 20px;
+    }
+    .tense-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 18px;
+    }
+    .tense-name {
+      font-size: 0.7rem; font-weight: 800;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .tense-formula {
+      font-size: 0.88rem; font-weight: 700;
+      color: var(--teal); margin-bottom: 6px;
+    }
+    .tense-example {
+      font-size: 0.88rem; font-weight: 600; margin-bottom: 3px;
+    }
+    .tense-ja { font-size: 0.8rem; color: var(--muted); }
+
+    .note-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 3px solid var(--teal);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 18px; font-size: 0.87rem;
+      color: var(--muted); margin-bottom: 20px; line-height: 1.6;
+    }
+
+    .ex-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .ex-table thead th {
+      text-align: left; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); padding: 8px 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .ex-table tbody td {
+      padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top;
+    }
+    .ex-table tbody tr:last-child td { border-bottom: none; }
+    .ex-table .en { font-weight: 600; line-height: 1.6; }
+    .ex-table .ja { color: var(--muted); }
+
+    .divider { height: 1px; background: var(--border); margin: 0 0 72px; }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 32px 20px 28px; }
+      .content { padding: 32px 20px 60px; }
+      .tense-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    Animated English Grammar
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">受動態 <span>Passive Voice</span></h1>
+    <p class="page-desc">「(主語)が〜される」を表す受動態。能動態からの変換をブロックのアニメーションで体験しよう。</p>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- ── Active → Passive Transform ── -->
+  <section class="section" id="transform">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">能動態 → 受動態の変換</h2>
+    </div>
+    <p class="section-intro">目的語(O)を主語の位置に移し、動詞を「be + 過去分詞」に変える。元の主語は「by + 〜」で表す。</p>
+
+    <div class="transform-demo" id="main-transform">
+      <div class="voice-row">
+        <div class="voice-label">能動態 (Active Voice)</div>
+        <div class="blocks-row">
+          <div class="block s" id="act-s">
+            <div class="word">Tom</div><div class="lbl">S</div>
+          </div>
+          <div class="block v" id="act-v">
+            <div class="word">wrote</div><div class="lbl">V</div>
+          </div>
+          <div class="block o" id="act-o">
+            <div class="word">this letter</div><div class="lbl">O</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="transform-arrow">
+        <span class="t-arrow-icon">↓</span>
+        <span>目的語を主語へ移動 / 動詞を be + 過去分詞 に変換</span>
+      </div>
+
+      <div class="voice-row passive-row" id="passive-blocks">
+        <div class="voice-label">受動態 (Passive Voice)</div>
+        <div class="blocks-row">
+          <div class="block o" id="pas-s">
+            <div class="word">This letter</div><div class="lbl">S (元O)</div>
+          </div>
+          <div class="block be" id="pas-be">
+            <div class="word">was written</div><div class="lbl">be + p.p.</div>
+          </div>
+          <div class="block by" id="pas-by">
+            <div class="word">by Tom</div><div class="lbl">by + 元S</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="play-btn" id="transform-btn">▶ アニメーション再生</button>
+    </div>
+
+    <!-- Formula -->
+    <div class="formula-box">
+      <div class="formula">
+        <div class="f-box" style="background:var(--green)">O (目的語)</div>
+        <span class="f-plus">+</span>
+        <div class="f-box" style="background:var(--teal)">be 動詞</div>
+        <span class="f-plus">+</span>
+        <div class="f-box" style="background:var(--orange)">過去分詞 (p.p.)</div>
+        <span class="f-plus">+</span>
+        <div class="f-box" style="background:#999">by + 元S</div>
+      </div>
+      <div class="formula-note">※「by + 元の主語」は省略されることも多い（誰がしたかが明らかな場合や不明な場合）</div>
+    </div>
+
+    <div class="note-box">
+      <strong>byを省略するケース:</strong><br>
+      • English <em>is spoken</em> here.（誰が話すか明らか）<br>
+      • The window <em>was broken</em>.（誰が壊したか不明・重要でない）<br>
+      • Rice <em>is grown</em> in Japan.（一般的な事実）
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── Tenses ── -->
+  <section class="section" id="tenses">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">時制別の受動態</h2>
+    </div>
+    <p class="section-intro">be動詞の形を変えることで、さまざまな時制の受動態を作れる。</p>
+
+    <div class="tense-grid">
+      <div class="tense-card">
+        <div class="tense-name">現在形</div>
+        <div class="tense-formula">am / is / are + p.p.</div>
+        <div class="tense-example">English <span style="color:var(--teal);font-weight:800">is spoken</span> here.</div>
+        <div class="tense-ja">ここでは英語が話されている。</div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-name">過去形</div>
+        <div class="tense-formula">was / were + p.p.</div>
+        <div class="tense-example">The letter <span style="color:var(--teal);font-weight:800">was written</span> by him.</div>
+        <div class="tense-ja">その手紙は彼によって書かれた。</div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-name">未来形</div>
+        <div class="tense-formula">will be + p.p.</div>
+        <div class="tense-example">The work <span style="color:var(--teal);font-weight:800">will be done</span> soon.</div>
+        <div class="tense-ja">その仕事はすぐに終わるだろう。</div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-name">現在完了形</div>
+        <div class="tense-formula">have / has been + p.p.</div>
+        <div class="tense-example">The bridge <span style="color:var(--teal);font-weight:800">has been built</span>.</div>
+        <div class="tense-ja">その橋はすでに建設されている。</div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-name">現在進行形</div>
+        <div class="tense-formula">am / is / are being + p.p.</div>
+        <div class="tense-example">The car <span style="color:var(--teal);font-weight:800">is being repaired</span>.</div>
+        <div class="tense-ja">その車は今修理されている。</div>
+      </div>
+      <div class="tense-card">
+        <div class="tense-name">助動詞 + 受動態</div>
+        <div class="tense-formula">助動詞 + be + p.p.</div>
+        <div class="tense-example">This <span style="color:var(--teal);font-weight:800">must be done</span> today.</div>
+        <div class="tense-ja">これは今日中にやらなければならない。</div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── Examples ── -->
+  <section class="section" id="examples">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">能動態 ↔ 受動態 対照表</h2>
+    </div>
+    <p class="section-intro">同じ内容を能動態と受動態の両方で確認する。</p>
+
+    <table class="ex-table">
+      <thead>
+        <tr>
+          <th>能動態 (Active)</th>
+          <th>受動態 (Passive)</th>
+          <th>和訳</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="en">Shakespeare wrote this play.</td>
+          <td class="en">This play <span style="color:var(--teal);font-weight:700">was written</span> by Shakespeare.</td>
+          <td class="ja">この劇はシェイクスピアによって書かれた。</td>
+        </tr>
+        <tr>
+          <td class="en">Many people use this road.</td>
+          <td class="en">This road <span style="color:var(--teal);font-weight:700">is used</span> by many people.</td>
+          <td class="ja">この道は多くの人に利用されている。</td>
+        </tr>
+        <tr>
+          <td class="en">Someone stole my wallet.</td>
+          <td class="en">My wallet <span style="color:var(--teal);font-weight:700">was stolen</span>.</td>
+          <td class="ja">財布が盗まれた。（byを省略）</td>
+        </tr>
+        <tr>
+          <td class="en">They will finish the project.</td>
+          <td class="en">The project <span style="color:var(--teal);font-weight:700">will be finished</span>.</td>
+          <td class="ja">そのプロジェクトは終わるだろう。</td>
+        </tr>
+        <tr>
+          <td class="en">She teaches English.</td>
+          <td class="en">English <span style="color:var(--teal);font-weight:700">is taught</span> by her.</td>
+          <td class="ja">英語は彼女によって教えられている。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note-box" style="margin-top:20px">
+      <strong>注意: SVOOの受動態</strong><br>
+      She gave me a book. には2通りの受動態がある:<br>
+      ① <em>I was given a book</em> by her.（meを主語に）<br>
+      ② <em>A book was given to me</em> by her.（a bookを主語に）<br>
+      ①の方が自然でよく使われる。
+    </div>
+  </section>
+
+</main>
+
+<script>
+  let played = false;
+
+  function playTransform() {
+    const passive = document.getElementById('passive-blocks');
+    passive.classList.remove('show');
+
+    setTimeout(() => {
+      passive.classList.add('show');
+      // Highlight the swapped blocks
+      setTimeout(() => {
+        document.getElementById('pas-s')?.querySelector('.word').classList.add('swapped');
+        document.getElementById('pas-be')?.querySelector('.word').classList.add('swapped');
+      }, 300);
+    }, 500);
+  }
+
+  document.getElementById('transform-btn').addEventListener('click', () => {
+    const passive = document.getElementById('passive-blocks');
+    passive.classList.remove('show');
+    const words = document.querySelectorAll('#passive-blocks .word');
+    words.forEach(w => {
+      w.classList.remove('swapped');
+      void w.offsetWidth; // reflow
+    });
+    setTimeout(() => playTransform(), 80);
+  });
+
+  // Auto-play on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !played) {
+        played = true;
+        setTimeout(() => playTransform(), 600);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const demo = document.getElementById('main-transform');
+  if (demo) observer.observe(demo);
+</script>
+</body>
+</html>

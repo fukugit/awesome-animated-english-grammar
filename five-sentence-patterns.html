@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5文型 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f8f8f6;
+      --white: #fff;
+      --border: #e5e5e0;
+      --text: #1c1c1c;
+      --muted: #6b6b6b;
+      --blue: #4a90e2;
+      --orange: #e67e22;
+      --green: #27ae60;
+      --purple: #8e44ad;
+      --red: #e74c3c;
+      --teal: #16a085;
+      --radius: 14px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      height: 60px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-mark {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 8px;
+      flex-shrink: 0;
+      animation: morphMark 4s ease-in-out infinite;
+    }
+    @keyframes morphMark {
+      0%, 100% { border-radius: 8px; transform: rotate(0deg); }
+      50% { border-radius: 50%; transform: rotate(180deg); }
+    }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 32px 40px;
+    }
+    .page-hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .back-link a {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 16px;
+      transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .page-title span { color: var(--blue); }
+    .page-desc {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 560px;
+    }
+
+    /* ── Content ── */
+    .content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 32px 80px;
+    }
+
+    /* ── Section ── */
+    .section {
+      margin-bottom: 64px;
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .pattern-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+    .section-number {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+    .section-intro {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 24px;
+      margin-top: 6px;
+    }
+
+    /* ── Pattern Demo ── */
+    .pattern-demo {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .blocks-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .block.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .block .word {
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      white-space: nowrap;
+    }
+    .block .lbl {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+    /* Colors */
+    .block.s  .word { background: var(--blue); }
+    .block.v  .word { background: var(--orange); }
+    .block.o  .word { background: var(--green); }
+    .block.c  .word { background: var(--purple); }
+    .block.io .word { background: var(--red); }
+
+    /* Equals connector */
+    .connector {
+      align-self: flex-end;
+      padding-bottom: 22px;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--muted);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .connector.show { opacity: 1; }
+
+    /* Sentence below the blocks */
+    .pattern-sentence {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--muted);
+      opacity: 0;
+      transition: opacity 0.5s ease 0.3s;
+    }
+    .pattern-sentence.show { opacity: 1; }
+
+    .replay-btn {
+      position: absolute;
+      top: 14px; right: 14px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, transform 0.1s;
+      letter-spacing: 0.05em;
+    }
+    .replay-btn:hover { background: var(--white); color: var(--text); }
+    .replay-btn:active { transform: scale(0.96); }
+
+    /* ── Note box ── */
+    .note-box {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 18px;
+      font-size: 0.87rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .note-box.orange { border-color: var(--orange); }
+    .note-box.green  { border-color: var(--green);  }
+    .note-box.purple { border-color: var(--purple); }
+    .note-box.red    { border-color: var(--red);    }
+
+    /* ── Examples Table ── */
+    .ex-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .ex-table thead th {
+      text-align: left;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 8px 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .ex-table tbody td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .ex-table tbody tr:last-child td { border-bottom: none; }
+    .ex-table .en { font-weight: 600; }
+    .ex-table .ja { color: var(--muted); }
+
+    /* Highlight parts inside sentences */
+    .hl-s  { color: var(--blue);   font-weight: 700; }
+    .hl-v  { color: var(--orange); font-weight: 700; }
+    .hl-o  { color: var(--green);  font-weight: 700; }
+    .hl-c  { color: var(--purple); font-weight: 700; }
+    .hl-io { color: var(--red);    font-weight: 700; }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 0 64px;
+    }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 32px 20px 28px; }
+      .content { padding: 32px 20px 60px; }
+      .block .word { padding: 10px 14px; font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    Animated English Grammar
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">5文型 <span>Five Sentence Patterns</span></h1>
+    <p class="page-desc">英語のすべての文はこの5つのパターンに分類できます。色のついたブロックで構造を確認しましょう。</p>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- ── Pattern 1: SV ── -->
+  <section class="section" id="sv">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="pattern-badge">第1文型</span>
+      <h2 class="section-title">SV</h2>
+    </div>
+    <p class="section-intro">主語(S)と動詞(V)だけで成立する文型。動詞は<strong>自動詞</strong>で、目的語を取らない。</p>
+
+    <div class="pattern-demo" data-pattern="sv">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="blocks-row">
+        <div class="block s"><div class="word">Birds</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">sing</div><div class="lbl">V</div></div>
+      </div>
+      <div class="pattern-sentence">Birds sing.</div>
+    </div>
+
+    <div class="note-box">
+      動詞は「完全自動詞」。そのまま文が完結する。副詞句（場所・時・様態）を加えることはできるが、文型には含まない。<br>
+      例: Birds sing <em>beautifully</em>. / He runs <em>every morning</em>.
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en"><span class="hl-s">Birds</span> <span class="hl-v">sing</span>.</td><td class="ja">鳥は歌う。</td></tr>
+        <tr><td class="en"><span class="hl-s">He</span> <span class="hl-v">runs</span>.</td><td class="ja">彼は走る。</td></tr>
+        <tr><td class="en"><span class="hl-s">The baby</span> <span class="hl-v">slept</span>.</td><td class="ja">赤ちゃんは眠った。</td></tr>
+        <tr><td class="en"><span class="hl-s">The sun</span> <span class="hl-v">rises</span>.</td><td class="ja">太陽が昇る。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── Pattern 2: SVC ── -->
+  <section class="section" id="svc">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="pattern-badge">第2文型</span>
+      <h2 class="section-title">SVC</h2>
+    </div>
+    <p class="section-intro">補語(C)が主語(S)の状態・性質を表す文型。<strong>S = C</strong> の関係が成り立つ。動詞は「連結動詞」(linking verb)。</p>
+
+    <div class="pattern-demo" data-pattern="svc">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="blocks-row">
+        <div class="block s"><div class="word">She</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">is</div><div class="lbl">V</div></div>
+        <div class="connector">=</div>
+        <div class="block c"><div class="word">kind</div><div class="lbl">C</div></div>
+      </div>
+      <div class="pattern-sentence">She is kind. &nbsp;→&nbsp; She = kind</div>
+    </div>
+
+    <div class="note-box orange">
+      主な連結動詞: <strong>be</strong> (〜だ) / <strong>become</strong> (〜になる) / <strong>look</strong> (〜に見える) / <strong>seem</strong> (〜のようだ) / <strong>feel</strong> (〜に感じる) / <strong>smell</strong> (〜のにおいがする) / <strong>sound</strong> (〜に聞こえる) / <strong>taste</strong> (〜の味がする)
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">is</span> <span class="hl-c">kind</span>.</td><td class="ja">彼女は親切だ。</td></tr>
+        <tr><td class="en"><span class="hl-s">He</span> <span class="hl-v">became</span> <span class="hl-c">a teacher</span>.</td><td class="ja">彼は先生になった。</td></tr>
+        <tr><td class="en"><span class="hl-s">The flower</span> <span class="hl-v">looks</span> <span class="hl-c">beautiful</span>.</td><td class="ja">その花は美しく見える。</td></tr>
+        <tr><td class="en"><span class="hl-s">The soup</span> <span class="hl-v">smells</span> <span class="hl-c">delicious</span>.</td><td class="ja">そのスープはおいしいにおいがする。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── Pattern 3: SVO ── -->
+  <section class="section" id="svo">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="pattern-badge">第3文型</span>
+      <h2 class="section-title">SVO</h2>
+    </div>
+    <p class="section-intro">動詞(V)が目的語(O)を取る文型。英語で最も多く使われる文型。動詞は<strong>他動詞</strong>。</p>
+
+    <div class="pattern-demo" data-pattern="svo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="blocks-row">
+        <div class="block s"><div class="word">I</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">love</div><div class="lbl">V</div></div>
+        <div class="block o"><div class="word">music</div><div class="lbl">O</div></div>
+      </div>
+      <div class="pattern-sentence">I love music.</div>
+    </div>
+
+    <div class="note-box green">
+      S ≠ O という点でSVCと区別できる。動詞を受ける対象が目的語(O)。「〜を/〜に」にあたる語句。
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en"><span class="hl-s">I</span> <span class="hl-v">love</span> <span class="hl-o">music</span>.</td><td class="ja">私は音楽が好きだ。</td></tr>
+        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">reads</span> <span class="hl-o">books</span>.</td><td class="ja">彼女は本を読む。</td></tr>
+        <tr><td class="en"><span class="hl-s">They</span> <span class="hl-v">built</span> <span class="hl-o">a house</span>.</td><td class="ja">彼らは家を建てた。</td></tr>
+        <tr><td class="en"><span class="hl-s">He</span> <span class="hl-v">knows</span> <span class="hl-o">the answer</span>.</td><td class="ja">彼はその答えを知っている。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── Pattern 4: SVOO ── -->
+  <section class="section" id="svoo">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="pattern-badge">第4文型</span>
+      <h2 class="section-title">SVOO</h2>
+    </div>
+    <p class="section-intro">間接目的語(IO)と直接目的語(O)の二つを持つ文型。「(人)に (物)を〜する」という意味になる。</p>
+
+    <div class="pattern-demo" data-pattern="svoo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="blocks-row">
+        <div class="block s"><div class="word">She</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">gave</div><div class="lbl">V</div></div>
+        <div class="block io"><div class="word">me</div><div class="lbl">IO</div></div>
+        <div class="block o"><div class="word">a book</div><div class="lbl">O</div></div>
+      </div>
+      <div class="pattern-sentence">She gave me a book.</div>
+    </div>
+
+    <div class="note-box red">
+      第4文型は第3文型に書き換えられる:<br>
+      <strong>SVOO → SVO + to/for + IO</strong><br>
+      She gave <em>me</em> a book. → She gave a book <em>to me</em>.<br>
+      He made <em>her</em> lunch. → He made lunch <em>for her</em>.
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">gave</span> <span class="hl-io">me</span> <span class="hl-o">a book</span>.</td><td class="ja">彼女は私に本をくれた。</td></tr>
+        <tr><td class="en"><span class="hl-s">He</span> <span class="hl-v">told</span> <span class="hl-io">us</span> <span class="hl-o">the truth</span>.</td><td class="ja">彼は私たちに真実を話した。</td></tr>
+        <tr><td class="en"><span class="hl-s">Mom</span> <span class="hl-v">made</span> <span class="hl-io">me</span> <span class="hl-o">lunch</span>.</td><td class="ja">お母さんは私に昼食を作ってくれた。</td></tr>
+        <tr><td class="en"><span class="hl-s">I</span> <span class="hl-v">showed</span> <span class="hl-io">him</span> <span class="hl-o">the photo</span>.</td><td class="ja">私は彼に写真を見せた。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── Pattern 5: SVOC ── -->
+  <section class="section" id="svoc">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="pattern-badge">第5文型</span>
+      <h2 class="section-title">SVOC</h2>
+    </div>
+    <p class="section-intro">目的語(O)と補語(C)があり、<strong>O = C</strong> の関係が成り立つ文型。</p>
+
+    <div class="pattern-demo" data-pattern="svoc">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="blocks-row">
+        <div class="block s"><div class="word">They</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">made</div><div class="lbl">V</div></div>
+        <div class="block o"><div class="word">him</div><div class="lbl">O</div></div>
+        <div class="connector">=</div>
+        <div class="block c"><div class="word">happy</div><div class="lbl">C</div></div>
+      </div>
+      <div class="pattern-sentence">They made him happy. &nbsp;→&nbsp; him = happy</div>
+    </div>
+
+    <div class="note-box purple">
+      第4文型(SVOO)との見分け方: 目的語(O)と補語(C)の間に「=」が成り立つかどうか。<br>
+      • They made <em>him happy</em>. → him = happy ✓（第5文型）<br>
+      • She gave <em>me a book</em>. → me ≠ a book ✓（第4文型）
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en"><span class="hl-s">They</span> <span class="hl-v">made</span> <span class="hl-o">him</span> <span class="hl-c">happy</span>.</td><td class="ja">彼らは彼を幸せにした。</td></tr>
+        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">named</span> <span class="hl-o">her cat</span> <span class="hl-c">Luna</span>.</td><td class="ja">彼女は猫にルナと名付けた。</td></tr>
+        <tr><td class="en"><span class="hl-s">We</span> <span class="hl-v">elected</span> <span class="hl-o">him</span> <span class="hl-c">president</span>.</td><td class="ja">私たちは彼を大統領に選んだ。</td></tr>
+        <tr><td class="en"><span class="hl-s">I</span> <span class="hl-v">found</span> <span class="hl-o">the movie</span> <span class="hl-c">boring</span>.</td><td class="ja">私はその映画を退屈だと思った。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+  // Build blocks row + sentence
+  function animateDemo(demoEl) {
+    const blocks = demoEl.querySelectorAll('.block');
+    const connectors = demoEl.querySelectorAll('.connector');
+    const sentence = demoEl.querySelector('.pattern-sentence');
+
+    // Reset
+    blocks.forEach(b => b.classList.remove('show'));
+    connectors.forEach(c => c.classList.remove('show'));
+    if (sentence) sentence.classList.remove('show');
+
+    // Play
+    let delay = 0;
+    blocks.forEach((b, i) => {
+      setTimeout(() => b.classList.add('show'), delay);
+      // Show connector after both surrounding blocks
+      const next = b.nextElementSibling;
+      if (next && next.classList.contains('connector')) {
+        const afterDelay = delay + 320;
+        setTimeout(() => next.classList.add('show'), afterDelay);
+        delay = afterDelay;
+      } else {
+        delay += 320;
+      }
+    });
+    if (sentence) {
+      setTimeout(() => sentence.classList.add('show'), delay + 200);
+    }
+  }
+
+  // IntersectionObserver to auto-play on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateDemo(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('.pattern-demo').forEach(demo => {
+    observer.observe(demo);
+  });
+
+  // Replay buttons
+  document.querySelectorAll('.replay-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const demo = btn.closest('.pattern-demo');
+      const blocks = demo.querySelectorAll('.block');
+      const connectors = demo.querySelectorAll('.connector');
+      const sentence = demo.querySelector('.pattern-sentence');
+      blocks.forEach(b => b.classList.remove('show'));
+      connectors.forEach(c => c.classList.remove('show'));
+      if (sentence) sentence.classList.remove('show');
+      setTimeout(() => animateDemo(demo), 80);
+    });
+  });
+</script>
+</body>
+</html>

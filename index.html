@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f8f8f6;
+      --white: #fff;
+      --border: #e5e5e0;
+      --text: #1c1c1c;
+      --muted: #6b6b6b;
+      --blue: #4a90e2;
+      --orange: #e67e22;
+      --green: #27ae60;
+      --purple: #8e44ad;
+      --red: #e74c3c;
+      --teal: #16a085;
+      --radius: 14px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      height: 60px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-mark {
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 8px;
+      flex-shrink: 0;
+      animation: morphMark 4s ease-in-out infinite;
+    }
+    @keyframes morphMark {
+      0%, 100% { border-radius: 8px; transform: rotate(0deg); }
+      50% { border-radius: 50%; transform: rotate(180deg); }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 80px 32px 64px;
+      text-align: center;
+    }
+    .hero-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .hero-desc {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 52px;
+    }
+
+    /* ── Sentence Demo ── */
+    .sentence-demo {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .word-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      animation: wordFloat 2.4s ease-in-out infinite;
+    }
+    .word-block .word {
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      white-space: nowrap;
+    }
+    .word-block .pos {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .word-block.s .word { background: var(--blue); }
+    .word-block.v .word { background: var(--orange); }
+    .word-block.io .word { background: var(--red); }
+    .word-block.o .word { background: var(--green); }
+    .word-block.c .word { background: var(--purple); }
+
+    .word-block.s  { animation-delay: 0s; }
+    .word-block.v  { animation-delay: 0.2s; }
+    .word-block.io { animation-delay: 0.4s; }
+    .word-block.o  { animation-delay: 0.6s; }
+
+    @keyframes wordFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .sentence-caption {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── Units Grid ── */
+    .units {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px 80px;
+    }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .units-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .unit-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 28px 22px;
+      text-decoration: none;
+      color: var(--text);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+      display: block;
+    }
+    .unit-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--card-color, var(--blue));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .unit-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+    .unit-card:hover::after { transform: scaleX(1); }
+
+    .unit-icon {
+      font-size: 2rem;
+      margin-bottom: 14px;
+      display: inline-block;
+      animation: iconFloat 3s ease-in-out infinite;
+    }
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    .unit-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+    .unit-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .unit-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .unit-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 100px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    /* ── Legend ── */
+    .legend {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px 64px;
+    }
+    .legend-inner {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 28px;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .legend-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+    .legend-items {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 48px 20px 40px; }
+      .units { padding: 0 20px 60px; }
+      .legend { padding: 0 20px 48px; }
+      .units-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="index.html">
+      <div class="logo-mark"></div>
+      Animated English Grammar
+    </a>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-label">Visual Learning</div>
+    <h1>英文法を<br>アニメーションで学ぶ</h1>
+    <p class="hero-desc">難しい英語の文法も、動くビジュアルで直感的に理解できます。</p>
+
+    <div class="sentence-demo">
+      <div class="word-block s">
+        <div class="word">She</div>
+        <div class="pos">S</div>
+      </div>
+      <div class="word-block v">
+        <div class="word">gave</div>
+        <div class="pos">V</div>
+      </div>
+      <div class="word-block io">
+        <div class="word">him</div>
+        <div class="pos">IO</div>
+      </div>
+      <div class="word-block o">
+        <div class="word">a book</div>
+        <div class="pos">O</div>
+      </div>
+    </div>
+    <div class="sentence-caption">S V IO O — 第4文型 (SVOO)</div>
+  </section>
+
+  <!-- Color Legend -->
+  <div class="legend">
+    <div class="legend-inner">
+      <div class="legend-title">Color Key</div>
+      <div class="legend-items">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#4a90e2"></div>
+          S 主語
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#e67e22"></div>
+          V 動詞
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#27ae60"></div>
+          O 目的語
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#8e44ad"></div>
+          C 補語
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#e74c3c"></div>
+          IO 間接目的語
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="units">
+    <div class="section-label">Grammar Units</div>
+    <div class="units-grid">
+
+      <a class="unit-card" href="five-sentence-patterns.html" style="--card-color: var(--blue)">
+        <span class="unit-icon" style="animation-delay:0s">🏗️</span>
+        <div class="unit-name">5文型</div>
+        <div class="unit-sub">Five Sentence Patterns</div>
+        <div class="unit-desc">SV・SVC・SVO・SVOO・SVOCの5つの構造を視覚的に理解する。</div>
+        <div class="unit-tags">
+          <span class="tag">SV</span>
+          <span class="tag">SVC</span>
+          <span class="tag">SVO</span>
+          <span class="tag">SVOO</span>
+          <span class="tag">SVOC</span>
+        </div>
+      </a>
+
+      <a class="unit-card" href="relative-pronouns.html" style="--card-color: var(--green)">
+        <span class="unit-icon" style="animation-delay:0.3s">🔗</span>
+        <div class="unit-name">関係代名詞</div>
+        <div class="unit-sub">Relative Pronouns</div>
+        <div class="unit-desc">二つの文を一つに結ぶ関係代名詞。who・which・that・whoseをアニメーションで。</div>
+        <div class="unit-tags">
+          <span class="tag">who</span>
+          <span class="tag">which</span>
+          <span class="tag">that</span>
+          <span class="tag">whose</span>
+        </div>
+      </a>
+
+      <a class="unit-card" href="participial-phrases.html" style="--card-color: var(--orange)">
+        <span class="unit-icon" style="animation-delay:0.6s">🌿</span>
+        <div class="unit-name">分詞</div>
+        <div class="unit-sub">Participial Phrases</div>
+        <div class="unit-desc">現在分詞 (-ing) と過去分詞 (-ed/-en) が名詞を修飾する仕組みを学ぶ。</div>
+        <div class="unit-tags">
+          <span class="tag">現在分詞</span>
+          <span class="tag">過去分詞</span>
+          <span class="tag">分詞構文</span>
+        </div>
+      </a>
+
+      <a class="unit-card" href="infinitives.html" style="--card-color: var(--purple)">
+        <span class="unit-icon" style="animation-delay:0.9s">♾️</span>
+        <div class="unit-name">不定詞</div>
+        <div class="unit-sub">Infinitives</div>
+        <div class="unit-desc">「to + 動詞原形」の3つの用法（名詞的・形容詞的・副詞的）を図解する。</div>
+        <div class="unit-tags">
+          <span class="tag">名詞的</span>
+          <span class="tag">形容詞的</span>
+          <span class="tag">副詞的</span>
+        </div>
+      </a>
+
+      <a class="unit-card" href="passive-voice.html" style="--card-color: var(--teal); grid-column: 1 / -1;">
+        <span class="unit-icon" style="animation-delay:1.2s">🔄</span>
+        <div class="unit-name">受動態</div>
+        <div class="unit-sub">Passive Voice</div>
+        <div class="unit-desc">能動態から受動態への変換をブロックが入れ替わるアニメーションで体験する。</div>
+        <div class="unit-tags">
+          <span class="tag">現在形</span>
+          <span class="tag">過去形</span>
+          <span class="tag">未来形</span>
+          <span class="tag">完了形</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+</body>
+</html>
