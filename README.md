@@ -15,11 +15,13 @@ A collection of animated cheat sheets that make English grammar easy to understa
 | ページ | 内容 | リンク |
 |--------|------|--------|
 | 目次 | トップページ・各単元へのリンク | [index.html](https://fukugit.github.io/awesome-animated-english-grammar/index.html) |
-| 5文型 | SV / SVC / SVO / SVOO / SVOC | [five-sentence-patterns.html](https://fukugit.github.io/awesome-animated-english-grammar/five-sentence-patterns.html) |
-| 関係代名詞 | who / whom / which / whose / that | [relative-pronouns.html](https://fukugit.github.io/awesome-animated-english-grammar/relative-pronouns.html) |
+| 5文型 | SV / SVC / SVO / SVOO / SVOC + 使役・知覚・help | [five-sentence-patterns.html](https://fukugit.github.io/awesome-animated-english-grammar/five-sentence-patterns.html) |
+| 関係代名詞 | who / whom / which / whose / what / 関係副詞 / no matter what | [relative-pronouns.html](https://fukugit.github.io/awesome-animated-english-grammar/relative-pronouns.html) |
 | 分詞 | 現在分詞 / 過去分詞 / 分詞構文 | [participial-phrases.html](https://fukugit.github.io/awesome-animated-english-grammar/participial-phrases.html) |
 | 不定詞 | 名詞的用法 / 形容詞的用法 / 副詞的用法 | [infinitives.html](https://fukugit.github.io/awesome-animated-english-grammar/infinitives.html) |
 | 受動態 | 能動→受動変換 / 時制別受動態 | [passive-voice.html](https://fukugit.github.io/awesome-animated-english-grammar/passive-voice.html) |
+| 現在完了形 | have p.p. / 完了・経験・継続 / 完了進行形 / 過去完了 | [present-perfect.html](https://fukugit.github.io/awesome-animated-english-grammar/present-perfect.html) |
+| 同格・挿入 | 同格名詞 / that節の同格 / コンマ・ダッシュ挿入 | [appositive-parenthetical.html](https://fukugit.github.io/awesome-animated-english-grammar/appositive-parenthetical.html) |
 
 ## 🎨 Design
 

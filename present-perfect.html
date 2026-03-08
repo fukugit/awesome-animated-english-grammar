@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>現在完了形 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f8f8f6;
+      --white: #fff;
+      --border: #e5e5e0;
+      --text: #1c1c1c;
+      --muted: #6b6b6b;
+      --blue: #4a90e2;
+      --orange: #e67e22;
+      --green: #27ae60;
+      --purple: #8e44ad;
+      --red: #e74c3c;
+      --teal: #16a085;
+      --radius: 14px;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.6;
+    }
+    .nav {
+      height: 60px; background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 32px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 1rem;
+      text-decoration: none; color: var(--text);
+    }
+    .logo-mark {
+      width: 30px; height: 30px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border-radius: 8px; flex-shrink: 0;
+      animation: morphMark 4s ease-in-out infinite;
+    }
+    @keyframes morphMark {
+      0%, 100% { border-radius: 8px; transform: rotate(0deg); }
+      50% { border-radius: 50%; transform: rotate(180deg); }
+    }
+    .page-hero {
+      background: var(--white); border-bottom: 1px solid var(--border);
+      padding: 48px 32px 40px;
+    }
+    .page-hero-inner { max-width: 860px; margin: 0 auto; }
+    .back-link a {
+      font-size: 0.85rem; color: var(--muted); text-decoration: none;
+      font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
+      margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 8px; }
+    .page-title span { color: var(--teal); }
+    .page-desc { color: var(--muted); font-size: 1rem; max-width: 580px; }
+
+    .content { max-width: 860px; margin: 0 auto; padding: 48px 32px 80px; }
+    .section { margin-bottom: 64px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+    .section-title { font-size: 1.4rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 0.92rem; margin: 8px 0 24px; }
+    .usage-badge {
+      display: inline-block; font-size: 0.82rem; font-weight: 800;
+      padding: 5px 14px; border-radius: 100px; color: white;
+    }
+
+    /* ── Formula box ── */
+    .formula-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px 26px;
+      margin-bottom: 24px;
+    }
+    .formula {
+      display: flex; align-items: center; gap: 8px;
+      flex-wrap: wrap; font-size: 1rem;
+    }
+    .f-block {
+      padding: 8px 16px; border-radius: 9px;
+      font-weight: 700; color: white; font-size: 0.95rem;
+    }
+    .f-plus { color: var(--muted); font-size: 1.2rem; font-weight: 700; }
+    .formula-note { font-size: 0.82rem; color: var(--muted); margin-top: 8px; }
+
+    /* ── Timeline visual ── */
+    .timeline-demo {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      margin-bottom: 20px; position: relative;
+    }
+    .timeline {
+      position: relative; height: 60px;
+      margin: 24px 0 16px;
+    }
+    .tl-line {
+      position: absolute; top: 50%; left: 0; right: 0;
+      height: 2px; background: var(--border);
+      transform: translateY(-50%);
+    }
+    .tl-line-fill {
+      position: absolute; top: 50%; left: 0;
+      height: 2px; background: var(--teal);
+      transform: translateY(-50%);
+      width: 0; transition: width 1s ease 0.3s;
+    }
+    .tl-line-fill.show { width: 75%; }
+
+    .tl-dot {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 14px; height: 14px; border-radius: 50%;
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .tl-dot.show { opacity: 1; }
+    .tl-dot-past { left: 25%; background: var(--orange); margin-left: -7px; }
+    .tl-dot-present { right: 0; background: var(--teal); margin-right: -7px; }
+
+    .tl-label {
+      position: absolute; top: 100%; margin-top: 6px;
+      font-size: 0.72rem; font-weight: 700; color: var(--muted);
+      transform: translateX(-50%);
+      opacity: 0; transition: opacity 0.4s 0.6s;
+      white-space: nowrap;
+    }
+    .tl-label.show { opacity: 1; }
+    .tl-label-past { left: 25%; }
+    .tl-label-present { right: -24px; }
+
+    .tl-arc {
+      position: absolute; top: 0; left: 20%; right: 0;
+      height: 100%; overflow: visible;
+      pointer-events: none;
+    }
+    .tl-arc path {
+      fill: none; stroke: var(--teal);
+      stroke-width: 2; stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      transition: stroke-dashoffset 0.8s ease 0.5s;
+      opacity: 0.3;
+    }
+    .tl-arc path.show { stroke-dashoffset: 0; }
+
+    /* Sentence comparison */
+    .compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      margin-bottom: 20px;
+    }
+    .compare-card {
+      border: 1px solid var(--border); border-radius: 10px; padding: 18px;
+    }
+    .compare-label {
+      font-size: 0.68rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .compare-sent {
+      font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; line-height: 1.6;
+    }
+    .compare-ja { font-size: 0.82rem; color: var(--muted); }
+    .compare-note { font-size: 0.78rem; color: var(--muted); margin-top: 8px; font-style: italic; }
+
+    /* ── Key Words chips ── */
+    .keyword-row {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+    .kw-chip {
+      padding: 5px 12px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 700;
+      border: 1.5px solid;
+    }
+
+    /* ── Demo with blocks ── */
+    .perf-demo {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      margin-bottom: 20px; position: relative;
+    }
+    .blocks-row {
+      display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .block {
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity 0.4s, transform 0.4s;
+    }
+    .block.show { opacity: 1; transform: translateY(0); }
+    .block .word {
+      padding: 10px 16px; border-radius: 9px;
+      font-weight: 700; font-size: 0.93rem; color: white; white-space: nowrap;
+    }
+    .block .lbl { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.08em; color: var(--muted); }
+    .block.s .word  { background: var(--blue); }
+    .block.hv .word { background: var(--teal); }
+    .block.pp .word { background: var(--orange); }
+    .block.tw .word { background: #999; }
+
+    .perf-sentence {
+      font-size: 1rem; font-style: italic; color: var(--muted);
+      opacity: 0; transition: opacity 0.4s 0.3s;
+    }
+    .perf-sentence.show { opacity: 1; }
+
+    .replay-btn {
+      position: absolute; top: 14px; right: 14px;
+      font-size: 0.72rem; font-weight: 700;
+      padding: 5px 12px; border-radius: 100px;
+      border: 1px solid var(--border);
+      background: var(--bg); color: var(--muted);
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.1s;
+    }
+    .replay-btn:hover { background: var(--white); color: var(--text); }
+    .replay-btn:active { transform: scale(0.96); }
+
+    .note-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 3px solid var(--teal);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 18px; font-size: 0.87rem;
+      color: var(--muted); margin-bottom: 20px; line-height: 1.6;
+    }
+    .note-box.orange { border-color: var(--orange); }
+    .note-box.blue { border-color: var(--blue); }
+
+    .ex-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .ex-table thead th {
+      text-align: left; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); padding: 8px 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    .ex-table tbody td {
+      padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top;
+    }
+    .ex-table tbody tr:last-child td { border-bottom: none; }
+    .ex-table .en { font-weight: 600; line-height: 1.6; }
+    .ex-table .ja { color: var(--muted); }
+    .ex-table .tw { font-size: 0.8rem; color: var(--teal); font-weight: 700; }
+
+    .divider { height: 1px; background: var(--border); margin: 0 0 64px; }
+
+    /* Past perfect */
+    .past-perf-demo {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+      margin-bottom: 20px;
+    }
+    .ppf-timeline {
+      position: relative; height: 48px; margin: 20px 0 36px;
+    }
+    .ppf-line { position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--border); transform: translateY(-50%); }
+    .ppf-dot {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 12px; height: 12px; border-radius: 50%;
+    }
+    .ppf-dot-a { left: 20%; margin-left: -6px; background: var(--purple); }
+    .ppf-dot-b { left: 60%; margin-left: -6px; background: var(--orange); }
+    .ppf-dot-now { right: 0; margin-right: -6px; background: var(--muted); }
+    .ppf-dot-label {
+      position: absolute; top: 100%; margin-top: 6px;
+      font-size: 0.7rem; font-weight: 700; color: var(--muted);
+      transform: translateX(-50%); white-space: nowrap;
+    }
+    .ppf-dot-label-a { left: 20%; }
+    .ppf-dot-label-b { left: 60%; }
+    .ppf-dot-label-now { right: -16px; }
+    .ppf-arrow {
+      position: absolute; top: 30%; left: 20%; right: 40%;
+      height: 2px; background: var(--purple); opacity: 0.4;
+    }
+    .ppf-arrow::after {
+      content: ''; position: absolute; right: -1px; top: -4px;
+      border: 6px solid transparent; border-left-color: var(--purple);
+      border-right: none;
+    }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 32px 20px 28px; }
+      .content { padding: 32px 20px 60px; }
+      .compare-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    Animated English Grammar
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">現在完了形 <span>Present Perfect</span></h1>
+    <p class="page-desc">「have/has + 過去分詞」で表す現在完了形。完了・経験・継続の3用法と、過去形との違いを視覚的に理解する。</p>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- ── 基本形 ── -->
+  <section class="section" id="basic">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">基本形と時制のイメージ</h2>
+    </div>
+    <p class="section-intro">現在完了形は「<strong>過去の出来事が現在と繋がっている</strong>」ことを表す。単純過去形とは明確に異なる。</p>
+
+    <div class="formula-box">
+      <div class="formula">
+        <div class="f-block" style="background:var(--blue)">S</div>
+        <span class="f-plus">+</span>
+        <div class="f-block" style="background:var(--teal)">have / has</div>
+        <span class="f-plus">+</span>
+        <div class="f-block" style="background:var(--orange)">過去分詞 (p.p.)</div>
+      </div>
+      <div class="formula-note">3人称単数(he/she/it)のときは <strong>has</strong>、それ以外は <strong>have</strong></div>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card" style="border-color:rgba(230,126,34,0.4)">
+        <div class="compare-label" style="color:var(--orange)">過去形 (Simple Past)</div>
+        <div class="compare-sent">I <span style="color:var(--orange);font-weight:800">ate</span> sushi yesterday.</div>
+        <div class="compare-ja">昨日寿司を食べた。</div>
+        <div class="compare-note">→ 過去の特定の時点で完結。今とは無関係。</div>
+      </div>
+      <div class="compare-card" style="border-color:rgba(22,160,133,0.4)">
+        <div class="compare-label" style="color:var(--teal)">現在完了形 (Present Perfect)</div>
+        <div class="compare-sent">I <span style="color:var(--teal);font-weight:800">have eaten</span> sushi before.</div>
+        <div class="compare-ja">寿司を食べたことがある。（今も経験として持っている）</div>
+        <div class="compare-note">→ 過去の経験が現在の状態と繋がっている。</div>
+      </div>
+    </div>
+
+    <div class="timeline-demo" id="tl-demo">
+      <button class="replay-btn">↺ Replay</button>
+      <div style="font-size:0.82rem;color:var(--muted);margin-bottom:4px">現在完了形の時制イメージ</div>
+      <div class="timeline">
+        <div class="tl-line"></div>
+        <div class="tl-line-fill" id="tl-fill"></div>
+        <div class="tl-dot tl-dot-past" id="tl-dot-past"></div>
+        <div class="tl-dot tl-dot-present" id="tl-dot-now"></div>
+        <div class="tl-label tl-label-past" id="tl-lbl-past">過去の出来事</div>
+        <div class="tl-label tl-label-present" id="tl-lbl-now">NOW</div>
+        <svg class="tl-arc" viewBox="0 0 300 60" preserveAspectRatio="none">
+          <path id="tl-arc-path" d="M 60 30 Q 150 -20 290 30"/>
+        </svg>
+      </div>
+      <div style="font-size:0.85rem;color:var(--muted);margin-top:40px">
+        過去の出来事(●)が現在(NOW)と弧でつながるイメージ — 過去形は切り離されているが、現在完了は「今」に影響している
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 完了 ── -->
+  <section class="section" id="completion">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="usage-badge" style="background:var(--teal)">完了</span>
+      <h2 class="section-title">Completion — 〜したところだ / 〜してしまった</h2>
+    </div>
+    <p class="section-intro">動作が「たった今・ちょうど」完了したことを表す。</p>
+
+    <div class="perf-demo" id="demo-comp">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="blocks-row">
+        <div class="block s"><div class="word">I</div><div class="lbl">S</div></div>
+        <div class="block hv"><div class="word">have</div><div class="lbl">have</div></div>
+        <div class="block tw"><div class="word">just</div><div class="lbl">副詞</div></div>
+        <div class="block pp"><div class="word">finished</div><div class="lbl">p.p.</div></div>
+        <div class="block tw"><div class="word">my homework</div><div class="lbl">O</div></div>
+      </div>
+      <div class="perf-sentence">I have just finished my homework.</div>
+    </div>
+
+    <div class="keyword-row">
+      <div class="kw-chip" style="border-color:var(--teal);color:var(--teal)">just（ちょうど）</div>
+      <div class="kw-chip" style="border-color:var(--teal);color:var(--teal)">already（もう・すでに）</div>
+      <div class="kw-chip" style="border-color:var(--teal);color:var(--teal)">yet（もう / まだ）疑問・否定</div>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th><th>キーワード</th></tr></thead>
+      <tbody>
+        <tr><td class="en">She <span style="color:var(--teal);font-weight:700">has just arrived</span>.</td><td class="ja">彼女はちょうど到着したところだ。</td><td class="tw">just</td></tr>
+        <tr><td class="en">I <span style="color:var(--teal);font-weight:700">have already eaten</span>.</td><td class="ja">もう食べてしまった。</td><td class="tw">already</td></tr>
+        <tr><td class="en">Have you finished <span style="color:var(--teal);font-weight:700">yet</span>?</td><td class="ja">もう終わりましたか？</td><td class="tw">yet（疑問）</td></tr>
+        <tr><td class="en">I haven't done it <span style="color:var(--teal);font-weight:700">yet</span>.</td><td class="ja">まだやっていない。</td><td class="tw">yet（否定）</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 経験 ── -->
+  <section class="section" id="experience">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="usage-badge" style="background:var(--blue)">経験</span>
+      <h2 class="section-title">Experience — 〜したことがある</h2>
+    </div>
+    <p class="section-intro">過去から現在までの間に経験したことを表す。回数や頻度を伴うことが多い。</p>
+
+    <div class="perf-demo" id="demo-exp">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="blocks-row">
+        <div class="block s"><div class="word">I</div><div class="lbl">S</div></div>
+        <div class="block hv"><div class="word">have</div><div class="lbl">have</div></div>
+        <div class="block pp"><div class="word">visited</div><div class="lbl">p.p.</div></div>
+        <div class="block tw"><div class="word">Tokyo</div><div class="lbl">O</div></div>
+        <div class="block tw"><div class="word">three times</div><div class="lbl">回数</div></div>
+      </div>
+      <div class="perf-sentence">I have visited Tokyo three times.</div>
+    </div>
+
+    <div class="keyword-row">
+      <div class="kw-chip" style="border-color:var(--blue);color:var(--blue)">ever（今までに）疑問</div>
+      <div class="kw-chip" style="border-color:var(--blue);color:var(--blue)">never（一度も〜ない）</div>
+      <div class="kw-chip" style="border-color:var(--blue);color:var(--blue)">once / twice / 〜 times</div>
+      <div class="kw-chip" style="border-color:var(--blue);color:var(--blue)">before（以前に）</div>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th><th>キーワード</th></tr></thead>
+      <tbody>
+        <tr><td class="en">Have you <span style="color:var(--teal);font-weight:700">ever eaten</span> durian?</td><td class="ja">ドリアンを食べたことがありますか？</td><td class="tw">ever</td></tr>
+        <tr><td class="en">I <span style="color:var(--teal);font-weight:700">have never seen</span> snow.</td><td class="ja">雪を見たことがない。</td><td class="tw">never</td></tr>
+        <tr><td class="en">She <span style="color:var(--teal);font-weight:700">has been</span> to Paris twice.</td><td class="ja">彼女はパリに2回行ったことがある。</td><td class="tw">twice</td></tr>
+        <tr><td class="en">I <span style="color:var(--teal);font-weight:700">have read</span> this book before.</td><td class="ja">以前この本を読んだことがある。</td><td class="tw">before</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note-box blue">
+      <strong>have been to vs. have gone to:</strong><br>
+      • <em>have been to</em> ～: 〜に行ったことがある（今はここにいる）<br>
+      • <em>have gone to</em> ～: 〜に行ってしまった（今はそこにいる、またはもう戻ってきた）
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 継続 ── -->
+  <section class="section" id="duration">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="usage-badge" style="background:var(--orange)">継続</span>
+      <h2 class="section-title">Duration — ずっと〜している / 〜し続けている</h2>
+    </div>
+    <p class="section-intro">過去のある時点から現在まで<strong>継続</strong>している状態・動作を表す。for と since が重要。</p>
+
+    <div class="perf-demo" id="demo-dur">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="blocks-row">
+        <div class="block s"><div class="word">She</div><div class="lbl">S</div></div>
+        <div class="block hv"><div class="word">has</div><div class="lbl">has</div></div>
+        <div class="block pp"><div class="word">lived</div><div class="lbl">p.p.</div></div>
+        <div class="block tw"><div class="word">here</div><div class="lbl">副詞</div></div>
+        <div class="block tw"><div class="word">for 10 years</div><div class="lbl">for + 期間</div></div>
+      </div>
+      <div class="perf-sentence">She has lived here for ten years.</div>
+    </div>
+
+    <div class="keyword-row">
+      <div class="kw-chip" style="border-color:var(--orange);color:var(--orange)">for + 期間（〜の間）</div>
+      <div class="kw-chip" style="border-color:var(--orange);color:var(--orange)">since + 起点（〜から）</div>
+      <div class="kw-chip" style="border-color:var(--orange);color:var(--orange)">How long...?</div>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th><th>キーワード</th></tr></thead>
+      <tbody>
+        <tr><td class="en">I <span style="color:var(--teal);font-weight:700">have known</span> him <span style="color:var(--orange);font-weight:700">for</span> three years.</td><td class="ja">3年間彼を知っている。</td><td class="tw">for + 期間</td></tr>
+        <tr><td class="en">She <span style="color:var(--teal);font-weight:700">has worked</span> here <span style="color:var(--orange);font-weight:700">since</span> 2020.</td><td class="ja">2020年からここで働いている。</td><td class="tw">since + 起点</td></tr>
+        <tr><td class="en"><span style="color:var(--orange);font-weight:700">How long</span> have you <span style="color:var(--teal);font-weight:700">studied</span> Japanese?</td><td class="ja">どのくらい日本語を勉強しているの？</td><td class="tw">How long</td></tr>
+        <tr><td class="en">It <span style="color:var(--teal);font-weight:700">has been</span> raining <span style="color:var(--orange);font-weight:700">since</span> morning.</td><td class="ja">朝から雨が降り続けている。</td><td class="tw">since + 時点</td></tr>
+      </tbody>
+    </table>
+
+    <div class="note-box orange">
+      <strong>for と since の違い:</strong><br>
+      • <em>for</em> + <strong>期間の長さ</strong>: for two hours / for a week / for ten years<br>
+      • <em>since</em> + <strong>起点（時点）</strong>: since 2010 / since Monday / since I was a child
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 現在完了進行形 ── -->
+  <section class="section" id="progressive">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="usage-badge" style="background:var(--purple)">完了進行形</span>
+      <h2 class="section-title">Present Perfect Progressive</h2>
+    </div>
+    <p class="section-intro">「have/has been + -ing」で、<strong>継続的な動作</strong>を強調する。現在完了形より「ずっとやり続けている感」が強い。</p>
+
+    <div class="formula-box">
+      <div class="formula">
+        <div class="f-block" style="background:var(--blue)">S</div>
+        <span class="f-plus">+</span>
+        <div class="f-block" style="background:var(--teal)">have / has been</div>
+        <span class="f-plus">+</span>
+        <div class="f-block" style="background:var(--orange)">動詞 + -ing</div>
+      </div>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card">
+        <div class="compare-label">現在完了形</div>
+        <div class="compare-sent">I <span style="color:var(--teal);font-weight:700">have studied</span> for 2 hours.</div>
+        <div class="compare-ja">2時間勉強した（結果・完了）</div>
+      </div>
+      <div class="compare-card" style="border-color:rgba(142,68,173,0.4)">
+        <div class="compare-label" style="color:var(--purple)">現在完了進行形</div>
+        <div class="compare-sent">I <span style="color:var(--purple);font-weight:700">have been studying</span> for 2 hours.</div>
+        <div class="compare-ja">2時間ずっと勉強し続けている（動作の継続）</div>
+      </div>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">She <span style="color:var(--purple);font-weight:700">has been waiting</span> for an hour.</td><td class="ja">彼女は1時間ずっと待ち続けている。</td></tr>
+        <tr><td class="en">It <span style="color:var(--purple);font-weight:700">has been raining</span> all day.</td><td class="ja">一日中ずっと雨が降り続けている。</td></tr>
+        <tr><td class="en">They <span style="color:var(--purple);font-weight:700">have been building</span> that tower since last year.</td><td class="ja">昨年からずっとそのタワーを建設し続けている。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 過去完了形 ── -->
+  <section class="section" id="past-perfect">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <span class="usage-badge" style="background:var(--purple)">過去完了</span>
+      <h2 class="section-title">Past Perfect — had + p.p.</h2>
+    </div>
+    <p class="section-intro">「had + 過去分詞」で、<strong>過去のある時点よりさらに前</strong>の出来事を表す（大過去）。</p>
+
+    <div class="formula-box">
+      <div class="formula">
+        <div class="f-block" style="background:var(--blue)">S</div>
+        <span class="f-plus">+</span>
+        <div class="f-block" style="background:var(--purple)">had</div>
+        <span class="f-plus">+</span>
+        <div class="f-block" style="background:var(--orange)">過去分詞 (p.p.)</div>
+      </div>
+      <div class="formula-note">現在完了 (have + p.p.) の「基準点」が「現在」から「過去の一点」に移動したもの</div>
+    </div>
+
+    <div class="past-perf-demo">
+      <div style="font-size:0.82rem;color:var(--muted);margin-bottom:4px">時制の流れ</div>
+      <div class="ppf-timeline">
+        <div class="ppf-line"></div>
+        <div class="ppf-arrow"></div>
+        <div class="ppf-dot ppf-dot-a"></div>
+        <div class="ppf-dot ppf-dot-b"></div>
+        <div class="ppf-dot ppf-dot-now"></div>
+        <div class="ppf-dot-label ppf-dot-label-a">①大過去<br>(had p.p.)</div>
+        <div class="ppf-dot-label ppf-dot-label-b">②過去<br>(過去形)</div>
+        <div class="ppf-dot-label ppf-dot-label-now">NOW</div>
+      </div>
+      <div style="font-size:0.88rem;font-weight:600;margin-top:8px">
+        When I <span style="color:var(--purple);font-weight:800">arrived</span>, he <span style="color:var(--purple);font-weight:800">had already left</span>.
+      </div>
+      <div style="font-size:0.82rem;color:var(--muted);margin-top:6px">私が着いた（②）とき、彼はすでに去っていた（①）。</div>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">She <span style="color:var(--purple);font-weight:700">had finished</span> dinner when he called.</td><td class="ja">彼が電話したとき、彼女はすでに夕食を終えていた。</td></tr>
+        <tr><td class="en">I realized I <span style="color:var(--purple);font-weight:700">had seen</span> him before.</td><td class="ja">彼を以前見たことがあると気づいた。</td></tr>
+        <tr><td class="en">They <span style="color:var(--purple);font-weight:700">had never met</span> before that day.</td><td class="ja">その日まで彼らは会ったことがなかった。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+  // Timeline animation
+  function playTimeline() {
+    const fill = document.getElementById('tl-fill');
+    const dotPast = document.getElementById('tl-dot-past');
+    const dotNow = document.getElementById('tl-dot-now');
+    const lblPast = document.getElementById('tl-lbl-past');
+    const lblNow = document.getElementById('tl-lbl-now');
+    const arcPath = document.getElementById('tl-arc-path');
+    [fill, dotPast, dotNow, lblPast, lblNow].forEach(el => el?.classList.remove('show'));
+    arcPath?.classList.remove('show');
+    setTimeout(() => { dotPast?.classList.add('show'); }, 200);
+    setTimeout(() => { dotNow?.classList.add('show'); fill?.classList.add('show'); }, 500);
+    setTimeout(() => { lblPast?.classList.add('show'); lblNow?.classList.add('show'); arcPath?.classList.add('show'); }, 800);
+  }
+
+  document.querySelector('.timeline-demo .replay-btn')?.addEventListener('click', playTimeline);
+
+  // Block demos
+  function animateBlocks(demoEl) {
+    const blocks = demoEl.querySelectorAll('.block');
+    const sent = demoEl.querySelector('.perf-sentence');
+    blocks.forEach(b => b.classList.remove('show'));
+    if (sent) sent.classList.remove('show');
+    blocks.forEach((b, i) => setTimeout(() => b.classList.add('show'), i * 280));
+    if (sent) setTimeout(() => sent.classList.add('show'), blocks.length * 280 + 100);
+  }
+
+  document.querySelectorAll('.perf-demo .replay-btn').forEach(btn => {
+    btn.addEventListener('click', () => animateBlocks(btn.closest('.perf-demo')));
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        if (el.classList.contains('timeline-demo')) playTimeline();
+        if (el.classList.contains('perf-demo')) animateBlocks(el);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('.timeline-demo, .perf-demo').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
