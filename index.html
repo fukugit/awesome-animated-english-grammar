@@ -6,438 +6,491 @@
   <title>Animated English Grammar</title>
   <style>
     :root {
-      --bg: #f8f8f6;
-      --white: #fff;
-      --border: #e5e5e0;
-      --text: #1c1c1c;
-      --muted: #6b6b6b;
-      --blue: #4a90e2;
-      --orange: #e67e22;
-      --green: #27ae60;
-      --purple: #8e44ad;
-      --red: #e74c3c;
-      --teal: #16a085;
-      --radius: 14px;
-      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --paper: #f9f7f2;
+      --white: #ffffff;
+      --border: #e5e0d5;
+      --ink: #1c1a16;
+      --muted: #6b6460;
+      --accent: #1e3a8a;
+      --s: #3b82f6; --v: #f97316; --o: #22c55e; --c: #a855f7; --io: #ef4444;
+      --teal: #0d9488; --purple: #7c3aed;
+      --radius: 12px;
+      --shadow: 0 4px 28px rgba(0,0,0,0.08);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      background: var(--paper); color: var(--ink); line-height: 1.6;
     }
 
     /* ── Nav ── */
     .nav {
-      height: 60px;
-      background: var(--white);
+      height: 56px; background: var(--white);
       border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 32px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      font-size: 1rem;
-      text-decoration: none;
-      color: var(--text);
+      display: flex; align-items: center; padding: 0 32px;
+      position: sticky; top: 0; z-index: 100; gap: 10px;
     }
     .logo-mark {
-      width: 30px;
-      height: 30px;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      border-radius: 8px;
-      flex-shrink: 0;
-      animation: morphMark 4s ease-in-out infinite;
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+      border-radius: 6px; flex-shrink: 0;
     }
-    @keyframes morphMark {
-      0%, 100% { border-radius: 8px; transform: rotate(0deg); }
-      50% { border-radius: 50%; transform: rotate(180deg); }
-    }
+    .nav-title { font-weight: 800; font-size: 0.95rem; letter-spacing: 0.01em; }
 
     /* ── Hero ── */
     .hero {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 80px 32px 64px;
-      text-align: center;
+      max-width: 960px; margin: 0 auto;
+      padding: 72px 32px 56px;
+      display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: start;
     }
-    .hero-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: 16px;
+    .hero-left {}
+    .hero-eyebrow {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
     }
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 16px;
+    .hero-title {
+      font-size: clamp(2.6rem, 5.5vw, 4rem);
+      font-weight: 900; line-height: 1.05;
+      letter-spacing: -0.03em; margin-bottom: 14px;
     }
-    .hero-desc {
-      color: var(--muted);
-      font-size: 1.05rem;
-      margin-bottom: 52px;
+    .hero-subtitle {
+      font-size: 1rem; color: var(--muted); margin-bottom: 44px; line-height: 1.7;
+      max-width: 440px;
+    }
+    .phil-list { display: flex; flex-direction: column; gap: 18px; }
+    .phil-item { display: flex; align-items: flex-start; gap: 14px; }
+    .phil-num {
+      font-size: 1.6rem; font-weight: 900; color: var(--border);
+      line-height: 1; flex-shrink: 0; width: 28px;
+    }
+    .phil-text strong { font-size: 0.88rem; font-weight: 700; display: block; margin-bottom: 3px; }
+    .phil-text span { font-size: 0.8rem; color: var(--muted); }
+
+    .hero-right {
+      padding-top: 8px;
+    }
+    .hero-stats {
+      display: flex; flex-direction: column; gap: 10px;
+      min-width: 160px;
+    }
+    .stat-chip {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; padding: 12px 16px;
+      font-size: 0.8rem;
+    }
+    .stat-chip strong { font-size: 1.4rem; font-weight: 900; display: block; color: var(--accent); line-height: 1; margin-bottom: 2px; }
+
+    /* ── Chapters ── */
+    .chapters { max-width: 960px; margin: 0 auto; padding: 0 32px 80px; }
+
+    .chapter { margin-bottom: 56px; }
+    .chapter-header {
+      display: flex; align-items: center; gap: 16px;
+      border-bottom: 2px solid var(--ink); padding-bottom: 14px; margin-bottom: 22px;
+    }
+    .chapter-num {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); flex-shrink: 0;
+    }
+    .chapter-name { font-size: 1.15rem; font-weight: 800; }
+    .chapter-name-en {
+      font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-left: 10px;
     }
 
-    /* ── Sentence Demo ── */
-    .sentence-demo {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-    }
-    .word-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-      animation: wordFloat 2.4s ease-in-out infinite;
-    }
-    .word-block .word {
-      padding: 10px 18px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 1rem;
-      color: white;
-      white-space: nowrap;
-    }
-    .word-block .pos {
-      font-size: 0.65rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-    }
-    .word-block.s .word { background: var(--blue); }
-    .word-block.v .word { background: var(--orange); }
-    .word-block.io .word { background: var(--red); }
-    .word-block.o .word { background: var(--green); }
-    .word-block.c .word { background: var(--purple); }
-
-    .word-block.s  { animation-delay: 0s; }
-    .word-block.v  { animation-delay: 0.2s; }
-    .word-block.io { animation-delay: 0.4s; }
-    .word-block.o  { animation-delay: 0.6s; }
-
-    @keyframes wordFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    .sentence-caption {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    /* ── Units Grid ── */
-    .units {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 32px 80px;
-    }
-    .section-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
+    /* ── Unit Cards ── */
     .units-grid {
-      display: grid;
+      display: grid; gap: 14px;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
     }
+    .units-grid.wide { grid-template-columns: 1fr; }
+    .units-grid.three { grid-template-columns: repeat(3, 1fr); }
+
     .unit-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 28px 22px;
-      text-decoration: none;
-      color: var(--text);
-      transition: transform 0.2s, box-shadow 0.2s;
-      position: relative;
-      overflow: hidden;
-      display: block;
-    }
-    .unit-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 100%; height: 3px;
-      background: var(--card-color, var(--blue));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
+      display: block; text-decoration: none; color: var(--ink);
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px 22px 18px;
+      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+      position: relative; overflow: hidden;
     }
     .unit-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow);
+      transform: translateY(-4px); box-shadow: var(--shadow);
+      border-color: rgba(30,58,138,0.4);
     }
-    .unit-card:hover::after { transform: scaleX(1); }
-
-    .unit-icon {
-      font-size: 2rem;
-      margin-bottom: 14px;
-      display: inline-block;
-      animation: iconFloat 3s ease-in-out infinite;
+    .unit-meta {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
     }
-    @keyframes iconFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+    .unit-num {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 2px 9px; border-radius: 4px;
+      background: var(--accent); color: white;
     }
-    .unit-name {
-      font-size: 1.1rem;
-      font-weight: 800;
-      margin-bottom: 3px;
-    }
-    .unit-sub {
-      font-size: 0.8rem;
-      color: var(--muted);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .unit-desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.55;
-    }
-    .unit-tags {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-top: 14px;
-    }
-    .tag {
-      font-size: 0.7rem;
-      font-weight: 700;
-      padding: 3px 9px;
-      border-radius: 100px;
-      background: var(--bg);
+    .unit-ch-tag {
+      font-size: 0.68rem; font-weight: 700;
+      padding: 2px 9px; border-radius: 4px;
+      background: var(--paper); color: var(--muted);
       border: 1px solid var(--border);
-      color: var(--muted);
     }
+    .unit-name-ja { font-size: 1.15rem; font-weight: 800; margin-bottom: 2px; }
+    .unit-name-en { font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 14px; }
 
-    /* ── Legend ── */
-    .legend {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 0 32px 64px;
+    .core-preview {
+      background: var(--paper); border-radius: 8px; padding: 14px 12px;
+      margin-bottom: 12px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
     }
-    .legend-inner {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px 28px;
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .legend-title {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      flex-shrink: 0;
-    }
-    .legend-items {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 0.82rem;
-      font-weight: 600;
-    }
-    .legend-dot {
-      width: 12px; height: 12px;
-      border-radius: 3px;
-    }
+    .core-preview svg { max-width: 100%; height: auto; display: block; }
 
-    @media (max-width: 600px) {
-      .hero { padding: 48px 20px 40px; }
-      .units { padding: 0 20px 60px; }
-      .legend { padding: 0 20px 48px; }
-      .units-grid { grid-template-columns: 1fr; }
+    .unit-desc { font-size: 0.81rem; color: var(--muted); line-height: 1.65; }
+    .unit-arrow {
+      position: absolute; bottom: 14px; right: 18px;
+      font-size: 0.78rem; color: var(--border); transition: color 0.18s;
+    }
+    .unit-card:hover .unit-arrow { color: var(--accent); }
+
+    @media (max-width: 700px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; padding: 48px 20px 40px; }
+      .hero-right { display: none; }
+      .chapters { padding: 0 20px 60px; }
+      .units-grid, .units-grid.three { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <nav class="nav">
-    <a class="nav-logo" href="index.html">
-      <div class="logo-mark"></div>
-      Animated English Grammar
-    </a>
-  </nav>
+<nav class="nav">
+  <div class="logo-mark"></div>
+  <span class="nav-title">Animated English Grammar</span>
+</nav>
 
-  <section class="hero">
-    <div class="hero-label">Visual Learning</div>
-    <h1>英文法を<br>アニメーションで学ぶ</h1>
-    <p class="hero-desc">難しい英語の文法も、動くビジュアルで直感的に理解できます。</p>
-
-    <div class="sentence-demo">
-      <div class="word-block s">
-        <div class="word">She</div>
-        <div class="pos">S</div>
-      </div>
-      <div class="word-block v">
-        <div class="word">gave</div>
-        <div class="pos">V</div>
-      </div>
-      <div class="word-block io">
-        <div class="word">him</div>
-        <div class="pos">IO</div>
-      </div>
-      <div class="word-block o">
-        <div class="word">a book</div>
-        <div class="pos">O</div>
-      </div>
-    </div>
-    <div class="sentence-caption">S V IO O — 第4文型 (SVOO)</div>
-  </section>
-
-  <!-- Color Legend -->
-  <div class="legend">
-    <div class="legend-inner">
-      <div class="legend-title">Color Key</div>
-      <div class="legend-items">
-        <div class="legend-item">
-          <div class="legend-dot" style="background:#4a90e2"></div>
-          S 主語
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Visual Grammar Reference</div>
+    <h1 class="hero-title">Animated<br>English Grammar</h1>
+    <p class="hero-subtitle">色・図・アニメーションで英文法の構造を視覚的に学ぶ。3章構成で基礎から応用まで網羅したインタラクティブ文法サイト。</p>
+    <div class="phil-list">
+      <div class="phil-item">
+        <span class="phil-num">1</span>
+        <div class="phil-text">
+          <strong>色分けブロックで構造を見る</strong>
+          <span>S・V・O・C を色で分けて、文の骨格を目で追えるようにした</span>
         </div>
-        <div class="legend-item">
-          <div class="legend-dot" style="background:#e67e22"></div>
-          V 動詞
+      </div>
+      <div class="phil-item">
+        <span class="phil-num">2</span>
+        <div class="phil-text">
+          <strong>3章構成で学べる</strong>
+          <span>文の構造 → 動詞の形 → 修飾と接続の順に並べた7ユニット</span>
         </div>
-        <div class="legend-item">
-          <div class="legend-dot" style="background:#27ae60"></div>
-          O 目的語
-        </div>
-        <div class="legend-item">
-          <div class="legend-dot" style="background:#8e44ad"></div>
-          C 補語
-        </div>
-        <div class="legend-item">
-          <div class="legend-dot" style="background:#e74c3c"></div>
-          IO 間接目的語
+      </div>
+      <div class="phil-item">
+        <span class="phil-num">3</span>
+        <div class="phil-text">
+          <strong>動きで変換ルールを確かめる</strong>
+          <span>受動態の変換や関係代名詞の合体など、操作をアニメーションで確認できる</span>
         </div>
       </div>
     </div>
   </div>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat-chip">
+        <strong>7</strong>
+        Grammar Units
+      </div>
+      <div class="stat-chip">
+        <strong>3</strong>
+        Chapters
+      </div>
+    </div>
+  </div>
+</section>
 
-  <section class="units">
-    <div class="section-label">Grammar Units</div>
+<div class="chapters">
+
+  <!-- ─── Chapter I ─── -->
+  <div class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-num">Chapter I</span>
+      <span class="chapter-name">文の構造<span class="chapter-name-en">Sentence Structure</span></span>
+    </div>
+    <div class="units-grid wide">
+      <a class="unit-card" href="five-sentence-patterns.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 01</span>
+          <span class="unit-ch-tag">文の構造</span>
+        </div>
+        <div class="unit-name-ja">5文型</div>
+        <div class="unit-name-en">Five Sentence Patterns</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 560 100" width="560" height="100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pattern labels -->
+            <text x="6" y="18" fill="#9ca3af" font-size="9" font-family="sans-serif" font-weight="600">SV</text>
+            <text x="6" y="39" fill="#9ca3af" font-size="9" font-family="sans-serif" font-weight="600">SVC</text>
+            <text x="6" y="60" fill="#9ca3af" font-size="9" font-family="sans-serif" font-weight="600">SVO</text>
+            <text x="6" y="81" fill="#9ca3af" font-size="9" font-family="sans-serif" font-weight="600">SVOO</text>
+            <text x="6" y="100" fill="#9ca3af" font-size="9" font-family="sans-serif" font-weight="600">SVOC</text>
+            <!-- S col -->
+            <rect x="34" y="5" width="30" height="18" rx="3" fill="#3b82f6"/>
+            <text x="49" y="18" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">S</text>
+            <rect x="34" y="26" width="30" height="18" rx="3" fill="#3b82f6"/>
+            <text x="49" y="39" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">S</text>
+            <rect x="34" y="47" width="30" height="18" rx="3" fill="#3b82f6"/>
+            <text x="49" y="60" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">S</text>
+            <rect x="34" y="68" width="30" height="18" rx="3" fill="#3b82f6"/>
+            <text x="49" y="81" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">S</text>
+            <rect x="34" y="89" width="30" height="18" rx="3" fill="#3b82f6"/>
+            <text x="49" y="102" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">S</text>
+            <!-- V col -->
+            <rect x="70" y="5" width="30" height="18" rx="3" fill="#f97316"/>
+            <text x="85" y="18" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">V</text>
+            <rect x="70" y="26" width="30" height="18" rx="3" fill="#f97316"/>
+            <text x="85" y="39" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">V</text>
+            <rect x="70" y="47" width="30" height="18" rx="3" fill="#f97316"/>
+            <text x="85" y="60" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">V</text>
+            <rect x="70" y="68" width="30" height="18" rx="3" fill="#f97316"/>
+            <text x="85" y="81" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">V</text>
+            <rect x="70" y="89" width="30" height="18" rx="3" fill="#f97316"/>
+            <text x="85" y="102" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">V</text>
+            <!-- Row 2 C -->
+            <rect x="106" y="26" width="30" height="18" rx="3" fill="#a855f7"/>
+            <text x="121" y="39" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">C</text>
+            <!-- Row 3 O -->
+            <rect x="106" y="47" width="30" height="18" rx="3" fill="#22c55e"/>
+            <text x="121" y="60" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">O</text>
+            <!-- Row 4 IO O -->
+            <rect x="106" y="68" width="32" height="18" rx="3" fill="#ef4444"/>
+            <text x="122" y="81" fill="white" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">IO</text>
+            <rect x="144" y="68" width="30" height="18" rx="3" fill="#22c55e"/>
+            <text x="159" y="81" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">O</text>
+            <!-- Row 5 O C -->
+            <rect x="106" y="89" width="30" height="18" rx="3" fill="#22c55e"/>
+            <text x="121" y="102" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">O</text>
+            <rect x="142" y="89" width="30" height="18" rx="3" fill="#a855f7"/>
+            <text x="157" y="102" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">C</text>
+            <!-- Vertical divider -->
+            <line x1="200" y1="2" x2="200" y2="105" stroke="#e5e7eb" stroke-width="1"/>
+            <!-- Example sentences -->
+            <text x="212" y="18" fill="#6b7280" font-size="10" font-family="sans-serif">Birds fly.</text>
+            <text x="212" y="39" fill="#6b7280" font-size="10" font-family="sans-serif">She is happy.</text>
+            <text x="212" y="60" fill="#6b7280" font-size="10" font-family="sans-serif">I love music.</text>
+            <text x="212" y="81" fill="#6b7280" font-size="10" font-family="sans-serif">She gave him a book.</text>
+            <text x="212" y="100" fill="#6b7280" font-size="10" font-family="sans-serif">He made her happy.</text>
+          </svg>
+        </div>
+        <div class="unit-desc">英文はすべてこの5パターンに収まる。動詞の種類によって後ろに来る要素が変わる。SV / SVC / SVO / SVOO / SVOCを色ブロックで確認する。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ─── Chapter II ─── -->
+  <div class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-num">Chapter II</span>
+      <span class="chapter-name">動詞の時制と形<span class="chapter-name-en">Verb Tense &amp; Form</span></span>
+    </div>
     <div class="units-grid">
 
-      <a class="unit-card" href="five-sentence-patterns.html" style="--card-color: var(--blue)">
-        <span class="unit-icon" style="animation-delay:0s">🏗️</span>
-        <div class="unit-name">5文型</div>
-        <div class="unit-sub">Five Sentence Patterns</div>
-        <div class="unit-desc">SV・SVC・SVO・SVOO・SVOCの5つの構造を視覚的に理解する。</div>
-        <div class="unit-tags">
-          <span class="tag">SV</span>
-          <span class="tag">SVC</span>
-          <span class="tag">SVO</span>
-          <span class="tag">SVOO</span>
-          <span class="tag">SVOC</span>
+      <a class="unit-card" href="present-perfect.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 02</span>
+          <span class="unit-ch-tag">時制</span>
         </div>
+        <div class="unit-name-ja">現在完了形</div>
+        <div class="unit-name-en">Present Perfect</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 80" width="280" height="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="20" y1="52" x2="258" y2="52" stroke="#e5e7eb" stroke-width="2"/>
+            <polygon points="254,47 262,52 254,57" fill="#e5e7eb"/>
+            <!-- Past simple cut line -->
+            <circle cx="75" cy="52" r="7" fill="#f97316"/>
+            <line x1="75" y1="36" x2="75" y2="52" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3"/>
+            <text x="75" y="30" fill="#f97316" font-size="8" text-anchor="middle" font-family="sans-serif">過去形</text>
+            <text x="75" y="22" fill="#f97316" font-size="8" text-anchor="middle" font-family="sans-serif">（切断）</text>
+            <!-- Present dot -->
+            <circle cx="240" cy="52" r="7" fill="#0d9488"/>
+            <!-- Arc connecting past to present -->
+            <path d="M 75 49 Q 158 6 240 49" stroke="#0d9488" stroke-width="2.5" fill="none"/>
+            <!-- Arrowhead on arc -->
+            <text x="75" y="70" fill="#f97316" font-size="8" text-anchor="middle" font-family="sans-serif">過去の出来事</text>
+            <text x="240" y="70" fill="#0d9488" font-size="8" text-anchor="middle" font-weight="700" font-family="sans-serif">NOW</text>
+            <text x="158" y="12" fill="#0d9488" font-size="8" text-anchor="middle" font-family="sans-serif">現在に影響・継続</text>
+          </svg>
+        </div>
+        <div class="unit-desc">「have/has + 過去分詞」。過去の出来事が現在にも繋がる時制。完了・経験・継続の3用法と過去形との違い。</div>
+        <span class="unit-arrow">→</span>
       </a>
 
-      <a class="unit-card" href="relative-pronouns.html" style="--card-color: var(--green)">
-        <span class="unit-icon" style="animation-delay:0.3s">🔗</span>
-        <div class="unit-name">関係代名詞</div>
-        <div class="unit-sub">Relative Pronouns</div>
-        <div class="unit-desc">二つの文を一つに結ぶ関係代名詞。who・which・that・whoseをアニメーションで。</div>
-        <div class="unit-tags">
-          <span class="tag">who</span>
-          <span class="tag">which</span>
-          <span class="tag">that</span>
-          <span class="tag">whose</span>
+      <a class="unit-card" href="passive-voice.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 03</span>
+          <span class="unit-ch-tag">態</span>
         </div>
+        <div class="unit-name-ja">受動態</div>
+        <div class="unit-name-en">Passive Voice</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 88" width="280" height="88" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <text x="6" y="20" fill="#9ca3af" font-size="9" font-family="sans-serif">能動態</text>
+            <rect x="38" y="6" width="28" height="20" rx="3" fill="#3b82f6"/>
+            <text x="52" y="20" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">S</text>
+            <text x="72" y="20" fill="#d1d5db" font-size="14" font-family="sans-serif">→</text>
+            <rect x="84" y="6" width="48" height="20" rx="3" fill="#f97316"/>
+            <text x="108" y="20" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">動詞</text>
+            <text x="138" y="20" fill="#d1d5db" font-size="14" font-family="sans-serif">→</text>
+            <rect x="150" y="6" width="28" height="20" rx="3" fill="#22c55e"/>
+            <text x="164" y="20" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">O</text>
+            <!-- Transform arrows -->
+            <text x="140" y="50" fill="#9ca3af" font-size="18" text-anchor="middle" font-family="sans-serif">⇅</text>
+            <text x="200" y="50" fill="#9ca3af" font-size="10" font-family="sans-serif">主語を入替</text>
+            <!-- Passive row -->
+            <text x="6" y="82" fill="#9ca3af" font-size="9" font-family="sans-serif">受動態</text>
+            <rect x="38" y="68" width="28" height="20" rx="3" fill="#22c55e"/>
+            <text x="52" y="82" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">O</text>
+            <text x="72" y="82" fill="#d1d5db" font-size="14" font-family="sans-serif">←</text>
+            <rect x="84" y="68" width="62" height="20" rx="3" fill="#f97316"/>
+            <text x="115" y="82" fill="white" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">be+p.p.</text>
+            <text x="152" y="82" fill="#9ca3af" font-size="9" font-family="sans-serif">← by</text>
+            <rect x="180" y="68" width="28" height="20" rx="3" fill="#3b82f6"/>
+            <text x="194" y="82" fill="white" font-size="10" font-weight="700" text-anchor="middle" font-family="sans-serif">S</text>
+          </svg>
+        </div>
+        <div class="unit-desc">「be + 過去分詞」で動作の受け手を主語に。能動態との変換をブロックの入れ替えアニメーションで体感する。</div>
+        <span class="unit-arrow">→</span>
       </a>
 
-      <a class="unit-card" href="participial-phrases.html" style="--card-color: var(--orange)">
-        <span class="unit-icon" style="animation-delay:0.6s">🌿</span>
-        <div class="unit-name">分詞</div>
-        <div class="unit-sub">Participial Phrases</div>
-        <div class="unit-desc">現在分詞 (-ing) と過去分詞 (-ed/-en) が名詞を修飾する仕組みを学ぶ。</div>
-        <div class="unit-tags">
-          <span class="tag">現在分詞</span>
-          <span class="tag">過去分詞</span>
-          <span class="tag">分詞構文</span>
+      <a class="unit-card" href="infinitives.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 04</span>
+          <span class="unit-ch-tag">準動詞</span>
         </div>
+        <div class="unit-name-ja">不定詞</div>
+        <div class="unit-name-en">Infinitives</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 100" width="280" height="100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="108" y="8" width="64" height="26" rx="7" fill="#7c3aed"/>
+            <text x="140" y="25" fill="white" font-size="13" font-weight="800" text-anchor="middle" font-family="sans-serif">to + V</text>
+            <!-- Branch lines -->
+            <line x1="140" y1="34" x2="42" y2="66" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4"/>
+            <line x1="140" y1="34" x2="140" y2="66" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4"/>
+            <line x1="140" y1="34" x2="238" y2="66" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4"/>
+            <!-- Three usage boxes -->
+            <rect x="4" y="66" width="76" height="30" rx="6" fill="#ede9fe"/>
+            <text x="42" y="80" fill="#7c3aed" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">名詞的用法</text>
+            <text x="42" y="92" fill="#7c3aed" font-size="8" text-anchor="middle" font-family="sans-serif">〜すること</text>
+            <rect x="102" y="66" width="76" height="30" rx="6" fill="#ede9fe"/>
+            <text x="140" y="80" fill="#7c3aed" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">形容詞的用法</text>
+            <text x="140" y="92" fill="#7c3aed" font-size="8" text-anchor="middle" font-family="sans-serif">〜するための</text>
+            <rect x="200" y="66" width="76" height="30" rx="6" fill="#ede9fe"/>
+            <text x="238" y="80" fill="#7c3aed" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">副詞的用法</text>
+            <text x="238" y="92" fill="#7c3aed" font-size="8" text-anchor="middle" font-family="sans-serif">〜するために</text>
+          </svg>
+        </div>
+        <div class="unit-desc">「to + 動詞原形」が名詞・形容詞・副詞として働く3用法を分岐図で整理する。</div>
+        <span class="unit-arrow">→</span>
       </a>
 
-      <a class="unit-card" href="infinitives.html" style="--card-color: var(--purple)">
-        <span class="unit-icon" style="animation-delay:0.9s">♾️</span>
-        <div class="unit-name">不定詞</div>
-        <div class="unit-sub">Infinitives</div>
-        <div class="unit-desc">「to + 動詞原形」の3つの用法（名詞的・形容詞的・副詞的）を図解する。</div>
-        <div class="unit-tags">
-          <span class="tag">名詞的</span>
-          <span class="tag">形容詞的</span>
-          <span class="tag">副詞的</span>
+      <a class="unit-card" href="participial-phrases.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 05</span>
+          <span class="unit-ch-tag">準動詞</span>
         </div>
-      </a>
-
-      <a class="unit-card" href="passive-voice.html" style="--card-color: var(--teal);">
-        <span class="unit-icon" style="animation-delay:1.2s">🔄</span>
-        <div class="unit-name">受動態</div>
-        <div class="unit-sub">Passive Voice</div>
-        <div class="unit-desc">能動態から受動態への変換をブロックが入れ替わるアニメーションで体験する。</div>
-        <div class="unit-tags">
-          <span class="tag">現在形</span>
-          <span class="tag">過去形</span>
-          <span class="tag">未来形</span>
-          <span class="tag">完了形</span>
+        <div class="unit-name-ja">分詞</div>
+        <div class="unit-name-en">Participial Phrases</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 88" width="280" height="88" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Present participle label -->
+            <rect x="6" y="8" width="100" height="24" rx="5" fill="none" stroke="#16a34a" stroke-width="1.5"/>
+            <text x="56" y="24" fill="#16a34a" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">〜ing (現在分詞)</text>
+            <!-- Connection lines -->
+            <line x1="106" y1="20" x2="116" y2="40" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3"/>
+            <line x1="174" y1="40" x2="184" y2="20" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3"/>
+            <!-- Noun in center -->
+            <rect x="106" y="32" width="68" height="26" rx="7" fill="#1d4ed8"/>
+            <text x="140" y="49" fill="white" font-size="12" font-weight="800" text-anchor="middle" font-family="sans-serif">名詞</text>
+            <!-- Past participle label -->
+            <rect x="174" y="8" width="100" height="24" rx="5" fill="none" stroke="#f97316" stroke-width="1.5"/>
+            <text x="224" y="24" fill="#f97316" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">〜ed (過去分詞)</text>
+            <!-- Bottom labels -->
+            <text x="56" y="76" fill="#16a34a" font-size="8" text-anchor="middle" font-family="sans-serif">能動・進行の意味</text>
+            <text x="224" y="76" fill="#f97316" font-size="8" text-anchor="middle" font-family="sans-serif">受動・完了の意味</text>
+            <text x="140" y="80" fill="#9ca3af" font-size="8" text-anchor="middle" font-family="sans-serif">←名詞を修飾→</text>
+          </svg>
         </div>
-      </a>
-
-      <a class="unit-card" href="present-perfect.html" style="--card-color: var(--teal);">
-        <span class="unit-icon" style="animation-delay:1.5s">⏳</span>
-        <div class="unit-name">現在完了形</div>
-        <div class="unit-sub">Present Perfect (have p.p.)</div>
-        <div class="unit-desc">have/has + 過去分詞で表す完了・経験・継続の3用法。過去形との違いを時制タイムラインで学ぶ。</div>
-        <div class="unit-tags">
-          <span class="tag">完了</span>
-          <span class="tag">経験</span>
-          <span class="tag">継続</span>
-          <span class="tag">完了進行形</span>
-          <span class="tag">過去完了</span>
-        </div>
-      </a>
-
-      <a class="unit-card" href="appositive-parenthetical.html" style="--card-color: var(--red); grid-column: 1 / -1;">
-        <span class="unit-icon" style="animation-delay:1.8s">📎</span>
-        <div class="unit-name">同格・挿入</div>
-        <div class="unit-sub">Appositive &amp; Parenthetical</div>
-        <div class="unit-desc">名詞を別の表現で言い換える「同格」と、文中に補足情報を挿し込む「挿入」。that節の同格・よく使われる挿入表現も。</div>
-        <div class="unit-tags">
-          <span class="tag">同格名詞</span>
-          <span class="tag">that節の同格</span>
-          <span class="tag">コンマ挿入</span>
-          <span class="tag">ダッシュ挿入</span>
-        </div>
+        <div class="unit-desc">現在分詞(-ing)と過去分詞(-ed/-en)が名詞を修飾する仕組み。分詞構文・独立分詞構文もカバー。</div>
+        <span class="unit-arrow">→</span>
       </a>
 
     </div>
-  </section>
+  </div>
 
+  <!-- ─── Chapter III ─── -->
+  <div class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-num">Chapter III</span>
+      <span class="chapter-name">名詞の修飾と接続<span class="chapter-name-en">Modification &amp; Connection</span></span>
+    </div>
+    <div class="units-grid">
+
+      <a class="unit-card" href="relative-pronouns.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 06</span>
+          <span class="unit-ch-tag">修飾</span>
+        </div>
+        <div class="unit-name-ja">関係代名詞</div>
+        <div class="unit-name-en">Relative Pronouns</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 98" width="280" height="98" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Two source sentences -->
+            <rect x="6" y="6" width="116" height="24" rx="5" fill="#dbeafe"/>
+            <text x="64" y="22" fill="#1d4ed8" font-size="8.5" font-weight="600" text-anchor="middle" font-family="sans-serif">The man is my brother.</text>
+            <rect x="158" y="6" width="116" height="24" rx="5" fill="#dbeafe"/>
+            <text x="216" y="22" fill="#1d4ed8" font-size="8.5" font-weight="600" text-anchor="middle" font-family="sans-serif">He plays the piano.</text>
+            <!-- Connector lines -->
+            <line x1="64" y1="30" x2="140" y2="58" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4"/>
+            <line x1="216" y1="30" x2="140" y2="58" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4"/>
+            <!-- Who connector circle -->
+            <circle cx="140" cy="52" r="14" fill="#1d4ed8"/>
+            <text x="140" y="57" fill="white" font-size="11" font-weight="800" text-anchor="middle" font-family="sans-serif">who</text>
+            <!-- Merged result -->
+            <rect x="6" y="74" width="268" height="22" rx="5" fill="#1d4ed8"/>
+            <text x="140" y="89" fill="white" font-size="8" font-weight="600" text-anchor="middle" font-family="sans-serif">The man who plays piano is my brother.</text>
+          </svg>
+        </div>
+        <div class="unit-desc">2つの文を1つに結ぶ関係代名詞。who/which/that/whoseの使い分けと、修飾節の構造をアニメーションで確認する。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="appositive-parenthetical.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 07</span>
+          <span class="unit-ch-tag">接続</span>
+        </div>
+        <div class="unit-name-ja">同格・挿入</div>
+        <div class="unit-name-en">Appositive &amp; Parenthetical</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 88" width="280" height="88" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Main sentence -->
+            <rect x="6" y="28" width="268" height="30" rx="7" fill="white" stroke="#e5e7eb" stroke-width="1.5"/>
+            <text x="18" y="47" fill="#1c1c1c" font-size="10" font-weight="600" font-family="sans-serif">The fact</text>
+            <!-- Inserted/appositive highlight -->
+            <rect x="88" y="32" width="108" height="22" rx="4" fill="#fef3c7"/>
+            <rect x="88" y="32" width="108" height="22" rx="4" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+            <text x="142" y="47" fill="#92400e" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">, that she lied ,</text>
+            <text x="208" y="47" fill="#1c1c1c" font-size="10" font-weight="600" font-family="sans-serif">shocked us.</text>
+            <!-- Label arrow -->
+            <text x="142" y="18" fill="#f59e0b" font-size="9" text-anchor="middle" font-weight="700" font-family="sans-serif">同格節</text>
+            <line x1="142" y1="21" x2="142" y2="28" stroke="#f59e0b" stroke-width="1" stroke-dasharray="2"/>
+            <!-- Bottom note -->
+            <text x="140" y="78" fill="#9ca3af" font-size="8" text-anchor="middle" font-family="sans-serif">省いても文が成立する — 補足・言い換え</text>
+          </svg>
+        </div>
+        <div class="unit-desc">名詞を言い換える「同格」と補足情報を挿し込む「挿入」。that節の同格・コンマ/ダッシュ挿入を整理する。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+
+</div>
 </body>
 </html>
