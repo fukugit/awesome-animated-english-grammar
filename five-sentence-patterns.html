@@ -6,17 +6,18 @@
   <title>5文型 — Animated English Grammar</title>
   <style>
     :root {
-      --bg: #f8f8f6;
+      --bg: #f9f7f2;
       --white: #fff;
-      --border: #e5e5e0;
+      --border: #e5e0d5;
       --text: #1c1c1c;
-      --muted: #6b6b6b;
-      --blue: #4a90e2;
-      --orange: #e67e22;
-      --green: #27ae60;
-      --purple: #8e44ad;
-      --red: #e74c3c;
-      --teal: #16a085;
+      --muted: #6b6460;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --green: #22c55e;
+      --purple: #a855f7;
+      --red: #ef4444;
+      --teal: #14b8a6;
+      --accent: #1e3a8a;
       --radius: 14px;
       --shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
@@ -30,7 +31,7 @@
 
     /* ── Nav ── */
     .nav {
-      height: 60px;
+      height: 56px;
       background: var(--white);
       border-bottom: 1px solid var(--border);
       display: flex;
@@ -45,20 +46,15 @@
       align-items: center;
       gap: 10px;
       font-weight: 800;
-      font-size: 1rem;
+      font-size: 0.92rem;
       text-decoration: none;
       color: var(--text);
     }
     .logo-mark {
-      width: 30px; height: 30px;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      border-radius: 8px;
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+      border-radius: 6px;
       flex-shrink: 0;
-      animation: morphMark 4s ease-in-out infinite;
-    }
-    @keyframes morphMark {
-      0%, 100% { border-radius: 8px; transform: rotate(0deg); }
-      50% { border-radius: 50%; transform: rotate(180deg); }
     }
 
     /* ── Page Hero ── */
@@ -70,6 +66,30 @@
     .page-hero-inner {
       max-width: 860px;
       margin: 0 auto;
+    }
+    .unit-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .unit-num-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 2px 9px;
+      border-radius: 4px;
+      background: var(--accent);
+      color: white;
+    }
+    .ch-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 4px;
+      background: var(--bg);
+      color: var(--muted);
+      border: 1px solid var(--border);
     }
     .back-link a {
       font-size: 0.85rem;
@@ -190,14 +210,13 @@
       letter-spacing: 0.1em;
       color: var(--muted);
     }
-    /* Colors */
     .block.s  .word { background: var(--blue); }
     .block.v  .word { background: var(--orange); }
     .block.o  .word { background: var(--green); }
     .block.c  .word { background: var(--purple); }
     .block.io .word { background: var(--red); }
 
-    /* Equals connector */
+    /* Connector (= / as) */
     .connector {
       align-self: flex-end;
       padding-bottom: 22px;
@@ -246,12 +265,82 @@
       font-size: 0.87rem;
       color: var(--muted);
       margin-bottom: 20px;
-      line-height: 1.6;
+      line-height: 1.7;
     }
-    .note-box.orange { border-color: var(--orange); }
-    .note-box.green  { border-color: var(--green);  }
-    .note-box.purple { border-color: var(--purple); }
-    .note-box.red    { border-color: var(--red);    }
+    .note-box.orange { border-left-color: var(--orange); }
+    .note-box.green  { border-left-color: var(--green);  }
+    .note-box.purple { border-left-color: var(--purple); }
+    .note-box.red    { border-left-color: var(--red);    }
+    .note-box.teal   { border-left-color: var(--teal);   }
+
+    /* ── to/for/of grid ── */
+    .toforgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .tofor-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .tofor-card h4 {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .tofor-card ul {
+      list-style: none;
+      font-size: 0.82rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .tofor-card.to  h4 { color: var(--blue); }
+    .tofor-card.for h4 { color: var(--green); }
+    .tofor-card.of  h4 { color: var(--orange); }
+
+    /* ── keep/leave/get verb grid ── */
+    .vlg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .vlg-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .vlg-card h4 {
+      font-size: 0.9rem;
+      font-weight: 800;
+      margin-bottom: 5px;
+      color: var(--orange);
+    }
+    .vlg-card p {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .vlg-card .examples {
+      font-size: 0.82rem;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .vlg-card .examples em {
+      color: var(--purple);
+      font-style: normal;
+      font-weight: 700;
+    }
 
     /* ── Examples Table ── */
     .ex-table {
@@ -296,16 +385,9 @@
       .page-hero { padding: 32px 20px 28px; }
       .content { padding: 32px 20px 60px; }
       .block .word { padding: 10px 14px; font-size: 0.9rem; }
+      .toforgrid { grid-template-columns: 1fr; }
+      .vlg-grid  { grid-template-columns: 1fr; }
     }
-
-    /* ═══ Book Design System ═══ */
-    body { background: #f9f7f2; }
-    .nav { height: 56px; gap: 10px; }
-    .logo-mark { width: 26px; height: 26px; background: linear-gradient(135deg, #1e3a8a, #7c3aed); border-radius: 6px; flex-shrink: 0; animation: none; }
-    .nav-title { font-weight: 800; font-size: 0.92rem; letter-spacing: 0.01em; }
-    .unit-meta-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-    .unit-num-badge { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; padding: 2px 9px; border-radius: 4px; background: #1e3a8a; color: white; }
-    .ch-badge { font-size: 0.68rem; font-weight: 700; padding: 2px 9px; border-radius: 4px; background: #f9f7f2; color: #6b6460; border: 1px solid #e5e0d5; }
   </style>
 </head>
 <body>
@@ -313,7 +395,7 @@
 <nav class="nav">
   <a class="nav-logo" href="index.html">
     <div class="logo-mark"></div>
-    <span class="nav-title">Animated English Grammar</span>
+    <span>Animated English Grammar</span>
   </a>
 </nav>
 
@@ -329,81 +411,83 @@
   </div>
 </div>
 
-
 <main class="content">
 
-  <!-- ── Pattern 1: SV ── -->
+  <!-- ── 01: SV ── -->
   <section class="section" id="sv">
     <div class="section-header">
       <span class="section-number">01</span>
       <span class="pattern-badge">第1文型</span>
       <h2 class="section-title">SV</h2>
     </div>
-    <p class="section-intro">主語(S)と動詞(V)だけで成立する文型。動詞は<strong>自動詞</strong>で、目的語を取らない。</p>
+    <p class="section-intro">主語(S)と動詞(V)だけで成立する文型。動詞は<strong>完全自動詞</strong>で、目的語を取らない。</p>
 
     <div class="pattern-demo" data-pattern="sv">
       <button class="replay-btn">↺ Replay</button>
       <div class="blocks-row">
-        <div class="block s"><div class="word">Birds</div><div class="lbl">S</div></div>
-        <div class="block v"><div class="word">sing</div><div class="lbl">V</div></div>
+        <div class="block s"><div class="word">Dogs</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">bark</div><div class="lbl">V</div></div>
       </div>
-      <div class="pattern-sentence">Birds sing.</div>
+      <div class="pattern-sentence">Dogs bark.</div>
     </div>
 
     <div class="note-box">
-      動詞は「完全自動詞」。そのまま文が完結する。副詞句（場所・時・様態）を加えることはできるが、文型には含まない。<br>
-      例: Birds sing <em>beautifully</em>. / He runs <em>every morning</em>.
+      副詞句（場所・時・様態）を加えることはできるが、文型には含まない。<br>
+      例: He runs <em>in the park every morning</em>. — 副詞句はあくまで修飾要素。
     </div>
 
     <table class="ex-table">
       <thead><tr><th>例文</th><th>和訳</th></tr></thead>
       <tbody>
-        <tr><td class="en"><span class="hl-s">Birds</span> <span class="hl-v">sing</span>.</td><td class="ja">鳥は歌う。</td></tr>
-        <tr><td class="en"><span class="hl-s">He</span> <span class="hl-v">runs</span>.</td><td class="ja">彼は走る。</td></tr>
-        <tr><td class="en"><span class="hl-s">The baby</span> <span class="hl-v">slept</span>.</td><td class="ja">赤ちゃんは眠った。</td></tr>
-        <tr><td class="en"><span class="hl-s">The sun</span> <span class="hl-v">rises</span>.</td><td class="ja">太陽が昇る。</td></tr>
+        <tr><td class="en"><span class="hl-s">Dogs</span> <span class="hl-v">bark</span>.</td><td class="ja">犬は吠える。</td></tr>
+        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">smiled</span>.</td><td class="ja">彼女は微笑んだ。</td></tr>
+        <tr><td class="en"><span class="hl-s">The train</span> <span class="hl-v">arrived</span> on time.</td><td class="ja">電車が時間通りに到着した。</td></tr>
+        <tr><td class="en"><span class="hl-s">Leaves</span> <span class="hl-v">fall</span> in autumn.</td><td class="ja">秋には葉が落ちる。</td></tr>
       </tbody>
     </table>
   </section>
   <div class="divider"></div>
 
-  <!-- ── Pattern 2: SVC ── -->
+  <!-- ── 02: SVC ── -->
   <section class="section" id="svc">
     <div class="section-header">
       <span class="section-number">02</span>
       <span class="pattern-badge">第2文型</span>
-      <h2 class="section-title">SVC</h2>
+      <h2 class="section-title">SVC &nbsp;<small style="font-size:0.7em;font-weight:600;color:var(--muted)">S = C</small></h2>
     </div>
-    <p class="section-intro">補語(C)が主語(S)の状態・性質を表す文型。<strong>S = C</strong> の関係が成り立つ。動詞は「連結動詞」(linking verb)。</p>
+    <p class="section-intro">補語(C)が主語(S)を説明する文型。<strong>S = C</strong> の関係が常に成り立つ。動詞は<strong>連結動詞</strong>(linking verb)。</p>
 
     <div class="pattern-demo" data-pattern="svc">
       <button class="replay-btn">↺ Replay</button>
       <div class="blocks-row">
-        <div class="block s"><div class="word">She</div><div class="lbl">S</div></div>
-        <div class="block v"><div class="word">is</div><div class="lbl">V</div></div>
+        <div class="block s"><div class="word">The sky</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">turned</div><div class="lbl">V</div></div>
         <div class="connector">=</div>
-        <div class="block c"><div class="word">kind</div><div class="lbl">C</div></div>
+        <div class="block c"><div class="word">dark</div><div class="lbl">C</div></div>
       </div>
-      <div class="pattern-sentence">She is kind. &nbsp;→&nbsp; She = kind</div>
+      <div class="pattern-sentence">The sky turned dark. → the sky = dark</div>
     </div>
 
     <div class="note-box orange">
-      主な連結動詞: <strong>be</strong> (〜だ) / <strong>become</strong> (〜になる) / <strong>look</strong> (〜に見える) / <strong>seem</strong> (〜のようだ) / <strong>feel</strong> (〜に感じる) / <strong>smell</strong> (〜のにおいがする) / <strong>sound</strong> (〜に聞こえる) / <strong>taste</strong> (〜の味がする)
+      <strong>主な連結動詞:</strong><br>
+      • <em>be / become / get / turn / grow / go / come</em>（状態・変化）<br>
+      • <em>look / seem / appear</em>（見た目・推測）<br>
+      • <em>feel / smell / sound / taste</em>（感覚）
     </div>
 
     <table class="ex-table">
       <thead><tr><th>例文</th><th>和訳</th></tr></thead>
       <tbody>
-        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">is</span> <span class="hl-c">kind</span>.</td><td class="ja">彼女は親切だ。</td></tr>
-        <tr><td class="en"><span class="hl-s">He</span> <span class="hl-v">became</span> <span class="hl-c">a teacher</span>.</td><td class="ja">彼は先生になった。</td></tr>
-        <tr><td class="en"><span class="hl-s">The flower</span> <span class="hl-v">looks</span> <span class="hl-c">beautiful</span>.</td><td class="ja">その花は美しく見える。</td></tr>
-        <tr><td class="en"><span class="hl-s">The soup</span> <span class="hl-v">smells</span> <span class="hl-c">delicious</span>.</td><td class="ja">そのスープはおいしいにおいがする。</td></tr>
+        <tr><td class="en"><span class="hl-s">He</span> <span class="hl-v">became</span> <span class="hl-c">a doctor</span>.</td><td class="ja">彼は医者になった。</td></tr>
+        <tr><td class="en"><span class="hl-s">The soup</span> <span class="hl-v">smells</span> <span class="hl-c">wonderful</span>.</td><td class="ja">スープがいい香りだ。</td></tr>
+        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">looks</span> <span class="hl-c">tired</span>.</td><td class="ja">彼女は疲れているように見える。</td></tr>
+        <tr><td class="en"><span class="hl-s">The milk</span> <span class="hl-v">went</span> <span class="hl-c">bad</span>.</td><td class="ja">牛乳が腐った。</td></tr>
       </tbody>
     </table>
   </section>
   <div class="divider"></div>
 
-  <!-- ── Pattern 3: SVO ── -->
+  <!-- ── 03: SVO ── -->
   <section class="section" id="svo">
     <div class="section-header">
       <span class="section-number">03</span>
@@ -415,254 +499,364 @@
     <div class="pattern-demo" data-pattern="svo">
       <button class="replay-btn">↺ Replay</button>
       <div class="blocks-row">
-        <div class="block s"><div class="word">I</div><div class="lbl">S</div></div>
-        <div class="block v"><div class="word">love</div><div class="lbl">V</div></div>
-        <div class="block o"><div class="word">music</div><div class="lbl">O</div></div>
+        <div class="block s"><div class="word">She</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">reads</div><div class="lbl">V</div></div>
+        <div class="block o"><div class="word">novels</div><div class="lbl">O</div></div>
       </div>
-      <div class="pattern-sentence">I love music.</div>
+      <div class="pattern-sentence">She reads novels.</div>
     </div>
 
     <div class="note-box green">
-      S ≠ O という点でSVCと区別できる。動詞を受ける対象が目的語(O)。「〜を/〜に」にあたる語句。
+      S ≠ O という点で SVC と区別できる。動詞を受ける対象が目的語(O)。「〜を / 〜に」に当たる語句。
     </div>
 
     <table class="ex-table">
       <thead><tr><th>例文</th><th>和訳</th></tr></thead>
       <tbody>
-        <tr><td class="en"><span class="hl-s">I</span> <span class="hl-v">love</span> <span class="hl-o">music</span>.</td><td class="ja">私は音楽が好きだ。</td></tr>
-        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">reads</span> <span class="hl-o">books</span>.</td><td class="ja">彼女は本を読む。</td></tr>
-        <tr><td class="en"><span class="hl-s">They</span> <span class="hl-v">built</span> <span class="hl-o">a house</span>.</td><td class="ja">彼らは家を建てた。</td></tr>
-        <tr><td class="en"><span class="hl-s">He</span> <span class="hl-v">knows</span> <span class="hl-o">the answer</span>.</td><td class="ja">彼はその答えを知っている。</td></tr>
+        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">reads</span> <span class="hl-o">novels</span>.</td><td class="ja">彼女は小説を読む。</td></tr>
+        <tr><td class="en"><span class="hl-s">We</span> <span class="hl-v">watched</span> <span class="hl-o">the sunset</span>.</td><td class="ja">私たちは夕日を眺めた。</td></tr>
+        <tr><td class="en"><span class="hl-s">He</span> <span class="hl-v">lost</span> <span class="hl-o">his keys</span>.</td><td class="ja">彼は鍵をなくした。</td></tr>
+        <tr><td class="en"><span class="hl-s">The chef</span> <span class="hl-v">prepared</span> <span class="hl-o">dinner</span>.</td><td class="ja">シェフが夕食を用意した。</td></tr>
       </tbody>
     </table>
   </section>
   <div class="divider"></div>
 
-  <!-- ── Pattern 4: SVOO ── -->
+  <!-- ── 04: SVOO ── -->
   <section class="section" id="svoo">
     <div class="section-header">
       <span class="section-number">04</span>
       <span class="pattern-badge">第4文型</span>
       <h2 class="section-title">SVOO</h2>
     </div>
-    <p class="section-intro">間接目的語(IO)と直接目的語(O)の二つを持つ文型。「(人)に (物)を〜する」という意味になる。</p>
+    <p class="section-intro">間接目的語(IO)と直接目的語(O)の二つを持つ文型。「<em>(人)に (物)を〜する</em>」という意味。第3文型へ書き換えられる。</p>
 
     <div class="pattern-demo" data-pattern="svoo">
       <button class="replay-btn">↺ Replay</button>
       <div class="blocks-row">
-        <div class="block s"><div class="word">She</div><div class="lbl">S</div></div>
-        <div class="block v"><div class="word">gave</div><div class="lbl">V</div></div>
+        <div class="block s"><div class="word">Dad</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">told</div><div class="lbl">V</div></div>
         <div class="block io"><div class="word">me</div><div class="lbl">IO</div></div>
-        <div class="block o"><div class="word">a book</div><div class="lbl">O</div></div>
+        <div class="block o"><div class="word">a story</div><div class="lbl">O</div></div>
       </div>
-      <div class="pattern-sentence">She gave me a book.</div>
+      <div class="pattern-sentence">Dad told me a story.</div>
     </div>
 
     <div class="note-box red">
-      第4文型は第3文型に書き換えられる:<br>
-      <strong>SVOO → SVO + to/for + IO</strong><br>
-      She gave <em>me</em> a book. → She gave a book <em>to me</em>.<br>
-      He made <em>her</em> lunch. → He made lunch <em>for her</em>.
+      <strong>第4文型 → 第3文型 の書き換え:</strong><br>
+      Dad told <em>me</em> a story. &nbsp;→&nbsp; Dad told a story <em>to me</em>.<br>
+      He bought <em>her</em> flowers. &nbsp;→&nbsp; He bought flowers <em>for her</em>.
+    </div>
+
+    <!-- to / for / of 振り分け -->
+    <div class="toforgrid">
+      <div class="tofor-card to">
+        <h4>→ to</h4>
+        <ul>
+          <li>give, send</li>
+          <li>show, tell</li>
+          <li>teach, lend</li>
+          <li>write, pay</li>
+          <li>bring, offer</li>
+        </ul>
+      </div>
+      <div class="tofor-card for">
+        <h4>→ for</h4>
+        <ul>
+          <li>make, buy</li>
+          <li>cook, get</li>
+          <li>find, order</li>
+          <li>choose, save</li>
+          <li>build, leave</li>
+        </ul>
+      </div>
+      <div class="tofor-card of">
+        <h4>→ of</h4>
+        <ul>
+          <li>ask</li>
+          <li>inquire</li>
+          <li>require</li>
+        </ul>
+      </div>
     </div>
 
     <table class="ex-table">
       <thead><tr><th>例文</th><th>和訳</th></tr></thead>
       <tbody>
-        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">gave</span> <span class="hl-io">me</span> <span class="hl-o">a book</span>.</td><td class="ja">彼女は私に本をくれた。</td></tr>
-        <tr><td class="en"><span class="hl-s">He</span> <span class="hl-v">told</span> <span class="hl-io">us</span> <span class="hl-o">the truth</span>.</td><td class="ja">彼は私たちに真実を話した。</td></tr>
-        <tr><td class="en"><span class="hl-s">Mom</span> <span class="hl-v">made</span> <span class="hl-io">me</span> <span class="hl-o">lunch</span>.</td><td class="ja">お母さんは私に昼食を作ってくれた。</td></tr>
-        <tr><td class="en"><span class="hl-s">I</span> <span class="hl-v">showed</span> <span class="hl-io">him</span> <span class="hl-o">the photo</span>.</td><td class="ja">私は彼に写真を見せた。</td></tr>
+        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">showed</span> <span class="hl-io">us</span> <span class="hl-o">her photos</span>.</td><td class="ja">彼女は私たちに写真を見せた。</td></tr>
+        <tr><td class="en"><span class="hl-s">He</span> <span class="hl-v">sent</span> <span class="hl-io">her</span> <span class="hl-o">a message</span>.</td><td class="ja">彼は彼女にメッセージを送った。</td></tr>
+        <tr><td class="en"><span class="hl-s">Mom</span> <span class="hl-v">cooked</span> <span class="hl-io">us</span> <span class="hl-o">pasta</span>.</td><td class="ja">お母さんは私たちにパスタを作ってくれた。</td></tr>
+        <tr><td class="en"><span class="hl-s">I</span> <span class="hl-v">asked</span> <span class="hl-io">him</span> <span class="hl-o">a favor</span>.</td><td class="ja">私は彼に頼み事をした。</td></tr>
       </tbody>
     </table>
   </section>
   <div class="divider"></div>
 
-  <!-- ── Pattern 5: SVOC ── -->
+  <!-- ── 05: SVOC ── -->
   <section class="section" id="svoc">
     <div class="section-header">
       <span class="section-number">05</span>
       <span class="pattern-badge">第5文型</span>
-      <h2 class="section-title">SVOC</h2>
+      <h2 class="section-title">SVOC &nbsp;<small style="font-size:0.7em;font-weight:600;color:var(--muted)">O = C</small></h2>
     </div>
     <p class="section-intro">目的語(O)と補語(C)があり、<strong>O = C</strong> の関係が成り立つ文型。</p>
 
     <div class="pattern-demo" data-pattern="svoc">
       <button class="replay-btn">↺ Replay</button>
       <div class="blocks-row">
-        <div class="block s"><div class="word">They</div><div class="lbl">S</div></div>
-        <div class="block v"><div class="word">made</div><div class="lbl">V</div></div>
-        <div class="block o"><div class="word">him</div><div class="lbl">O</div></div>
+        <div class="block s"><div class="word">We</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">found</div><div class="lbl">V</div></div>
+        <div class="block o"><div class="word">the test</div><div class="lbl">O</div></div>
         <div class="connector">=</div>
-        <div class="block c"><div class="word">happy</div><div class="lbl">C</div></div>
+        <div class="block c"><div class="word">easy</div><div class="lbl">C</div></div>
       </div>
-      <div class="pattern-sentence">They made him happy. &nbsp;→&nbsp; him = happy</div>
+      <div class="pattern-sentence">We found the test easy. → the test = easy</div>
     </div>
 
     <div class="note-box purple">
-      第4文型(SVOO)との見分け方: 目的語(O)と補語(C)の間に「=」が成り立つかどうか。<br>
-      • They made <em>him happy</em>. → him = happy ✓（第5文型）<br>
-      • She gave <em>me a book</em>. → me ≠ a book ✓（第4文型）
+      第4文型(SVOO)との見分け方: O と C の間に「=」が成り立つかどうか。<br>
+      • We found <em>the test easy</em>. → the test = easy ✓（第5文型）<br>
+      • She gave <em>me a book</em>. → me ≠ a book（第4文型）
     </div>
 
     <table class="ex-table">
       <thead><tr><th>例文</th><th>和訳</th></tr></thead>
       <tbody>
-        <tr><td class="en"><span class="hl-s">They</span> <span class="hl-v">made</span> <span class="hl-o">him</span> <span class="hl-c">happy</span>.</td><td class="ja">彼らは彼を幸せにした。</td></tr>
-        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">named</span> <span class="hl-o">her cat</span> <span class="hl-c">Luna</span>.</td><td class="ja">彼女は猫にルナと名付けた。</td></tr>
-        <tr><td class="en"><span class="hl-s">We</span> <span class="hl-v">elected</span> <span class="hl-o">him</span> <span class="hl-c">president</span>.</td><td class="ja">私たちは彼を大統領に選んだ。</td></tr>
-        <tr><td class="en"><span class="hl-s">I</span> <span class="hl-v">found</span> <span class="hl-o">the movie</span> <span class="hl-c">boring</span>.</td><td class="ja">私はその映画を退屈だと思った。</td></tr>
+        <tr><td class="en"><span class="hl-s">We</span> <span class="hl-v">found</span> <span class="hl-o">the test</span> <span class="hl-c">easy</span>.</td><td class="ja">私たちはそのテストが簡単だと思った。</td></tr>
+        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">named</span> <span class="hl-o">her dog</span> <span class="hl-c">Max</span>.</td><td class="ja">彼女は犬にマックスと名付けた。</td></tr>
+        <tr><td class="en"><span class="hl-s">They</span> <span class="hl-v">elected</span> <span class="hl-o">her</span> <span class="hl-c">captain</span>.</td><td class="ja">彼らは彼女をキャプテンに選んだ。</td></tr>
+        <tr><td class="en"><span class="hl-s">The news</span> <span class="hl-v">made</span> <span class="hl-o">him</span> <span class="hl-c">nervous</span>.</td><td class="ja">そのニュースは彼を不安にさせた。</td></tr>
       </tbody>
     </table>
   </section>
   <div class="divider"></div>
 
-  <!-- ── 使役動詞 ── -->
-  <section class="section" id="causative">
+  <!-- ── 06: help ── -->
+  <section class="section" id="help">
     <div class="section-header">
       <span class="section-number">06</span>
-      <span class="pattern-badge">SVOC 応用</span>
-      <h2 class="section-title">使役動詞</h2>
+      <span class="pattern-badge">help</span>
+      <h2 class="section-title">help — 原形不定詞と to 不定詞</h2>
     </div>
-    <p class="section-intro">「〜に…させる」を表す動詞。目的語の後に<strong>原形不定詞（to なし）</strong>または<strong>過去分詞</strong>が来る。</p>
+    <p class="section-intro"><strong>help</strong> は目的語の後に<strong>原形不定詞（to なし）</strong>または <strong>to + 動詞原形</strong>の<strong>どちらも取れる</strong>特殊な動詞。</p>
+
+    <div class="pattern-demo" data-pattern="help">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="blocks-row">
+        <div class="block s"><div class="word">She</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">helped</div><div class="lbl">V</div></div>
+        <div class="block o"><div class="word">me</div><div class="lbl">O</div></div>
+        <div class="block c"><div class="word">(to) pack</div><div class="lbl">原形 or to V</div></div>
+      </div>
+      <div class="pattern-sentence">She helped me (to) pack my bags.</div>
+    </div>
+
+    <div class="note-box purple">
+      <strong>help の構文パターン:</strong><br>
+      ① help + O + <em>原形</em>: She helped me <strong>understand</strong>.（米語で一般的）<br>
+      ② help + O + <em>to V</em>: She helped me <strong>to understand</strong>.（英語で一般的）<br>
+      ③ help + O + <em>with + 名詞</em>: I'll help you <strong>with</strong> the report.<br>
+      ④ help + <em>原形</em>（目的語省略）: Can you help <strong>carry</strong> these boxes?
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">He <span class="hl-v">helped</span> <span class="hl-o">her</span> <span class="hl-c">move</span> to a new place.</td><td class="ja">彼は彼女が新しい場所へ引っ越すのを手伝った。</td></tr>
+        <tr><td class="en">This map <span class="hl-v">helped</span> <span class="hl-o">me</span> <span class="hl-c">to find</span> the station.</td><td class="ja">この地図のおかげで駅が見つかった。</td></tr>
+        <tr><td class="en">Exercise <span class="hl-v">helps</span> <span class="hl-c">reduce</span> stress.</td><td class="ja">運動はストレスを軽減する助けになる。</td></tr>
+        <tr><td class="en">Could you <span class="hl-v">help</span> <span class="hl-o">me</span> <span class="hl-c">with</span> these bags?</td><td class="ja">この荷物を手伝ってもらえますか？</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 07: 使役動詞 ── -->
+  <section class="section" id="causative">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <span class="pattern-badge">SVOC 応用</span>
+      <h2 class="section-title">使役動詞 — make / let / have / get</h2>
+    </div>
+    <p class="section-intro">「〜に…させる」を表す動詞。<strong>make / let / have</strong> は目的語の後に<strong>原形不定詞（to なし）</strong>が続く。<strong>get</strong> だけは <strong>to V</strong> が必要。</p>
 
     <div class="pattern-demo" data-pattern="causative">
       <button class="replay-btn">↺ Replay</button>
       <div class="blocks-row">
-        <div class="block s"><div class="word">She</div><div class="lbl">S</div></div>
-        <div class="block v" style="--vc:#e67e22"><div class="word">made</div><div class="lbl">V (使役)</div></div>
-        <div class="block o"><div class="word">him</div><div class="lbl">O</div></div>
-        <div class="block c" style=""><div class="word">clean</div><div class="lbl">原形不定詞</div></div>
-        <div class="block" style="opacity:0;transition:opacity 0.4s,transform 0.4s;"><div class="word" style="background:#999">the room</div><div class="lbl">—</div></div>
+        <div class="block s"><div class="word">The coach</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">made</div><div class="lbl">V (使役)</div></div>
+        <div class="block o"><div class="word">us</div><div class="lbl">O</div></div>
+        <div class="block c"><div class="word">run</div><div class="lbl">原形不定詞</div></div>
       </div>
-      <div class="pattern-sentence">She made him clean the room.</div>
+      <div class="pattern-sentence">The coach made us run ten laps.</div>
     </div>
 
     <table class="ex-table">
-      <thead><tr><th>動詞</th><th>意味・ニュアンス</th><th>例文</th><th>和訳</th></tr></thead>
+      <thead><tr><th>動詞</th><th>ニュアンス</th><th>例文</th><th>和訳</th></tr></thead>
       <tbody>
         <tr>
           <td style="font-weight:800;color:var(--orange)">make</td>
-          <td style="color:var(--muted);font-size:0.85rem">強制「〜させる」</td>
-          <td class="en"><span class="hl-v">make</span> him <span class="hl-c">study</span></td>
-          <td class="ja">彼に勉強させる</td>
+          <td style="color:var(--muted);font-size:0.85rem">強制「させる」</td>
+          <td class="en"><span class="hl-v">make</span> him <span class="hl-c">apologize</span></td>
+          <td class="ja">彼に謝らせる</td>
         </tr>
         <tr>
           <td style="font-weight:800;color:var(--orange)">let</td>
-          <td style="color:var(--muted);font-size:0.85rem">許可「〜させてやる」</td>
-          <td class="en"><span class="hl-v">let</span> me <span class="hl-c">try</span></td>
-          <td class="ja">私にやらせて</td>
+          <td style="color:var(--muted);font-size:0.85rem">許可「させてやる」</td>
+          <td class="en"><span class="hl-v">let</span> her <span class="hl-c">decide</span></td>
+          <td class="ja">彼女に決めさせる</td>
         </tr>
         <tr>
           <td style="font-weight:800;color:var(--orange)">have</td>
-          <td style="color:var(--muted);font-size:0.85rem">依頼「〜してもらう」</td>
-          <td class="en"><span class="hl-v">have</span> him <span class="hl-c">fix</span> it</td>
-          <td class="ja">彼にそれを直してもらう</td>
+          <td style="color:var(--muted);font-size:0.85rem">依頼「してもらう」</td>
+          <td class="en"><span class="hl-v">have</span> him <span class="hl-c">check</span> it</td>
+          <td class="ja">彼にそれを確認してもらう</td>
         </tr>
         <tr>
           <td style="font-weight:800;color:var(--orange)">have + p.p.</td>
-          <td style="color:var(--muted);font-size:0.85rem">受動的使役「〜してもらう/される」</td>
-          <td class="en"><span class="hl-v">have</span> my hair <span class="hl-c">cut</span></td>
-          <td class="ja">髪を切ってもらう</td>
+          <td style="color:var(--muted);font-size:0.85rem">受動的使役</td>
+          <td class="en"><span class="hl-v">have</span> my car <span class="hl-c">serviced</span></td>
+          <td class="ja">車を整備してもらう</td>
         </tr>
         <tr>
           <td style="font-weight:800;color:var(--orange)">get + to V</td>
-          <td style="color:var(--muted);font-size:0.85rem">説得・働きかけ「〜させる」</td>
-          <td class="en"><span class="hl-v">get</span> him <span class="hl-c">to come</span></td>
-          <td class="ja">彼に来させる（説得して）</td>
+          <td style="color:var(--muted);font-size:0.85rem">説得「させる」</td>
+          <td class="en"><span class="hl-v">get</span> him <span class="hl-c">to sign</span></td>
+          <td class="ja">彼に署名させる（働きかけて）</td>
         </tr>
       </tbody>
     </table>
 
     <div class="note-box">
-      <strong>have O p.p.（受動的使役）の用法:</strong><br>
-      • I had my car <em>repaired</em>. → 車を修理してもらった（依頼）<br>
-      • I had my wallet <em>stolen</em>. → 財布を盗まれた（被害・受動）<br>
-      ※ get も同様: I got my hair <em>cut</em>.（美容院で髪を切ってもらった）
+      <strong>have O p.p.（受動的使役 / 被害）:</strong><br>
+      • I had my bike <em>repaired</em>. — 自転車を修理してもらった（依頼）<br>
+      • She had her bag <em>stolen</em>. — バッグを盗まれた（被害）<br>
+      ※ get も同様: I got my phone <em>fixed</em>. — スマホを直してもらった
     </div>
   </section>
   <div class="divider"></div>
 
-  <!-- ── 知覚動詞 ── -->
+  <!-- ── 08: 知覚動詞 ── -->
   <section class="section" id="perception">
     <div class="section-header">
-      <span class="section-number">07</span>
+      <span class="section-number">08</span>
       <span class="pattern-badge">SVOC 応用</span>
-      <h2 class="section-title">知覚動詞</h2>
+      <h2 class="section-title">知覚動詞 — see / hear / feel</h2>
     </div>
-    <p class="section-intro">「見る・聞く・感じる」などの知覚動詞も SVOC 構造を取る。目的語の後に<strong>原形不定詞</strong>（完了した動作）か<strong>-ing</strong>（進行中の動作）が来る。</p>
+    <p class="section-intro">「見る・聞く・感じる」などの知覚動詞も SVOC 構造を取る。目的語の後に<strong>原形不定詞</strong>（動作全体）か<strong>-ing</strong>（進行中の動作）が来る。</p>
 
     <div class="pattern-demo" data-pattern="perception">
       <button class="replay-btn">↺ Replay</button>
       <div class="blocks-row">
-        <div class="block s"><div class="word">I</div><div class="lbl">S</div></div>
-        <div class="block v"><div class="word">saw</div><div class="lbl">V (知覚)</div></div>
-        <div class="block o"><div class="word">him</div><div class="lbl">O</div></div>
-        <div class="block c"><div class="word">run</div><div class="lbl">原形 / -ing</div></div>
+        <div class="block s"><div class="word">We</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">heard</div><div class="lbl">V (知覚)</div></div>
+        <div class="block o"><div class="word">someone</div><div class="lbl">O</div></div>
+        <div class="block c"><div class="word">knock</div><div class="lbl">原形 / -ing</div></div>
       </div>
-      <div class="pattern-sentence">I saw him run. / I saw him running.</div>
+      <div class="pattern-sentence">We heard someone knock on the door.</div>
     </div>
 
     <div class="note-box green">
       <strong>原形不定詞 vs. -ing:</strong><br>
-      • <em>原形</em>: I saw him <strong>fall</strong>. → 倒れる動作を最初から最後まで見た（完全な動作）<br>
-      • <em>-ing</em>: I saw him <strong>falling</strong>. → 倒れかけているところを見た（進行中の動作）
+      • <em>原形</em>: I saw him <strong>fall</strong>. → 倒れる動作を始めから終わりまで目撃した<br>
+      • <em>-ing</em>: I saw him <strong>falling</strong>. → 倒れかけているところを目撃した（動作の途中）
     </div>
 
     <table class="ex-table">
       <thead><tr><th>例文</th><th>和訳</th></tr></thead>
       <tbody>
-        <tr><td class="en">I <span class="hl-v">heard</span> <span class="hl-o">her</span> <span class="hl-c">sing</span>.</td><td class="ja">彼女が歌うのを聞いた（全部）。</td></tr>
-        <tr><td class="en">I <span class="hl-v">heard</span> <span class="hl-o">her</span> <span class="hl-c">singing</span>.</td><td class="ja">彼女が歌っているのを聞いた（途中から）。</td></tr>
-        <tr><td class="en">We <span class="hl-v">watched</span> <span class="hl-o">them</span> <span class="hl-c">play</span> tennis.</td><td class="ja">彼らがテニスをするのを見た。</td></tr>
-        <tr><td class="en">She <span class="hl-v">felt</span> <span class="hl-o">someone</span> <span class="hl-c">touch</span> her shoulder.</td><td class="ja">誰かが肩に触れるのを感じた。</td></tr>
+        <tr><td class="en">I <span class="hl-v">heard</span> <span class="hl-o">her</span> <span class="hl-c">sing</span>.</td><td class="ja">彼女が歌うのを（全部）聞いた。</td></tr>
+        <tr><td class="en">I <span class="hl-v">heard</span> <span class="hl-o">her</span> <span class="hl-c">singing</span> upstairs.</td><td class="ja">彼女が2階で歌っているのが聞こえた。</td></tr>
+        <tr><td class="en">We <span class="hl-v">watched</span> <span class="hl-o">the kids</span> <span class="hl-c">play</span> in the yard.</td><td class="ja">子どもたちが庭で遊ぶのを見た。</td></tr>
+        <tr><td class="en">She <span class="hl-v">felt</span> <span class="hl-o">the ground</span> <span class="hl-c">shake</span>.</td><td class="ja">地面が揺れるのを感じた。</td></tr>
         <tr><td class="en">He <span class="hl-v">noticed</span> <span class="hl-o">a cat</span> <span class="hl-c">sleeping</span> on the bench.</td><td class="ja">猫がベンチで眠っているのに気づいた。</td></tr>
       </tbody>
     </table>
   </section>
   <div class="divider"></div>
 
-  <!-- ── SVO + to V ── -->
-  <section class="section" id="svo-tov">
+  <!-- ── 09: keep / leave / get ── -->
+  <section class="section" id="keep-leave">
     <div class="section-header">
-      <span class="section-number">08</span>
-      <span class="pattern-badge">SVO + to V</span>
-      <h2 class="section-title">SVO + to不定詞</h2>
+      <span class="section-number">09</span>
+      <span class="pattern-badge">SVOC 応用</span>
+      <h2 class="section-title">keep / leave / get — 状態を表す SVOC</h2>
     </div>
-    <p class="section-intro">「O に〜してほしい / するよう言う / 〜するよう頼む」など。目的語の後に <strong>to + 動詞原形</strong>が来る（使役・知覚動詞と異なり to が必要）。</p>
+    <p class="section-intro"><strong>keep / leave / get</strong> は目的語の後に<strong>形容詞・分詞</strong>を取る SVOC 構文を作る。「O を C の状態に保つ / 放置する / する」という意味。</p>
 
-    <div class="pattern-demo" data-pattern="svo-tov">
+    <div class="pattern-demo" data-pattern="keep-leave">
       <button class="replay-btn">↺ Replay</button>
       <div class="blocks-row">
-        <div class="block s"><div class="word">I</div><div class="lbl">S</div></div>
-        <div class="block v"><div class="word">want</div><div class="lbl">V</div></div>
-        <div class="block o"><div class="word">you</div><div class="lbl">O</div></div>
-        <div class="block c"><div class="word">to help</div><div class="lbl">to V</div></div>
-        <div class="block" style="opacity:0;transition:opacity 0.4s,transform 0.4s;transform:translateY(18px)"><div class="word" style="background:#999">me</div><div class="lbl">—</div></div>
+        <div class="block s"><div class="word">She</div><div class="lbl">S</div></div>
+        <div class="block v"><div class="word">kept</div><div class="lbl">V</div></div>
+        <div class="block o"><div class="word">the door</div><div class="lbl">O</div></div>
+        <div class="block c"><div class="word">open</div><div class="lbl">C (形容詞)</div></div>
       </div>
-      <div class="pattern-sentence">I want you to help me.</div>
+      <div class="pattern-sentence">She kept the door open. → the door = open</div>
+    </div>
+
+    <div class="vlg-grid">
+      <div class="vlg-card">
+        <h4>keep O C</h4>
+        <p>O を C の状態に<strong>保つ・維持する</strong></p>
+        <div class="examples">
+          <div>keep the room <em>clean</em></div>
+          <div>keep me <em>waiting</em></div>
+          <div>keep the fire <em>burning</em></div>
+          <div>keep the door <em>locked</em></div>
+        </div>
+      </div>
+      <div class="vlg-card">
+        <h4>leave O C</h4>
+        <p>O を C の状態の<strong>まま放置する</strong></p>
+        <div class="examples">
+          <div>leave the window <em>open</em></div>
+          <div>leave me <em>alone</em></div>
+          <div>leave him <em>waiting</em></div>
+          <div>leave it <em>unfinished</em></div>
+        </div>
+      </div>
+      <div class="vlg-card">
+        <h4>get O C</h4>
+        <p>O を C の状態に<strong>する・してもらう</strong></p>
+        <div class="examples">
+          <div>get things <em>done</em></div>
+          <div>get your hands <em>dirty</em></div>
+          <div>get the car <em>ready</em></div>
+          <div>get the report <em>finished</em></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box teal">
+      <strong>C に来る形:</strong><br>
+      • 形容詞: keep him <em>warm</em> / leave it <em>empty</em><br>
+      • 現在分詞 (-ing): keep the engine <em>running</em> / leave her <em>waiting</em>（O が〜している状態）<br>
+      • 過去分詞 (-ed): keep the door <em>locked</em> / get the work <em>done</em>（O が〜された状態）
     </div>
 
     <table class="ex-table">
-      <thead><tr><th>動詞</th><th>例文</th><th>和訳</th></tr></thead>
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
       <tbody>
-        <tr><td style="font-weight:800;color:var(--orange)">want</td><td class="en">I <span class="hl-v">want</span> <span class="hl-o">you</span> <span class="hl-c">to come</span>.</td><td class="ja">あなたに来てほしい。</td></tr>
-        <tr><td style="font-weight:800;color:var(--orange)">ask</td><td class="en">She <span class="hl-v">asked</span> <span class="hl-o">him</span> <span class="hl-c">to stop</span>.</td><td class="ja">彼女は彼に止まるよう頼んだ。</td></tr>
-        <tr><td style="font-weight:800;color:var(--orange)">tell</td><td class="en">He <span class="hl-v">told</span> <span class="hl-o">us</span> <span class="hl-c">to be quiet</span>.</td><td class="ja">彼は私たちに静かにするよう言った。</td></tr>
-        <tr><td style="font-weight:800;color:var(--orange)">expect</td><td class="en">I <span class="hl-v">expect</span> <span class="hl-o">you</span> <span class="hl-c">to do</span> your best.</td><td class="ja">あなたに全力を尽くすことを期待する。</td></tr>
-        <tr><td style="font-weight:800;color:var(--orange)">allow</td><td class="en">They <span class="hl-v">allowed</span> <span class="hl-o">her</span> <span class="hl-c">to leave</span> early.</td><td class="ja">彼らは彼女が早退するのを許可した。</td></tr>
+        <tr><td class="en">Please <span class="hl-v">keep</span> <span class="hl-o">the noise</span> <span class="hl-c">down</span>.</td><td class="ja">音を小さくしておいてください。</td></tr>
+        <tr><td class="en"><span class="hl-s">He</span> <span class="hl-v">kept</span> <span class="hl-o">her</span> <span class="hl-c">waiting</span> for an hour.</td><td class="ja">彼は彼女を1時間待たせた。</td></tr>
+        <tr><td class="en">Don't <span class="hl-v">leave</span> <span class="hl-o">the tap</span> <span class="hl-c">running</span>.</td><td class="ja">蛇口を出しっぱなしにしないで。</td></tr>
+        <tr><td class="en"><span class="hl-s">She</span> <span class="hl-v">left</span> <span class="hl-o">the question</span> <span class="hl-c">unanswered</span>.</td><td class="ja">彼女はその質問に答えないままにした。</td></tr>
+        <tr><td class="en">Let's <span class="hl-v">get</span> <span class="hl-o">everything</span> <span class="hl-c">ready</span> before noon.</td><td class="ja">正午前にすべての準備を整えよう。</td></tr>
+        <tr><td class="en">I need to <span class="hl-v">get</span> <span class="hl-o">this report</span> <span class="hl-c">done</span> by Friday.</td><td class="ja">金曜日までにこのレポートを仕上げなければならない。</td></tr>
       </tbody>
     </table>
   </section>
   <div class="divider"></div>
 
-  <!-- ── SVO + as ── -->
+  <!-- ── 10: SVO as C ── -->
   <section class="section" id="svo-as">
     <div class="section-header">
-      <span class="section-number">09</span>
+      <span class="section-number">10</span>
       <span class="pattern-badge">SVO + as C</span>
-      <h2 class="section-title">SVO as C — 「〜を…とみなす」</h2>
+      <h2 class="section-title">SVO as C — 「O を C とみなす」</h2>
     </div>
-    <p class="section-intro">「O を C として〔みなす・扱う・知っている〕」という表現。第5文型に近い構造で O = C の関係。</p>
+    <p class="section-intro">「O を C として〔みなす・扱う・知っている〕」という表現。O = C の関係は保たれるが、動詞と C の間に <strong>as</strong> が入る。</p>
 
     <div class="pattern-demo" data-pattern="svo-as">
       <button class="replay-btn">↺ Replay</button>
@@ -679,51 +873,11 @@
     <table class="ex-table">
       <thead><tr><th>動詞</th><th>例文</th><th>和訳</th></tr></thead>
       <tbody>
-        <tr><td style="font-weight:800;color:var(--orange)">regard A as B</td><td class="en">We <span class="hl-v">regard</span> <span class="hl-o">him</span> as <span class="hl-c">a genius</span>.</td><td class="ja">私たちは彼を天才とみなしている。</td></tr>
-        <tr><td style="font-weight:800;color:var(--orange)">treat A as B</td><td class="en">She <span class="hl-v">treats</span> <span class="hl-o">him</span> as <span class="hl-c">a child</span>.</td><td class="ja">彼女は彼を子供のように扱う。</td></tr>
-        <tr><td style="font-weight:800;color:var(--orange)">know A as B</td><td class="en">He is <span class="hl-v">known</span> <span class="hl-o">to us</span> as <span class="hl-c">Tom</span>.</td><td class="ja">私たちは彼をトムとして知っている。</td></tr>
-        <tr><td style="font-weight:800;color:var(--orange)">describe A as B</td><td class="en">She <span class="hl-v">described</span> <span class="hl-o">it</span> as <span class="hl-c">a miracle</span>.</td><td class="ja">彼女はそれを奇跡と表現した。</td></tr>
-        <tr><td style="font-weight:800;color:var(--orange)">use A as B</td><td class="en">He <span class="hl-v">used</span> <span class="hl-o">a stone</span> as <span class="hl-c">a weapon</span>.</td><td class="ja">彼は石を武器として使った。</td></tr>
-      </tbody>
-    </table>
-  </section>
-  <div class="divider"></div>
-
-  <!-- ── help ── -->
-  <section class="section" id="help">
-    <div class="section-header">
-      <span class="section-number">10</span>
-      <span class="pattern-badge">help</span>
-      <h2 class="section-title">help — 原形不定詞と to 不定詞の両方</h2>
-    </div>
-    <p class="section-intro"><strong>help</strong> は目的語の後に<strong>原形不定詞（to なし）</strong>または <strong>to + 動詞原形</strong>の<strong>どちらでも使える</strong>特殊な動詞。</p>
-
-    <div class="pattern-demo" data-pattern="help">
-      <button class="replay-btn">↺ Replay</button>
-      <div class="blocks-row">
-        <div class="block s"><div class="word">She</div><div class="lbl">S</div></div>
-        <div class="block v"><div class="word">helped</div><div class="lbl">V</div></div>
-        <div class="block o"><div class="word">me</div><div class="lbl">O</div></div>
-        <div class="block c"><div class="word">(to) study</div><div class="lbl">原形 or to V</div></div>
-      </div>
-      <div class="pattern-sentence">She helped me (to) study.</div>
-    </div>
-
-    <div class="note-box purple">
-      <strong>help の構文パターン:</strong><br>
-      ① help + O + <em>原形</em>: She helped me <strong>understand</strong>.（米語で一般的）<br>
-      ② help + O + <em>to V</em>: She helped me <strong>to understand</strong>.（英語で一般的）<br>
-      ③ help + O + with + 名詞: She helped me <strong>with</strong> my homework.（物事を手伝う）<br>
-      ④ help + <em>原形</em>（主語なし）: Can you help <strong>carry</strong> this? （目的語省略も可）
-    </div>
-
-    <table class="ex-table">
-      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
-      <tbody>
-        <tr><td class="en">He <span class="hl-v">helped</span> <span class="hl-o">her</span> <span class="hl-c">move</span> to a new apartment.</td><td class="ja">彼は彼女が新しいアパートに引っ越すのを手伝った。</td></tr>
-        <tr><td class="en">This book <span class="hl-v">helped</span> <span class="hl-o">me</span> <span class="hl-c">to understand</span> economics.</td><td class="ja">この本は私が経済学を理解するのに役立った。</td></tr>
-        <tr><td class="en">Exercise <span class="hl-v">helps</span> <span class="hl-c">reduce</span> stress.</td><td class="ja">運動はストレスを軽減するのに役立つ。</td></tr>
-        <tr><td class="en">Could you <span class="hl-v">help</span> <span class="hl-o">me</span> <span class="hl-c">with</span> this problem?</td><td class="ja">この問題を手伝ってもらえますか？</td></tr>
+        <tr><td style="font-weight:800;color:var(--orange)">regard A as B</td><td class="en">We <span class="hl-v">regard</span> <span class="hl-o">him</span> as <span class="hl-c">an expert</span>.</td><td class="ja">私たちは彼を専門家とみなしている。</td></tr>
+        <tr><td style="font-weight:800;color:var(--orange)">treat A as B</td><td class="en">She <span class="hl-v">treats</span> <span class="hl-o">everyone</span> as <span class="hl-c">an equal</span>.</td><td class="ja">彼女は誰でも対等に扱う。</td></tr>
+        <tr><td style="font-weight:800;color:var(--orange)">see A as B</td><td class="en">He <span class="hl-v">sees</span> <span class="hl-o">this</span> as <span class="hl-c">a chance</span>.</td><td class="ja">彼はこれをチャンスと捉えている。</td></tr>
+        <tr><td style="font-weight:800;color:var(--orange)">describe A as B</td><td class="en">She <span class="hl-v">described</span> <span class="hl-o">the trip</span> as <span class="hl-c">unforgettable</span>.</td><td class="ja">彼女はその旅を忘れられないと語った。</td></tr>
+        <tr><td style="font-weight:800;color:var(--orange)">use A as B</td><td class="en">He <span class="hl-v">used</span> <span class="hl-o">an umbrella</span> as <span class="hl-c">a walking stick</span>.</td><td class="ja">彼は傘を杖代わりに使った。</td></tr>
       </tbody>
     </table>
   </section>
@@ -731,22 +885,18 @@
 </main>
 
 <script>
-  // Build blocks row + sentence
   function animateDemo(demoEl) {
     const blocks = demoEl.querySelectorAll('.block');
     const connectors = demoEl.querySelectorAll('.connector');
     const sentence = demoEl.querySelector('.pattern-sentence');
 
-    // Reset
     blocks.forEach(b => b.classList.remove('show'));
     connectors.forEach(c => c.classList.remove('show'));
     if (sentence) sentence.classList.remove('show');
 
-    // Play
     let delay = 0;
-    blocks.forEach((b, i) => {
+    blocks.forEach((b) => {
       setTimeout(() => b.classList.add('show'), delay);
-      // Show connector after both surrounding blocks
       const next = b.nextElementSibling;
       if (next && next.classList.contains('connector')) {
         const afterDelay = delay + 320;
@@ -761,7 +911,6 @@
     }
   }
 
-  // IntersectionObserver to auto-play on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -771,11 +920,8 @@
     });
   }, { threshold: 0.4 });
 
-  document.querySelectorAll('.pattern-demo').forEach(demo => {
-    observer.observe(demo);
-  });
+  document.querySelectorAll('.pattern-demo').forEach(demo => observer.observe(demo));
 
-  // Replay buttons
   document.querySelectorAll('.replay-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const demo = btn.closest('.pattern-demo');
