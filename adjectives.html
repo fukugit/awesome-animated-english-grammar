@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>形容詞 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f9f7f2;
+      --white: #fff;
+      --border: #e5e0d5;
+      --text: #1c1c1c;
+      --muted: #6b6460;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --green: #16a34a;
+      --purple: #7c3aed;
+      --red: #ef4444;
+      --teal: #14b8a6;
+      --adj: #b45309;
+      --adj-light: #d97706;
+      --adj-bg: #fef3c7;
+      --adj-border: #fcd34d;
+      --accent: #1e3a8a;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.75; font-size: 16px;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      height: 56px; background: var(--white); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 48px; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 0.95rem;
+      text-decoration: none; color: var(--text);
+    }
+    .logo-mark {
+      width: 26px; height: 26px; background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+      border-radius: 6px; flex-shrink: 0;
+    }
+
+    /* ── Hero ── */
+    .page-hero { background: var(--white); border-bottom: 1px solid var(--border); padding: 48px 48px 40px; }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; }
+    .unit-meta-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .unit-num-badge {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 3px 10px; border-radius: 4px; background: var(--accent); color: white;
+    }
+    .ch-badge {
+      font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 4px;
+      background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+    }
+    .back-link a {
+      font-size: 0.88rem; color: var(--muted); text-decoration: none; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 4px; margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 10px; }
+    .page-title span { color: var(--adj); }
+    .page-desc { color: var(--muted); font-size: 1.05rem; max-width: 680px; line-height: 1.8; }
+
+    /* ── Content ── */
+    .content { max-width: 1200px; margin: 0 auto; padding: 52px 48px 88px; }
+    .section { margin-bottom: 72px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+    .section-badge {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; background: var(--bg);
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .section-title { font-size: 1.55rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 1rem; margin-bottom: 28px; margin-top: 8px; line-height: 1.8; }
+
+    /* ── 限定 vs 叙述 ── */
+    .usage-split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;
+    }
+    .usage-panel {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 26px;
+    }
+    .usage-panel-title {
+      font-size: 1rem; font-weight: 800; margin-bottom: 6px; color: var(--adj);
+    }
+    .usage-panel-sub { font-size: 0.85rem; color: var(--muted); margin-bottom: 16px; }
+    .sent-block {
+      background: var(--bg); border-radius: 8px; padding: 11px 14px;
+      font-size: 0.97rem; line-height: 1.7; margin-bottom: 8px;
+    }
+    .sent-block:last-child { margin-bottom: 0; }
+    .sent-block .en { font-weight: 700; display: block; }
+    .sent-block .ja { font-size: 0.87rem; color: var(--muted); display: block; }
+    .adj-hi { color: var(--adj); font-weight: 900; }
+    .noun-hi { color: var(--blue); font-weight: 700; }
+
+    /* 限定のみ・叙述のみリスト */
+    .only-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .only-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px;
+    }
+    .only-card-title {
+      font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--adj); margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .only-badge {
+      font-size: 0.7rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+      background: var(--adj-bg); color: var(--adj); border: 1px solid var(--adj-border);
+    }
+    .word-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; }
+    .word-chip {
+      font-size: 0.9rem; font-weight: 700; padding: 4px 12px; border-radius: 6px;
+      background: var(--adj-bg); color: var(--adj); border: 1px solid var(--adj-border);
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .word-chip.pred {
+      background: #dbeafe; color: #1d4ed8; border-color: #93c5fd;
+    }
+    .only-note { font-size: 0.86rem; color: var(--muted); line-height: 1.75; }
+    .ex-small { font-size: 0.88rem; margin-top: 8px; line-height: 1.7; }
+    .ex-small strong { color: var(--adj); }
+
+    /* ── 数量形容詞 ── */
+    .quant-table {
+      width: 100%; border-collapse: collapse; background: var(--white);
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+      font-size: 0.95rem;
+    }
+    .quant-table thead { background: var(--adj-bg); }
+    .quant-table th {
+      padding: 12px 16px; text-align: left; font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--adj);
+    }
+    .quant-table td { padding: 12px 16px; border-top: 1px solid var(--border); vertical-align: top; }
+    .quant-table tr:hover td { background: #fffbeb; }
+    .qword {
+      font-weight: 900; font-family: 'Courier New', Courier, monospace; color: var(--adj);
+    }
+    .qex { font-size: 0.87rem; color: var(--muted); margin-top: 3px; }
+    .q-tag {
+      display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 2px 7px;
+      border-radius: 4px; background: var(--adj-bg); color: var(--adj); border: 1px solid var(--adj-border);
+    }
+    .q-tag.blue { background: #dbeafe; color: #1d4ed8; border-color: #93c5fd; }
+    .q-note {
+      margin-top: 16px; padding: 16px 20px; background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; font-size: 0.93rem; line-height: 1.75;
+    }
+    .q-note strong { color: var(--adj); }
+
+    /* ── 語順 ── */
+    .order-wrap {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px;
+    }
+    .order-chain {
+      display: flex; align-items: stretch; gap: 0; margin-bottom: 24px; flex-wrap: wrap; gap: 6px;
+    }
+    .order-block {
+      flex: 1; min-width: 80px; background: var(--adj-bg);
+      border: 1.5px solid var(--adj-border); border-radius: 8px;
+      padding: 10px 10px 8px; text-align: center;
+    }
+    .order-block .ob-num { font-size: 0.65rem; font-weight: 700; color: var(--adj); display: block; margin-bottom: 3px; }
+    .order-block .ob-label { font-size: 0.82rem; font-weight: 800; color: var(--adj); display: block; margin-bottom: 2px; }
+    .order-block .ob-ja { font-size: 0.72rem; color: var(--muted); display: block; }
+    .order-noun {
+      flex: 0 0 70px; background: #dbeafe; border: 1.5px solid #93c5fd; border-radius: 8px;
+      padding: 10px 8px 8px; text-align: center; align-self: center;
+    }
+    .order-noun .ob-label { font-size: 0.82rem; font-weight: 800; color: #1d4ed8; display: block; }
+    .order-noun .ob-ja { font-size: 0.72rem; color: var(--muted); display: block; }
+    .order-example {
+      background: var(--bg); border-radius: 8px; padding: 14px 18px;
+    }
+    .order-example .ex-en { font-size: 1rem; font-weight: 700; line-height: 1.8; }
+    .order-example .ex-ja { font-size: 0.88rem; color: var(--muted); margin-top: 4px; }
+    .order-examples { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+    .order-ex-row {
+      background: var(--bg); border-radius: 8px; padding: 11px 14px; font-size: 0.94rem; line-height: 1.7;
+    }
+    .order-ex-row .en { font-weight: 700; display: block; }
+    .order-ex-row .ja { font-size: 0.86rem; color: var(--muted); display: block; }
+
+    /* ── 比較 ── */
+    .comp-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px;
+    }
+    .comp-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px;
+    }
+    .comp-card-title { font-size: 0.85rem; font-weight: 800; color: var(--adj); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .comp-rule {
+      background: var(--adj-bg); border-radius: 7px; padding: 10px 12px;
+      font-size: 0.9rem; line-height: 1.6; margin-bottom: 10px;
+    }
+    .comp-rule code {
+      font-family: 'Courier New', Courier, monospace; font-weight: 700; color: var(--adj);
+    }
+    .comp-ex { font-size: 0.88rem; color: var(--muted); margin-top: 4px; line-height: 1.65; }
+
+    .irreg-table {
+      width: 100%; border-collapse: collapse; background: var(--white);
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; font-size: 0.95rem;
+    }
+    .irreg-table thead { background: var(--adj-bg); }
+    .irreg-table th { padding: 10px 16px; text-align: left; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; color: var(--adj); }
+    .irreg-table td { padding: 11px 16px; border-top: 1px solid var(--border); font-family: 'Courier New', Courier, monospace; font-size: 0.93rem; }
+    .irreg-table td:first-child { font-weight: 700; color: var(--adj); }
+    .irreg-table tr:hover td { background: #fffbeb; }
+
+    /* ── 比較構文 ── */
+    .constr-grid { display: flex; flex-direction: column; gap: 14px; }
+    .constr-row {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px 20px; display: grid; grid-template-columns: 240px 1fr; gap: 16px; align-items: start;
+    }
+    .constr-form {
+      font-family: 'Courier New', Courier, monospace; font-size: 0.9rem; font-weight: 900;
+      color: var(--adj); line-height: 1.6;
+    }
+    .constr-meaning { font-size: 0.85rem; color: var(--muted); font-weight: 600; margin-top: 3px; }
+    .constr-examples { display: flex; flex-direction: column; gap: 6px; }
+    .constr-ex { font-size: 0.93rem; line-height: 1.7; background: var(--bg); border-radius: 7px; padding: 9px 12px; }
+    .constr-ex .en { font-weight: 700; display: block; }
+    .constr-ex .ja { font-size: 0.85rem; color: var(--muted); display: block; }
+
+    /* ── 程度副詞 ── */
+    .degree-wrap {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px;
+    }
+    .degree-bar-track {
+      height: 12px;
+      background: linear-gradient(to right, #e0f2fe, #fef3c7, #fee2e2);
+      border-radius: 100px; margin-bottom: 10px;
+    }
+    .degree-scale {
+      display: flex; justify-content: space-between; margin-bottom: 28px;
+      font-size: 0.8rem; color: var(--muted); font-weight: 600;
+    }
+    .degree-items {
+      display: flex; gap: 0;
+    }
+    .degree-item {
+      flex: 1; text-align: center; padding: 10px 6px;
+      border-right: 1px solid var(--border);
+    }
+    .degree-item:last-child { border-right: none; }
+    .degree-word {
+      font-size: 0.97rem; font-weight: 900; color: var(--adj);
+      font-family: 'Courier New', Courier, monospace; display: block;
+    }
+    .degree-ja { font-size: 0.75rem; color: var(--muted); margin-top: 4px; display: block; }
+    .degree-pct { font-size: 0.72rem; color: var(--muted); display: block; }
+    .degree-divider { height: 1px; background: var(--border); margin: 22px 0; }
+    .degree-specials {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-top: 16px;
+    }
+    .deg-special {
+      background: var(--bg); border-radius: 8px; padding: 12px 14px; font-size: 0.93rem; line-height: 1.7;
+    }
+    .deg-special .dw { font-weight: 900; color: var(--adj); font-family: 'Courier New', Courier, monospace; }
+    .deg-special .dm { font-size: 0.85rem; color: var(--muted); display: block; margin-top: 2px; }
+
+    /* ── 紛らわしいペア ── */
+    .pair-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(520px, 1fr)); gap: 16px;
+    }
+    .pair-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .pair-words {
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .pair-word {
+      padding: 14px 18px; border-bottom: 1px solid var(--border);
+    }
+    .pair-word:first-child { border-right: 1px solid var(--border); }
+    .pair-word-en {
+      font-size: 1rem; font-weight: 900; color: var(--adj);
+      font-family: 'Courier New', Courier, monospace; display: block;
+    }
+    .pair-word-ja { font-size: 0.82rem; color: var(--muted); display: block; margin-top: 2px; }
+    .pair-examples { padding: 14px 18px; display: flex; flex-direction: column; gap: 7px; }
+    .pair-ex { font-size: 0.9rem; line-height: 1.65; background: var(--bg); border-radius: 7px; padding: 8px 12px; }
+    .pair-ex .en { font-weight: 700; display: block; }
+    .pair-ex .ja { font-size: 0.84rem; color: var(--muted); display: block; }
+    .pair-ex em { font-style: normal; color: var(--adj); font-weight: 700; }
+
+    @media (max-width: 800px) {
+      .nav { padding: 0 20px; }
+      .page-hero { padding: 36px 20px 28px; }
+      .content { padding: 36px 20px 60px; }
+      .usage-split, .only-grid, .comp-grid, .usage-split { grid-template-columns: 1fr; }
+      .constr-row { grid-template-columns: 1fr; }
+      .pair-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    Animated English Grammar
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="back-link"><a href="index.html">← Back to Index</a></div>
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 12</span>
+      <span class="ch-badge">Chapter III · 名詞の修飾と接続</span>
+    </div>
+    <h1 class="page-title"><span>形容詞</span> / Adjectives</h1>
+    <p class="page-desc">形容詞は名詞を修飾する「限定用法」と補語になる「叙述用法」の2種類がある。語順・数量形容詞・比較構文・程度副詞・紛らわしいペアまで、体系的に整理する。</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- Section 01 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">限定用法と叙述用法</h2>
+      <span class="section-badge">Attributive vs Predicative</span>
+    </div>
+    <p class="section-intro">形容詞の置き場所は2パターン。名詞の直前に置く「限定用法」と、動詞の後ろで補語になる「叙述用法」。どちらにも使えるものがほとんどだが、一方にしか使えない形容詞もある。</p>
+
+    <div class="usage-split">
+      <div class="usage-panel">
+        <div class="usage-panel-title">限定用法（Attributive）</div>
+        <div class="usage-panel-sub">形容詞 ＋ 名詞　／　冠詞 ＋ 形容詞 ＋ 名詞</div>
+        <div class="sent-block">
+          <span class="en">a <span class="adj-hi">beautiful</span> <span class="noun-hi">flower</span></span>
+          <span class="ja">美しい花（名詞を前から修飾）</span>
+        </div>
+        <div class="sent-block">
+          <span class="en">the <span class="adj-hi">only</span> <span class="noun-hi">solution</span></span>
+          <span class="ja">唯一の解決策（only は限定用法のみ）</span>
+        </div>
+        <div class="sent-block">
+          <span class="en">my <span class="adj-hi">former</span> <span class="noun-hi">teacher</span></span>
+          <span class="ja">以前の先生（former は限定用法のみ）</span>
+        </div>
+      </div>
+      <div class="usage-panel">
+        <div class="usage-panel-title">叙述用法（Predicative）</div>
+        <div class="usage-panel-sub">主語 ＋ be動詞（連結動詞）＋ 形容詞</div>
+        <div class="sent-block">
+          <span class="en">The flower is <span class="adj-hi">beautiful</span>.</span>
+          <span class="ja">その花は美しい。（補語として使用）</span>
+        </div>
+        <div class="sent-block">
+          <span class="en">She is <span class="adj-hi">alive</span>.</span>
+          <span class="ja">彼女は生きている。（alive は叙述用法のみ）</span>
+        </div>
+        <div class="sent-block">
+          <span class="en">The baby is <span class="adj-hi">asleep</span>.</span>
+          <span class="ja">赤ちゃんは眠っている。（asleep は叙述用法のみ）</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="only-grid">
+      <div class="only-card">
+        <div class="only-card-title">
+          限定用法のみ
+          <span class="only-badge">名詞の前のみ</span>
+        </div>
+        <div class="word-chips">
+          <span class="word-chip">main</span>
+          <span class="word-chip">only</span>
+          <span class="word-chip">former</span>
+          <span class="word-chip">latter</span>
+          <span class="word-chip">inner</span>
+          <span class="word-chip">outer</span>
+          <span class="word-chip">upper</span>
+          <span class="word-chip">elder</span>
+          <span class="word-chip">utter</span>
+          <span class="word-chip">mere</span>
+        </div>
+        <p class="only-note">
+          これらは叙述用法で使えない。<br>
+          <span class="ex-small">× The reason is main. → ○ the <strong>main</strong> reason</span><br>
+          <span class="ex-small">× She is elder. → ○ my <strong>elder</strong> sister</span>
+        </p>
+      </div>
+      <div class="only-card">
+        <div class="only-card-title">
+          叙述用法のみ（a- 形容詞）
+          <span class="only-badge pred">補語のみ</span>
+        </div>
+        <div class="word-chips">
+          <span class="word-chip pred">alive</span>
+          <span class="word-chip pred">asleep</span>
+          <span class="word-chip pred">awake</span>
+          <span class="word-chip pred">afraid</span>
+          <span class="word-chip pred">alone</span>
+          <span class="word-chip pred">ashamed</span>
+          <span class="word-chip pred">aware</span>
+          <span class="word-chip pred">alike</span>
+          <span class="word-chip pred">afloat</span>
+          <span class="word-chip pred">akin</span>
+        </div>
+        <p class="only-note">
+          <strong>a-</strong> で始まる形容詞の多くは叙述用法のみ。<br>
+          <span class="ex-small">× an <strong>afraid</strong> child → ○ The child is <strong>afraid</strong>.</span><br>
+          <span class="ex-small">× an <strong>asleep</strong> baby → ○ The baby is <strong>asleep</strong>.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 02 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">数量形容詞</h2>
+      <span class="section-badge">Quantifiers</span>
+    </div>
+    <p class="section-intro">「多い・少ない・いくつか」を表す数量形容詞は、可算名詞と不可算名詞で使い分けが変わる。few / a few、little / a little の冠詞の有無による意味の違いが最重要ポイント。</p>
+
+    <table class="quant-table">
+      <thead>
+        <tr>
+          <th>形容詞</th>
+          <th>可算（数えられる）</th>
+          <th>不可算（数えられない）</th>
+          <th>意味・ポイント</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="qword">many</span></td>
+          <td><span class="q-tag">可算 ○</span></td>
+          <td><span style="color:var(--muted);">×</span></td>
+          <td>
+            多くの（数える名詞に使う）<br>
+            <span class="qex">many books, many people</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="qword">much</span></td>
+          <td><span style="color:var(--muted);">×</span></td>
+          <td><span class="q-tag">不可算 ○</span></td>
+          <td>
+            多くの（数えられない名詞に使う）<br>
+            <span class="qex">much water, much money</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="qword">a lot of<br>lots of</span></td>
+          <td><span class="q-tag">可算 ○</span></td>
+          <td><span class="q-tag">不可算 ○</span></td>
+          <td>
+            多くの（両方に使える。口語的）<br>
+            <span class="qex">a lot of books / a lot of water</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="qword">a few</span></td>
+          <td><span class="q-tag">可算 ○</span></td>
+          <td><span style="color:var(--muted);">×</span></td>
+          <td>
+            <strong style="color:var(--green);">少しある</strong>（肯定的）<br>
+            <span class="qex">I have <strong>a few</strong> friends here. （友人が何人かいる）</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="qword">few</span></td>
+          <td><span class="q-tag">可算 ○</span></td>
+          <td><span style="color:var(--muted);">×</span></td>
+          <td>
+            <strong style="color:var(--red);">ほとんどない</strong>（否定的）<br>
+            <span class="qex">I have <strong>few</strong> friends here. （友人がほとんどいない）</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="qword">a little</span></td>
+          <td><span style="color:var(--muted);">×</span></td>
+          <td><span class="q-tag">不可算 ○</span></td>
+          <td>
+            <strong style="color:var(--green);">少しある</strong>（肯定的）<br>
+            <span class="qex">There is <strong>a little</strong> milk left. （牛乳が少し残っている）</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="qword">little</span></td>
+          <td><span style="color:var(--muted);">×</span></td>
+          <td><span class="q-tag">不可算 ○</span></td>
+          <td>
+            <strong style="color:var(--red);">ほとんどない</strong>（否定的）<br>
+            <span class="qex">There is <strong>little</strong> milk left. （牛乳がほとんどない）</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="qword">some</span></td>
+          <td><span class="q-tag">可算 ○</span></td>
+          <td><span class="q-tag">不可算 ○</span></td>
+          <td>
+            いくらかの（肯定文・依頼疑問文）<br>
+            <span class="qex">Would you like <strong>some</strong> tea? （依頼ではsome）</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="qword">any</span></td>
+          <td><span class="q-tag">可算 ○</span></td>
+          <td><span class="q-tag">不可算 ○</span></td>
+          <td>
+            （否定文・疑問文）いくらかの・どんな〜も<br>
+            <span class="qex">Do you have <strong>any</strong> questions? / I don't have <strong>any</strong> money.</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="q-note">
+      <strong>some vs any まとめ：</strong><br>
+      肯定文 → <strong>some</strong>、否定文・疑問文 → <strong>any</strong> が基本。ただし、YESの答えを期待する依頼・申し出の疑問文では <strong>some</strong> を使う（Would you like some coffee?）。any が肯定文で使われる場合は「どんな〜でも」の意味（Any student can answer this.）。
+    </div>
+  </div>
+
+  <!-- Section 03 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">形容詞の語順</h2>
+      <span class="section-badge">Order of Adjectives</span>
+    </div>
+    <p class="section-intro">複数の形容詞を並べるときは決まった語順がある。「評価 → 大きさ → 古さ → 形 → 色 → 出所 → 素材 → 目的」の順。頭文字 <strong>OSASCOMP</strong> で覚える。</p>
+
+    <div class="order-wrap">
+      <div class="order-chain">
+        <div class="order-block">
+          <span class="ob-num">1</span>
+          <span class="ob-label">Opinion</span>
+          <span class="ob-ja">評価・意見</span>
+        </div>
+        <div class="order-block">
+          <span class="ob-num">2</span>
+          <span class="ob-label">Size</span>
+          <span class="ob-ja">大きさ</span>
+        </div>
+        <div class="order-block">
+          <span class="ob-num">3</span>
+          <span class="ob-label">Age</span>
+          <span class="ob-ja">年齢・新旧</span>
+        </div>
+        <div class="order-block">
+          <span class="ob-num">4</span>
+          <span class="ob-label">Shape</span>
+          <span class="ob-ja">形</span>
+        </div>
+        <div class="order-block">
+          <span class="ob-num">5</span>
+          <span class="ob-label">Color</span>
+          <span class="ob-ja">色</span>
+        </div>
+        <div class="order-block">
+          <span class="ob-num">6</span>
+          <span class="ob-label">Origin</span>
+          <span class="ob-ja">出所・国籍</span>
+        </div>
+        <div class="order-block">
+          <span class="ob-num">7</span>
+          <span class="ob-label">Material</span>
+          <span class="ob-ja">素材</span>
+        </div>
+        <div class="order-block">
+          <span class="ob-num">8</span>
+          <span class="ob-label">Purpose</span>
+          <span class="ob-ja">目的・種類</span>
+        </div>
+        <div class="order-noun">
+          <span class="ob-label">名詞</span>
+          <span class="ob-ja">Noun</span>
+        </div>
+      </div>
+
+      <div class="order-example">
+        <div class="ex-en">a <span style="color:#b45309;font-weight:900;">lovely</span> <span style="color:#d97706;font-weight:900;">little</span> <span style="color:#16a34a;font-weight:900;">old</span> <span style="color:#0d9488;font-weight:900;">rectangular</span> <span style="color:#ef4444;font-weight:900;">red</span> <span style="color:#7c3aed;font-weight:900;">Chinese</span> <span style="color:#3b82f6;font-weight:900;">wooden</span> <span style="color:#6b6460;font-weight:900;">jewelry</span> box</div>
+        <div class="ex-ja">素敵な・小さな・古い・長方形の・赤い・中国の・木製の・宝石箱</div>
+      </div>
+
+      <div class="order-examples">
+        <div class="order-ex-row">
+          <span class="en">a <strong style="color:var(--adj);">beautiful</strong> <strong style="color:#1d4ed8;">young</strong> <strong style="color:#ef4444;">Italian</strong> woman</span>
+          <span class="ja">美しい（評価）・若い（年齢）・イタリアの（出所）女性</span>
+        </div>
+        <div class="order-ex-row">
+          <span class="en">three <strong style="color:var(--adj);">large</strong> <strong style="color:#16a34a;">round</strong> <strong style="color:#ef4444;">black</strong> stones</span>
+          <span class="ja">3つの（数量）・大きな（大きさ）・丸い（形）・黒い（色）石</span>
+        </div>
+        <div class="order-ex-row">
+          <span class="en">a <strong style="color:var(--adj);">horrible</strong> <strong style="color:#d97706;">big</strong> <strong style="color:#ef4444;">black</strong> spider</span>
+          <span class="ja">恐ろしい（評価）・大きな（大きさ）・黒い（色）クモ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 04 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">比較級・最上級</h2>
+      <span class="section-badge">Comparative &amp; Superlative</span>
+    </div>
+    <p class="section-intro">比較級・最上級は短い語なら -er / -est、長い語なら more / most を使う。音節数が判断の目安。不規則変化は丸ごと覚える。</p>
+
+    <div class="comp-grid">
+      <div class="comp-card">
+        <div class="comp-card-title">1・2音節（規則変化 -er / -est）</div>
+        <div class="comp-rule">
+          <code>tall → taller → tallest</code><br>
+          <code>nice → nicer → nicest</code><br>
+          <code>big → bigger → biggest</code><br>
+          <code>easy → easier → easiest</code>
+        </div>
+        <p class="comp-ex">短母音＋子音1字 → 子音を重ねる（big → bigg-er）<br>子音 + y → y を i に変える（easy → easi-er）</p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-card-title">3音節以上（more / most）</div>
+        <div class="comp-rule">
+          <code>beautiful → more beautiful → most beautiful</code><br>
+          <code>important → more important → most important</code><br>
+          <code>interesting → more interesting → most interesting</code>
+        </div>
+        <p class="comp-ex">-ful / -ous / -ive / -ish / -ing などの語尾を持つ語も more / most を使うことが多い。</p>
+      </div>
+      <div class="comp-card">
+        <div class="comp-card-title">不規則変化</div>
+        <table class="irreg-table" style="margin-top:0;">
+          <thead>
+            <tr><th>原級</th><th>比較級</th><th>最上級</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>good / well</td><td>better</td><td>best</td></tr>
+            <tr><td>bad / ill</td><td>worse</td><td>worst</td></tr>
+            <tr><td>many / much</td><td>more</td><td>most</td></tr>
+            <tr><td>little</td><td>less</td><td>least</td></tr>
+            <tr><td>far</td><td>farther / further</td><td>farthest / furthest</td></tr>
+            <tr><td>old</td><td>older / elder</td><td>oldest / eldest</td></tr>
+            <tr><td>late</td><td>later / latter</td><td>latest / last</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;padding:16px 20px;background:var(--white);border:1px solid var(--border);border-radius:10px;font-size:0.93rem;line-height:1.8;">
+      <strong style="color:var(--adj);">elder / older の違い：</strong> elder は家族関係（my elder brother）のみに使い、叙述用法不可（× He is elder than me.）。older は年齢比較の一般的な比較級として使う（She is older than me.）。<br>
+      <strong style="color:var(--adj);">farther / further の違い：</strong> farther は物理的距離（farther from here）、further は「さらなる・追加の」という抽象的意味でも使う（further discussion）。
+    </div>
+  </div>
+
+  <!-- Section 05 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2 class="section-title">比較の重要構文</h2>
+      <span class="section-badge">Comparison Patterns</span>
+    </div>
+    <p class="section-intro">比較は as...as の同等比較、比較級 + than の差の比較、the + 最上級だけでなく、倍数表現・差の強調・重要な慣用構文まで押さえたい。</p>
+
+    <div class="constr-grid">
+      <div class="constr-row">
+        <div>
+          <div class="constr-form">as + 原級 + as</div>
+          <div class="constr-meaning">〜と同じくらい…だ（同等比較）</div>
+        </div>
+        <div class="constr-examples">
+          <div class="constr-ex">
+            <span class="en">She is <strong>as tall as</strong> her brother.</span>
+            <span class="ja">彼女はお兄さんと同じくらいの背の高さだ。</span>
+          </div>
+          <div class="constr-ex">
+            <span class="en">He runs <strong>as fast as</strong> a cheetah.</span>
+            <span class="ja">彼はチーターと同じくらい速く走る。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="constr-row">
+        <div>
+          <div class="constr-form">not as[so] + 原級 + as</div>
+          <div class="constr-meaning">〜ほど…でない（劣等比較）</div>
+        </div>
+        <div class="constr-examples">
+          <div class="constr-ex">
+            <span class="en">This book is <strong>not as interesting as</strong> that one.</span>
+            <span class="ja">この本はあの本ほど面白くない。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="constr-row">
+        <div>
+          <div class="constr-form">倍数表現<br>twice / three times as ~ as</div>
+          <div class="constr-meaning">〜の2倍・3倍…だ</div>
+        </div>
+        <div class="constr-examples">
+          <div class="constr-ex">
+            <span class="en">This bridge is <strong>twice as long as</strong> that one.</span>
+            <span class="ja">この橋はあの橋の2倍の長さだ。</span>
+          </div>
+          <div class="constr-ex">
+            <span class="en">He earns <strong>three times as much as</strong> I do.</span>
+            <span class="ja">彼は私の3倍稼ぐ。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="constr-row">
+        <div>
+          <div class="constr-form">比較級 + and + 比較級</div>
+          <div class="constr-meaning">ますます〜（だんだん〜）</div>
+        </div>
+        <div class="constr-examples">
+          <div class="constr-ex">
+            <span class="en">It is getting <strong>colder and colder</strong>.</span>
+            <span class="ja">だんだん寒くなってきている。</span>
+          </div>
+          <div class="constr-ex">
+            <span class="en">The situation became <strong>more and more</strong> complex.</span>
+            <span class="ja">状況はますます複雑になった。（more を使う場合）</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="constr-row">
+        <div>
+          <div class="constr-form">the + 比較級 ~,<br>the + 比較級 …</div>
+          <div class="constr-meaning">〜すればするほど、それだけ…だ</div>
+        </div>
+        <div class="constr-examples">
+          <div class="constr-ex">
+            <span class="en"><strong>The harder</strong> you study, <strong>the better</strong> your results will be.</span>
+            <span class="ja">一生懸命勉強すればするほど、成績は良くなる。</span>
+          </div>
+          <div class="constr-ex">
+            <span class="en"><strong>The more</strong> you practice, <strong>the more</strong> confident you become.</span>
+            <span class="ja">練習すればするほど自信がつく。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="constr-row">
+        <div>
+          <div class="constr-form">比較級 + than any other<br>+ 単数名詞</div>
+          <div class="constr-meaning">他のどんな〜よりも…（最上級の言い換え）</div>
+        </div>
+        <div class="constr-examples">
+          <div class="constr-ex">
+            <span class="en">She is <strong>taller than any other</strong> student in the class.</span>
+            <span class="ja">彼女はクラスの他のどの生徒よりも背が高い。</span>
+          </div>
+          <div class="constr-ex">
+            <span class="en">= She is <strong>the tallest</strong> student in the class.</span>
+            <span class="ja">（最上級と同じ意味）</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="constr-row">
+        <div>
+          <div class="constr-form">no more than ～<br>not more than ～</div>
+          <div class="constr-meaning">「たった〜しか」vs「〜以下」</div>
+        </div>
+        <div class="constr-examples">
+          <div class="constr-ex">
+            <span class="en"><strong>No more than</strong> 10 people attended. （= only）</span>
+            <span class="ja">たった10人しか来なかった。（少ないことを強調）</span>
+          </div>
+          <div class="constr-ex">
+            <span class="en"><strong>Not more than</strong> 10 people attended. （= at most）</span>
+            <span class="ja">多くて10人が来た。（上限）</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="constr-row">
+        <div>
+          <div class="constr-form">no less than ～<br>not less than ～</div>
+          <div class="constr-meaning">「〜もの」vs「〜以上」</div>
+        </div>
+        <div class="constr-examples">
+          <div class="constr-ex">
+            <span class="en"><strong>No less than</strong> 500 people came. （= as many as）</span>
+            <span class="ja">なんと500人もやってきた。（多さを強調）</span>
+          </div>
+          <div class="constr-ex">
+            <span class="en"><strong>Not less than</strong> 500 people came. （= at least）</span>
+            <span class="ja">少なくとも500人が来た。（下限）</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 06 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2 class="section-title">程度を表す副詞</h2>
+      <span class="section-badge">Degree Adverbs</span>
+    </div>
+    <p class="section-intro">形容詞を強調・和らげる副詞の強弱グラデーションを整理する。very / quite / rather / fairly はどれも「かなり」に訳されることがあるが、強さと文脈が違う。</p>
+
+    <div class="degree-wrap">
+      <div class="degree-scale">
+        <span>弱い（Weak）</span>
+        <span>強い（Strong）</span>
+      </div>
+      <div class="degree-bar-track"></div>
+      <div class="degree-items">
+        <div class="degree-item">
+          <span class="degree-word">a bit</span>
+          <span class="degree-word">a little</span>
+          <span class="degree-ja">少し</span>
+        </div>
+        <div class="degree-item">
+          <span class="degree-word">fairly</span>
+          <span class="degree-ja">かなり（中立）</span>
+        </div>
+        <div class="degree-item">
+          <span class="degree-word">pretty</span>
+          <span class="degree-ja">かなり（口語）</span>
+        </div>
+        <div class="degree-item">
+          <span class="degree-word">rather</span>
+          <span class="degree-ja">かなり（不満）</span>
+        </div>
+        <div class="degree-item">
+          <span class="degree-word">quite</span>
+          <span class="degree-ja">かなり・まったく</span>
+        </div>
+        <div class="degree-item">
+          <span class="degree-word">very</span>
+          <span class="degree-ja">とても</span>
+        </div>
+        <div class="degree-item">
+          <span class="degree-word">extremely</span>
+          <span class="degree-ja">非常に</span>
+        </div>
+      </div>
+
+      <div class="degree-divider"></div>
+
+      <h4 style="font-size:1rem;font-weight:800;margin-bottom:14px;color:var(--adj);">使い分けの注意点</h4>
+      <div class="degree-specials">
+        <div class="deg-special">
+          <span class="dw">fairly vs rather</span>
+          <span class="dm">fairly は中立〜肯定的。rather は不満・否定的なニュアンスが多い。</span>
+          The film was <strong>fairly</strong> good.（まあ良かった）<br>
+          The film was <strong>rather</strong> boring.（かなり退屈だった）
+        </div>
+        <div class="deg-special">
+          <span class="dw">quite</span>
+          <span class="dm">「完全な」意味の形容詞（perfect, wrong, impossible など）と使うと「まったく」になる。</span>
+          That's <strong>quite</strong> right. （まったく正しい）<br>
+          He was <strong>quite</strong> tired. （かなり疲れていた）
+        </div>
+        <div class="deg-special">
+          <span class="dw">too vs enough</span>
+          <span class="dm">too は否定的な「過剰」。enough は「十分」で形容詞の後に置く。</span>
+          It is <strong>too</strong> hot to work.（暑すぎて働けない）<br>
+          She is old <strong>enough</strong> to drive.（運転できる年齢だ）
+        </div>
+        <div class="deg-special">
+          <span class="dw">so vs such</span>
+          <span class="dm">so ＋ 形容詞、such ＋ a(n) ＋ 形容詞 ＋ 名詞。</span>
+          She is <strong>so</strong> kind.<br>
+          She is <strong>such a</strong> kind person.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 07 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <h2 class="section-title">紛らわしい形容詞ペア</h2>
+      <span class="section-badge">Confusable Pairs</span>
+    </div>
+    <p class="section-intro">形が似ているが意味が全く異なる形容詞ペア。試験でも頻出。スペルの違いと意味を例文とセットで確認する。</p>
+
+    <div class="pair-grid">
+
+      <div class="pair-card">
+        <div class="pair-words">
+          <div class="pair-word">
+            <span class="pair-word-en">considerable</span>
+            <span class="pair-word-ja">かなりの・相当な</span>
+          </div>
+          <div class="pair-word">
+            <span class="pair-word-en">considerate</span>
+            <span class="pair-word-ja">思いやりのある</span>
+          </div>
+        </div>
+        <div class="pair-examples">
+          <div class="pair-ex">
+            <span class="en">There was a <em>considerable</em> amount of damage.</span>
+            <span class="ja">かなりの被害があった。</span>
+          </div>
+          <div class="pair-ex">
+            <span class="en">She is always <em>considerate</em> of others.</span>
+            <span class="ja">彼女はいつも他人への思いやりがある。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pair-card">
+        <div class="pair-words">
+          <div class="pair-word">
+            <span class="pair-word-en">sensible</span>
+            <span class="pair-word-ja">分別のある・賢明な</span>
+          </div>
+          <div class="pair-word">
+            <span class="pair-word-en">sensitive</span>
+            <span class="pair-word-ja">敏感な・傷つきやすい</span>
+          </div>
+        </div>
+        <div class="pair-examples">
+          <div class="pair-ex">
+            <span class="en">That was a <em>sensible</em> decision.</span>
+            <span class="ja">それは賢明な判断だった。</span>
+          </div>
+          <div class="pair-ex">
+            <span class="en">He is very <em>sensitive</em> to criticism.</span>
+            <span class="ja">彼は批判にとても敏感だ。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pair-card">
+        <div class="pair-words">
+          <div class="pair-word">
+            <span class="pair-word-en">industrial</span>
+            <span class="pair-word-ja">産業の・工業の</span>
+          </div>
+          <div class="pair-word">
+            <span class="pair-word-en">industrious</span>
+            <span class="pair-word-ja">勤勉な・よく働く</span>
+          </div>
+        </div>
+        <div class="pair-examples">
+          <div class="pair-ex">
+            <span class="en">an <em>industrial</em> revolution</span>
+            <span class="ja">産業革命</span>
+          </div>
+          <div class="pair-ex">
+            <span class="en">She is an <em>industrious</em> student.</span>
+            <span class="ja">彼女は勤勉な学生だ。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pair-card">
+        <div class="pair-words">
+          <div class="pair-word">
+            <span class="pair-word-en">economic</span>
+            <span class="pair-word-ja">経済（上）の</span>
+          </div>
+          <div class="pair-word">
+            <span class="pair-word-en">economical</span>
+            <span class="pair-word-ja">節約になる・経済的な</span>
+          </div>
+        </div>
+        <div class="pair-examples">
+          <div class="pair-ex">
+            <span class="en">the <em>economic</em> growth of Asia</span>
+            <span class="ja">アジアの経済成長</span>
+          </div>
+          <div class="pair-ex">
+            <span class="en">This car is very <em>economical</em>.</span>
+            <span class="ja">この車はとても燃費が良い。</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pair-card">
+        <div class="pair-words">
+          <div class="pair-word">
+            <span class="pair-word-en">historic</span>
+            <span class="pair-word-ja">歴史的に重要な</span>
+          </div>
+          <div class="pair-word">
+            <span class="pair-word-en">historical</span>
+            <span class="pair-word-ja">歴史（上）の・史実の</span>
+          </div>
+        </div>
+        <div class="pair-examples">
+          <div class="pair-ex">
+            <span class="en">a <em>historic</em> victory</span>
+            <span class="ja">歴史的な勝利（重要で記念すべき）</span>
+          </div>
+          <div class="pair-ex">
+            <span class="en">a <em>historical</em> novel</span>
+            <span class="ja">歴史小説（史実に基づく）</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pair-card">
+        <div class="pair-words">
+          <div class="pair-word">
+            <span class="pair-word-en">imaginary</span>
+            <span class="pair-word-ja">想像上の・架空の</span>
+          </div>
+          <div class="pair-word">
+            <span class="pair-word-en">imaginative</span>
+            <span class="pair-word-ja">想像力のある・独創的な</span>
+          </div>
+        </div>
+        <div class="pair-examples">
+          <div class="pair-ex">
+            <span class="en">an <em>imaginary</em> friend</span>
+            <span class="ja">想像上の友達（実在しない）</span>
+          </div>
+          <div class="pair-ex">
+            <span class="en">an <em>imaginative</em> writer</span>
+            <span class="ja">想像力豊かな作家</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pair-card">
+        <div class="pair-words">
+          <div class="pair-word">
+            <span class="pair-word-en">childlike</span>
+            <span class="pair-word-ja">子供らしい（肯定的）</span>
+          </div>
+          <div class="pair-word">
+            <span class="pair-word-en">childish</span>
+            <span class="pair-word-ja">子供っぽい（否定的）</span>
+          </div>
+        </div>
+        <div class="pair-examples">
+          <div class="pair-ex">
+            <span class="en">her <em>childlike</em> curiosity</span>
+            <span class="ja">彼女の無邪気な好奇心（純粋でかわいい）</span>
+          </div>
+          <div class="pair-ex">
+            <span class="en">Don't be so <em>childish</em>!</span>
+            <span class="ja">そんな子供っぽいことをするな！（大人げない）</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pair-card">
+        <div class="pair-words">
+          <div class="pair-word">
+            <span class="pair-word-en">comparable</span>
+            <span class="pair-word-ja">匹敵する・比較できる</span>
+          </div>
+          <div class="pair-word">
+            <span class="pair-word-en">comparative</span>
+            <span class="pair-word-ja">比較の・相対的な</span>
+          </div>
+        </div>
+        <div class="pair-examples">
+          <div class="pair-ex">
+            <span class="en">a salary <em>comparable</em> to mine</span>
+            <span class="ja">私の給料に匹敵する給料</span>
+          </div>
+          <div class="pair-ex">
+            <span class="en">a <em>comparative</em> study of cultures</span>
+            <span class="ja">文化の比較研究</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 08 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">08</span>
+      <h2 class="section-title">形容詞の後置修飾</h2>
+      <span class="section-badge">Postpositive Adjectives</span>
+    </div>
+    <p class="section-intro">通常は名詞の前に来る形容詞が、特定の条件では名詞の後ろに置かれる「後置修飾」になるケースがある。</p>
+
+    <div class="constr-grid">
+      <div class="constr-row">
+        <div>
+          <div class="constr-form">-thing / -body + 形容詞</div>
+          <div class="constr-meaning">代名詞（-thing/-body）を修飾する場合は後置</div>
+        </div>
+        <div class="constr-examples">
+          <div class="constr-ex">
+            <span class="en">Is there anything <strong>wrong</strong>?</span>
+            <span class="ja">何か問題がありますか？（× wrong anything）</span>
+          </div>
+          <div class="constr-ex">
+            <span class="en">I need something <strong>cold</strong> to drink.</span>
+            <span class="ja">何か冷たい飲み物が欲しい。</span>
+          </div>
+        </div>
+      </div>
+      <div class="constr-row">
+        <div>
+          <div class="constr-form">present / available /<br>involved など</div>
+          <div class="constr-meaning">一部の形容詞は名詞の後ろに置いて特定の意味になる</div>
+        </div>
+        <div class="constr-examples">
+          <div class="constr-ex">
+            <span class="en">the people <strong>present</strong> at the meeting</span>
+            <span class="ja">会議に出席した人々（present = 出席している）</span>
+          </div>
+          <div class="constr-ex">
+            <span class="en">all resources <strong>available</strong></span>
+            <span class="ja">利用可能な全資源（available は後置が自然）</span>
+          </div>
+        </div>
+      </div>
+      <div class="constr-row">
+        <div>
+          <div class="constr-form">形容詞句・to不定詞・<br>分詞句による後置</div>
+          <div class="constr-meaning">形容詞が句になる場合は名詞の後ろへ</div>
+        </div>
+        <div class="constr-examples">
+          <div class="constr-ex">
+            <span class="en">a book <strong>easy to read</strong></span>
+            <span class="ja">読みやすい本（= an easy-to-read book）</span>
+          </div>
+          <div class="constr-ex">
+            <span class="en">a woman <strong>proud of her work</strong></span>
+            <span class="ja">自分の仕事を誇りに思う女性</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

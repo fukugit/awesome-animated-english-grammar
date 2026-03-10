@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>動名詞 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f9f7f2;
+      --white: #fff;
+      --border: #e5e0d5;
+      --text: #1c1c1c;
+      --muted: #6b6460;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --green: #16a34a;
+      --green-bg: #dcfce7;
+      --purple: #a855f7;
+      --red: #ef4444;
+      --teal: #14b8a6;
+      --amber: #f59e0b;
+      --accent: #1e3a8a;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.75; font-size: 16px;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      height: 56px; background: var(--white); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 48px; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 0.95rem;
+      text-decoration: none; color: var(--text);
+    }
+    .logo-mark {
+      width: 26px; height: 26px; background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+      border-radius: 6px; flex-shrink: 0;
+    }
+
+    /* ── Hero ── */
+    .page-hero { background: var(--white); border-bottom: 1px solid var(--border); padding: 48px 48px 40px; }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; }
+    .unit-meta-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .unit-num-badge {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 3px 10px; border-radius: 4px; background: var(--accent); color: white;
+    }
+    .ch-badge {
+      font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 4px;
+      background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+    }
+    .back-link a {
+      font-size: 0.88rem; color: var(--muted); text-decoration: none; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 4px; margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 10px; }
+    .page-title span { color: var(--green); }
+    .page-desc { color: var(--muted); font-size: 1.05rem; max-width: 680px; line-height: 1.8; }
+
+    /* ── Content ── */
+    .content { max-width: 1200px; margin: 0 auto; padding: 52px 48px 88px; }
+    .section { margin-bottom: 72px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+    .ger-badge {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; background: var(--bg);
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .section-title { font-size: 1.55rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 1rem; margin-bottom: 28px; margin-top: 8px; line-height: 1.8; }
+
+    /* ── Clause Demo ── */
+    .clause-demo {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 36px 28px 28px; display: flex; flex-direction: column; align-items: center;
+      gap: 20px; margin-bottom: 24px; position: relative;
+    }
+    .cl-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .cl {
+      padding: 12px 20px; border-radius: 10px; font-size: 0.95rem; font-weight: 600;
+      opacity: 0; transform: translateY(14px); transition: opacity 0.4s ease, transform 0.4s ease;
+      text-align: center; line-height: 1.4;
+    }
+    .cl.show { opacity: 1; transform: translateY(0); }
+    .cl.main   { background: #dbeafe; color: #1e3a8a; }
+    .cl.ger    { background: var(--green-bg); color: #14532d; border: 2px solid var(--green); }
+    .cl.sub    { background: #ccfbf1; color: #0f766e; }
+    .cl.muted  { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+    .cl-lbl { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; margin-top: 5px; opacity: 0.7; }
+    .cj {
+      font-size: 0.95rem; font-weight: 800; color: var(--green);
+      padding: 8px 14px; border-radius: 8px; background: var(--green-bg); border: 2px solid var(--green);
+      opacity: 0; transition: opacity 0.4s ease; white-space: nowrap;
+    }
+    .cj.show { opacity: 1; }
+    .cl-arrow { font-size: 1.4rem; color: var(--muted); opacity: 0; transition: opacity 0.4s ease; }
+    .cl-arrow.show { opacity: 1; }
+    .demo-sent {
+      font-style: italic; color: var(--muted); font-size: 1.05rem;
+      opacity: 0; transition: opacity 0.5s ease; text-align: center;
+    }
+    .demo-sent.show { opacity: 1; }
+    .replay-btn {
+      position: absolute; top: 14px; right: 14px;
+      font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 100px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--muted);
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.1s;
+    }
+    .replay-btn:hover { background: var(--white); color: var(--text); }
+    .replay-btn:active { transform: scale(0.96); }
+
+    /* ── 4 Roles Grid ── */
+    .roles-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 24px; }
+    .role-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+    .role-tag {
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 8px;
+    }
+    .role-label { font-size: 0.82rem; color: var(--muted); margin-bottom: 10px; }
+    .role-ex { font-size: 0.92rem; font-weight: 600; line-height: 1.7; }
+    .role-ex .hl { color: var(--green); font-weight: 800; }
+    .role-ja { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── Verb Lists ── */
+    .verb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+    .verb-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .verb-card h4 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .verb-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .verb-chip {
+      font-size: 0.82rem; font-weight: 700; padding: 3px 10px;
+      border-radius: 100px; background: var(--green-bg); color: var(--green);
+      border: 1px solid #bbf7d0;
+    }
+    .verb-chip.blue {
+      background: #dbeafe; color: #1e3a8a; border-color: #bfdbfe;
+    }
+
+    /* ── Meaning-Change Compare ── */
+    .mc-section { margin-bottom: 28px; }
+    .mc-verb-label {
+      font-size: 1rem; font-weight: 800; color: var(--text); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .mc-verb-label span {
+      font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+      background: var(--accent); color: white; letter-spacing: 0.06em;
+    }
+    .mc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .mc-card { border-radius: 10px; padding: 16px 18px; }
+    .mc-card.ger  { background: var(--green-bg); border: 1px solid #bbf7d0; }
+    .mc-card.inf  { background: #dbeafe; border: 1px solid #bfdbfe; }
+    .mc-form { font-size: 0.8rem; font-weight: 800; margin-bottom: 6px; }
+    .mc-card.ger .mc-form { color: var(--green); }
+    .mc-card.inf .mc-form { color: #1e3a8a; }
+    .mc-meaning { font-size: 0.82rem; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
+    .mc-ex { font-size: 0.88rem; font-weight: 600; line-height: 1.6; }
+    .mc-ex-ja { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── Subject of Gerund ── */
+    .subj-demo { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; margin-bottom: 20px; }
+    .subj-row { display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .subj-box { padding: 8px 14px; border-radius: 8px; font-size: 0.9rem; font-weight: 700; }
+    .sb-s   { background: #dbeafe; color: #1e3a8a; }
+    .sb-v   { background: #fff7ed; color: #9a3412; }
+    .sb-ger { background: var(--green-bg); color: #14532d; }
+    .sb-sub { background: #f3e8ff; color: #6b21a8; }
+    .sb-tag { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.06em; opacity: 0.65; margin-top: 3px; }
+    .subj-sent { font-size: 0.88rem; color: var(--muted); margin-top: 6px; }
+    .subj-sep { height: 1px; background: var(--border); margin: 14px 0; }
+
+    /* ── Special Forms ── */
+    .form-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+    .form-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .form-tag {
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .form-tag.neg  { color: var(--red); }
+    .form-tag.perf { color: var(--purple); }
+    .form-tag.pass { color: var(--teal); }
+    .form-tag.perfpass { color: var(--amber); }
+    .form-formula { font-size: 0.88rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+    .form-formula .hl-n { color: var(--red); }
+    .form-formula .hl-p { color: var(--purple); }
+    .form-formula .hl-t { color: var(--teal); }
+    .form-formula .hl-a { color: var(--amber); }
+    .form-ex { font-size: 0.82rem; font-style: italic; font-weight: 600; line-height: 1.6; }
+    .form-ja { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── Idiom Grid ── */
+    .idiom-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+    .idiom-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+    .idiom-card h4 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .idiom-list { display: flex; flex-direction: column; gap: 8px; }
+    .idiom-item { font-size: 0.88rem; }
+    .idiom-item strong { color: var(--green); font-weight: 700; }
+    .idiom-item span { color: var(--muted); font-size: 0.8rem; display: block; margin-top: 1px; }
+
+    /* ── Note box ── */
+    .note-box {
+      background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 16px 20px; font-size: 0.95rem; color: var(--muted); margin-bottom: 24px; line-height: 1.8;
+    }
+    .note-box.green  { border-left-color: var(--green); }
+    .note-box.orange { border-left-color: var(--orange); }
+    .note-box.purple { border-left-color: var(--purple); }
+    .note-box.red    { border-left-color: var(--red); }
+    .note-box.amber  { border-left-color: var(--amber); }
+
+    /* ── Examples Table ── */
+    .ex-table { width: 100%; border-collapse: collapse; font-size: 0.96rem; }
+    .ex-table thead th {
+      text-align: left; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); padding: 8px 12px; border-bottom: 2px solid var(--border);
+    }
+    .ex-table tbody td { padding: 12px 12px; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.6; }
+    .ex-table tbody tr:last-child td { border-bottom: none; }
+    .ex-table .en { font-weight: 600; }
+    .ex-table .ja { color: var(--muted); }
+    .hl  { color: var(--green); font-weight: 700; }
+    .hl-b { color: #1e3a8a; font-weight: 700; }
+    .hl-r { color: var(--red); font-weight: 700; }
+
+    .divider { height: 1px; background: var(--border); margin: 0 0 72px; }
+
+    @media (max-width: 700px) {
+      .page-hero { padding: 32px 24px 28px; }
+      .content { padding: 32px 24px 60px; }
+      .roles-grid { grid-template-columns: 1fr; }
+      .verb-grid { grid-template-columns: 1fr; }
+      .mc-grid { grid-template-columns: 1fr; }
+      .form-cards { grid-template-columns: 1fr; }
+      .idiom-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    <span>Animated English Grammar</span>
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 10</span>
+      <span class="ch-badge">Chapter II &nbsp;·&nbsp; 準動詞</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">動名詞 <span>Gerunds</span></h1>
+    <p class="page-desc">動詞を -ing にして名詞として使う形。4つの役割・動名詞のみ／不定詞のみをとる動詞・意味が変わる動詞・意味上の主語・否定/完了/受動形・慣用表現を整理する。</p>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- ── 01: 動名詞の4つの役割 ── -->
+  <section class="section" id="roles">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="ger-badge">基本用法</span>
+      <h2 class="section-title">動名詞の4つの役割 — 動詞を名詞として使う</h2>
+    </div>
+    <p class="section-intro">動詞に <strong>-ing</strong> をつけると名詞として機能し、文中で<strong>主語・補語・目的語・前置詞の目的語</strong>の4つの位置に置ける。不定詞の名詞的用法と重なる部分があるが、<strong>前置詞の直後は動名詞のみ</strong>（不定詞は不可）。</p>
+
+    <div class="clause-demo" id="demo-roles">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl ger"><div>Swimming every morning</div><div class="cl-lbl">主語（動名詞句）</div></div>
+        <div class="cl main"><div>keeps her in shape.</div><div class="cl-lbl">述語</div></div>
+      </div>
+      <div class="demo-sent">Swimming every morning keeps her in shape.</div>
+    </div>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-tag">① 主語</div>
+        <div class="role-label">文頭に置く。単数扱い。</div>
+        <div class="role-ex"><span class="hl">Reading aloud</span> improves your pronunciation.</div>
+        <div class="role-ja">音読すると発音が上達する。</div>
+      </div>
+      <div class="role-card">
+        <div class="role-tag">② 補語（SVC）</div>
+        <div class="role-label">be 動詞の後に置く。</div>
+        <div class="role-ex">Her passion is <span class="hl">designing sustainable buildings</span>.</div>
+        <div class="role-ja">彼女の情熱は持続可能な建物を設計することだ。</div>
+      </div>
+      <div class="role-card">
+        <div class="role-tag">③ 目的語（SVO）</div>
+        <div class="role-label">動詞の目的語になる。</div>
+        <div class="role-ex">He denied <span class="hl">taking the documents</span>.</div>
+        <div class="role-ja">彼はその書類を持ち出したことを否定した。</div>
+      </div>
+      <div class="role-card">
+        <div class="role-tag">④ 前置詞の目的語</div>
+        <div class="role-label">前置詞の直後。不定詞は不可。</div>
+        <div class="role-ex">She's thinking about <span class="hl">changing careers</span>.</div>
+        <div class="role-ja">彼女はキャリアチェンジを考えている。</div>
+      </div>
+    </div>
+
+    <div class="note-box green">
+      <strong>前置詞の後は動名詞のみ:</strong><br>
+      • She insisted on <em><strong>paying</strong></em> for dinner. ✓　（前置詞 on の後 → 動名詞）<br>
+      • She insisted on <em><strong>to pay</strong></em> for dinner. ✗　（前置詞の後に to 不定詞は不可）<br>
+      • be interested <em>in</em> / be good <em>at</em> / be afraid <em>of</em> / look forward <em>to</em> … の後もすべて動名詞
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 02: 動名詞のみをとる動詞 ── -->
+  <section class="section" id="ger-only">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="ger-badge">動名詞のみ</span>
+      <h2 class="section-title">動名詞のみを目的語にとる動詞</h2>
+    </div>
+    <p class="section-intro">これらの動詞の後には <strong>V-ing</strong> のみが来る。不定詞（to V）を置くと誤り。<strong>過去・完了・否定の文脈</strong>と結びつきやすい動詞が多い。</p>
+
+    <div class="verb-grid">
+      <div class="verb-card">
+        <h4>楽しむ・望む</h4>
+        <div class="verb-list">
+          <span class="verb-chip">enjoy</span>
+          <span class="verb-chip">practice</span>
+          <span class="verb-chip">miss</span>
+          <span class="verb-chip">mind</span>
+          <span class="verb-chip">consider</span>
+          <span class="verb-chip">imagine</span>
+        </div>
+      </div>
+      <div class="verb-card">
+        <h4>終える・止める</h4>
+        <div class="verb-list">
+          <span class="verb-chip">finish</span>
+          <span class="verb-chip">give up</span>
+          <span class="verb-chip">quit</span>
+          <span class="verb-chip">avoid</span>
+          <span class="verb-chip">escape</span>
+          <span class="verb-chip">postpone</span>
+        </div>
+      </div>
+      <div class="verb-card">
+        <h4>認める・否定</h4>
+        <div class="verb-list">
+          <span class="verb-chip">admit</span>
+          <span class="verb-chip">deny</span>
+          <span class="verb-chip">suggest</span>
+          <span class="verb-chip">recommend</span>
+          <span class="verb-chip">keep</span>
+          <span class="verb-chip">risk</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box orange">
+      <strong>覚え方のヒント — 「メガフェプス（MEGAFEPS）」型:</strong><br>
+      Mind / Enjoy / Give up / Avoid / Finish / Escape / Postpone / Suggest の頭文字。<br>
+      これらは<strong>すでに起きていること・現実の行為</strong>に焦点を当てる動詞が多い。
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">She enjoys <span class="hl">sketching</span> portraits in her spare time.</td><td class="ja">彼女は空き時間に人物画を描くのを楽しんでいる。</td></tr>
+        <tr><td class="en">He finally gave up <span class="hl">trying</span> to fix the old printer.</td><td class="ja">彼はとうとう古いプリンターを直そうとするのを諦めた。</td></tr>
+        <tr><td class="en">Would you mind <span class="hl">turning down</span> the music?</td><td class="ja">音楽を小さくしていただけませんか？</td></tr>
+        <tr><td class="en">The doctor recommended <span class="hl">reducing</span> salt intake.</td><td class="ja">医師は塩分摂取を減らすよう勧めた。</td></tr>
+        <tr><td class="en">They postponed <span class="hl">launching</span> the product due to supply issues.</td><td class="ja">供給問題のため、製品の発売を延期した。</td></tr>
+        <tr><td class="en">He denied <span class="hl">leaking</span> the confidential report.</td><td class="ja">彼は機密報告書を漏洩したことを否定した。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 03: 不定詞のみをとる動詞 ── -->
+  <section class="section" id="inf-only">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="ger-badge">不定詞のみ</span>
+      <h2 class="section-title">不定詞のみを目的語にとる動詞</h2>
+    </div>
+    <p class="section-intro">これらの動詞の後には <strong>to V</strong> のみが来る。動名詞（V-ing）を置くと誤り。<strong>これからの行為・意志・希望</strong>に関わる動詞が多い。</p>
+
+    <div class="verb-grid">
+      <div class="verb-card">
+        <h4>希望・計画</h4>
+        <div class="verb-list">
+          <span class="verb-chip blue">want</span>
+          <span class="verb-chip blue">hope</span>
+          <span class="verb-chip blue">wish</span>
+          <span class="verb-chip blue">plan</span>
+          <span class="verb-chip blue">intend</span>
+          <span class="verb-chip blue">expect</span>
+        </div>
+      </div>
+      <div class="verb-card">
+        <h4>決意・約束</h4>
+        <div class="verb-list">
+          <span class="verb-chip blue">decide</span>
+          <span class="verb-chip blue">promise</span>
+          <span class="verb-chip blue">agree</span>
+          <span class="verb-chip blue">offer</span>
+          <span class="verb-chip blue">refuse</span>
+          <span class="verb-chip blue">claim</span>
+        </div>
+      </div>
+      <div class="verb-card">
+        <h4>成功・失敗</h4>
+        <div class="verb-list">
+          <span class="verb-chip blue">manage</span>
+          <span class="verb-chip blue">fail</span>
+          <span class="verb-chip blue">afford</span>
+          <span class="verb-chip blue">tend</span>
+          <span class="verb-chip blue">pretend</span>
+          <span class="verb-chip blue">appear</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>覚え方のヒント — 「未来・意志・志向」系:</strong><br>
+      不定詞（to V）の to はもともと「〜の方向へ」という意味をもつ前置詞が語源。<br>
+      <strong>これからすること・目指すこと</strong>を表す動詞と相性がよい。<br>
+      例: <em>hope <strong>to win</strong> / decide <strong>to quit</strong> / promise <strong>to return</strong></em>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">She decided <span class="hl-b">to study</span> abroad next year.</td><td class="ja">彼女は来年留学することを決めた。</td></tr>
+        <tr><td class="en">He managed <span class="hl-b">to reach</span> the summit before sunset.</td><td class="ja">彼は日没前に山頂に到達することができた。</td></tr>
+        <tr><td class="en">They refused <span class="hl-b">to comment</span> on the allegations.</td><td class="ja">彼らはその疑惑についてコメントすることを拒否した。</td></tr>
+        <tr><td class="en">We can't afford <span class="hl-b">to overlook</span> these warning signs.</td><td class="ja">私たちはこれらの警告サインを見過ごす余裕はない。</td></tr>
+        <tr><td class="en">She tends <span class="hl-b">to underestimate</span> how long tasks take.</td><td class="ja">彼女はタスクにかかる時間を過小評価する傾向がある。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 04: 意味が変わる動詞 ── -->
+  <section class="section" id="meaning-change">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="ger-badge">意味が変わる</span>
+      <h2 class="section-title">動名詞と不定詞で意味が変わる動詞</h2>
+    </div>
+    <p class="section-intro">同じ動詞でも、後に動名詞（V-ing）が来るか不定詞（to V）が来るかで<strong>意味がまったく異なる</strong>。特に <strong>remember / forget / stop / regret / try</strong> の5つは最重要。</p>
+
+    <!-- remember -->
+    <div class="mc-section">
+      <div class="mc-verb-label">remember <span>要注意</span></div>
+      <div class="mc-grid">
+        <div class="mc-card ger">
+          <div class="mc-form">remember + V-ing</div>
+          <div class="mc-meaning">「〜したことを覚えている」（過去の行為を記憶）</div>
+          <div class="mc-ex">I remember <strong>turning off</strong> the lights before I left.</div>
+          <div class="mc-ex-ja">出発前に電気を消したことを覚えている。（消した → 覚えている）</div>
+        </div>
+        <div class="mc-card inf">
+          <div class="mc-form">remember + to V</div>
+          <div class="mc-meaning">「忘れずに〜する」（これからすることを覚えている）</div>
+          <div class="mc-ex">Remember <strong>to turn off</strong> the lights before you leave.</div>
+          <div class="mc-ex-ja">出発前に電気を消すのを忘れずに。（これからの行為）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- forget -->
+    <div class="mc-section">
+      <div class="mc-verb-label">forget <span>要注意</span></div>
+      <div class="mc-grid">
+        <div class="mc-card ger">
+          <div class="mc-form">forget + V-ing</div>
+          <div class="mc-meaning">「〜したことを忘れる」（過去の行為を忘れる）</div>
+          <div class="mc-ex">I'll never forget <strong>meeting</strong> her for the first time.</div>
+          <div class="mc-ex-ja">初めて彼女に会ったことは決して忘れない。</div>
+        </div>
+        <div class="mc-card inf">
+          <div class="mc-form">forget + to V</div>
+          <div class="mc-meaning">「〜するのを忘れる」（これからすることを忘れる）</div>
+          <div class="mc-ex">She forgot <strong>to attach</strong> the file to the email.</div>
+          <div class="mc-ex-ja">彼女はメールにファイルを添付するのを忘れた。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- stop -->
+    <div class="mc-section">
+      <div class="mc-verb-label">stop <span>要注意</span></div>
+      <div class="mc-grid">
+        <div class="mc-card ger">
+          <div class="mc-form">stop + V-ing</div>
+          <div class="mc-meaning">「〜するのをやめる」（動名詞が目的語）</div>
+          <div class="mc-ex">He stopped <strong>checking</strong> his phone during meals.</div>
+          <div class="mc-ex-ja">彼は食事中にスマホを確認するのをやめた。</div>
+        </div>
+        <div class="mc-card inf">
+          <div class="mc-form">stop + to V</div>
+          <div class="mc-meaning">「〜するために立ち止まる」（不定詞は目的を表す副詞的用法）</div>
+          <div class="mc-ex">She stopped <strong>to read</strong> the notice on the door.</div>
+          <div class="mc-ex-ja">彼女はドアの貼り紙を読むために立ち止まった。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- regret -->
+    <div class="mc-section">
+      <div class="mc-verb-label">regret <span>要注意</span></div>
+      <div class="mc-grid">
+        <div class="mc-card ger">
+          <div class="mc-form">regret + V-ing</div>
+          <div class="mc-meaning">「〜したことを後悔する」（過去の行為を悔やむ）</div>
+          <div class="mc-ex">He regrets <strong>not applying</strong> for that position.</div>
+          <div class="mc-ex-ja">彼はあのポジションに応募しなかったことを後悔している。</div>
+        </div>
+        <div class="mc-card inf">
+          <div class="mc-form">regret + to V</div>
+          <div class="mc-meaning">「残念ながら〜する」（遺憾を表す定型表現）</div>
+          <div class="mc-ex">We regret <strong>to inform</strong> you that the event is cancelled.</div>
+          <div class="mc-ex-ja">残念ながらイベントの中止をお知らせします。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- try -->
+    <div class="mc-section">
+      <div class="mc-verb-label">try <span>要注意</span></div>
+      <div class="mc-grid">
+        <div class="mc-card ger">
+          <div class="mc-form">try + V-ing</div>
+          <div class="mc-meaning">「試しに〜してみる」（実際に行動して試す）</div>
+          <div class="mc-ex">Try <strong>adding</strong> a pinch of cinnamon to the sauce.</div>
+          <div class="mc-ex-ja">ソースにシナモンをひとつまみ加えてみてください。</div>
+        </div>
+        <div class="mc-card inf">
+          <div class="mc-form">try + to V</div>
+          <div class="mc-meaning">「〜しようとする（努力する）」（達成できるかは別）</div>
+          <div class="mc-ex">She tried <strong>to open</strong> the jar but couldn't.</div>
+          <div class="mc-ex-ja">彼女は瓶を開けようとしたが、できなかった。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 05: 意味が変わらない動詞 ── -->
+  <section class="section" id="no-change">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="ger-badge">意味が変わらない</span>
+      <h2 class="section-title">動名詞と不定詞で意味が変わらない動詞</h2>
+    </div>
+    <p class="section-intro"><strong>like / love / hate / begin / start / continue / prefer</strong> などは動名詞と不定詞のどちらが続いても意味はほぼ同じ。ただし<strong>進行形のときは不定詞のみ</strong>が後続できる。</p>
+
+    <div class="note-box amber">
+      <strong>進行形と組み合わせる場合は不定詞のみ（重要）:</strong><br>
+      • <em>It is beginning <strong>to rain</strong>.</em> ✓<br>
+      • <em>It is beginning <strong>raining</strong>.</em> ✗ ← 進行形（-ing）が連続するのを避ける<br>
+      begin / start / continue が進行形になるときは、必ず to V を後ろに置く。
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>動名詞</th><th>不定詞</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="en">She likes <span class="hl">cooking</span> for guests.</td>
+          <td class="en">She likes <span class="hl-b">to cook</span> for guests.</td>
+          <td class="ja">彼女はゲストのために料理するのが好きだ。</td>
+        </tr>
+        <tr>
+          <td class="en">He hates <span class="hl">waiting</span> in queues.</td>
+          <td class="en">He hates <span class="hl-b">to wait</span> in queues.</td>
+          <td class="ja">彼は列に並んで待つのが嫌いだ。</td>
+        </tr>
+        <tr>
+          <td class="en">They continued <span class="hl">discussing</span> the proposal.</td>
+          <td class="en">They continued <span class="hl-b">to discuss</span> the proposal.</td>
+          <td class="ja">彼らは提案について議論し続けた。</td>
+        </tr>
+        <tr>
+          <td class="en">She prefers <span class="hl">working</span> from home.</td>
+          <td class="en">She prefers <span class="hl-b">to work</span> from home.</td>
+          <td class="ja">彼女はテレワークを好む。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 06: 動名詞の意味上の主語 ── -->
+  <section class="section" id="subject">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <span class="ger-badge">意味上の主語</span>
+      <h2 class="section-title">動名詞の意味上の主語 — 誰の動作かを示す</h2>
+    </div>
+    <p class="section-intro">動名詞が表す動作の主体が文の主語と異なる場合、動名詞の直前に<strong>意味上の主語</strong>を置く。フォーマルな文では<strong>所有格</strong>、口語では<strong>目的格</strong>が使われる。</p>
+
+    <div class="subj-demo">
+      <div class="subj-row">
+        <div class="subj-box sb-s">I<div class="sb-tag">S</div></div>
+        <div class="subj-box sb-v">appreciate<div class="sb-tag">V</div></div>
+        <div class="subj-box sb-sub">your<div class="sb-tag">意味上の主語（所有格）</div></div>
+        <div class="subj-box sb-ger">helping me out.<div class="sb-tag">動名詞（目的語）</div></div>
+      </div>
+      <div class="subj-sent">あなたが助けてくれることをありがたく思います。（私が appreciate する → あなたが help する）</div>
+      <div class="subj-sep"></div>
+      <div class="subj-row">
+        <div class="subj-box sb-s">She<div class="sb-tag">S</div></div>
+        <div class="subj-box sb-v">was surprised at<div class="sb-tag">V + 前置詞</div></div>
+        <div class="subj-box sb-sub">his<div class="sb-tag">意味上の主語（所有格）</div></div>
+        <div class="subj-box sb-ger">arriving so early.<div class="sb-tag">動名詞</div></div>
+      </div>
+      <div class="subj-sent">彼があんなに早く到着したことに彼女は驚いた。</div>
+    </div>
+
+    <div class="note-box purple">
+      <strong>所有格 vs 目的格:</strong><br>
+      • フォーマル（書き言葉）: <em>I don't like <strong>his</strong> smoking in the car.</em><br>
+      • インフォーマル（話し言葉）: <em>I don't like <strong>him</strong> smoking in the car.</em><br>
+      • 無生物・固有名詞の場合: <em>I'm surprised at <strong>the company</strong> changing its policy.</em>（所有格 the company's も可）
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">The coach insisted on <span class="hl">the team's</span> practicing every day.</td><td class="ja">コーチはチームが毎日練習することを強く求めた。</td></tr>
+        <tr><td class="en">Do you mind <span class="hl">my</span> opening the window?</td><td class="ja">窓を開けてもよろしいですか？</td></tr>
+        <tr><td class="en">There's little chance of <span class="hl">him</span> changing his mind.</td><td class="ja">彼が気持ちを変える可能性はほとんどない。</td></tr>
+        <tr><td class="en">She was upset about <span class="hl">her partner's</span> forgetting their anniversary.</td><td class="ja">パートナーが記念日を忘れたことに彼女は腹を立てた。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 07: 否定・完了・受動態 ── -->
+  <section class="section" id="forms">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <span class="ger-badge">否定・完了・受動</span>
+      <h2 class="section-title">動名詞の否定・完了・受動態</h2>
+    </div>
+    <p class="section-intro">動名詞にも否定・完了・受動の形がある。<strong>否定は not を直前に</strong>、<strong>完了は having + 過去分詞</strong>、<strong>受動は being + 過去分詞</strong>で作る。</p>
+
+    <div class="form-cards">
+      <div class="form-card">
+        <div class="form-tag neg">否定形</div>
+        <div class="form-formula"><span class="hl-n">not</span> V-ing</div>
+        <div class="form-ex">He regrets <span style="color:var(--red);font-weight:700">not taking</span> the opportunity.</div>
+        <div class="form-ja">彼はその機会を活かさなかったことを後悔している。</div>
+      </div>
+      <div class="form-card">
+        <div class="form-tag perf">完了形</div>
+        <div class="form-formula"><span class="hl-p">having</span> + 過去分詞</div>
+        <div class="form-ex">She denied <span style="color:var(--purple);font-weight:700">having seen</span> the report before.</div>
+        <div class="form-ja">彼女はその報告書を以前に見たことを否定した。</div>
+      </div>
+      <div class="form-card">
+        <div class="form-tag pass">受動形</div>
+        <div class="form-formula"><span class="hl-t">being</span> + 過去分詞</div>
+        <div class="form-ex">Nobody enjoys <span style="color:var(--teal);font-weight:700">being kept</span> waiting.</div>
+        <div class="form-ja">待たされることを楽しむ人はいない。</div>
+      </div>
+      <div class="form-card">
+        <div class="form-tag perfpass">完了受動形</div>
+        <div class="form-formula"><span class="hl-a">having been</span> + 過去分詞</div>
+        <div class="form-ex">He denied <span style="color:var(--amber);font-weight:700">having been involved</span> in the case.</div>
+        <div class="form-ja">彼はその件に関与していたことを否定した。</div>
+      </div>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>形</th><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--red);font-weight:700;font-size:0.85rem">否定</td>
+          <td class="en">I apologize for <span class="hl-r">not responding</span> sooner.</td>
+          <td class="ja">もっと早く返信しなかったことをお詫びします。</td>
+        </tr>
+        <tr>
+          <td style="color:var(--purple);font-weight:700;font-size:0.85rem">完了</td>
+          <td class="en">She admitted <span class="hl" style="color:var(--purple)">having made</span> an error in the calculation.</td>
+          <td class="ja">彼女は計算にミスを犯したことを認めた。</td>
+        </tr>
+        <tr>
+          <td style="color:var(--teal);font-weight:700;font-size:0.85rem">受動</td>
+          <td class="en">He hates <span class="hl" style="color:var(--teal)">being interrupted</span> while concentrating.</td>
+          <td class="ja">彼は集中しているときに邪魔されるのを嫌う。</td>
+        </tr>
+        <tr>
+          <td style="color:var(--amber);font-weight:700;font-size:0.85rem">完了受動</td>
+          <td class="en">She was proud of <span class="hl" style="color:var(--amber)">having been selected</span> for the national team.</td>
+          <td class="ja">彼女は代表チームに選ばれたことを誇りに思っていた。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 08: 慣用表現 ── -->
+  <section class="section" id="idioms">
+    <div class="section-header">
+      <span class="section-number">08</span>
+      <span class="ger-badge">慣用表現</span>
+      <h2 class="section-title">動名詞を使った重要慣用表現</h2>
+    </div>
+    <p class="section-intro">前置詞 + 動名詞の形が固定化した慣用表現。特に <strong>to が前置詞</strong>として機能する表現（look forward to / be used to など）は後ろに <strong>V-ing</strong> が来る点に注意。</p>
+
+    <div class="idiom-grid">
+      <div class="idiom-card">
+        <h4>to が前置詞（要注意）</h4>
+        <div class="idiom-list">
+          <div class="idiom-item">
+            <strong>be used to V-ing</strong>
+            <span>〜することに慣れている ※ used to V（〜したものだ）と区別</span>
+          </div>
+          <div class="idiom-item">
+            <strong>look forward to V-ing</strong>
+            <span>〜するのを楽しみにしている</span>
+          </div>
+          <div class="idiom-item">
+            <strong>object to V-ing</strong>
+            <span>〜することに反対する</span>
+          </div>
+          <div class="idiom-item">
+            <strong>be devoted to V-ing</strong>
+            <span>〜することに専念している</span>
+          </div>
+        </div>
+      </div>
+      <div class="idiom-card">
+        <h4>It / There 構文</h4>
+        <div class="idiom-list">
+          <div class="idiom-item">
+            <strong>It's no use V-ing</strong>
+            <span>〜しても無駄だ</span>
+          </div>
+          <div class="idiom-item">
+            <strong>It's no good V-ing</strong>
+            <span>〜しても意味がない</span>
+          </div>
+          <div class="idiom-item">
+            <strong>There is no V-ing</strong>
+            <span>〜することは不可能だ</span>
+          </div>
+          <div class="idiom-item">
+            <strong>It goes without saying that</strong>
+            <span>〜は言うまでもない</span>
+          </div>
+        </div>
+      </div>
+      <div class="idiom-card">
+        <h4>can't / feel 系</h4>
+        <div class="idiom-list">
+          <div class="idiom-item">
+            <strong>can't help V-ing</strong>
+            <span>〜せずにはいられない</span>
+          </div>
+          <div class="idiom-item">
+            <strong>can't resist V-ing</strong>
+            <span>〜するのを我慢できない</span>
+          </div>
+          <div class="idiom-item">
+            <strong>feel like V-ing</strong>
+            <span>〜したい気分だ</span>
+          </div>
+          <div class="idiom-item">
+            <strong>be worth V-ing</strong>
+            <span>〜する価値がある</span>
+          </div>
+        </div>
+      </div>
+      <div class="idiom-card">
+        <h4>前置詞 on / in / go</h4>
+        <div class="idiom-list">
+          <div class="idiom-item">
+            <strong>on V-ing</strong>
+            <span>〜するとすぐに（= as soon as）</span>
+          </div>
+          <div class="idiom-item">
+            <strong>in V-ing</strong>
+            <span>〜する際に / 〜することにおいて</span>
+          </div>
+          <div class="idiom-item">
+            <strong>go V-ing</strong>
+            <span>〜しに行く（go hiking / swimming / shopping）</span>
+          </div>
+          <div class="idiom-item">
+            <strong>spend + 時間/金 + V-ing</strong>
+            <span>〜するのに（時間・金）を費やす</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box green">
+      <strong>be used to V-ing vs used to V の区別（超頻出）:</strong><br>
+      • <em>She <strong>is used to</strong> working night shifts.</em> → 夜勤に<strong>慣れている</strong>（be used to + V-ing）<br>
+      • <em>She <strong>used to</strong> work night shifts.</em> → 以前は夜勤を<strong>していた</strong>（used to + 原形）<br>
+      <em>be used to</em> の to は<strong>前置詞</strong>なので後ろは V-ing / 名詞。<em>used to</em> の to は<strong>助動詞の一部</strong>なので後ろは原形。
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">I'm looking forward to <span class="hl">hearing</span> from you.</td><td class="ja">ご連絡をお待ちしています。</td></tr>
+        <tr><td class="en">It's no use <span class="hl">arguing</span> with him — he won't change his mind.</td><td class="ja">彼と言い争っても無駄だ。彼は気持ちを変えない。</td></tr>
+        <tr><td class="en">She can't help <span class="hl">smiling</span> whenever she hears that song.</td><td class="ja">その歌を聴くたびに、彼女は笑わずにはいられない。</td></tr>
+        <tr><td class="en"><span class="hl">On receiving</span> the award, he broke into tears.</td><td class="ja">賞を受け取った途端、彼は涙を流した。</td></tr>
+        <tr><td class="en">This documentary is well worth <span class="hl">watching</span>.</td><td class="ja">このドキュメンタリーは見る価値が十分ある。</td></tr>
+        <tr><td class="en">He spent three hours <span class="hl">debugging</span> the code.</td><td class="ja">彼はコードのデバッグに3時間費やした。</td></tr>
+        <tr><td class="en">There is no <span class="hl">telling</span> what will happen next.</td><td class="ja">次に何が起こるかは誰にもわからない。</td></tr>
+        <tr><td class="en">She objects to <span class="hl">being treated</span> as an outsider.</td><td class="ja">彼女は部外者扱いされることに反対している。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+  function animateClauseDemo(demoEl) {
+    const items = demoEl.querySelectorAll('.cl-row > *');
+    const sent  = demoEl.querySelector('.demo-sent');
+    items.forEach(el => el.classList.remove('show'));
+    if (sent) sent.classList.remove('show');
+    let delay = 0;
+    items.forEach(el => { setTimeout(() => el.classList.add('show'), delay); delay += 320; });
+    if (sent) setTimeout(() => sent.classList.add('show'), delay + 100);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      if (entry.target.classList.contains('clause-demo')) animateClauseDemo(entry.target);
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('.clause-demo').forEach(d => observer.observe(d));
+
+  document.querySelectorAll('.replay-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const demo = btn.closest('.clause-demo');
+      if (!demo) return;
+      const items = demo.querySelectorAll('.cl-row > *');
+      const sent  = demo.querySelector('.demo-sent');
+      items.forEach(el => el.classList.remove('show'));
+      if (sent) sent.classList.remove('show');
+      setTimeout(() => animateClauseDemo(demo), 80);
+    });
+  });
+</script>
+</body>
+</html>

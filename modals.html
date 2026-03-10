@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>助動詞 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f9f7f2;
+      --white: #fff;
+      --border: #e5e0d5;
+      --text: #1c1c1c;
+      --muted: #6b6460;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --green: #16a34a;
+      --purple: #7c3aed;
+      --red: #ef4444;
+      --teal: #14b8a6;
+      --amber: #f59e0b;
+      --modal: #1d4ed8;
+      --modal-bg: #dbeafe;
+      --accent: #1e3a8a;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.75; font-size: 16px;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      height: 56px; background: var(--white); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 48px; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 0.95rem;
+      text-decoration: none; color: var(--text);
+    }
+    .logo-mark {
+      width: 26px; height: 26px; background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+      border-radius: 6px; flex-shrink: 0;
+    }
+
+    /* ── Hero ── */
+    .page-hero { background: var(--white); border-bottom: 1px solid var(--border); padding: 48px 48px 40px; }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; }
+    .unit-meta-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .unit-num-badge {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 3px 10px; border-radius: 4px; background: var(--accent); color: white;
+    }
+    .ch-badge {
+      font-size: 0.7rem; font-weight: 700; padding: 3px 10px; border-radius: 4px;
+      background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+    }
+    .back-link a {
+      font-size: 0.88rem; color: var(--muted); text-decoration: none; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 4px; margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 10px; }
+    .page-title span { color: var(--modal); }
+    .page-desc { color: var(--muted); font-size: 1.05rem; max-width: 680px; line-height: 1.8; }
+
+    /* ── Content ── */
+    .content { max-width: 1200px; margin: 0 auto; padding: 52px 48px 88px; }
+    .section { margin-bottom: 72px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+    .modal-badge {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; background: var(--bg);
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .section-title { font-size: 1.55rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 1rem; margin-bottom: 28px; margin-top: 8px; line-height: 1.8; }
+
+    /* ── Modal Usage Grid ── */
+    .usage-grid {
+      display: grid; gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    }
+    .usage-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px 24px; position: relative;
+    }
+    .usage-card-head {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+    }
+    .modal-word {
+      font-size: 1.15rem; font-weight: 900; color: var(--modal);
+      font-family: 'Courier New', Courier, monospace;
+      background: var(--modal-bg); padding: 3px 12px; border-radius: 6px;
+    }
+    .modal-word.past {
+      color: var(--purple); background: #ede9fe;
+    }
+    .usage-meaning {
+      font-size: 0.82rem; font-weight: 700; color: var(--muted);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .usage-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .usage-list li {
+      padding: 10px 14px; background: var(--bg);
+      border-radius: 8px; border-left: 3px solid var(--modal-bg);
+      font-size: 0.97rem; line-height: 1.7;
+    }
+    .usage-list li.past-style { border-left-color: #ede9fe; }
+    .usage-en { font-weight: 700; display: block; }
+    .usage-ja { font-size: 0.88rem; color: var(--muted); display: block; }
+    .usage-tag {
+      display: inline-block; font-size: 0.7rem; font-weight: 700;
+      padding: 1px 7px; border-radius: 4px; margin-bottom: 4px;
+      vertical-align: middle;
+    }
+    .tag-ability   { background: #dbeafe; color: #1d4ed8; }
+    .tag-perm      { background: #d1fae5; color: #065f46; }
+    .tag-poss      { background: #fef3c7; color: #92400e; }
+    .tag-polite    { background: #ede9fe; color: #5b21b6; }
+    .tag-will-v    { background: #fce7f3; color: #9d174d; }
+    .tag-habit     { background: #ffedd5; color: #7c2d12; }
+    .tag-obl       { background: #fee2e2; color: #991b1b; }
+    .tag-deduct    { background: #fef9c3; color: #713f12; }
+    .tag-advice    { background: #dcfce7; color: #14532d; }
+    .tag-expect    { background: #e0f2fe; color: #0c4a6e; }
+    .tag-neg       { background: #f3e8ff; color: #5b21b6; }
+
+    /* ── must vs have to ── */
+    .contrast-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .contrast-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 22px 24px;
+    }
+    .contrast-head {
+      font-size: 1.1rem; font-weight: 900; margin-bottom: 14px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .contrast-head.must-style { color: var(--red); }
+    .contrast-head.haveto-style { color: var(--orange); }
+    .contrast-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .contrast-list li {
+      font-size: 0.95rem; padding: 8px 12px; background: var(--bg);
+      border-radius: 7px; line-height: 1.65;
+    }
+    .neg-box {
+      margin-top: 20px; padding: 18px 22px; border-radius: var(--radius);
+      background: var(--white); border: 1px solid var(--border);
+    }
+    .neg-box h4 { font-size: 1rem; font-weight: 800; margin-bottom: 12px; color: var(--red); }
+    .neg-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start;
+    }
+    .neg-item {
+      padding: 10px 14px; border-radius: 8px; font-size: 0.93rem; line-height: 1.65;
+    }
+    .neg-item.mustnot { background: #fee2e2; }
+    .neg-item.donthavetol { background: #fff7ed; }
+
+    /* ── Past Modal Grid ── */
+    .past-modal-grid {
+      display: grid; gap: 14px;
+    }
+    .pm-row {
+      display: grid; grid-template-columns: 220px 1fr 1fr; gap: 14px; align-items: start;
+    }
+    .pm-form {
+      background: var(--modal-bg); border-radius: 10px; padding: 14px 16px;
+      text-align: center;
+    }
+    .pm-form .modal-str {
+      font-size: 0.92rem; font-weight: 900; color: var(--modal);
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .pm-form .pm-meaning { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
+    .pm-example {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+      padding: 12px 14px; font-size: 0.93rem; line-height: 1.7;
+    }
+    .pm-example .en { font-weight: 700; }
+    .pm-example .ja { font-size: 0.86rem; color: var(--muted); }
+
+    /* ── Spectrum ── */
+    .spectrum-wrap {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 36px 40px;
+    }
+    .spec-bar-track {
+      position: relative; height: 12px;
+      background: linear-gradient(to right, #fee2e2, #fef3c7, #dcfce7, #dbeafe);
+      border-radius: 100px; margin-bottom: 8px;
+    }
+    .spec-labels {
+      display: flex; justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .spec-edge { font-size: 0.82rem; font-weight: 700; color: var(--muted); }
+    .spec-words {
+      display: flex; gap: 0; margin-top: 8px; position: relative;
+    }
+    .spec-item {
+      flex: 1; text-align: center; padding: 12px 6px;
+      border-right: 1px solid var(--border); position: relative;
+    }
+    .spec-item:last-child { border-right: none; }
+    .spec-modal-word {
+      font-size: 1rem; font-weight: 900; font-family: 'Courier New', Courier, monospace;
+      color: var(--modal);
+    }
+    .spec-pct {
+      font-size: 0.8rem; color: var(--muted); margin-top: 4px; font-weight: 600;
+    }
+    .spec-ja { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .spec-divider { height: 1px; background: var(--border); margin: 24px 0; }
+    .spec-examples { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+    .spec-ex-row {
+      display: grid; grid-template-columns: 160px 1fr; gap: 12px; align-items: center;
+    }
+    .spec-ex-modal {
+      font-weight: 900; font-family: 'Courier New', Courier, monospace;
+      color: var(--modal); font-size: 0.95rem; text-align: right;
+    }
+    .spec-ex-sent {
+      background: var(--bg); border-radius: 7px; padding: 8px 14px;
+      font-size: 0.93rem; line-height: 1.65;
+    }
+    .spec-ex-sent span { font-size: 0.85rem; color: var(--muted); margin-left: 6px; }
+
+    /* ── Polite Grid ── */
+    .polite-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+    }
+    .polite-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 22px;
+    }
+    .polite-card h4 {
+      font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); margin-bottom: 12px;
+    }
+    .polite-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .polite-list li {
+      font-size: 0.95rem; padding: 8px 12px; background: var(--bg); border-radius: 7px; line-height: 1.65;
+    }
+    .polite-en { font-weight: 700; display: block; }
+    .polite-ja { font-size: 0.85rem; color: var(--muted); display: block; }
+
+    /* ── idiom grid ── */
+    .idiom-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px;
+    }
+    .idiom-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 18px;
+    }
+    .idiom-form {
+      font-size: 0.97rem; font-weight: 900; color: var(--modal);
+      font-family: 'Courier New', Courier, monospace; margin-bottom: 6px;
+    }
+    .idiom-meaning { font-size: 0.88rem; color: var(--muted); margin-bottom: 8px; font-weight: 600; }
+    .idiom-ex { font-size: 0.9rem; line-height: 1.7; }
+    .idiom-ex em { font-style: normal; font-weight: 700; color: var(--modal); }
+    .idiom-ex span { font-size: 0.84rem; color: var(--muted); display: block; }
+
+    /* ── used to ── */
+    .used-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    }
+    .used-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 24px;
+    }
+    .used-head { font-size: 1.05rem; font-weight: 900; margin-bottom: 14px; font-family: 'Courier New', Courier, monospace; }
+    .used-head.ut { color: var(--orange); }
+    .used-head.would { color: var(--purple); }
+    .used-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .used-list li {
+      font-size: 0.95rem; padding: 9px 12px; background: var(--bg); border-radius: 7px; line-height: 1.65;
+    }
+
+    /* ── should subjunctive ── */
+    .sub-grid {
+      display: grid; gap: 12px;
+    }
+    .sub-row {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 18px; display: grid; grid-template-columns: 200px 1fr; gap: 12px; align-items: start;
+    }
+    .sub-label {
+      font-size: 0.82rem; font-weight: 700; color: var(--modal); text-transform: uppercase; letter-spacing: 0.06em; padding-top: 2px;
+    }
+    .sub-content { font-size: 0.94rem; line-height: 1.7; }
+    .sub-content strong { font-weight: 700; }
+    .sub-content em { font-style: normal; color: var(--muted); font-size: 0.88rem; display: block; }
+
+    @media (max-width: 800px) {
+      .nav { padding: 0 20px; }
+      .page-hero { padding: 36px 20px 28px; }
+      .content { padding: 36px 20px 60px; }
+      .pm-row { grid-template-columns: 1fr; }
+      .contrast-grid, .neg-row, .polite-grid, .used-grid { grid-template-columns: 1fr; }
+      .spec-ex-row { grid-template-columns: 1fr; }
+      .sub-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    Animated English Grammar
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="back-link"><a href="index.html">← Back to Index</a></div>
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 11</span>
+      <span class="ch-badge">Chapter II · 動詞の時制と形</span>
+    </div>
+    <h1 class="page-title"><span>助動詞</span> / Modal Auxiliaries</h1>
+    <p class="page-desc">can / will / may / must / should ——助動詞は動詞の前に置いて「可能・意志・推量・義務」のニュアンスを添える。各助動詞の用法と確信度の違い、さらに「助動詞＋have p.p.」の過去表現まで網羅する。</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- Section 01 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">can / could</h2>
+      <span class="modal-badge">Ability · Permission · Possibility</span>
+    </div>
+    <p class="section-intro">can の基本は「可能（～できる）」。そこから「許可」「可能性・推量」に広がる。could は can の過去形だが、現在でも「丁寧な依頼」「仮定的な可能性」として使われる。</p>
+    <div class="usage-grid">
+
+      <div class="usage-card">
+        <div class="usage-card-head">
+          <span class="modal-word">can</span>
+          <span class="usage-meaning">現在形</span>
+        </div>
+        <ul class="usage-list">
+          <li>
+            <span class="usage-tag tag-ability">能力</span>
+            <span class="usage-en">She <em style="color:var(--modal)">can</em> speak three languages.</span>
+            <span class="usage-ja">彼女は3か国語を話すことができる。</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-perm">許可</span>
+            <span class="usage-en">You <em style="color:var(--modal)">can</em> use my phone.</span>
+            <span class="usage-ja">私の電話を使っていいよ。</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-poss">可能性</span>
+            <span class="usage-en">Accidents <em style="color:var(--modal)">can</em> happen anywhere.</span>
+            <span class="usage-ja">事故はどこでも起こりうる。（一般的可能性）</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-poss">否定の推量</span>
+            <span class="usage-en">That <em style="color:var(--modal)">can't</em> be true.</span>
+            <span class="usage-ja">それは本当のはずがない。（強い否定）</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="usage-card">
+        <div class="usage-card-head">
+          <span class="modal-word past">could</span>
+          <span class="usage-meaning">過去形・丁寧・仮定</span>
+        </div>
+        <ul class="usage-list">
+          <li class="past-style">
+            <span class="usage-tag tag-ability">過去の能力</span>
+            <span class="usage-en">I <em style="color:var(--purple)">could</em> run fast when I was young.</span>
+            <span class="usage-ja">若いころは速く走れた。</span>
+          </li>
+          <li class="past-style">
+            <span class="usage-tag tag-polite">丁寧な依頼</span>
+            <span class="usage-en"><em style="color:var(--purple)">Could</em> you help me with this?</span>
+            <span class="usage-ja">これを手伝っていただけますか？</span>
+          </li>
+          <li class="past-style">
+            <span class="usage-tag tag-poss">不確かな推量</span>
+            <span class="usage-en">It <em style="color:var(--purple)">could</em> be dangerous.</span>
+            <span class="usage-ja">危険かもしれない。（かもしれない）</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 02 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">will / would</h2>
+      <span class="modal-badge">Volition · Prediction · Habit</span>
+    </div>
+    <p class="section-intro">will の基本は「意志（～するつもりだ）」。そこから未来予測・現在の習性へと広がる。would は will の過去形。「過去の習慣」「丁寧な依頼・申し出」「仮定法」で重要。</p>
+    <div class="usage-grid">
+
+      <div class="usage-card">
+        <div class="usage-card-head">
+          <span class="modal-word">will</span>
+          <span class="usage-meaning">現在形</span>
+        </div>
+        <ul class="usage-list">
+          <li>
+            <span class="usage-tag tag-will-v">意志</span>
+            <span class="usage-en">I <em style="color:var(--modal)">will</em> do my best.</span>
+            <span class="usage-ja">全力を尽くします。（話者の意志）</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-poss">推量・予測</span>
+            <span class="usage-en">It <em style="color:var(--modal)">will</em> rain tomorrow.</span>
+            <span class="usage-ja">明日は雨が降るだろう。（ほぼ確信）</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-habit">習性・傾向</span>
+            <span class="usage-en">Boys <em style="color:var(--modal)">will</em> be boys.</span>
+            <span class="usage-ja">男の子とはそういうものだ。（現在の習性）</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-polite">申し出</span>
+            <span class="usage-en"><em style="color:var(--modal)">Will</em> you have some coffee?</span>
+            <span class="usage-ja">コーヒーはいかがですか？</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="usage-card">
+        <div class="usage-card-head">
+          <span class="modal-word past">would</span>
+          <span class="usage-meaning">過去形・丁寧・仮定</span>
+        </div>
+        <ul class="usage-list">
+          <li class="past-style">
+            <span class="usage-tag tag-habit">過去の習慣</span>
+            <span class="usage-en">We <em style="color:var(--purple)">would</em> often go fishing.</span>
+            <span class="usage-ja">私たちはよく釣りに行ったものだ。</span>
+          </li>
+          <li class="past-style">
+            <span class="usage-tag tag-polite">丁寧な依頼</span>
+            <span class="usage-en"><em style="color:var(--purple)">Would</em> you mind closing the window?</span>
+            <span class="usage-ja">窓を閉めていただけますか？</span>
+          </li>
+          <li class="past-style">
+            <span class="usage-tag tag-poss">仮定・控えめ</span>
+            <span class="usage-en">That <em style="color:var(--purple)">would</em> be a great idea.</span>
+            <span class="usage-ja">それはいい考えかもしれませんね。（控えめ）</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="neg-box" style="margin-top:20px;">
+      <h4 style="color:var(--modal);">would vs. used to の違い</h4>
+      <div class="neg-row">
+        <div class="neg-item" style="background:#ede9fe;">
+          <strong>would</strong>：過去の習慣的行動のみ<br>
+          <span style="font-size:0.88rem;color:var(--muted);">× I would live in Tokyo. （状態動詞はNG）</span>
+        </div>
+        <div class="neg-item" style="background:#fff7ed;">
+          <strong>used to</strong>：過去の習慣的行動 ＋ 状態<br>
+          <span style="font-size:0.88rem;color:var(--muted);">○ I used to live in Tokyo. （状態動詞もOK）</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 03 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">may / might</h2>
+      <span class="modal-badge">Permission · Probability</span>
+    </div>
+    <p class="section-intro">may の基本は「許可（してもよい）」と「推量（かもしれない）」の2本柱。might は may の過去形だが、現在でも「may より不確かな推量」を表す。</p>
+    <div class="usage-grid">
+
+      <div class="usage-card">
+        <div class="usage-card-head">
+          <span class="modal-word">may</span>
+          <span class="usage-meaning">許可・推量（約50%）</span>
+        </div>
+        <ul class="usage-list">
+          <li>
+            <span class="usage-tag tag-perm">許可</span>
+            <span class="usage-en">You <em style="color:var(--modal)">may</em> leave now.</span>
+            <span class="usage-ja">もう退席していいですよ。（公式・格式ばった許可）</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-poss">推量</span>
+            <span class="usage-en">She <em style="color:var(--modal)">may</em> be at home.</span>
+            <span class="usage-ja">彼女は家にいるかもしれない。（約50%の確信）</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-poss">祈願（may祈願文）</span>
+            <span class="usage-en"><em style="color:var(--modal)">May</em> you be happy!</span>
+            <span class="usage-ja">あなたが幸せでありますように。（祈りの表現）</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="usage-card">
+        <div class="usage-card-head">
+          <span class="modal-word past">might</span>
+          <span class="usage-meaning">不確かな推量（約30%）</span>
+        </div>
+        <ul class="usage-list">
+          <li class="past-style">
+            <span class="usage-tag tag-poss">弱い推量</span>
+            <span class="usage-en">It <em style="color:var(--purple)">might</em> be a good idea.</span>
+            <span class="usage-ja">もしかしたらいい考えかもしれない。（may より弱い）</span>
+          </li>
+          <li class="past-style">
+            <span class="usage-tag tag-polite">控えめな提案</span>
+            <span class="usage-en">You <em style="color:var(--purple)">might</em> want to reconsider.</span>
+            <span class="usage-ja">考え直した方がいいかもしれませんよ。（遠回しの提案）</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 04 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2 class="section-title">must / have to</h2>
+      <span class="modal-badge">Obligation · Deduction</span>
+    </div>
+    <p class="section-intro">must は「義務（～しなければならない）」と「強い推量（～に違いない）」の2用法を持つ。have to は must に似るが、外的な強制・客観的義務のニュアンス。否定形の意味は全く異なる。</p>
+    <div class="contrast-grid">
+      <div class="contrast-card">
+        <div class="contrast-head must-style">must</div>
+        <ul class="contrast-list">
+          <li>
+            <span class="usage-tag tag-obl">強い義務（話者の主観）</span><br>
+            You <strong>must</strong> submit the report by Friday.<br>
+            <span style="font-size:0.86rem;color:var(--muted);">金曜までにレポートを提出しなさい。</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-deduct">強い推量（に違いない）</span><br>
+            He <strong>must</strong> be very tired.<br>
+            <span style="font-size:0.86rem;color:var(--muted);">彼はとても疲れているに違いない。</span>
+          </li>
+        </ul>
+      </div>
+      <div class="contrast-card">
+        <div class="contrast-head haveto-style">have to</div>
+        <ul class="contrast-list">
+          <li>
+            <span class="usage-tag tag-obl">外的義務（規則・状況）</span><br>
+            I <strong>have to</strong> wear a uniform at work.<br>
+            <span style="font-size:0.86rem;color:var(--muted);">職場では制服を着なければならない。</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-habit">過去・未来にも使える</span><br>
+            She <strong>had to</strong> leave early yesterday.<br>
+            <span style="font-size:0.86rem;color:var(--muted);">彼女は昨日、早く帰らなければならなかった。（must の過去形は had to）</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="neg-box">
+      <h4>否定形の意味の違い（最重要）</h4>
+      <div class="neg-row">
+        <div class="neg-item mustnot">
+          <strong>must not（mustn't）</strong><br>
+          <span style="font-size:0.9rem;">～してはいけない <em style="font-style:normal;">（禁止）</em></span><br>
+          <span style="font-size:0.86rem;color:#7f1d1d;">You mustn't smoke here.</span><br>
+          <span style="font-size:0.84rem;color:var(--muted);">ここでタバコを吸ってはいけない。</span>
+        </div>
+        <div class="neg-item donthavetol">
+          <strong>don't have to</strong><br>
+          <span style="font-size:0.9rem;">～しなくていい <em style="font-style:normal;">（不必要）</em></span><br>
+          <span style="font-size:0.86rem;color:#7c2d12;">You don't have to hurry.</span><br>
+          <span style="font-size:0.84rem;color:var(--muted);">急がなくてもいい。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 05 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2 class="section-title">should / ought to</h2>
+      <span class="modal-badge">Advice · Expectation · Subjunctive</span>
+    </div>
+    <p class="section-intro">should は「～すべきだ（義務）」「～はずだ（推量・当然）」の2つが柱。should は仮定法的な特殊用法（感情・要求の that 節）でも現れる重要な助動詞。</p>
+    <div class="usage-grid">
+      <div class="usage-card">
+        <div class="usage-card-head">
+          <span class="modal-word">should</span>
+        </div>
+        <ul class="usage-list">
+          <li>
+            <span class="usage-tag tag-advice">助言・義務</span>
+            <span class="usage-en">You <em style="color:var(--modal)">should</em> see a doctor.</span>
+            <span class="usage-ja">医者に診てもらった方がいい。（must ほど強くない）</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-expect">当然の推量</span>
+            <span class="usage-en">He <em style="color:var(--modal)">should</em> be home by now.</span>
+            <span class="usage-ja">今ごろは家に帰っているはずだ。</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-poss">条件節・驚き</span>
+            <span class="usage-en">If you <em style="color:var(--modal)">should</em> need help, call me.</span>
+            <span class="usage-ja">もし万が一助けが必要なら電話して。（万が一）</span>
+          </li>
+        </ul>
+      </div>
+      <div class="usage-card">
+        <div class="usage-card-head">
+          <span class="modal-word">ought to</span>
+        </div>
+        <ul class="usage-list">
+          <li>
+            <span class="usage-tag tag-advice">義務（should に近い）</span>
+            <span class="usage-en">You <em style="color:var(--modal)">ought to</em> apologize.</span>
+            <span class="usage-ja">謝るべきだ。</span>
+          </li>
+          <li>
+            <span class="usage-tag tag-expect">当然の推量</span>
+            <span class="usage-en">The results <em style="color:var(--modal)">ought to</em> be ready soon.</span>
+            <span class="usage-ja">結果はもうすぐ出るはずだ。</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;">
+      <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:14px;">should の特殊用法：感情・要求の that 節</h3>
+      <div class="sub-grid">
+        <div class="sub-row">
+          <div class="sub-label">感情の形容詞 + that</div>
+          <div class="sub-content">
+            <strong>It is natural that she should be angry.</strong>
+            <em>彼女が怒るのは当然だ。（natural / strange / surprising などの後の that 節）</em>
+          </div>
+        </div>
+        <div class="sub-row">
+          <div class="sub-label">要求・提案の動詞 + that</div>
+          <div class="sub-content">
+            <strong>They insisted that he should attend the meeting.</strong>
+            <em>彼らは彼が会議に出席すべきだと主張した。（insist / suggest / demand + that）</em>
+          </div>
+        </div>
+        <div class="sub-row">
+          <div class="sub-label">lest ～ should</div>
+          <div class="sub-content">
+            <strong>She whispered lest she should wake the baby.</strong>
+            <em>赤ちゃんを起こさないようにとささやいた。（lest ～ should＝～しないように）</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 06 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2 class="section-title">助動詞＋have p.p.</h2>
+      <span class="modal-badge">Past Inference · Regret · Criticism</span>
+    </div>
+    <p class="section-intro">「助動詞＋have＋過去分詞」は過去の出来事に対する推量・後悔・非難を表す最重要パターン。各助動詞の現在形の意味が過去に投影されるイメージ。</p>
+    <div class="past-modal-grid">
+
+      <div class="pm-row">
+        <div class="pm-form">
+          <div class="modal-str">must have p.p.</div>
+          <div class="pm-meaning">〜したに違いない（過去の強い推量）</div>
+        </div>
+        <div class="pm-example">
+          <span class="en">She <strong>must have left</strong> already.</span>
+          <span class="ja">彼女はもう出発したに違いない。</span>
+        </div>
+        <div class="pm-example">
+          <span class="en">He <strong>must have forgotten</strong> the appointment.</span>
+          <span class="ja">彼は約束を忘れてしまったに違いない。</span>
+        </div>
+      </div>
+
+      <div class="pm-row">
+        <div class="pm-form">
+          <div class="modal-str">should have p.p.</div>
+          <div class="pm-meaning">〜すべきだったのに（後悔・非難）</div>
+        </div>
+        <div class="pm-example">
+          <span class="en">I <strong>should have studied</strong> harder.</span>
+          <span class="ja">もっと一生懸命勉強すればよかった。（後悔）</span>
+        </div>
+        <div class="pm-example">
+          <span class="en">You <strong>shouldn't have said</strong> that.</span>
+          <span class="ja">そんなことを言うべきではなかった。（非難）</span>
+        </div>
+      </div>
+
+      <div class="pm-row">
+        <div class="pm-form">
+          <div class="modal-str">could have p.p.</div>
+          <div class="pm-meaning">〜できたのに（しなかった）</div>
+        </div>
+        <div class="pm-example">
+          <span class="en">I <strong>could have won</strong> the game.</span>
+          <span class="ja">試合に勝てたはずなのに。（実際はしなかった）</span>
+        </div>
+        <div class="pm-example">
+          <span class="en">You <strong>could have called</strong> me.</span>
+          <span class="ja">電話してくれることもできたのに。</span>
+        </div>
+      </div>
+
+      <div class="pm-row">
+        <div class="pm-form">
+          <div class="modal-str">may/might have p.p.</div>
+          <div class="pm-meaning">〜したかもしれない（過去の推量）</div>
+        </div>
+        <div class="pm-example">
+          <span class="en">She <strong>may have missed</strong> the train.</span>
+          <span class="ja">彼女は電車に乗り遅れたかもしれない。</span>
+        </div>
+        <div class="pm-example">
+          <span class="en">He <strong>might have been</strong> hiding something.</span>
+          <span class="ja">彼は何かを隠していたかもしれない。（mightはやや弱い）</span>
+        </div>
+      </div>
+
+      <div class="pm-row">
+        <div class="pm-form">
+          <div class="modal-str">need not have p.p.</div>
+          <div class="pm-meaning">〜する必要はなかったのに（実際はした）</div>
+        </div>
+        <div class="pm-example">
+          <span class="en">You <strong>need not have hurried</strong>.</span>
+          <span class="ja">急ぐ必要はなかったのに。（実際は急いだ）</span>
+        </div>
+        <div class="pm-example" style="background:#fff7ed;">
+          <span class="en" style="color:var(--orange);">cf. didn't need to hurry</span>
+          <span class="ja" style="color:var(--muted);">急ぐ必要がなかった。（実際に急いだかは不明）</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 07 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <h2 class="section-title">推量の確信度スペクトル</h2>
+      <span class="modal-badge">Certainty Scale</span>
+    </div>
+    <p class="section-intro">助動詞が「推量」を表すとき、どれだけ確信しているかで使う助動詞が変わる。must（ほぼ確実）〜 might/could（低確率）のグラデーションを整理する。</p>
+    <div class="spectrum-wrap">
+      <div class="spec-labels">
+        <span class="spec-edge">低い確信度（Low certainty）</span>
+        <span class="spec-edge">高い確信度（High certainty）</span>
+      </div>
+      <div class="spec-bar-track"></div>
+      <div class="spec-words">
+        <div class="spec-item">
+          <div class="spec-modal-word">might</div>
+          <div class="spec-modal-word" style="color:var(--purple);">could</div>
+          <div class="spec-pct">〜 20–30%</div>
+          <div class="spec-ja">かもしれない</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-modal-word">may</div>
+          <div class="spec-pct">〜 40–50%</div>
+          <div class="spec-ja">かもしれない</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-modal-word">should</div>
+          <div class="spec-modal-word">ought to</div>
+          <div class="spec-pct">〜 70%</div>
+          <div class="spec-ja">はずだ</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-modal-word">will</div>
+          <div class="spec-pct">〜 80%</div>
+          <div class="spec-ja">だろう</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-modal-word">must</div>
+          <div class="spec-pct">〜 95%</div>
+          <div class="spec-ja">に違いない</div>
+        </div>
+      </div>
+      <div class="spec-divider"></div>
+      <h4 style="font-size:0.95rem;font-weight:800;margin-bottom:12px;color:var(--modal);">例文で確認（同じ状況を5段階で）</h4>
+      <div class="spec-examples">
+        <div class="spec-ex-row">
+          <div class="spec-ex-modal">might be</div>
+          <div class="spec-ex-sent">He <strong>might be</strong> in the library.<span>図書館にいるかもしれない。（あまり確信なし）</span></div>
+        </div>
+        <div class="spec-ex-row">
+          <div class="spec-ex-modal">may be</div>
+          <div class="spec-ex-sent">He <strong>may be</strong> in the library.<span>図書館にいるかもしれない。（五分五分）</span></div>
+        </div>
+        <div class="spec-ex-row">
+          <div class="spec-ex-modal">should be</div>
+          <div class="spec-ex-sent">He <strong>should be</strong> in the library by now.<span>今ごろは図書館にいるはずだ。（かなり確信）</span></div>
+        </div>
+        <div class="spec-ex-row">
+          <div class="spec-ex-modal">will be</div>
+          <div class="spec-ex-sent">He <strong>will be</strong> in the library at this time.<span>この時間は図書館にいるだろう。（ほぼ確信）</span></div>
+        </div>
+        <div class="spec-ex-row">
+          <div class="spec-ex-modal">must be</div>
+          <div class="spec-ex-sent">He <strong>must be</strong> in the library — his bag is here.<span>図書館にいるに違いない。（ほぼ確実）</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 08 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-number">08</span>
+      <h2 class="section-title">丁寧表現・慣用表現</h2>
+      <span class="modal-badge">Polite Expressions · Idioms</span>
+    </div>
+    <p class="section-intro">助動詞を使った依頼・申し出・提案の表現と、had better / would rather / may as well などの慣用表現を整理する。</p>
+
+    <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:14px;">依頼・申し出・許可の丁寧度</h3>
+    <div class="polite-grid" style="margin-bottom:28px;">
+      <div class="polite-card">
+        <h4>依頼 — 〜してくれますか？</h4>
+        <ul class="polite-list">
+          <li>
+            <span class="polite-en"><strong>Will</strong> you open the door?</span>
+            <span class="polite-ja">（普通の依頼）ドアを開けてくれる？</span>
+          </li>
+          <li>
+            <span class="polite-en"><strong>Can</strong> you help me?</span>
+            <span class="polite-ja">（カジュアル）手伝ってくれる？</span>
+          </li>
+          <li>
+            <span class="polite-en"><strong>Could</strong> you explain again?</span>
+            <span class="polite-ja">（丁寧）もう一度説明していただけますか？</span>
+          </li>
+          <li>
+            <span class="polite-en"><strong>Would</strong> you mind waiting?</span>
+            <span class="polite-ja">（最も丁寧）お待ちいただけますか？</span>
+          </li>
+        </ul>
+      </div>
+      <div class="polite-card">
+        <h4>許可・申し出 — してもいいですか？</h4>
+        <ul class="polite-list">
+          <li>
+            <span class="polite-en"><strong>Can</strong> I use the bathroom?</span>
+            <span class="polite-ja">（カジュアル）トイレを使ってもいい？</span>
+          </li>
+          <li>
+            <span class="polite-en"><strong>May</strong> I come in?</span>
+            <span class="polite-ja">（格式）入ってもよろしいでしょうか？</span>
+          </li>
+          <li>
+            <span class="polite-en"><strong>Shall</strong> I carry your bags?</span>
+            <span class="polite-ja">（申し出）荷物を運びましょうか？</span>
+          </li>
+          <li>
+            <span class="polite-en"><strong>Shall</strong> we dance?</span>
+            <span class="polite-ja">（提案）踊りましょうか？</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-size:1.1rem;font-weight:800;margin-bottom:14px;">重要な慣用表現</h3>
+    <div class="idiom-grid">
+      <div class="idiom-card">
+        <div class="idiom-form">had better + V原形</div>
+        <div class="idiom-meaning">〜した方がいい（しないと悪いことが起きる：警告）</div>
+        <div class="idiom-ex">
+          You <em>had better</em> leave now.
+          <span>今すぐ出発した方がいい。（should より強い警告）</span>
+        </div>
+      </div>
+      <div class="idiom-card">
+        <div class="idiom-form">would rather + V原形</div>
+        <div class="idiom-meaning">〜する方が好きだ・〜したい（個人的な好み）</div>
+        <div class="idiom-ex">
+          I <em>would rather</em> stay home tonight.
+          <span>今夜は家にいる方がいい。</span>
+        </div>
+      </div>
+      <div class="idiom-card">
+        <div class="idiom-form">would rather A than B</div>
+        <div class="idiom-meaning">B するより A したい（比較の好み）</div>
+        <div class="idiom-ex">
+          She <em>would rather</em> read <em>than</em> watch TV.
+          <span>テレビを見るより本を読みたい。</span>
+        </div>
+      </div>
+      <div class="idiom-card">
+        <div class="idiom-form">may as well + V原形</div>
+        <div class="idiom-meaning">〜した方がましだ（消極的な勧め）</div>
+        <div class="idiom-ex">
+          You <em>may as well</em> try again.
+          <span>もう一度試してみた方がいい。（どうせなら）</span>
+        </div>
+      </div>
+      <div class="idiom-card">
+        <div class="idiom-form">cannot help V-ing</div>
+        <div class="idiom-meaning">〜せずにはいられない</div>
+        <div class="idiom-ex">
+          I <em>cannot help</em> laughing.
+          <span>笑わずにはいられない。</span>
+        </div>
+      </div>
+      <div class="idiom-card">
+        <div class="idiom-form">cannot ... too ~</div>
+        <div class="idiom-meaning">いくら〜してもしすぎることはない</div>
+        <div class="idiom-ex">
+          You <em>cannot</em> be <em>too</em> careful.
+          <span>いくら注意してもしすぎることはない。</span>
+        </div>
+      </div>
+      <div class="idiom-card">
+        <div class="idiom-form">used to + V原形</div>
+        <div class="idiom-meaning">以前は〜していた（今はもうしていない過去の習慣・状態）</div>
+        <div class="idiom-ex">
+          I <em>used to</em> play the guitar.
+          <span>以前はギターを弾いていた。（今は弾いていない）</span>
+        </div>
+      </div>
+      <div class="idiom-card">
+        <div class="idiom-form">be used to V-ing</div>
+        <div class="idiom-meaning">〜することに慣れている（used to V とは別物）</div>
+        <div class="idiom-ex">
+          She is <em>used to</em> working late.
+          <span>彼女は遅くまで働くことに慣れている。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

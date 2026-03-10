@@ -20,86 +20,85 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-      background: var(--paper); color: var(--ink); line-height: 1.6;
+      background: var(--paper); color: var(--ink); line-height: 1.75;
+      font-size: 16px;
     }
 
     /* ── Nav ── */
     .nav {
-      height: 56px; background: var(--white);
+      height: 62px; background: var(--white);
       border-bottom: 1px solid var(--border);
-      display: flex; align-items: center; padding: 0 32px;
-      position: sticky; top: 0; z-index: 100; gap: 10px;
+      display: flex; align-items: center; padding: 0 48px;
+      position: sticky; top: 0; z-index: 100; gap: 12px;
     }
     .logo-mark {
-      width: 26px; height: 26px;
+      width: 28px; height: 28px;
       background: linear-gradient(135deg, #1e3a8a, #7c3aed);
       border-radius: 6px; flex-shrink: 0;
     }
-    .nav-title { font-weight: 800; font-size: 0.95rem; letter-spacing: 0.01em; }
+    .nav-title { font-weight: 800; font-size: 1rem; letter-spacing: 0.01em; }
 
     /* ── Hero ── */
     .hero {
-      max-width: 960px; margin: 0 auto;
-      padding: 72px 32px 56px;
-      display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: start;
+      max-width: 1200px; margin: 0 auto;
+      padding: 88px 48px 72px;
+      display: grid; grid-template-columns: 1fr auto; gap: 64px; align-items: start;
     }
     .hero-left {}
     .hero-eyebrow {
-      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.22em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 18px;
     }
     .hero-title {
-      font-size: clamp(2.6rem, 5.5vw, 4rem);
+      font-size: clamp(2.8rem, 5.5vw, 4.2rem);
       font-weight: 900; line-height: 1.05;
-      letter-spacing: -0.03em; margin-bottom: 14px;
+      letter-spacing: -0.03em; margin-bottom: 18px;
     }
     .hero-subtitle {
-      font-size: 1rem; color: var(--muted); margin-bottom: 44px; line-height: 1.7;
-      max-width: 440px;
+      font-size: 1.1rem; color: var(--muted); margin-bottom: 52px; line-height: 1.85;
+      max-width: 520px;
     }
-    .phil-list { display: flex; flex-direction: column; gap: 18px; }
-    .phil-item { display: flex; align-items: flex-start; gap: 14px; }
+    .phil-list { display: flex; flex-direction: column; gap: 26px; }
+    .phil-item { display: flex; align-items: flex-start; gap: 16px; }
     .phil-num {
-      font-size: 1.6rem; font-weight: 900; color: var(--border);
-      line-height: 1; flex-shrink: 0; width: 28px;
+      font-size: 1.7rem; font-weight: 900; color: var(--border);
+      line-height: 1; flex-shrink: 0; width: 32px;
     }
-    .phil-text strong { font-size: 0.88rem; font-weight: 700; display: block; margin-bottom: 3px; }
-    .phil-text span { font-size: 0.8rem; color: var(--muted); }
+    .phil-text strong { font-size: 0.97rem; font-weight: 700; display: block; margin-bottom: 5px; }
+    .phil-text span { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
 
-    .hero-right {
-      padding-top: 8px;
-    }
+    .hero-right { padding-top: 8px; }
     .hero-stats {
-      display: flex; flex-direction: column; gap: 10px;
-      min-width: 160px;
+      display: flex; flex-direction: column; gap: 12px;
+      min-width: 180px;
     }
     .stat-chip {
       background: var(--white); border: 1px solid var(--border);
-      border-radius: 8px; padding: 12px 16px;
-      font-size: 0.8rem;
+      border-radius: 10px; padding: 16px 20px;
+      font-size: 0.9rem; line-height: 1.5;
     }
-    .stat-chip strong { font-size: 1.4rem; font-weight: 900; display: block; color: var(--accent); line-height: 1; margin-bottom: 2px; }
+    .stat-chip strong { font-size: 1.6rem; font-weight: 900; display: block; color: var(--accent); line-height: 1; margin-bottom: 4px; }
 
     /* ── Chapters ── */
-    .chapters { max-width: 960px; margin: 0 auto; padding: 0 32px 80px; }
+    .chapters { max-width: 1200px; margin: 0 auto; padding: 0 48px 100px; }
 
-    .chapter { margin-bottom: 56px; }
+    .chapter { margin-bottom: 72px; }
     .chapter-header {
       display: flex; align-items: center; gap: 16px;
-      border-bottom: 2px solid var(--ink); padding-bottom: 14px; margin-bottom: 22px;
+      border-bottom: 2px solid var(--ink); padding-bottom: 16px; margin-bottom: 28px;
     }
     .chapter-num {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em;
       text-transform: uppercase; color: var(--muted); flex-shrink: 0;
     }
-    .chapter-name { font-size: 1.15rem; font-weight: 800; }
+    .chapter-name { font-size: 1.25rem; font-weight: 800; }
     .chapter-name-en {
-      font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-left: 10px;
+      font-size: 0.85rem; font-weight: 600; color: var(--muted); margin-left: 12px;
     }
 
     /* ── Unit Cards ── */
     .units-grid {
-      display: grid; gap: 14px;
+      display: grid; gap: 18px;
       grid-template-columns: repeat(2, 1fr);
     }
     .units-grid.wide { grid-template-columns: 1fr; }
@@ -108,7 +107,7 @@
     .unit-card {
       display: block; text-decoration: none; color: var(--ink);
       background: var(--white); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 24px 22px 18px;
+      border-radius: var(--radius); padding: 28px 26px 24px;
       transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
       position: relative; overflow: hidden;
     }
@@ -117,40 +116,41 @@
       border-color: rgba(30,58,138,0.4);
     }
     .unit-meta {
-      display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
     }
     .unit-num {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
-      padding: 2px 9px; border-radius: 4px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 3px 10px; border-radius: 4px;
       background: var(--accent); color: white;
     }
     .unit-ch-tag {
-      font-size: 0.68rem; font-weight: 700;
-      padding: 2px 9px; border-radius: 4px;
+      font-size: 0.72rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 4px;
       background: var(--paper); color: var(--muted);
       border: 1px solid var(--border);
     }
-    .unit-name-ja { font-size: 1.15rem; font-weight: 800; margin-bottom: 2px; }
-    .unit-name-en { font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 14px; }
+    .unit-name-ja { font-size: 1.28rem; font-weight: 800; margin-bottom: 4px; }
+    .unit-name-en { font-size: 0.85rem; font-weight: 600; color: var(--muted); margin-bottom: 16px; }
 
     .core-preview {
-      background: var(--paper); border-radius: 8px; padding: 14px 12px;
-      margin-bottom: 12px; overflow: hidden;
+      background: var(--paper); border-radius: 8px; padding: 16px 14px;
+      margin-bottom: 14px; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
     }
     .core-preview svg { max-width: 100%; height: auto; display: block; }
 
-    .unit-desc { font-size: 0.81rem; color: var(--muted); line-height: 1.65; }
+    .unit-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
     .unit-arrow {
-      position: absolute; bottom: 14px; right: 18px;
-      font-size: 0.78rem; color: var(--border); transition: color 0.18s;
+      position: absolute; bottom: 16px; right: 20px;
+      font-size: 0.82rem; color: var(--border); transition: color 0.18s;
     }
     .unit-card:hover .unit-arrow { color: var(--accent); }
 
-    @media (max-width: 700px) {
-      .hero { grid-template-columns: 1fr; gap: 32px; padding: 48px 20px 40px; }
+    @media (max-width: 800px) {
+      .nav { padding: 0 24px; }
+      .hero { grid-template-columns: 1fr; gap: 32px; padding: 56px 24px 40px; }
       .hero-right { display: none; }
-      .chapters { padding: 0 20px 60px; }
+      .chapters { padding: 0 24px 60px; }
       .units-grid, .units-grid.three { grid-template-columns: 1fr; }
     }
   </style>
@@ -179,7 +179,7 @@
         <span class="phil-num">2</span>
         <div class="phil-text">
           <strong>3章構成で学べる</strong>
-          <span>文の構造 → 動詞の形 → 修飾と接続の順に並べた7ユニット</span>
+          <span>文の構造 → 動詞の形 → 修飾と接続の順に並べた12ユニット</span>
         </div>
       </div>
       <div class="phil-item">
@@ -194,7 +194,7 @@
   <div class="hero-right">
     <div class="hero-stats">
       <div class="stat-chip">
-        <strong>7</strong>
+        <strong>12</strong>
         Grammar Units
       </div>
       <div class="stat-chip">
@@ -389,34 +389,103 @@
         <span class="unit-arrow">→</span>
       </a>
 
-      <a class="unit-card" href="participial-phrases.html">
+      <a class="unit-card" href="participles.html">
         <div class="unit-meta">
           <span class="unit-num">Unit 05</span>
           <span class="unit-ch-tag">準動詞</span>
         </div>
         <div class="unit-name-ja">分詞</div>
-        <div class="unit-name-en">Participial Phrases</div>
+        <div class="unit-name-en">Participles</div>
         <div class="core-preview">
-          <svg viewBox="0 0 280 88" width="280" height="88" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Present participle label -->
-            <rect x="6" y="8" width="100" height="24" rx="5" fill="none" stroke="#16a34a" stroke-width="1.5"/>
-            <text x="56" y="24" fill="#16a34a" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">〜ing (現在分詞)</text>
-            <!-- Connection lines -->
-            <line x1="106" y1="20" x2="116" y2="40" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3"/>
-            <line x1="174" y1="40" x2="184" y2="20" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3"/>
-            <!-- Noun in center -->
-            <rect x="106" y="32" width="68" height="26" rx="7" fill="#1d4ed8"/>
-            <text x="140" y="49" fill="white" font-size="12" font-weight="800" text-anchor="middle" font-family="sans-serif">名詞</text>
-            <!-- Past participle label -->
-            <rect x="174" y="8" width="100" height="24" rx="5" fill="none" stroke="#f97316" stroke-width="1.5"/>
-            <text x="224" y="24" fill="#f97316" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">〜ed (過去分詞)</text>
-            <!-- Bottom labels -->
-            <text x="56" y="76" fill="#16a34a" font-size="8" text-anchor="middle" font-family="sans-serif">能動・進行の意味</text>
-            <text x="224" y="76" fill="#f97316" font-size="8" text-anchor="middle" font-family="sans-serif">受動・完了の意味</text>
-            <text x="140" y="80" fill="#9ca3af" font-size="8" text-anchor="middle" font-family="sans-serif">←名詞を修飾→</text>
+          <svg viewBox="0 0 280 98" width="280" height="98" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Row 1: -ing vs -ed -->
+            <rect x="6"  y="6"  width="120" height="22" rx="5" fill="#fff7ed" stroke="#f97316" stroke-width="1.5"/>
+            <text x="66" y="21" fill="#f97316" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">-ing（能動・進行）</text>
+            <rect x="154" y="6"  width="120" height="22" rx="5" fill="#f3e8ff" stroke="#a855f7" stroke-width="1.5"/>
+            <text x="214" y="21" fill="#a855f7" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">-ed（受動・完了）</text>
+            <!-- Noun box -->
+            <rect x="96" y="34" width="88" height="22" rx="6" fill="#1d4ed8"/>
+            <text x="140" y="49" fill="white" font-size="10" font-weight="800" text-anchor="middle" font-family="sans-serif">名詞</text>
+            <!-- Arrows -->
+            <line x1="80"  y1="28" x2="110" y2="34" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3"/>
+            <line x1="200" y1="28" x2="170" y2="34" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="3"/>
+            <!-- Row 3: SVO exciting/excited -->
+            <text x="50"  y="76" fill="#f97316" font-size="8" text-anchor="middle" font-family="sans-serif">exciting（原因）</text>
+            <text x="140" y="76" fill="#9ca3af" font-size="8" text-anchor="middle" font-family="sans-serif">SVC / SVOC / 知覚動詞</text>
+            <text x="230" y="76" fill="#a855f7" font-size="8" text-anchor="middle" font-family="sans-serif">excited（結果）</text>
           </svg>
         </div>
-        <div class="unit-desc">現在分詞(-ing)と過去分詞(-ed/-en)が名詞を修飾する仕組み。分詞構文・独立分詞構文もカバー。</div>
+        <div class="unit-desc">現在分詞・過去分詞の形容詞的用法、感情を表す -ing/-ed、補語になる分詞、知覚動詞との組み合わせを整理。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="gerunds.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 10</span>
+          <span class="unit-ch-tag">準動詞</span>
+        </div>
+        <div class="unit-name-ja">動名詞</div>
+        <div class="unit-name-en">Gerunds</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 98" width="280" height="98" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Central V-ing badge -->
+            <rect x="108" y="6" width="64" height="26" rx="7" fill="#16a34a"/>
+            <text x="140" y="23" fill="white" font-size="13" font-weight="800" text-anchor="middle" font-family="sans-serif">V-ing</text>
+            <!-- Branch lines -->
+            <line x1="140" y1="32" x2="42"  y2="58" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="4"/>
+            <line x1="140" y1="32" x2="140" y2="58" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="4"/>
+            <line x1="140" y1="32" x2="238" y2="58" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="4"/>
+            <!-- Role boxes -->
+            <rect x="4"   y="58" width="76" height="30" rx="6" fill="#dcfce7"/>
+            <text x="42"  y="72" fill="#16a34a" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">主語</text>
+            <text x="42"  y="83" fill="#16a34a" font-size="8" text-anchor="middle" font-family="sans-serif">S</text>
+            <rect x="102" y="58" width="76" height="30" rx="6" fill="#dcfce7"/>
+            <text x="140" y="72" fill="#16a34a" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">目的語</text>
+            <text x="140" y="83" fill="#16a34a" font-size="8" text-anchor="middle" font-family="sans-serif">O</text>
+            <rect x="200" y="58" width="76" height="30" rx="6" fill="#dcfce7"/>
+            <text x="238" y="72" fill="#16a34a" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">補語・前置詞</text>
+            <text x="238" y="83" fill="#16a34a" font-size="8" text-anchor="middle" font-family="sans-serif">C / 前</text>
+          </svg>
+        </div>
+        <div class="unit-desc">動詞の -ing 形が名詞として働く動名詞。主語・目的語・補語としての4役割、不定詞との使い分け（意味が変わる動詞）を整理。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="modals.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 11</span>
+          <span class="unit-ch-tag">時制・法</span>
+        </div>
+        <div class="unit-name-ja">助動詞</div>
+        <div class="unit-name-en">Modal Auxiliaries</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 98" width="280" height="98" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Spectrum bar -->
+            <defs>
+              <linearGradient id="specGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%"   stop-color="#dbeafe"/>
+                <stop offset="100%" stop-color="#fee2e2"/>
+              </linearGradient>
+            </defs>
+            <rect x="6" y="10" width="268" height="12" rx="6" fill="url(#specGrad)"/>
+            <!-- Modal labels on spectrum -->
+            <text x="28"  y="38" fill="#7c3aed" font-size="9" font-weight="800" text-anchor="middle" font-family="'Courier New',monospace">might</text>
+            <text x="28"  y="48" fill="#9ca3af" font-size="7" text-anchor="middle" font-family="sans-serif">20%</text>
+            <text x="84"  y="38" fill="#1d4ed8" font-size="9" font-weight="800" text-anchor="middle" font-family="'Courier New',monospace">may</text>
+            <text x="84"  y="48" fill="#9ca3af" font-size="7" text-anchor="middle" font-family="sans-serif">50%</text>
+            <text x="140" y="38" fill="#1d4ed8" font-size="9" font-weight="800" text-anchor="middle" font-family="'Courier New',monospace">should</text>
+            <text x="140" y="48" fill="#9ca3af" font-size="7" text-anchor="middle" font-family="sans-serif">70%</text>
+            <text x="196" y="38" fill="#1d4ed8" font-size="9" font-weight="800" text-anchor="middle" font-family="'Courier New',monospace">will</text>
+            <text x="196" y="48" fill="#9ca3af" font-size="7" text-anchor="middle" font-family="sans-serif">80%</text>
+            <text x="254" y="38" fill="#1d4ed8" font-size="9" font-weight="800" text-anchor="middle" font-family="'Courier New',monospace">must</text>
+            <text x="254" y="48" fill="#9ca3af" font-size="7" text-anchor="middle" font-family="sans-serif">95%</text>
+            <!-- Past inference row -->
+            <rect x="6"  y="60" width="268" height="30" rx="6" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1"/>
+            <text x="140" y="74" fill="#1d4ed8" font-size="8.5" font-weight="800" text-anchor="middle" font-family="'Courier New',monospace">must / should / could / may + have p.p.</text>
+            <text x="140" y="85" fill="#1d4ed8" font-size="7.5" text-anchor="middle" font-family="sans-serif">過去への推量・後悔・非難</text>
+          </svg>
+        </div>
+        <div class="unit-desc">can/will/may/must/should の用法と確信度の違い。「助動詞＋have p.p.」の過去推量・後悔表現、丁寧表現・慣用表現まで網羅。</div>
         <span class="unit-arrow">→</span>
       </a>
 
@@ -485,6 +554,121 @@
           </svg>
         </div>
         <div class="unit-desc">名詞を言い換える「同格」と補足情報を挿し込む「挿入」。that節の同格・コンマ/ダッシュ挿入を整理する。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="conjunctions.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 08</span>
+          <span class="unit-ch-tag">接続</span>
+        </div>
+        <div class="unit-name-ja">接続詞</div>
+        <div class="unit-name-en">Conjunctions</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 98" width="280" height="98" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Row 1: coordinating -->
+            <rect x="6"  y="6"  width="88" height="22" rx="5" fill="#dbeafe"/>
+            <text x="50" y="21" fill="#1e3a8a" font-size="9" font-weight="600" text-anchor="middle" font-family="sans-serif">Clause A</text>
+            <rect x="102" y="10" width="36" height="14" rx="4" fill="#fff7ed" stroke="#f97316" stroke-width="1.5"/>
+            <text x="120" y="21" fill="#f97316" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">but</text>
+            <rect x="146" y="6"  width="88" height="22" rx="5" fill="#ccfbf1"/>
+            <text x="190" y="21" fill="#0f766e" font-size="9" font-weight="600" text-anchor="middle" font-family="sans-serif">Clause B</text>
+            <!-- Divider -->
+            <line x1="6" y1="38" x2="274" y2="38" stroke="#e5e0d5" stroke-width="1"/>
+            <!-- Row 2: subordinating -->
+            <rect x="6"  y="46" width="52" height="22" rx="5" fill="#fff7ed" stroke="#f97316" stroke-width="1.5"/>
+            <text x="32" y="61" fill="#f97316" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">because</text>
+            <rect x="66" y="46" width="88" height="22" rx="5" fill="#fff7ed" opacity="0.7"/>
+            <text x="110" y="61" fill="#9a3412" font-size="9" font-weight="600" text-anchor="middle" font-family="sans-serif">Sub Clause</text>
+            <text x="162" y="61" fill="#9ca3af" font-size="12" font-family="sans-serif">→</text>
+            <rect x="172" y="46" width="88" height="22" rx="5" fill="#dbeafe"/>
+            <text x="216" y="61" fill="#1e3a8a" font-size="9" font-weight="600" text-anchor="middle" font-family="sans-serif">Main Clause</text>
+            <!-- Row 3: labels -->
+            <text x="50"  y="90" fill="#9ca3af" font-size="8" text-anchor="middle" font-family="sans-serif">等位接続詞</text>
+            <text x="160" y="90" fill="#9ca3af" font-size="8" text-anchor="middle" font-family="sans-serif">従属接続詞</text>
+          </svg>
+        </div>
+        <div class="unit-desc">等位・相関・従属の3タイプ＋接続副詞。時・理由・条件・譲歩・目的/結果など従属接続詞を用法別に整理する。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="participial-phrases.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 09</span>
+          <span class="unit-ch-tag">準動詞</span>
+        </div>
+        <div class="unit-name-ja">分詞構文</div>
+        <div class="unit-name-en">Participial Constructions</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 98" width="280" height="98" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Transform arrow -->
+            <rect x="6"  y="8"  width="110" height="20" rx="5" fill="#ccfbf1" stroke="#14b8a6" stroke-width="1.5"/>
+            <text x="61" y="22" fill="#0f766e" font-size="8.5" font-weight="700" text-anchor="middle" font-family="sans-serif">When she arrived,</text>
+            <text x="126" y="22" fill="#9ca3af" font-size="12" font-family="sans-serif">→</text>
+            <rect x="148" y="8"  width="126" height="20" rx="5" fill="#fff7ed" stroke="#f97316" stroke-width="1.5"/>
+            <text x="211" y="22" fill="#9a3412" font-size="8.5" font-weight="700" text-anchor="middle" font-family="sans-serif">Arriving, she ...</text>
+            <!-- Row 2: forms -->
+            <rect x="6"  y="38" width="60" height="18" rx="4" fill="#f9f7f2" stroke="#e5e0d5"/>
+            <text x="36" y="51" fill="#6b6460" font-size="7.5" font-weight="600" text-anchor="middle" font-family="sans-serif">Not doing</text>
+            <rect x="74" y="38" width="72" height="18" rx="4" fill="#f9f7f2" stroke="#e5e0d5"/>
+            <text x="110" y="51" fill="#6b6460" font-size="7.5" font-weight="600" text-anchor="middle" font-family="sans-serif">Having done</text>
+            <rect x="154" y="38" width="58" height="18" rx="4" fill="#f9f7f2" stroke="#e5e0d5"/>
+            <text x="183" y="51" fill="#6b6460" font-size="7.5" font-weight="600" text-anchor="middle" font-family="sans-serif">Being done</text>
+            <rect x="220" y="38" width="54" height="18" rx="4" fill="#f9f7f2" stroke="#e5e0d5"/>
+            <text x="247" y="51" fill="#6b6460" font-size="7.5" font-weight="600" text-anchor="middle" font-family="sans-serif">with O ...</text>
+            <!-- Row 3: meanings -->
+            <text x="140" y="80" fill="#9ca3af" font-size="7.5" text-anchor="middle" font-family="sans-serif">時・理由・条件・譲歩・付帯状況 ＋ 独立分詞構文</text>
+          </svg>
+        </div>
+        <div class="unit-desc">接続詞を省いて分詞で副詞節を表す構文。否定・完了・受動の形、独立分詞構文、with+O+分詞、慣用表現までカバー。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="adjectives.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 12</span>
+          <span class="unit-ch-tag">修飾</span>
+        </div>
+        <div class="unit-name-ja">形容詞</div>
+        <div class="unit-name-en">Adjectives</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 98" width="280" height="98" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Word order blocks -->
+            <rect x="4"   y="6" width="36" height="20" rx="4" fill="#fef3c7" stroke="#fcd34d" stroke-width="1.5"/>
+            <text x="22"  y="19" fill="#b45309" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">Opinion</text>
+            <rect x="46"  y="6" width="30" height="20" rx="4" fill="#fef3c7" stroke="#fcd34d" stroke-width="1.5"/>
+            <text x="61"  y="19" fill="#b45309" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">Size</text>
+            <rect x="82"  y="6" width="28" height="20" rx="4" fill="#fef3c7" stroke="#fcd34d" stroke-width="1.5"/>
+            <text x="96"  y="19" fill="#b45309" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">Age</text>
+            <rect x="116" y="6" width="34" height="20" rx="4" fill="#fef3c7" stroke="#fcd34d" stroke-width="1.5"/>
+            <text x="133" y="19" fill="#b45309" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">Color</text>
+            <rect x="156" y="6" width="36" height="20" rx="4" fill="#fef3c7" stroke="#fcd34d" stroke-width="1.5"/>
+            <text x="174" y="19" fill="#b45309" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">Origin</text>
+            <rect x="198" y="6" width="40" height="20" rx="4" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/>
+            <text x="218" y="19" fill="#1d4ed8" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">Noun</text>
+            <!-- Comparison row -->
+            <rect x="6"  y="36" width="80" height="18" rx="4" fill="#dcfce7"/>
+            <text x="46" y="49" fill="#16a34a" font-size="8" font-weight="700" text-anchor="middle" font-family="sans-serif">原級  as ~ as</text>
+            <rect x="94" y="36" width="80" height="18" rx="4" fill="#fef3c7"/>
+            <text x="134" y="49" fill="#b45309" font-size="8" font-weight="700" text-anchor="middle" font-family="sans-serif">比較級 -er / more</text>
+            <rect x="182" y="36" width="92" height="18" rx="4" fill="#fee2e2"/>
+            <text x="228" y="49" fill="#991b1b" font-size="8" font-weight="700" text-anchor="middle" font-family="sans-serif">最上級 -est / most</text>
+            <!-- Degree bar -->
+            <defs>
+              <linearGradient id="adjGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#e0f2fe"/>
+                <stop offset="100%" stop-color="#fef3c7"/>
+              </linearGradient>
+            </defs>
+            <rect x="6" y="66" width="268" height="10" rx="5" fill="url(#adjGrad)"/>
+            <text x="30"  y="88" fill="#9ca3af" font-size="7.5" text-anchor="middle" font-family="sans-serif">fairly</text>
+            <text x="84"  y="88" fill="#9ca3af" font-size="7.5" text-anchor="middle" font-family="sans-serif">rather</text>
+            <text x="140" y="88" fill="#9ca3af" font-size="7.5" text-anchor="middle" font-family="sans-serif">quite</text>
+            <text x="196" y="88" fill="#b45309" font-size="7.5" font-weight="700" text-anchor="middle" font-family="sans-serif">very</text>
+            <text x="248" y="88" fill="#b45309" font-size="7.5" font-weight="700" text-anchor="middle" font-family="sans-serif">extremely</text>
+          </svg>
+        </div>
+        <div class="unit-desc">限定・叙述の2用法、形容詞の語順（OSASCOMP）、数量形容詞、比較級・最上級、程度副詞、紛らわしいペアまで整理。</div>
         <span class="unit-arrow">→</span>
       </a>
 

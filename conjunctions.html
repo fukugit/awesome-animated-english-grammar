@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>接続詞 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f9f7f2;
+      --white: #fff;
+      --border: #e5e0d5;
+      --text: #1c1c1c;
+      --muted: #6b6460;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --green: #22c55e;
+      --purple: #a855f7;
+      --red: #ef4444;
+      --teal: #14b8a6;
+      --accent: #1e3a8a;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      height: 56px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-mark {
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 48px 40px;
+    }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; }
+    .unit-meta-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .unit-num-badge {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 2px 9px; border-radius: 4px; background: var(--accent); color: white;
+    }
+    .ch-badge {
+      font-size: 0.68rem; font-weight: 700; padding: 2px 9px; border-radius: 4px;
+      background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+    }
+    .back-link a {
+      font-size: 0.85rem; color: var(--muted); text-decoration: none; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 4px; margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 8px; }
+    .page-title span { color: var(--blue); }
+    .page-desc { color: var(--muted); font-size: 1rem; max-width: 680px; }
+
+    /* ── Content ── */
+    .content { max-width: 1200px; margin: 0 auto; padding: 48px 48px 80px; }
+
+    /* ── Section ── */
+    .section { margin-bottom: 64px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+    .conj-badge {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px; background: var(--bg);
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .section-title { font-size: 1.55rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 1rem; margin-bottom: 24px; margin-top: 6px; }
+
+    /* ── Clause Demo ── */
+    .clause-demo {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .cl-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cl {
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .cl.show { opacity: 1; transform: translateY(0); }
+    .cl.main  { background: #dbeafe; color: #1e3a8a; }
+    .cl.sub   { background: #ccfbf1; color: #0f766e; }
+    .cl.cause { background: #fff7ed; color: #9a3412; }
+    .cl-lbl { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; margin-top: 4px; opacity: 0.7; }
+
+    .cj {
+      font-size: 0.95rem; font-weight: 800; color: var(--orange);
+      padding: 8px 14px; border-radius: 8px;
+      background: #fff7ed; border: 2px solid var(--orange);
+      opacity: 0; transition: opacity 0.4s ease; white-space: nowrap;
+    }
+    .cj.show { opacity: 1; }
+
+    .cl-arrow {
+      font-size: 1.4rem; color: var(--muted);
+      opacity: 0; transition: opacity 0.4s ease;
+    }
+    .cl-arrow.show { opacity: 1; }
+
+    .demo-sent {
+      font-style: italic; color: var(--muted); font-size: 1rem;
+      opacity: 0; transition: opacity 0.5s ease; text-align: center;
+    }
+    .demo-sent.show { opacity: 1; }
+
+    .replay-btn {
+      position: absolute; top: 14px; right: 14px;
+      font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 100px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--muted);
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.1s; letter-spacing: 0.05em;
+    }
+    .replay-btn:hover { background: var(--white); color: var(--text); }
+    .replay-btn:active { transform: scale(0.96); }
+
+    /* ── Note box ── */
+    .note-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 16px 20px; font-size: 0.95rem; color: var(--muted); margin-bottom: 20px; line-height: 1.75;
+    }
+    .note-box.orange { border-left-color: var(--orange); }
+    .note-box.green  { border-left-color: var(--green);  }
+    .note-box.purple { border-left-color: var(--purple); }
+    .note-box.red    { border-left-color: var(--red);    }
+    .note-box.teal   { border-left-color: var(--teal);   }
+
+    /* ── Conjunction Cards ── */
+    .conj-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .conj-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+    }
+    .conj-card h4 {
+      font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .conj-list { display: flex; flex-direction: column; gap: 5px; }
+    .conj-item { font-size: 0.85rem; }
+    .conj-item strong { font-weight: 700; color: var(--orange); }
+    .conj-item span { color: var(--muted); font-size: 0.78rem; }
+
+    /* ── Correlative grid ── */
+    .correl-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
+    }
+    .correl-pair {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+    }
+    .correl-formula {
+      display: flex; align-items: center; gap: 6px; margin-bottom: 8px; flex-wrap: wrap;
+    }
+    .cf-a, .cf-b {
+      padding: 3px 9px; border-radius: 6px; font-size: 0.8rem; font-weight: 700;
+      background: #fff7ed; color: var(--orange); border: 1px solid #fed7aa;
+    }
+    .cf-na { background: #dbeafe; color: #1e3a8a; padding: 3px 9px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; }
+    .cf-nb { background: #ccfbf1; color: #0f766e; padding: 3px 9px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; }
+    .correl-ex { font-size: 0.82rem; color: var(--muted); }
+    .correl-ex strong { color: var(--orange); font-style: normal; }
+
+    /* ── Compare grid (whether/if) ── */
+    .compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
+    }
+    .cmp-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+    }
+    .cmp-card h4 { font-size: 1rem; font-weight: 800; margin-bottom: 10px; color: var(--orange); }
+    .cmp-list { list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: var(--muted); }
+    .cmp-list li::before { content: "✓ "; color: var(--green); font-weight: 700; }
+    .cmp-list li.ng::before { content: "✗ "; color: var(--red); }
+
+    /* ── so...that / such...that panels ── */
+    .st-panel {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px 18px; margin-bottom: 12px;
+    }
+    .st-label {
+      font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .st-sent { font-size: 0.95rem; font-weight: 600; line-height: 1.8; }
+    .hl-so   { color: var(--orange); font-weight: 800; }
+    .hl-that { color: var(--teal);   font-weight: 800; }
+    .hl-such { color: var(--purple); font-weight: 800; }
+
+    /* ── Conjunctive adverb demo ── */
+    .cadv-demo {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px 28px; margin-bottom: 20px;
+    }
+    .cadv-row { display: flex; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+    .cadv-sent {
+      background: var(--bg); border-radius: 8px; padding: 12px 16px;
+      font-size: 0.9rem; font-weight: 600; flex: 1; min-width: 160px;
+      opacity: 0; transform: translateY(10px); transition: opacity 0.4s, transform 0.4s;
+    }
+    .cadv-sent.show { opacity: 1; transform: translateY(0); }
+    .cadv-cj {
+      font-size: 0.9rem; font-weight: 800; color: var(--orange);
+      padding: 12px 4px; opacity: 0; transition: opacity 0.4s;
+    }
+    .cadv-cj.show { opacity: 1; }
+    .cadv-rule { font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 12px; line-height: 1.7; }
+    .cadv-rule .ok  { color: var(--green); font-weight: 700; }
+    .cadv-rule .ng  { color: var(--red);   font-weight: 700; }
+
+    /* ── Examples Table ── */
+    .ex-table { width: 100%; border-collapse: collapse; font-size: 0.96rem; }
+    .ex-table thead th {
+      text-align: left; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); padding: 8px 12px; border-bottom: 2px solid var(--border);
+    }
+    .ex-table tbody td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .ex-table tbody tr:last-child td { border-bottom: none; }
+    .ex-table .en { font-weight: 600; }
+    .ex-table .ja { color: var(--muted); }
+    .hl-cj { color: var(--orange); font-weight: 700; }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--border); margin: 0 0 64px; }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 32px 24px 28px; }
+      .content { padding: 32px 24px 60px; }
+      .conj-cards { grid-template-columns: 1fr; }
+      .correl-grid { grid-template-columns: 1fr; }
+      .compare-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    <span>Animated English Grammar</span>
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 08</span>
+      <span class="ch-badge">Chapter III &nbsp;·&nbsp; 名詞の修飾と接続</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">接続詞 <span>Conjunctions</span></h1>
+    <p class="page-desc">等位接続詞・相関接続詞・従属接続詞・接続副詞の4タイプを整理する。節と節の論理的関係を色で可視化します。</p>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- ── 01: 等位接続詞 ── -->
+  <section class="section" id="coord">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="conj-badge">等位接続詞</span>
+      <h2 class="section-title">等位接続詞 — and / but / or / so / for / yet</h2>
+    </div>
+    <p class="section-intro">文法的に<strong>同等の要素</strong>（語・句・節）を繋ぐ。接続する要素の品詞・形が揃う<strong>並列の原則</strong>が働く。</p>
+
+    <div class="clause-demo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>She was exhausted</div>
+          <div class="cl-lbl">節 A</div>
+        </div>
+        <div class="cj">, but</div>
+        <div class="cl sub">
+          <div>she finished the report</div>
+          <div class="cl-lbl">節 B</div>
+        </div>
+      </div>
+      <div class="demo-sent">She was exhausted, but she finished the report.</div>
+    </div>
+
+    <div class="note-box">
+      <strong>並列の原則:</strong> 繋ぐ要素の形を揃える。<br>
+      • 名詞 + 名詞: coffee <em>and</em> tea<br>
+      • 形容詞 + 形容詞: young <em>but</em> skilled<br>
+      • 節 + 節: He studied hard, <em>so</em> he passed the exam.
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>接続詞</th><th>意味・用法</th><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong class="hl-cj">and</strong></td>
+          <td style="color:var(--muted);font-size:0.85rem">並列・追加</td>
+          <td class="en">He packed his bag <span class="hl-cj">and</span> left.</td>
+          <td class="ja">彼は荷物を詰めて出発した。</td>
+        </tr>
+        <tr>
+          <td><strong class="hl-cj">but</strong></td>
+          <td style="color:var(--muted);font-size:0.85rem">逆接・対比</td>
+          <td class="en">The plan was simple, <span class="hl-cj">but</span> it worked.</td>
+          <td class="ja">その計画は単純だったが、うまくいった。</td>
+        </tr>
+        <tr>
+          <td><strong class="hl-cj">or</strong></td>
+          <td style="color:var(--muted);font-size:0.85rem">選択・さもなくば</td>
+          <td class="en">Hurry up, <span class="hl-cj">or</span> you'll miss the bus.</td>
+          <td class="ja">急いで、そうしないとバスに乗り遅れる。</td>
+        </tr>
+        <tr>
+          <td><strong class="hl-cj">so</strong></td>
+          <td style="color:var(--muted);font-size:0.85rem">結果・だから</td>
+          <td class="en">It was raining, <span class="hl-cj">so</span> we stayed inside.</td>
+          <td class="ja">雨が降っていたので室内にいた。</td>
+        </tr>
+        <tr>
+          <td><strong class="hl-cj">for</strong></td>
+          <td style="color:var(--muted);font-size:0.85rem">理由（書き言葉）</td>
+          <td class="en">She must be tired, <span class="hl-cj">for</span> she's been working all day.</td>
+          <td class="ja">彼女は疲れているに違いない、1日中働いているのだから。</td>
+        </tr>
+        <tr>
+          <td><strong class="hl-cj">yet</strong></td>
+          <td style="color:var(--muted);font-size:0.85rem">逆接（but より強め）</td>
+          <td class="en">He's young, <span class="hl-cj">yet</span> he's very wise.</td>
+          <td class="ja">彼は若いが、とても賢い。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 02: 相関接続詞 ── -->
+  <section class="section" id="correl">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="conj-badge">相関接続詞</span>
+      <h2 class="section-title">相関接続詞 — both...and / either...or / neither...nor / not only...but also</h2>
+    </div>
+    <p class="section-intro">2つの要素を<strong>一対のセット</strong>で接続する表現。前半と後半は必ずセットで使う。</p>
+
+    <div class="clause-demo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cj">Not only</div>
+        <div class="cl main">
+          <div>did she win the prize</div>
+          <div class="cl-lbl">要素 A</div>
+        </div>
+        <div class="cj">but also</div>
+        <div class="cl sub">
+          <div>broke the record</div>
+          <div class="cl-lbl">要素 B</div>
+        </div>
+      </div>
+      <div class="demo-sent">Not only did she win the prize, but she also broke the record.</div>
+    </div>
+
+    <div class="correl-grid">
+      <div class="correl-pair">
+        <div class="correl-formula">
+          <span class="cf-a">both</span><span class="cf-na">A</span><span class="cf-b">and</span><span class="cf-nb">B</span>
+        </div>
+        <div class="correl-ex">Both <strong>he</strong> and <strong>she</strong> agreed.<br><small>A も B も〜（肯定）</small></div>
+      </div>
+      <div class="correl-pair">
+        <div class="correl-formula">
+          <span class="cf-a">either</span><span class="cf-na">A</span><span class="cf-b">or</span><span class="cf-nb">B</span>
+        </div>
+        <div class="correl-ex">Either <strong>tea</strong> or <strong>coffee</strong> is fine.<br><small>A か B のどちらか</small></div>
+      </div>
+      <div class="correl-pair">
+        <div class="correl-formula">
+          <span class="cf-a">neither</span><span class="cf-na">A</span><span class="cf-b">nor</span><span class="cf-nb">B</span>
+        </div>
+        <div class="correl-ex">Neither <strong>he</strong> nor <strong>she</strong> knew.<br><small>A も B も〜でない（否定）</small></div>
+      </div>
+      <div class="correl-pair">
+        <div class="correl-formula">
+          <span class="cf-a">not only</span><span class="cf-na">A</span><span class="cf-b">but also</span><span class="cf-nb">B</span>
+        </div>
+        <div class="correl-ex">Not only <strong>cold</strong> but also <strong>windy</strong>.<br><small>A だけでなく B も</small></div>
+      </div>
+    </div>
+
+    <div class="note-box orange">
+      <strong>動詞の数一致:</strong><br>
+      • <em>Both A and B</em> → 常に<strong>複数</strong>扱い: Both he and I <strong>are</strong> tired.<br>
+      • <em>Either A or B / Neither A nor B</em> → <strong>B（近い方）</strong>に合わせる:<br>
+      &emsp;Either you or he <strong>is</strong> wrong. / Neither the students nor the teacher <strong>was</strong> informed.
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 03: 時の従属接続詞 ── -->
+  <section class="section" id="time">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="conj-badge">時の従属接続詞</span>
+      <h2 class="section-title">時の接続詞 — when / while / before / after / until / as soon as</h2>
+    </div>
+    <p class="section-intro">主節と「時」を表す副詞節を繋ぐ。<strong>時の副詞節では、未来のことでも現在形を使う</strong>（will は不可）。</p>
+
+    <div class="clause-demo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cj">When</div>
+        <div class="cl sub">
+          <div>the alarm went off</div>
+          <div class="cl-lbl">従属節（時）</div>
+        </div>
+        <div class="cl-arrow">→</div>
+        <div class="cl main">
+          <div>she jumped out of bed</div>
+          <div class="cl-lbl">主節</div>
+        </div>
+      </div>
+      <div class="demo-sent">When the alarm went off, she jumped out of bed.</div>
+    </div>
+
+    <div class="note-box red">
+      <strong>時の副詞節では未来に現在形:</strong><br>
+      • <em>When he <strong>arrives</strong></em>, I'll tell him. ← arrives（未来でも現在形）<br>
+      • <em>After the meeting <strong>ends</strong></em>, we'll go for lunch.<br>
+      ※ that 節・名詞節は別: I don't know <em>when he <strong>will</strong> arrive</em>.（名詞節なので will 可）
+    </div>
+
+    <div class="conj-cards">
+      <div class="conj-card">
+        <h4>同時・進行</h4>
+        <div class="conj-list">
+          <div class="conj-item"><strong>when</strong> <span>〜する時</span></div>
+          <div class="conj-item"><strong>while</strong> <span>〜する間（継続）</span></div>
+          <div class="conj-item"><strong>as</strong> <span>〜しながら（同時進行）</span></div>
+        </div>
+      </div>
+      <div class="conj-card">
+        <h4>前後関係</h4>
+        <div class="conj-list">
+          <div class="conj-item"><strong>before</strong> <span>〜する前に</span></div>
+          <div class="conj-item"><strong>after</strong> <span>〜した後に</span></div>
+          <div class="conj-item"><strong>since</strong> <span>〜して以来ずっと</span></div>
+        </div>
+      </div>
+      <div class="conj-card">
+        <h4>完了・直後</h4>
+        <div class="conj-list">
+          <div class="conj-item"><strong>until / till</strong> <span>〜するまで</span></div>
+          <div class="conj-item"><strong>as soon as</strong> <span>〜するとすぐ</span></div>
+          <div class="conj-item"><strong>once</strong> <span>ひとたび〜したら</span></div>
+        </div>
+      </div>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en"><span class="hl-cj">While</span> she was cooking, the phone rang.</td><td class="ja">彼女が料理している間に電話が鳴った。</td></tr>
+        <tr><td class="en">Check your answer <span class="hl-cj">before</span> you submit it.</td><td class="ja">提出する前に答えを確認しなさい。</td></tr>
+        <tr><td class="en">Wait here <span class="hl-cj">until</span> I come back.</td><td class="ja">私が戻るまでここで待っていてください。</td></tr>
+        <tr><td class="en"><span class="hl-cj">As soon as</span> the movie ended, everyone clapped.</td><td class="ja">映画が終わるとすぐ、みんな拍手した。</td></tr>
+        <tr><td class="en"><span class="hl-cj">Once</span> you learn to ride a bike, you never forget.</td><td class="ja">いったん自転車に乗れるようになれば、忘れることはない。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 04: 理由の従属接続詞 ── -->
+  <section class="section" id="reason">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="conj-badge">理由の従属接続詞</span>
+      <h2 class="section-title">理由の接続詞 — because / since / as / now that</h2>
+    </div>
+    <p class="section-intro"><strong>because</strong> は理由を最も強調し、<em>Why?</em> の答えに使う。<strong>since / as</strong> は「〜だから（当然）」という既知の前提から推論する。</p>
+
+    <div class="clause-demo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>He stayed home</div>
+          <div class="cl-lbl">主節（結果）</div>
+        </div>
+        <div class="cj">because</div>
+        <div class="cl cause">
+          <div>he had a fever</div>
+          <div class="cl-lbl">従属節（理由）</div>
+        </div>
+      </div>
+      <div class="demo-sent">He stayed home because he had a fever.</div>
+    </div>
+
+    <div class="note-box orange">
+      <strong>強さと位置の傾向:</strong><br>
+      • <strong>because</strong>: 理由を前面に出す。文末に来やすい。<br>
+      • <strong>since / as</strong>: 「〜なので（既知の事実として）」。文頭に来やすい。<br>
+      • <strong>now that</strong>: 「今や〜なので」。状況の変化を前提とする。<br>
+      例: <em>Now that</em> summer is here, let's go to the beach.
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">I skipped dinner <span class="hl-cj">because</span> I wasn't hungry.</td><td class="ja">空腹でなかったので夕食を抜いた。</td></tr>
+        <tr><td class="en"><span class="hl-cj">Since</span> you're already here, let me show you around.</td><td class="ja">もうここにいるのだから、案内しましょう。</td></tr>
+        <tr><td class="en"><span class="hl-cj">As</span> the road was wet, we drove slowly.</td><td class="ja">道路が濡れていたので、ゆっくり走った。</td></tr>
+        <tr><td class="en"><span class="hl-cj">Now that</span> the kids have grown up, the house feels quiet.</td><td class="ja">子どもたちが成長した今、家が静かに感じる。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 05: 条件の従属接続詞 ── -->
+  <section class="section" id="condition">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="conj-badge">条件の従属接続詞</span>
+      <h2 class="section-title">条件の接続詞 — if / unless / as long as / in case</h2>
+    </div>
+    <p class="section-intro">条件を表す副詞節でも<strong>未来は現在形</strong>（時と同様）。<strong>unless</strong> は「if...not」に置き換えられる。</p>
+
+    <div class="clause-demo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cj">If</div>
+        <div class="cl sub">
+          <div>it rains tomorrow</div>
+          <div class="cl-lbl">条件節（現在形）</div>
+        </div>
+        <div class="cl-arrow">→</div>
+        <div class="cl main">
+          <div>the match will be cancelled</div>
+          <div class="cl-lbl">主節（will）</div>
+        </div>
+      </div>
+      <div class="demo-sent">If it rains tomorrow, the match will be cancelled.</div>
+    </div>
+
+    <div class="conj-cards">
+      <div class="conj-card">
+        <h4>基本条件</h4>
+        <div class="conj-list">
+          <div class="conj-item"><strong>if</strong> <span>もし〜なら</span></div>
+          <div class="conj-item"><strong>unless</strong> <span>〜でない限り</span></div>
+        </div>
+      </div>
+      <div class="conj-card">
+        <h4>限定・前提</h4>
+        <div class="conj-list">
+          <div class="conj-item"><strong>as long as</strong> <span>〜する限り</span></div>
+          <div class="conj-item"><strong>provided (that)</strong> <span>〜という条件で</span></div>
+          <div class="conj-item"><strong>on condition that</strong> <span>〜という条件で</span></div>
+        </div>
+      </div>
+      <div class="conj-card">
+        <h4>万一・備え</h4>
+        <div class="conj-list">
+          <div class="conj-item"><strong>in case</strong> <span>〜に備えて / 〜の場合</span></div>
+          <div class="conj-item"><strong>suppose / supposing</strong> <span>仮に〜とすれば</span></div>
+        </div>
+      </div>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en"><span class="hl-cj">Unless</span> you hurry, we'll be late.</td><td class="ja">急がない限り、遅刻します。</td></tr>
+        <tr><td class="en">You can borrow it <span class="hl-cj">as long as</span> you return it by Friday.</td><td class="ja">金曜日までに返す限り借りていい。</td></tr>
+        <tr><td class="en">Take an umbrella <span class="hl-cj">in case</span> it rains.</td><td class="ja">雨に備えて傘を持っていきなさい。</td></tr>
+        <tr><td class="en">You may stay <span class="hl-cj">provided (that)</span> you follow the rules.</td><td class="ja">ルールに従うという条件で滞在できます。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 06: 譲歩の従属接続詞 ── -->
+  <section class="section" id="concession">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <span class="conj-badge">譲歩の従属接続詞</span>
+      <h2 class="section-title">譲歩の接続詞 — although / though / even if / while / whereas</h2>
+    </div>
+    <p class="section-intro">「〜にもかかわらず」という逆接を表す。<strong>although / though</strong> は事実、<strong>even if</strong> は仮定、<strong>while / whereas</strong> は単純対比。</p>
+
+    <div class="clause-demo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cj">Although</div>
+        <div class="cl sub">
+          <div>the weather was bad</div>
+          <div class="cl-lbl">譲歩節（事実）</div>
+        </div>
+        <div class="cl-arrow">→</div>
+        <div class="cl main">
+          <div>we had a great time</div>
+          <div class="cl-lbl">主節（逆の結果）</div>
+        </div>
+      </div>
+      <div class="demo-sent">Although the weather was bad, we had a great time.</div>
+    </div>
+
+    <div class="note-box purple">
+      <strong>although vs. even if:</strong><br>
+      • <em>Although</em> it was expensive, I bought it. → 実際に高かった（<strong>事実</strong>）<br>
+      • <em>Even if</em> it is expensive, I'll buy it. → 仮に高くても（<strong>仮定・未来</strong>）<br>
+      <strong>while / whereas</strong>（単純対比）:<br>
+      • <em>While</em> she prefers coffee, he drinks tea. → 〜に対して（対比の提示）
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en"><span class="hl-cj">Although</span> he worked hard, he didn't get promoted.</td><td class="ja">一生懸命働いたが、昇進できなかった。</td></tr>
+        <tr><td class="en">She smiled, <span class="hl-cj">though</span> she was clearly upset.</td><td class="ja">明らかに動揺していたが、彼女は微笑んだ。</td></tr>
+        <tr><td class="en">I'll support you <span class="hl-cj">even if</span> others disagree.</td><td class="ja">たとえ他の人が反対しても応援します。</td></tr>
+        <tr><td class="en"><span class="hl-cj">While</span> I understand your point, I can't agree.</td><td class="ja">言いたいことはわかるが、同意できない。</td></tr>
+        <tr><td class="en">He is talkative, <span class="hl-cj">whereas</span> his sister is shy.</td><td class="ja">彼は話し好きな一方、妹は内気だ。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 07: 目的・結果 ── -->
+  <section class="section" id="result">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <span class="conj-badge">目的・結果</span>
+      <h2 class="section-title">目的・結果 — so that / so...that / such...that</h2>
+    </div>
+    <p class="section-intro">目的「〜するために」と結果「とても〜なので…」の2パターン。<strong>so that</strong>（目的）には can/will/may などの助動詞が続く。</p>
+
+    <div class="clause-demo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>She spoke clearly</div>
+          <div class="cl-lbl">主節</div>
+        </div>
+        <div class="cj">so that</div>
+        <div class="cl sub">
+          <div>everyone could follow her</div>
+          <div class="cl-lbl">目的節</div>
+        </div>
+      </div>
+      <div class="demo-sent">She spoke clearly so that everyone could follow her.</div>
+    </div>
+
+    <div class="st-panel">
+      <div class="st-label">目的 — so that ～（助動詞 can/could/will/would/may/might が来る）</div>
+      <div class="st-sent">He left early <span class="hl-so">so that</span> he could catch the first train.</div>
+    </div>
+    <div class="st-panel">
+      <div class="st-label">結果 — so + 形容詞 / 副詞 + that ～</div>
+      <div class="st-sent">The box was <span class="hl-so">so</span> heavy <span class="hl-that">that</span> I couldn't lift it.</div>
+    </div>
+    <div class="st-panel">
+      <div class="st-label">結果 — such + (a/an +) 形容詞 + 名詞 + that ～</div>
+      <div class="st-sent">It was <span class="hl-such">such</span> a hot day <span class="hl-that">that</span> we stayed indoors all afternoon.</div>
+    </div>
+
+    <div class="note-box teal">
+      <strong>so...that vs. such...that:</strong><br>
+      • <em>so</em> + <strong>形容詞 / 副詞</strong> + that: She ran <em>so</em> fast <em>that</em> no one could catch her.<br>
+      • <em>such</em> + <strong>(a/an +) 形容詞 + 名詞</strong> + that: It was <em>such</em> a boring lecture <em>that</em> he fell asleep.
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 08: 名詞節を導く that ── -->
+  <section class="section" id="noun-that">
+    <div class="section-header">
+      <span class="section-number">08</span>
+      <span class="conj-badge">名詞節</span>
+      <h2 class="section-title">名詞節を導く that</h2>
+    </div>
+    <p class="section-intro">接続詞の <strong>that</strong> は名詞節を作り、文の中で<strong>主語・目的語・補語・同格</strong>として働く。目的語では口語で省略されることが多い。</p>
+
+    <div class="clause-demo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>I believe</div>
+          <div class="cl-lbl">主節 (SV)</div>
+        </div>
+        <div class="cj">that</div>
+        <div class="cl sub">
+          <div>she will succeed</div>
+          <div class="cl-lbl">名詞節（目的語）</div>
+        </div>
+      </div>
+      <div class="demo-sent">I believe (that) she will succeed.</div>
+    </div>
+
+    <div class="note-box">
+      <strong>that 節の4つの役割:</strong><br>
+      ① <strong>目的語</strong>: I think <em>(that)</em> he is right.（口語では省略可）<br>
+      ② <strong>主語</strong>: <em>That she passed</em> surprised everyone.（省略不可）<br>
+      ③ <strong>補語</strong>: The truth is <em>that</em> I forgot.（省略不可）<br>
+      ④ <strong>同格</strong>: the news <em>that</em> he resigned（前の名詞の内容を説明）
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>用法</th><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--muted);font-size:0.85rem">目的語</td>
+          <td class="en">He admitted <span class="hl-cj">that</span> he was wrong.</td>
+          <td class="ja">彼は自分が間違っていたと認めた。</td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:0.85rem">主語</td>
+          <td class="en"><span class="hl-cj">That</span> he lied upset everyone.</td>
+          <td class="ja">彼が嘘をついたことが全員を怒らせた。</td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:0.85rem">補語</td>
+          <td class="en">The problem is <span class="hl-cj">that</span> we have no time.</td>
+          <td class="ja">問題は時間がないことだ。</td>
+        </tr>
+        <tr>
+          <td style="color:var(--muted);font-size:0.85rem">同格</td>
+          <td class="en">The news <span class="hl-cj">that</span> he quit shocked us.</td>
+          <td class="ja">彼が辞めたというニュースは衝撃的だった。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 09: 同格のthat ── -->
+  <section class="section" id="appos-that">
+    <div class="section-header">
+      <span class="section-number">09</span>
+      <span class="conj-badge">同格のthat</span>
+      <h2 class="section-title">同格のthat — 名詞の内容を節で説明する</h2>
+    </div>
+    <p class="section-intro">特定の名詞の直後に置かれ、その名詞の<strong>内容・中身</strong>を説明する。that の後には<strong>完全な節</strong>が来る点で、関係代名詞の that と区別できる。</p>
+
+    <div class="clause-demo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>the news</div>
+          <div class="cl-lbl">名詞</div>
+        </div>
+        <div class="cj">that</div>
+        <div class="cl sub">
+          <div>he had resigned</div>
+          <div class="cl-lbl">同格節（内容）</div>
+        </div>
+      </div>
+      <div class="demo-sent">the news that he had resigned（彼が辞任したというニュース）</div>
+    </div>
+
+    <div class="note-box">
+      <strong>同格のthat を取る代表的な名詞:</strong><br>
+      fact / news / idea / belief / possibility / hope / fear / doubt / evidence / rumor / report / suggestion / conclusion / thought / claim / view / opinion
+    </div>
+
+    <div class="note-box orange">
+      <strong>関係代名詞の that vs 同格の that の見分け方:</strong><br>
+      • 関係代名詞: the book <em>that</em> I read → that の後の節に<strong>欠けた要素あり</strong>（I read <u>&nbsp;&nbsp;&nbsp;&nbsp;</u>）<br>
+      • 同格のthat: the fact <em>that</em> he lied → that の後の節は<strong>完全</strong>（欠けた要素なし）
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">The <span class="hl-cj">fact that</span> she passed surprised everyone.</td><td class="ja">彼女が合格したという事実は皆を驚かせた。</td></tr>
+        <tr><td class="en">There's a <span class="hl-cj">possibility that</span> the flight will be delayed.</td><td class="ja">フライトが遅延する可能性がある。</td></tr>
+        <tr><td class="en">He rejected the <span class="hl-cj">idea that</span> rules should be broken.</td><td class="ja">ルールを破るべきだという考えを彼は否定した。</td></tr>
+        <tr><td class="en">We share the <span class="hl-cj">belief that</span> everyone deserves a chance.</td><td class="ja">誰もがチャンスに値するという信念を私たちは共有している。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 10: 感情のthat ── -->
+  <section class="section" id="emot-that">
+    <div class="section-header">
+      <span class="section-number">10</span>
+      <span class="conj-badge">感情のthat</span>
+      <h2 class="section-title">感情を表すthat — 感情形容詞・動詞 + that節</h2>
+    </div>
+    <p class="section-intro">感情・判断を表す形容詞や動詞の後に、<strong>感情の原因・内容</strong>を説明する that 節を置く。that は口語では省略可能。</p>
+
+    <div class="clause-demo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>I'm glad</div>
+          <div class="cl-lbl">主節（感情）</div>
+        </div>
+        <div class="cj">that</div>
+        <div class="cl sub">
+          <div>you could make it</div>
+          <div class="cl-lbl">that節（原因・内容）</div>
+        </div>
+      </div>
+      <div class="demo-sent">I'm glad (that) you could make it.</div>
+    </div>
+
+    <div class="note-box">
+      <strong>2つのパターン:</strong><br>
+      ① <strong>人 + be + 感情形容詞 + that節</strong><br>
+      &emsp;She was <em>surprised</em> that he had left without a word.<br>
+      ② <strong>It + be + 感情形容詞 + that節</strong>（形式主語構文）<br>
+      &emsp;It is <em>natural</em> that children make mistakes.
+    </div>
+
+    <div class="conj-cards">
+      <div class="conj-card">
+        <h4>喜び・安堵</h4>
+        <div class="conj-list">
+          <div class="conj-item"><strong>glad / happy</strong> <span>〜してうれしい</span></div>
+          <div class="conj-item"><strong>pleased / delighted</strong> <span>〜して喜んでいる</span></div>
+          <div class="conj-item"><strong>relieved</strong> <span>〜してほっとした</span></div>
+        </div>
+      </div>
+      <div class="conj-card">
+        <h4>驚き・残念</h4>
+        <div class="conj-list">
+          <div class="conj-item"><strong>surprised / amazed</strong> <span>〜して驚いた</span></div>
+          <div class="conj-item"><strong>sorry / disappointed</strong> <span>〜して残念に思う</span></div>
+          <div class="conj-item"><strong>shocked</strong> <span>〜してショックを受けた</span></div>
+        </div>
+      </div>
+      <div class="conj-card">
+        <h4>It is + 形容詞 型</h4>
+        <div class="conj-list">
+          <div class="conj-item"><strong>natural</strong> <span>〜は当然だ</span></div>
+          <div class="conj-item"><strong>strange / odd</strong> <span>〜は奇妙だ</span></div>
+          <div class="conj-item"><strong>important / necessary</strong> <span>〜は重要/必要だ</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box purple">
+      <strong>It is + 形容詞 + that 節の動詞形:</strong><br>
+      important / necessary / essential / strange などの場合、that節内に<strong>(should +) 動詞原形</strong>（仮定法現在）が来ることがある（フォーマル体）<br>
+      &emsp;It is essential <em>that</em> every student <strong>(should) submit</strong> the form.
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">I'm <span class="hl-cj">sorry that</span> I couldn't attend the meeting.</td><td class="ja">会議に出席できなくて申し訳ありません。</td></tr>
+        <tr><td class="en">She was <span class="hl-cj">surprised that</span> he knew her name.</td><td class="ja">彼が自分の名前を知っていて彼女は驚いた。</td></tr>
+        <tr><td class="en">We're <span class="hl-cj">proud that</span> our team won the championship.</td><td class="ja">チームが優勝して誇りに思っています。</td></tr>
+        <tr><td class="en">It is <span class="hl-cj">strange that</span> no one noticed the error.</td><td class="ja">誰もミスに気づかなかったとは奇妙だ。</td></tr>
+        <tr><td class="en">It is <span class="hl-cj">important that</span> you (should) arrive on time.</td><td class="ja">時間通りに到着することが重要です。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 11: whether / if ── -->
+  <section class="section" id="whether">
+    <div class="section-header">
+      <span class="section-number">11</span>
+      <span class="conj-badge">whether / if</span>
+      <h2 class="section-title">whether / if — 「〜かどうか」</h2>
+    </div>
+    <p class="section-intro"><strong>whether</strong> と <strong>if</strong> はどちらも「〜かどうか」という名詞節を導くが、<strong>使える文脈が異なる</strong>。迷ったら whether を使えば常に正しい。</p>
+
+    <div class="clause-demo">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>She hasn't decided</div>
+          <div class="cl-lbl">主節</div>
+        </div>
+        <div class="cj">whether</div>
+        <div class="cl sub">
+          <div>to accept the offer</div>
+          <div class="cl-lbl">名詞節（目的語）</div>
+        </div>
+      </div>
+      <div class="demo-sent">She hasn't decided whether to accept the offer.</div>
+    </div>
+
+    <div class="compare-grid">
+      <div class="cmp-card">
+        <h4>whether ✓</h4>
+        <ul class="cmp-list">
+          <li>目的語・主語・補語 すべてに使える</li>
+          <li>前置詞の目的語になれる</li>
+          <li>whether...or not と直結できる</li>
+          <li>whether to V（不定詞）と使える</li>
+        </ul>
+      </div>
+      <div class="cmp-card">
+        <h4>if（目的語限定）</h4>
+        <ul class="cmp-list">
+          <li>目的語のみ</li>
+          <li class="ng">主語・補語では使えない</li>
+          <li class="ng">前置詞の後には使えない</li>
+          <li class="ng">if to V は不可</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note-box green">
+      <strong>whether のみ使える場面:</strong><br>
+      • 主語: <em>Whether he comes</em> doesn't matter. （if 不可）<br>
+      • 前置詞の後: I'm not sure <em>about whether</em> to go. （if 不可）<br>
+      • or not と直結: <em>Whether or not</em> it rains, we'll go. （if or not 不可）<br>
+      • 不定詞: I can't decide <em>whether to stay</em> or leave. （if to stay 不可）
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">I don't know <span class="hl-cj">whether / if</span> she'll come.</td><td class="ja">彼女が来るかどうかわからない。</td></tr>
+        <tr><td class="en">I'm not sure <span class="hl-cj">whether</span> to apologize or not.</td><td class="ja">謝るべきかどうかわからない。</td></tr>
+        <tr><td class="en">It depends on <span class="hl-cj">whether</span> he agrees.</td><td class="ja">それは彼が同意するかどうか次第だ。</td></tr>
+        <tr><td class="en">She asked me <span class="hl-cj">whether / if</span> I liked the food.</td><td class="ja">彼女は私に料理が気に入ったかどうか聞いた。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 12: 接続副詞 ── -->
+  <section class="section" id="conj-adv">
+    <div class="section-header">
+      <span class="section-number">12</span>
+      <span class="conj-badge">接続副詞</span>
+      <h2 class="section-title">接続副詞 — however / therefore / moreover / nevertheless</h2>
+    </div>
+    <p class="section-intro"><strong>接続副詞は「接続詞」ではない</strong>。前後の文を意味的に繋ぐが、文法的には副詞なので、コンマだけで節を繋ぐ「コンマスプライス」は誤り。</p>
+
+    <div class="cadv-demo" style="position:relative;">
+      <button class="replay-btn" id="cadv-replay-btn">↺ Replay</button>
+      <div class="cadv-row">
+        <div class="cadv-sent" id="cadv-s1">The price was high.</div>
+        <div class="cadv-cj" id="cadv-cj1">→ However,</div>
+        <div class="cadv-sent" id="cadv-s2">we decided to buy it.</div>
+      </div>
+      <div class="cadv-rule">
+        <span class="ok">✓</span> The price was high. <strong>However,</strong> we decided to buy it.<br>
+        <span class="ok">✓</span> The price was high<strong>; however,</strong> we decided to buy it.<br>
+        <span class="ng">✗</span> The price was high<strong>, however,</strong> we decided to buy it. ← コンマスプライス（誤り）
+      </div>
+    </div>
+
+    <div class="conj-cards">
+      <div class="conj-card">
+        <h4>逆接・対比</h4>
+        <div class="conj-list">
+          <div class="conj-item"><strong>however</strong> <span>しかしながら</span></div>
+          <div class="conj-item"><strong>nevertheless</strong> <span>それでもなお</span></div>
+          <div class="conj-item"><strong>nonetheless</strong> <span>それにもかかわらず</span></div>
+          <div class="conj-item"><strong>on the other hand</strong> <span>一方では</span></div>
+        </div>
+      </div>
+      <div class="conj-card">
+        <h4>因果・結論</h4>
+        <div class="conj-list">
+          <div class="conj-item"><strong>therefore</strong> <span>したがって</span></div>
+          <div class="conj-item"><strong>thus</strong> <span>このように / ゆえに</span></div>
+          <div class="conj-item"><strong>consequently</strong> <span>その結果として</span></div>
+          <div class="conj-item"><strong>as a result</strong> <span>その結果</span></div>
+        </div>
+      </div>
+      <div class="conj-card">
+        <h4>追加・展開</h4>
+        <div class="conj-list">
+          <div class="conj-item"><strong>moreover</strong> <span>さらに</span></div>
+          <div class="conj-item"><strong>furthermore</strong> <span>その上</span></div>
+          <div class="conj-item"><strong>in addition</strong> <span>加えて</span></div>
+          <div class="conj-item"><strong>in other words</strong> <span>言い換えれば</span></div>
+        </div>
+      </div>
+    </div>
+
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">The experiment failed. <span class="hl-cj">Therefore,</span> we revised the method.</td><td class="ja">実験は失敗した。そのため、方法を見直した。</td></tr>
+        <tr><td class="en">She was nervous. <span class="hl-cj">Nevertheless,</span> her speech was excellent.</td><td class="ja">彼女は緊張していた。それでも、スピーチは素晴らしかった。</td></tr>
+        <tr><td class="en">The hotel was cheap. <span class="hl-cj">Moreover,</span> the location was perfect.</td><td class="ja">ホテルは安かった。さらに、立地も完璧だった。</td></tr>
+        <tr><td class="en">He studied hard. <span class="hl-cj">As a result,</span> he passed the exam.</td><td class="ja">彼は一生懸命勉強した。その結果、試験に合格した。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+  // Animate all direct children of .cl-row in sequence, then .demo-sent
+  function animateClauseDemo(demoEl) {
+    const items = demoEl.querySelectorAll('.cl-row > *');
+    const sent  = demoEl.querySelector('.demo-sent');
+
+    items.forEach(el => el.classList.remove('show'));
+    if (sent) sent.classList.remove('show');
+
+    let delay = 0;
+    items.forEach(el => {
+      setTimeout(() => el.classList.add('show'), delay);
+      delay += 320;
+    });
+    if (sent) setTimeout(() => sent.classList.add('show'), delay + 100);
+  }
+
+  // Conjunctive adverb demo
+  function animateCadvDemo() {
+    const s1 = document.getElementById('cadv-s1');
+    const cj = document.getElementById('cadv-cj1');
+    const s2 = document.getElementById('cadv-s2');
+    [s1, cj, s2].forEach(el => el && el.classList.remove('show'));
+    setTimeout(() => s1 && s1.classList.add('show'), 0);
+    setTimeout(() => cj && cj.classList.add('show'), 400);
+    setTimeout(() => s2 && s2.classList.add('show'), 750);
+  }
+
+  // IntersectionObserver — auto-play on scroll into view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      if (entry.target.classList.contains('clause-demo')) {
+        animateClauseDemo(entry.target);
+      } else if (entry.target.classList.contains('cadv-demo')) {
+        animateCadvDemo();
+      }
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('.clause-demo, .cadv-demo').forEach(d => observer.observe(d));
+
+  // Replay buttons
+  document.querySelectorAll('.replay-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const demo = btn.closest('.clause-demo');
+      if (demo) {
+        const items = demo.querySelectorAll('.cl-row > *');
+        const sent  = demo.querySelector('.demo-sent');
+        items.forEach(el => el.classList.remove('show'));
+        if (sent) sent.classList.remove('show');
+        setTimeout(() => animateClauseDemo(demo), 80);
+      }
+    });
+  });
+
+  // cadv-demo replay button
+  const cadvReplayBtn = document.getElementById('cadv-replay-btn');
+  if (cadvReplayBtn) {
+    cadvReplayBtn.addEventListener('click', () => {
+      animateCadvDemo();
+    });
+  }
+</script>
+</body>
+</html>
