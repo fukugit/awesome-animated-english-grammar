@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>原級・同等比較 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f9f7f2;
+      --white: #fff;
+      --border: #e5e0d5;
+      --text: #1c1c1c;
+      --muted: #6b6460;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --green: #22c55e;
+      --purple: #a855f7;
+      --red: #ef4444;
+      --teal: #14b8a6;
+      --accent: #1e3a8a;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      height: 56px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .logo-mark {
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+      border-radius: 6px;
+      flex-shrink: 0;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30,58,138,0); }
+      50% { transform: scale(1.12); box-shadow: 0 0 0 6px rgba(124,58,237,0); }
+    }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 48px 40px;
+    }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; }
+    .unit-meta-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .unit-num-badge {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 2px 9px; border-radius: 4px; background: var(--accent); color: white;
+    }
+    .ch-badge {
+      font-size: 0.68rem; font-weight: 700; padding: 2px 9px; border-radius: 4px;
+      background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+    }
+    .back-link a {
+      font-size: 0.85rem; color: var(--muted); text-decoration: none; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 4px; margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 8px; }
+    .page-title span { color: #16a34a; }
+    .page-desc { color: var(--muted); font-size: 1rem; max-width: 680px; }
+
+    /* ── Content ── */
+    .content { max-width: 1200px; margin: 0 auto; padding: 48px 48px 80px; }
+
+    /* ── Section ── */
+    .section { margin-bottom: 64px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+    .gram-badge {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px; background: var(--bg);
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .section-title { font-size: 1.55rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 1rem; margin-bottom: 24px; margin-top: 6px; }
+
+    /* ── Clause Demo ── */
+    .clause-demo {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .cl-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cl {
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(30px) scale(0.82);
+      transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: center;
+      line-height: 1.4;
+      cursor: default;
+    }
+    .cl.show { opacity: 1; transform: translateY(0) scale(1); }
+    .cl:hover { transform: scale(1.04) translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+    .cl.main  { background: #dbeafe; color: #1e3a8a; }
+    .cl.asas  { background: #dcfce7; color: #14532d; border: 2px solid #16a34a; }
+    .cl.targ  { background: #ccfbf1; color: #0f766e; }
+    .cl.multi { background: #f3e8ff; color: #6b21a8; }
+    .cl-lbl { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; margin-top: 4px; opacity: 0.7; }
+
+    .cj {
+      font-size: 0.95rem; font-weight: 800; color: #16a34a;
+      padding: 8px 14px; border-radius: 8px;
+      background: #dcfce7; border: 2px solid #16a34a;
+      opacity: 0; transform: scale(0.6);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap;
+    }
+    .cj.show { opacity: 1; transform: scale(1); }
+
+    .cl-arrow {
+      font-size: 1.4rem; color: var(--muted);
+      opacity: 0; transform: translateX(-8px);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .cl-arrow.show { opacity: 1; transform: translateX(0); }
+
+    .demo-sent {
+      font-style: italic; color: var(--muted); font-size: 1rem;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease; text-align: center;
+    }
+    .demo-sent.show { opacity: 1; transform: translateY(0); }
+
+    .replay-btn {
+      position: absolute; top: 14px; right: 14px;
+      font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 100px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--muted);
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .replay-btn:hover { background: var(--white); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06); }
+    .replay-btn:active { transform: scale(0.94); }
+    @keyframes replaySpin {
+      from { transform: rotate(0deg) scale(0.9); }
+      to   { transform: rotate(360deg) scale(1); }
+    }
+    .replay-btn.spinning { animation: replaySpin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+    /* ── Formula box ── */
+    .formula-box {
+      background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius);
+      padding: 20px 24px; margin-bottom: 20px;
+    }
+    .formula-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #16a34a; margin-bottom: 10px;
+    }
+    .formula-row {
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .f-block {
+      padding: 6px 14px; border-radius: 8px; font-size: 0.88rem; font-weight: 700;
+    }
+    .f-s { background: #dbeafe; color: #1e3a8a; }
+    .f-v { background: #dcfce7; color: #14532d; }
+    .f-as { background: #16a34a; color: #fff; }
+    .f-adj { background: #fef3c7; color: #92400e; }
+    .f-t { background: #ccfbf1; color: #0f766e; }
+    .f-op { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+
+    /* ── Note box ── */
+    .note-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 16px 20px; font-size: 0.95rem; color: var(--muted); margin-bottom: 20px; line-height: 1.75;
+    }
+    .note-box.green  { border-left-color: #16a34a; }
+    .note-box.orange { border-left-color: var(--orange); }
+    .note-box.purple { border-left-color: var(--purple); }
+    .note-box.red    { border-left-color: var(--red); }
+    .note-box.teal   { border-left-color: var(--teal); }
+
+    /* ── Idiom cards ── */
+    .idiom-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px;
+    }
+    .idiom-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px;
+    }
+    .idiom-card h4 {
+      font-size: 0.88rem; font-weight: 800; color: #16a34a; margin-bottom: 6px;
+    }
+    .idiom-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+    .idiom-card .ex { font-size: 0.82rem; color: var(--text); font-weight: 600; margin-top: 6px; font-style: italic; }
+
+    /* ── Examples Table ── */
+    .ex-table { width: 100%; border-collapse: collapse; font-size: 0.96rem; }
+    .ex-table thead th {
+      text-align: left; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); padding: 8px 12px; border-bottom: 2px solid var(--border);
+    }
+    .ex-table tbody td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .ex-table tbody tr:last-child td { border-bottom: none; }
+    .ex-table .en { font-weight: 600; }
+    .ex-table .ja { color: var(--muted); }
+    .hl-g { color: #16a34a; font-weight: 700; }
+    .hl-b { color: #1e3a8a; font-weight: 700; }
+    .hl-p { color: var(--purple); font-weight: 700; }
+
+    /* ── Scale visual ── */
+    .scale-vis {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px 28px; margin-bottom: 20px;
+    }
+    .scale-bar-wrap { position: relative; margin: 20px 0 8px; }
+    .scale-bar {
+      height: 8px; border-radius: 4px;
+      background: linear-gradient(to right, #dbeafe, #16a34a, #ccfbf1);
+      position: relative;
+    }
+    .scale-bar::before, .scale-bar::after {
+      content: ''; position: absolute; top: 50%; transform: translateY(-50%);
+      width: 16px; height: 16px; border-radius: 50%; border: 3px solid var(--white); box-shadow: 0 0 0 2px;
+    }
+    .scale-bar::before { left: 0; box-shadow: 0 0 0 2px #1e3a8a; background: #dbeafe; }
+    .scale-bar::after  { right: 0; box-shadow: 0 0 0 2px #0f766e; background: #ccfbf1; }
+    .scale-labels { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; }
+    .scale-eq { text-align: center; font-size: 0.78rem; color: #16a34a; font-weight: 700; margin-top: 4px; }
+
+    /* ── Multiplier cards ── */
+    .mult-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px;
+    }
+    .mult-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center;
+    }
+    .mult-card .mult-word { font-size: 1.4rem; font-weight: 800; color: var(--purple); margin-bottom: 4px; }
+    .mult-card .mult-desc { font-size: 0.78rem; color: var(--muted); margin-bottom: 8px; }
+    .mult-card .mult-ex { font-size: 0.82rem; font-weight: 600; color: var(--text); font-style: italic; }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--border); margin: 0 0 64px; }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 32px 24px 28px; }
+      .content { padding: 32px 24px 60px; }
+      .idiom-grid { grid-template-columns: 1fr; }
+      .mult-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    <span>Animated English Grammar</span>
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 13</span>
+      <span class="ch-badge">Chapter IV &nbsp;·&nbsp; 比較表現</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">原級・同等比較 <span>Positive Degree</span></h1>
+    <p class="page-desc">as...as を使って「同程度」を表す構文、否定形・倍数表現、そして原級を使った重要慣用表現を整理する。</p>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- ── 01: as...as の基本構造 ── -->
+  <section class="section" id="basic">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">基本構造</span>
+      <h2 class="section-title">as + 形容詞/副詞 + as の構造</h2>
+    </div>
+    <p class="section-intro">2つの対象を「同等」と述べるとき、<strong>as [形容詞/副詞] as</strong> の形を使う。前の as は副詞、後ろの as は接続詞または前置詞。</p>
+
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>Marcus runs</div>
+          <div class="cl-lbl">主語 + 動詞</div>
+        </div>
+        <div class="cj">as fast</div>
+        <div class="cl asas">
+          <div>as</div>
+          <div class="cl-lbl">比較の基準点</div>
+        </div>
+        <div class="cl targ">
+          <div>his coach does</div>
+          <div class="cl-lbl">比較対象</div>
+        </div>
+      </div>
+      <div class="demo-sent">Marcus runs as fast as his coach does.</div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label">Formula — 同等比較</div>
+      <div class="formula-row">
+        <span class="f-block f-s">S</span>
+        <span class="f-block f-v">V</span>
+        <span class="f-block f-as">as</span>
+        <span class="f-block f-adj">形容詞 / 副詞 (原級)</span>
+        <span class="f-block f-as">as</span>
+        <span class="f-block f-t">比較対象</span>
+      </div>
+    </div>
+
+    <div class="note-box green">
+      <strong>形容詞か副詞か:</strong><br>
+      • 補語位置 (be 動詞の後): <em>She is <strong>as tall as</strong> her brother.</em> → 形容詞<br>
+      • 動詞・形容詞を修飾: <em>He finished <strong>as quickly as</strong> possible.</em> → 副詞<br>
+      後半の as 節では代動詞 (does / did / can など) を使って繰り返しを避けるのが自然。
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>例文</th><th>和訳</th><th>ポイント</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="en">This laptop is <span class="hl-g">as powerful as</span> mine.</td>
+          <td class="ja">このノートPCは私のものと同じくらい高性能だ。</td>
+          <td style="color:var(--muted);font-size:0.85rem">形容詞 powerful</td>
+        </tr>
+        <tr>
+          <td class="en">She speaks Spanish <span class="hl-g">as fluently as</span> a native.</td>
+          <td class="ja">彼女はネイティブと同じくらい流暢にスペイン語を話す。</td>
+          <td style="color:var(--muted);font-size:0.85rem">副詞 fluently</td>
+        </tr>
+        <tr>
+          <td class="en">The new café is <span class="hl-g">as busy as</span> ever on weekends.</td>
+          <td class="ja">その新しいカフェは週末になると相変わらず混んでいる。</td>
+          <td style="color:var(--muted);font-size:0.85rem">as...as ever</td>
+        </tr>
+        <tr>
+          <td class="en">He trained <span class="hl-g">as hard as</span> the professionals do.</td>
+          <td class="ja">彼はプロたちと同じくらい熱心に練習した。</td>
+          <td style="color:var(--muted);font-size:0.85rem">代動詞 do で省略</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 02: 否定形 not as [so]...as ── -->
+  <section class="section" id="negative">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">否定形</span>
+      <h2 class="section-title">否定形 — not as [so] ... as</h2>
+    </div>
+    <p class="section-intro">否定文にすると「〜ほど...でない」という<strong>劣等比較</strong>を表す。前の as を so にすることもできる（書き言葉的）。</p>
+
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>The sequel</div>
+          <div class="cl-lbl">主語</div>
+        </div>
+        <div class="cl-arrow">→</div>
+        <div class="cj">is not as</div>
+        <div class="cl asas">
+          <div>compelling</div>
+          <div class="cl-lbl">形容詞 (原級)</div>
+        </div>
+        <div class="cj">as</div>
+        <div class="cl targ">
+          <div>the original film</div>
+          <div class="cl-lbl">比較対象</div>
+        </div>
+      </div>
+      <div class="demo-sent">The sequel is not as compelling as the original film.</div>
+    </div>
+
+    <div class="note-box orange">
+      <strong>not as...as と not so...as:</strong><br>
+      • <em>not <strong>as</strong>...as</em> — 口語・書き言葉どちらでも使われる一般的な形<br>
+      • <em>not <strong>so</strong>...as</em> — やや格式ばった書き言葉的な形<br>
+      どちらも意味は同じ。試験では両方の形を認識できることが重要。
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>例文</th><th>和訳</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="en">This route is <span class="hl-g">not as scenic as</span> the coastal road.</td>
+          <td class="ja">このルートは海岸沿いの道ほど景観が良くない。</td>
+        </tr>
+        <tr>
+          <td class="en">The revised plan is <span class="hl-g">not so ambitious as</span> the first draft.</td>
+          <td class="ja">修正案は最初の草案ほど野心的ではない。</td>
+        </tr>
+        <tr>
+          <td class="en">Online tutorials are <span class="hl-g">not always as effective as</span> one-on-one coaching.</td>
+          <td class="ja">オンラインチュートリアルは必ずしも個別指導と同じくらい効果的ではない。</td>
+        </tr>
+        <tr>
+          <td class="en">She didn't perform <span class="hl-g">as well as</span> she had hoped.</td>
+          <td class="ja">彼女は期待していたほどうまくは演じられなかった。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 03: 倍数表現 ── -->
+  <section class="section" id="multiplier">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">倍数表現</span>
+      <h2 class="section-title">倍数表現 — twice / three times / half as...as</h2>
+    </div>
+    <p class="section-intro">「〜の何倍」を表すには、<strong>倍数表現 + as...as</strong> の語順で as の前に倍数詞を置く。</p>
+
+    <div class="clause-demo" id="demo3">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl multi">
+          <div>twice</div>
+          <div class="cl-lbl">倍数詞</div>
+        </div>
+        <div class="cj">as large</div>
+        <div class="cl asas">
+          <div>as</div>
+          <div class="cl-lbl">比較の基準</div>
+        </div>
+        <div class="cl targ">
+          <div>the previous office</div>
+          <div class="cl-lbl">比較対象</div>
+        </div>
+      </div>
+      <div class="demo-sent">The new headquarters is twice as large as the previous office.</div>
+    </div>
+
+    <div class="mult-grid">
+      <div class="mult-card">
+        <div class="mult-word">twice</div>
+        <div class="mult-desc">2倍</div>
+        <div class="mult-ex">twice as fast as before</div>
+      </div>
+      <div class="mult-card">
+        <div class="mult-word">three times</div>
+        <div class="mult-desc">3倍</div>
+        <div class="mult-ex">three times as heavy as mine</div>
+      </div>
+      <div class="mult-card">
+        <div class="mult-word">half</div>
+        <div class="mult-desc">半分</div>
+        <div class="mult-ex">half as expensive as last year</div>
+      </div>
+    </div>
+
+    <div class="note-box purple">
+      <strong>倍数 + 名詞の場合:</strong><br>
+      • <em>twice <strong>as many employees as</strong> last year</em> — as の前の形容詞が many / much / long / high など<br>
+      • <em>three times <strong>the size of</strong> this room</em> — 「倍数 + the + 名詞 + of」の形も頻出<br>
+      &emsp;例: This warehouse is <em>three times the size of</em> the old one.
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>例文</th><th>和訳</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="en">Her salary is <span class="hl-p">twice as high as</span> it was five years ago.</td>
+          <td class="ja">彼女の給料は5年前の2倍になった。</td>
+        </tr>
+        <tr>
+          <td class="en">This electric car covers <span class="hl-p">three times as many miles as</span> the old model.</td>
+          <td class="ja">この電気自動車は旧モデルの3倍の距離を走れる。</td>
+        </tr>
+        <tr>
+          <td class="en">The delay cost <span class="hl-p">half as much as</span> the project itself.</td>
+          <td class="ja">その遅延にかかったコストはプロジェクト本体の半分だった。</td>
+        </tr>
+        <tr>
+          <td class="en">This campus is <span class="hl-p">four times the area of</span> our old school.</td>
+          <td class="ja">このキャンパスは旧校舎の4倍の面積がある。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 04: as...as possible / as...as S can ── -->
+  <section class="section" id="possible">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">慣用構文</span>
+      <h2 class="section-title">as...as possible / as...as S can</h2>
+    </div>
+    <p class="section-intro">「できるだけ〜」を表す重要構文。<strong>as...as possible</strong> と <strong>as...as S can</strong> は意味が等しく、文脈に応じて使い分ける。</p>
+
+    <div class="clause-demo" id="demo4">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>Please reply</div>
+          <div class="cl-lbl">主節</div>
+        </div>
+        <div class="cj">as soon as</div>
+        <div class="cl asas">
+          <div>possible</div>
+          <div class="cl-lbl">= you can</div>
+        </div>
+      </div>
+      <div class="demo-sent">Please reply as soon as possible.</div>
+    </div>
+
+    <div class="scale-vis">
+      <div style="font-size:0.82rem;font-weight:700;color:var(--muted);margin-bottom:12px;">2 つの表現は完全に等価</div>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+        <div style="flex:1;min-width:200px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:0.72rem;font-weight:800;color:#16a34a;letter-spacing:0.08em;margin-bottom:6px;">FORM A</div>
+          <div style="font-weight:700;">as [adj/adv] as possible</div>
+          <div style="font-size:0.82rem;color:var(--muted);margin-top:4px;font-style:italic;">Finish the report as quickly as possible.</div>
+        </div>
+        <div style="font-size:1.4rem;color:var(--muted);font-weight:700;">=</div>
+        <div style="flex:1;min-width:200px;background:#dbeafe;border:1px solid #bfdbfe;border-radius:10px;padding:14px 16px;">
+          <div style="font-size:0.72rem;font-weight:800;color:#1e3a8a;letter-spacing:0.08em;margin-bottom:6px;">FORM B</div>
+          <div style="font-weight:700;">as [adj/adv] as S can</div>
+          <div style="font-size:0.82rem;color:var(--muted);margin-top:4px;font-style:italic;">Finish the report as quickly as you can.</div>
+        </div>
+      </div>
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>例文</th><th>和訳</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="en">Pack <span class="hl-g">as lightly as possible</span> for the hiking trip.</td>
+          <td class="ja">ハイキングにはできるだけ軽い荷物で行こう。</td>
+        </tr>
+        <tr>
+          <td class="en">We need to evacuate <span class="hl-g">as many people as we can</span> before the storm hits.</td>
+          <td class="ja">嵐が来る前にできるだけ多くの人を避難させる必要がある。</td>
+        </tr>
+        <tr>
+          <td class="en">She memorized the script <span class="hl-g">as accurately as possible</span>.</td>
+          <td class="ja">彼女はできるだけ正確に台本を暗記した。</td>
+        </tr>
+        <tr>
+          <td class="en">Keep the server downtime <span class="hl-g">as short as you can</span>.</td>
+          <td class="ja">サーバーのダウンタイムはできるだけ短くしてください。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 05: 重要慣用表現 ── -->
+  <section class="section" id="idioms">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="gram-badge">慣用表現</span>
+      <h2 class="section-title">原級を使った重要慣用表現</h2>
+    </div>
+    <p class="section-intro">as...as の形が接続詞句として定着したイディオム。それぞれ意味・使い方が固有のため、セットで押さえる。</p>
+
+    <div class="clause-demo" id="demo5">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cj">As long as</div>
+        <div class="cl asas">
+          <div>you stay within the budget</div>
+          <div class="cl-lbl">条件節</div>
+        </div>
+        <div class="cl-arrow">→</div>
+        <div class="cl main">
+          <div>the team has full creative freedom</div>
+          <div class="cl-lbl">主節</div>
+        </div>
+      </div>
+      <div class="demo-sent">As long as you stay within the budget, the team has full creative freedom.</div>
+    </div>
+
+    <div class="idiom-grid">
+      <div class="idiom-card">
+        <h4>as soon as</h4>
+        <p>〜するとすぐに（時）</p>
+        <div class="ex">Call me as soon as you land.</div>
+      </div>
+      <div class="idiom-card">
+        <h4>as long as</h4>
+        <p>〜する限り / 〜であれば（条件）</p>
+        <div class="ex">I'll help as long as it's legal.</div>
+      </div>
+      <div class="idiom-card">
+        <h4>as far as</h4>
+        <p>〜する限りでは（範囲）</p>
+        <div class="ex">As far as I know, the deal is off.</div>
+      </div>
+      <div class="idiom-card">
+        <h4>as well as</h4>
+        <p>〜と同様に / 〜に加えて</p>
+        <div class="ex">She codes as well as she designs.</div>
+      </div>
+      <div class="idiom-card">
+        <h4>as good as</h4>
+        <p>〜も同然 / ほぼ〜</p>
+        <div class="ex">The deal is as good as done.</div>
+      </div>
+      <div class="idiom-card">
+        <h4>as many / much as</h4>
+        <p>〜と同数 / 同量だけ</p>
+        <div class="ex">Eat as much as you like.</div>
+      </div>
+    </div>
+
+    <div class="note-box teal">
+      <strong>as far as と as long as の区別:</strong><br>
+      • <em>as far as I know / as far as I'm concerned</em> — <strong>範囲・観点</strong>を限定する<br>
+      • <em>as long as you try / as long as there's time</em> — <strong>条件・期間</strong>を表す<br>
+      「知る限り」→ as far as、「〜する条件で」→ as long as と覚えると混同しにくい。
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>慣用表現</th><th>例文</th><th>和訳</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong class="hl-g">as soon as</strong></td>
+          <td class="en">The update rolled out <span class="hl-g">as soon as</span> the bug was fixed.</td>
+          <td class="ja">バグが修正されるとすぐにアップデートが公開された。</td>
+        </tr>
+        <tr>
+          <td><strong class="hl-g">as long as</strong></td>
+          <td class="en">You can borrow it <span class="hl-g">as long as</span> you return it by Friday.</td>
+          <td class="ja">金曜日までに返す限り、貸し出せます。</td>
+        </tr>
+        <tr>
+          <td><strong class="hl-g">as far as</strong></td>
+          <td class="en"><span class="hl-g">As far as</span> the data shows, sales have been stable.</td>
+          <td class="ja">データが示す限り、売上は安定している。</td>
+        </tr>
+        <tr>
+          <td><strong class="hl-g">as well as</strong></td>
+          <td class="en">The architect designed the interior <span class="hl-g">as well as</span> the facade.</td>
+          <td class="ja">その建築家はファサードだけでなくインテリアも設計した。</td>
+        </tr>
+        <tr>
+          <td><strong class="hl-g">as good as</strong></td>
+          <td class="en">With one day left, the project is <span class="hl-g">as good as</span> finished.</td>
+          <td class="ja">残り1日で、プロジェクトはほぼ完成も同然だ。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+  // ── Animation helpers ──
+  function getAnimatables(demo) {
+    return Array.from(demo.querySelectorAll('.cl, .cj, .cl-arrow, .demo-sent'));
+  }
+
+  function resetDemo(demo) {
+    getAnimatables(demo).forEach(el => el.classList.remove('show'));
+  }
+
+  function playDemo(demo) {
+    resetDemo(demo);
+    const els = getAnimatables(demo);
+    els.forEach((el, i) => {
+      setTimeout(() => el.classList.add('show'), i * 140 + 80);
+    });
+  }
+
+  // ── IntersectionObserver ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        playDemo(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.clause-demo').forEach(demo => observer.observe(demo));
+
+  // ── Replay buttons ──
+  document.querySelectorAll('.replay-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.classList.remove('spinning');
+      void btn.offsetWidth;
+      btn.classList.add('spinning');
+      btn.addEventListener('animationend', () => btn.classList.remove('spinning'), { once: true });
+      playDemo(btn.closest('.clause-demo'));
+    });
+  });
+</script>
+</body>
+</html>

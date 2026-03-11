@@ -36,6 +36,11 @@
     .logo-mark {
       width: 26px; height: 26px; background: linear-gradient(135deg, #1e3a8a, #7c3aed);
       border-radius: 6px; flex-shrink: 0;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
     }
     .page-hero { background: var(--white); border-bottom: 1px solid var(--border); padding: 48px 48px 40px; }
     .page-hero-inner { max-width: 1200px; margin: 0 auto; }
@@ -87,25 +92,33 @@
     .mp-pres {
       padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 0.9rem;
       background: #fff7ed; border: 2px solid var(--orange); color: #9a3412;
-      opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease;
+      opacity: 0; transform: translateY(28px) scale(0.82); transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: default;
     }
     .mp-past {
       padding: 10px 16px; border-radius: 8px; font-weight: 700; font-size: 0.9rem;
       background: #f3e8ff; border: 2px solid var(--purple); color: #6b21a8;
-      opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.4s ease;
+      opacity: 0; transform: translateY(28px) scale(0.82); transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: default;
     }
-    .mp-pres.show, .mp-past.show { opacity: 1; transform: translateY(0); }
-    .mod-label { font-size: 0.82rem; color: var(--muted); font-style: italic; opacity: 0; transition: opacity 0.5s 0.3s; }
-    .mod-label.show { opacity: 1; }
+    .mp-pres.show, .mp-past.show { opacity: 1; transform: translateY(0) scale(1); }
+    .mp-pres:hover, .mp-past:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+    .mod-label { font-size: 0.82rem; color: var(--muted); font-style: italic; opacity: 0; transform: translateY(8px); transition: opacity 0.5s 0.3s, transform 0.5s 0.3s ease; }
+    .mod-label.show { opacity: 1; transform: translateY(0); }
 
     .replay-btn {
       position: absolute; top: 14px; right: 14px;
       font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 100px;
       border: 1px solid var(--border); background: var(--bg); color: var(--muted);
-      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.1s; letter-spacing: 0.05em;
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s; letter-spacing: 0.05em;
     }
-    .replay-btn:hover { background: var(--white); color: var(--text); }
-    .replay-btn:active { transform: scale(0.96); }
+    .replay-btn:hover { background: var(--white); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06); }
+    .replay-btn:active { transform: scale(0.94); }
+    @keyframes replaySpin {
+      from { transform: rotate(0deg) scale(0.9); }
+      to   { transform: rotate(360deg) scale(1); }
+    }
+    .replay-btn.spinning { animation: replaySpin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
     /* ── Emotion Compare ── */
     .emotion-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
@@ -138,10 +151,11 @@
     .cl-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
     .cl {
       padding: 12px 18px; border-radius: 10px; font-size: 0.9rem; font-weight: 600;
-      opacity: 0; transform: translateY(14px); transition: opacity 0.4s ease, transform 0.4s ease;
-      text-align: center; line-height: 1.4;
+      opacity: 0; transform: translateY(30px) scale(0.82); transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: center; line-height: 1.4; cursor: default;
     }
-    .cl.show { opacity: 1; transform: translateY(0); }
+    .cl.show { opacity: 1; transform: translateY(0) scale(1); }
+    .cl:hover { transform: scale(1.04) translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
     .cl.main  { background: #dbeafe; color: #1e3a8a; }
     .cl.sub   { background: #ccfbf1; color: #0f766e; }
     .cl.part  { background: #fff7ed; color: #9a3412; }
@@ -615,6 +629,10 @@
 
   document.querySelectorAll('.replay-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+      btn.classList.remove('spinning');
+      void btn.offsetWidth;
+      btn.classList.add('spinning');
+      btn.addEventListener('animationend', () => btn.classList.remove('spinning'), { once: true });
       const mod = btn.closest('.mod-demo');
       const cl  = btn.closest('.clause-demo');
       if (mod) {

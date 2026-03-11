@@ -54,6 +54,11 @@
       background: linear-gradient(135deg, #1e3a8a, #7c3aed);
       border-radius: 6px;
       flex-shrink: 0;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30,58,138,0); }
+      50% { transform: scale(1.12); box-shadow: 0 0 0 6px rgba(124,58,237,0); }
     }
 
     /* ── Page Hero ── */
@@ -122,12 +127,14 @@
       font-size: 0.9rem;
       font-weight: 600;
       opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: translateY(30px) scale(0.82);
+      transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
       text-align: center;
       line-height: 1.4;
+      cursor: default;
     }
-    .cl.show { opacity: 1; transform: translateY(0); }
+    .cl.show { opacity: 1; transform: translateY(0) scale(1); }
+    .cl:hover { transform: scale(1.04) translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
     .cl.main  { background: #dbeafe; color: #1e3a8a; }
     .cl.sub   { background: #ccfbf1; color: #0f766e; }
     .cl.cause { background: #fff7ed; color: #9a3412; }
@@ -137,30 +144,38 @@
       font-size: 0.95rem; font-weight: 800; color: var(--orange);
       padding: 8px 14px; border-radius: 8px;
       background: #fff7ed; border: 2px solid var(--orange);
-      opacity: 0; transition: opacity 0.4s ease; white-space: nowrap;
+      opacity: 0; transform: scale(0.6);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap;
     }
-    .cj.show { opacity: 1; }
+    .cj.show { opacity: 1; transform: scale(1); }
 
     .cl-arrow {
       font-size: 1.4rem; color: var(--muted);
-      opacity: 0; transition: opacity 0.4s ease;
+      opacity: 0; transform: translateX(-8px);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .cl-arrow.show { opacity: 1; }
+    .cl-arrow.show { opacity: 1; transform: translateX(0); }
 
     .demo-sent {
       font-style: italic; color: var(--muted); font-size: 1rem;
-      opacity: 0; transition: opacity 0.5s ease; text-align: center;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease; text-align: center;
     }
-    .demo-sent.show { opacity: 1; }
+    .demo-sent.show { opacity: 1; transform: translateY(0); }
 
     .replay-btn {
       position: absolute; top: 14px; right: 14px;
       font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 100px;
       border: 1px solid var(--border); background: var(--bg); color: var(--muted);
-      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.1s; letter-spacing: 0.05em;
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s; letter-spacing: 0.05em;
     }
-    .replay-btn:hover { background: var(--white); color: var(--text); }
-    .replay-btn:active { transform: scale(0.96); }
+    .replay-btn:hover { background: var(--white); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06); }
+    .replay-btn:active { transform: scale(0.94); }
+    @keyframes replaySpin {
+      from { transform: rotate(0deg) scale(0.9); }
+      to   { transform: rotate(360deg) scale(1); }
+    }
+    .replay-btn.spinning { animation: replaySpin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
     /* ── Note box ── */
     .note-box {
@@ -248,14 +263,15 @@
     .cadv-sent {
       background: var(--bg); border-radius: 8px; padding: 12px 16px;
       font-size: 0.9rem; font-weight: 600; flex: 1; min-width: 160px;
-      opacity: 0; transform: translateY(10px); transition: opacity 0.4s, transform 0.4s;
+      opacity: 0; transform: translateY(24px) scale(0.88); transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .cadv-sent.show { opacity: 1; transform: translateY(0); }
+    .cadv-sent.show { opacity: 1; transform: translateY(0) scale(1); }
     .cadv-cj {
       font-size: 0.9rem; font-weight: 800; color: var(--orange);
-      padding: 12px 4px; opacity: 0; transition: opacity 0.4s;
+      padding: 12px 4px; opacity: 0; transform: scale(0.6);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .cadv-cj.show { opacity: 1; }
+    .cadv-cj.show { opacity: 1; transform: scale(1); }
     .cadv-rule { font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 12px; line-height: 1.7; }
     .cadv-rule .ok  { color: var(--green); font-weight: 700; }
     .cadv-rule .ng  { color: var(--red);   font-weight: 700; }
@@ -1082,9 +1098,17 @@
 
   document.querySelectorAll('.clause-demo, .cadv-demo').forEach(d => observer.observe(d));
 
+  function spinBtn(btn) {
+    btn.classList.remove('spinning');
+    void btn.offsetWidth;
+    btn.classList.add('spinning');
+    btn.addEventListener('animationend', () => btn.classList.remove('spinning'), { once: true });
+  }
+
   // Replay buttons
   document.querySelectorAll('.replay-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+      spinBtn(btn);
       const demo = btn.closest('.clause-demo');
       if (demo) {
         const items = demo.querySelectorAll('.cl-row > *');
@@ -1100,6 +1124,7 @@
   const cadvReplayBtn = document.getElementById('cadv-replay-btn');
   if (cadvReplayBtn) {
     cadvReplayBtn.addEventListener('click', () => {
+      spinBtn(cadvReplayBtn);
       animateCadvDemo();
     });
   }

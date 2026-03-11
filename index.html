@@ -35,6 +35,11 @@
       width: 28px; height: 28px;
       background: linear-gradient(135deg, #1e3a8a, #7c3aed);
       border-radius: 6px; flex-shrink: 0;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(124,58,237,0.3); }
+      50% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(124,58,237,0); }
     }
     .nav-title { font-weight: 800; font-size: 1rem; letter-spacing: 0.01em; }
 
@@ -108,11 +113,15 @@
       display: block; text-decoration: none; color: var(--ink);
       background: var(--white); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 28px 26px 24px;
-      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease, border-color 0.2s;
       position: relative; overflow: hidden;
+      opacity: 0; transform: translateY(40px) scale(0.94);
+    }
+    .unit-card.revealed {
+      opacity: 1; transform: translateY(0) scale(1);
     }
     .unit-card:hover {
-      transform: translateY(-4px); box-shadow: var(--shadow);
+      transform: translateY(-8px) scale(1.02); box-shadow: 0 12px 36px rgba(0,0,0,0.14);
       border-color: rgba(30,58,138,0.4);
     }
     .unit-meta {
@@ -146,6 +155,45 @@
     }
     .unit-card:hover .unit-arrow { color: var(--accent); }
 
+    /* ── Hero entrance animations ── */
+    @keyframes heroEyebrowIn {
+      from { opacity: 0; transform: translateY(-12px) scale(0.9); letter-spacing: 0.4em; }
+      to   { opacity: 1; transform: translateY(0) scale(1); letter-spacing: 0.22em; }
+    }
+    @keyframes heroTitleIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.9); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes heroSubIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes philItemIn {
+      from { opacity: 0; transform: translateX(-24px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes statChipIn {
+      from { opacity: 0; transform: translateX(24px) scale(0.85); }
+      to   { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    @keyframes floatChip {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .hero-eyebrow { animation: heroEyebrowIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+    .hero-title   { animation: heroTitleIn 0.8s 0.15s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+    .hero-subtitle { animation: heroSubIn 0.7s 0.3s ease both; }
+    .phil-item:nth-child(1) { animation: philItemIn 0.6s 0.45s ease both; }
+    .phil-item:nth-child(2) { animation: philItemIn 0.6s 0.6s ease both; }
+    .phil-item:nth-child(3) { animation: philItemIn 0.6s 0.75s ease both; }
+    .stat-chip:nth-child(1) { animation: statChipIn 0.7s 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both, floatChip 3s 1.2s ease-in-out infinite; }
+    .stat-chip:nth-child(2) { animation: statChipIn 0.7s 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both, floatChip 3s 1.5s ease-in-out infinite; }
+    .stat-chip:nth-child(3) { animation: statChipIn 0.7s 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both, floatChip 3s 1.8s ease-in-out infinite; }
+
+    /* card reveal transition (JS adds .revealed) */
+    .unit-card { transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease, border-color 0.2s; }
+
     @media (max-width: 800px) {
       .nav { padding: 0 24px; }
       .hero { grid-template-columns: 1fr; gap: 32px; padding: 56px 24px 40px; }
@@ -166,7 +214,7 @@
   <div class="hero-left">
     <div class="hero-eyebrow">Visual Grammar Reference</div>
     <h1 class="hero-title">Animated<br>English Grammar</h1>
-    <p class="hero-subtitle">色・図・アニメーションで英文法の構造を視覚的に学ぶ。3章構成で基礎から応用まで網羅したインタラクティブ文法サイト。</p>
+    <p class="hero-subtitle">色・図・アニメーションで英文法の構造を視覚的に学ぶ。5章構成で基礎から応用まで網羅したインタラクティブ文法サイト。</p>
     <div class="phil-list">
       <div class="phil-item">
         <span class="phil-num">1</span>
@@ -178,8 +226,8 @@
       <div class="phil-item">
         <span class="phil-num">2</span>
         <div class="phil-text">
-          <strong>3章構成で学べる</strong>
-          <span>文の構造 → 動詞の形 → 修飾と接続の順に並べた12ユニット</span>
+          <strong>5章構成で学べる</strong>
+          <span>文の構造 → 動詞の形 → 修飾と接続 → 比較表現 → 前置詞の順に並べた23ユニット</span>
         </div>
       </div>
       <div class="phil-item">
@@ -194,11 +242,11 @@
   <div class="hero-right">
     <div class="hero-stats">
       <div class="stat-chip">
-        <strong>12</strong>
+        <strong>17</strong>
         Grammar Units
       </div>
       <div class="stat-chip">
-        <strong>3</strong>
+        <strong>5</strong>
         Chapters
       </div>
     </div>
@@ -672,9 +720,335 @@
         <span class="unit-arrow">→</span>
       </a>
 
+      <a class="unit-card" href="adverbs.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 16</span>
+          <span class="unit-ch-tag">修飾</span>
+        </div>
+        <div class="unit-name-ja">副詞</div>
+        <div class="unit-name-en">Adverbs</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 98" width="280" height="98" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sentence blocks: S + freq.adv + V + O -->
+            <rect x="4"   y="6" width="28" height="18" rx="3" fill="#dbeafe"/>
+            <text x="18"  y="18" fill="#1e3a8a" font-size="7.5" font-weight="700" text-anchor="middle" font-family="sans-serif">S</text>
+            <rect x="38"  y="6" width="52" height="18" rx="3" fill="#cffafe" stroke="#0891b2" stroke-width="1.5"/>
+            <text x="64"  y="18" fill="#164e63" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">freq. adv</text>
+            <rect x="96"  y="6" width="28" height="18" rx="3" fill="#dcfce7"/>
+            <text x="110" y="18" fill="#14532d" font-size="7.5" font-weight="700" text-anchor="middle" font-family="sans-serif">V</text>
+            <rect x="130" y="6" width="28" height="18" rx="3" fill="#f3e8ff"/>
+            <text x="144" y="18" fill="#6b21a8" font-size="7.5" font-weight="700" text-anchor="middle" font-family="sans-serif">O</text>
+            <!-- Frequency spectrum -->
+            <text x="4"  y="40" fill="#374151" font-size="7" font-weight="700" font-family="sans-serif">always</text>
+            <rect x="46" y="33" width="140" height="7" rx="3.5" fill="url(#advFreqGrad)"/>
+            <text x="192" y="40" fill="#374151" font-size="7" font-weight="700" font-family="sans-serif">never</text>
+            <defs>
+              <linearGradient id="advFreqGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#0891b2"/>
+                <stop offset="100%" stop-color="#e0f2fe"/>
+              </linearGradient>
+            </defs>
+            <!-- -ly formation -->
+            <text x="4"   y="60" fill="#374151" font-size="7.5" font-weight="600" font-family="sans-serif">quick</text>
+            <text x="36"  y="60" fill="#9ca3af" font-size="7.5" font-family="sans-serif">→</text>
+            <text x="46"  y="60" fill="#0891b2" font-size="7.5" font-weight="700" font-family="sans-serif">quickly</text>
+            <text x="98"  y="60" fill="#374151" font-size="7.5" font-weight="600" font-family="sans-serif">happy</text>
+            <text x="130" y="60" fill="#9ca3af" font-size="7.5" font-family="sans-serif">→</text>
+            <text x="140" y="60" fill="#0891b2" font-size="7.5" font-weight="700" font-family="sans-serif">happily</text>
+            <!-- Pair comparison -->
+            <rect x="4"  y="70" width="34" height="16" rx="3" fill="#f1f5f9"/>
+            <text x="21" y="81" fill="#374151" font-size="7.5" font-weight="700" text-anchor="middle" font-family="sans-serif">hard</text>
+            <text x="44" y="81" fill="#9ca3af" font-size="7" font-family="sans-serif">vs</text>
+            <rect x="54" y="70" width="44" height="16" rx="3" fill="#cffafe" stroke="#0891b2" stroke-width="1.5"/>
+            <text x="76" y="81" fill="#164e63" font-size="7.5" font-weight="700" text-anchor="middle" font-family="sans-serif">hardly</text>
+            <rect x="108" y="70" width="30" height="16" rx="3" fill="#f1f5f9"/>
+            <text x="123" y="81" fill="#374151" font-size="7.5" font-weight="700" text-anchor="middle" font-family="sans-serif">late</text>
+            <text x="144" y="81" fill="#9ca3af" font-size="7" font-family="sans-serif">vs</text>
+            <rect x="154" y="70" width="40" height="16" rx="3" fill="#cffafe" stroke="#0891b2" stroke-width="1.5"/>
+            <text x="174" y="81" fill="#164e63" font-size="7.5" font-weight="700" text-anchor="middle" font-family="sans-serif">lately</text>
+          </svg>
+        </div>
+        <div class="unit-desc">副詞の6分類・文中の位置ルール・頻度副詞スペクトル・程度副詞の使い分け・-ly 形成・紛らわしいペアまで整理。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ─── Chapter IV ─── -->
+  <div class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-num">Chapter IV</span>
+      <span class="chapter-name">比較表現<span class="chapter-name-en">Comparison</span></span>
+    </div>
+    <div class="units-grid three">
+
+      <a class="unit-card" href="comparison-positive.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 13</span>
+          <span class="unit-ch-tag">比較</span>
+        </div>
+        <div class="unit-name-ja">原級・同等比較</div>
+        <div class="unit-name-en">Positive Degree &amp; Equality</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 90" width="280" height="90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Balance beam -->
+            <line x1="140" y1="18" x2="140" y2="38" stroke="#9ca3af" stroke-width="2"/>
+            <line x1="60"  y1="38" x2="220" y2="38" stroke="#9ca3af" stroke-width="3" stroke-linecap="round"/>
+            <!-- Left pan string -->
+            <line x1="80"  y1="38" x2="70" y2="54" stroke="#9ca3af" stroke-width="1.5"/>
+            <line x1="100" y1="38" x2="110" y2="54" stroke="#9ca3af" stroke-width="1.5"/>
+            <!-- Right pan string -->
+            <line x1="180" y1="38" x2="170" y2="54" stroke="#9ca3af" stroke-width="1.5"/>
+            <line x1="200" y1="38" x2="210" y2="54" stroke="#9ca3af" stroke-width="1.5"/>
+            <!-- Left pan -->
+            <rect x="66" y="54" width="48" height="20" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+            <text x="90" y="68" fill="#16a34a" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">A</text>
+            <!-- Right pan -->
+            <rect x="166" y="54" width="48" height="20" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+            <text x="190" y="68" fill="#16a34a" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">B</text>
+            <!-- Equal sign -->
+            <text x="140" y="44" fill="#16a34a" font-size="11" font-weight="800" text-anchor="middle" font-family="sans-serif">=</text>
+            <!-- Formula -->
+            <rect x="24" y="78" width="232" height="12" rx="3" fill="#dcfce7"/>
+            <text x="140" y="88" fill="#16a34a" font-size="8" font-weight="700" text-anchor="middle" font-family="sans-serif">A  is  as  〜  as  B</text>
+          </svg>
+        </div>
+        <div class="unit-desc">as...as で同等比較、否定・倍数表現、as...as possible、慣用表現（as soon as / as long as / as far as）を整理。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="comparison-comparative.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 14</span>
+          <span class="unit-ch-tag">比較</span>
+        </div>
+        <div class="unit-name-ja">比較級</div>
+        <div class="unit-name-en">Comparative Degree</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 90" width="280" height="90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Bar A (shorter) -->
+            <rect x="50" y="46" width="42" height="34" rx="4" fill="#dbeafe"/>
+            <text x="71" y="66" fill="#1e3a8a" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">A</text>
+            <!-- Bar B (taller) -->
+            <rect x="108" y="18" width="42" height="62" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+            <text x="129" y="54" fill="#92400e" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">B</text>
+            <!-- Arrow between -->
+            <text x="96" y="44" fill="#d97706" font-size="14" font-weight="900" text-anchor="middle" font-family="sans-serif">→</text>
+            <!-- than label -->
+            <text x="96" y="56" fill="#9ca3af" font-size="7.5" text-anchor="middle" font-family="sans-serif">than</text>
+            <!-- Difference brace -->
+            <line x1="158" y1="18" x2="166" y2="18" stroke="#d97706" stroke-width="1.5"/>
+            <line x1="158" y1="46" x2="166" y2="46" stroke="#d97706" stroke-width="1.5"/>
+            <line x1="162" y1="18" x2="162" y2="46" stroke="#d97706" stroke-width="1.5"/>
+            <text x="200" y="36" fill="#d97706" font-size="8.5" font-weight="700" font-family="sans-serif">much / far /</text>
+            <text x="200" y="47" fill="#d97706" font-size="8.5" font-weight="700" font-family="sans-serif">even + 比較級</text>
+            <!-- Bottom formula -->
+            <rect x="24" y="78" width="232" height="12" rx="3" fill="#fef3c7"/>
+            <text x="140" y="88" fill="#92400e" font-size="8" font-weight="700" text-anchor="middle" font-family="sans-serif">A  is  比較級  than  B</text>
+          </svg>
+        </div>
+        <div class="unit-desc">-er/more の形成ルール、差の強調語、比較級 and 比較級（漸進変化）、the 比較級 the 比較級、比較対象の that/those。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="comparison-superlative.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 15</span>
+          <span class="unit-ch-tag">比較</span>
+        </div>
+        <div class="unit-name-ja">最上級</div>
+        <div class="unit-name-en">Superlative Degree</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 280 90" width="280" height="90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Podium: 1st -->
+            <rect x="104" y="22" width="52" height="58" rx="4" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+            <text x="130" y="15" fill="#dc2626" font-size="11" font-weight="900" text-anchor="middle" font-family="sans-serif">1st</text>
+            <text x="130" y="55" fill="#dc2626" font-size="13" font-weight="900" text-anchor="middle" font-family="sans-serif">the</text>
+            <text x="130" y="69" fill="#dc2626" font-size="8.5" font-weight="800" text-anchor="middle" font-family="sans-serif">最上級</text>
+            <!-- Podium: 2nd -->
+            <rect x="46" y="42" width="48" height="38" rx="4" fill="#fef3c7"/>
+            <text x="70" y="66" fill="#92400e" font-size="8.5" font-weight="700" text-anchor="middle" font-family="sans-serif">2nd</text>
+            <!-- Podium: 3rd -->
+            <rect x="166" y="52" width="48" height="28" rx="4" fill="#dcfce7"/>
+            <text x="190" y="70" fill="#16a34a" font-size="8.5" font-weight="700" text-anchor="middle" font-family="sans-serif">3rd</text>
+            <!-- Base line -->
+            <line x1="24" y1="80" x2="256" y2="80" stroke="#e5e0d5" stroke-width="1.5"/>
+            <!-- in / of label -->
+            <text x="140" y="89" fill="#9ca3af" font-size="7.5" text-anchor="middle" font-family="sans-serif">the 最上級 + in 場所 / of 複数</text>
+          </svg>
+        </div>
+        <div class="unit-desc">the -est/most の形成ルール、in/of の範囲、by far の強調、4通りの言い換え（比較級 than any other 等）、最上級的特殊表現。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ─── Chapter V ─── -->
+  <div class="chapter">
+    <div class="chapter-header">
+      <span class="chapter-num">Chapter V</span>
+      <span class="chapter-name">前置詞<span class="chapter-name-en">Prepositions</span></span>
+    </div>
+    <div class="units-grid three">
+
+      <a class="unit-card" href="prepositions-in.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 17</span>
+          <span class="unit-ch-tag">前置詞</span>
+        </div>
+        <div class="unit-name-ja">前置詞 in</div>
+        <div class="unit-name-en">Preposition: in</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 200 80" width="200" height="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="10" width="140" height="50" rx="10" fill="none" stroke="#818cf8" stroke-width="2.5" stroke-dasharray="6 3"/>
+            <circle cx="100" cy="35" r="16" fill="#4f46e5" opacity="0.85"/>
+            <text x="100" y="40" fill="white" font-size="11" font-weight="900" text-anchor="middle" font-family="Georgia,serif">in</text>
+            <text x="100" y="72" fill="#4f46e5" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">枠の内側</text>
+          </svg>
+        </div>
+        <div class="unit-desc">「内側・枠」の感覚から、場所・時間の枠・状態・参加・言語媒介まで5セクション構成。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="prepositions-with.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 18</span>
+          <span class="unit-ch-tag">前置詞</span>
+        </div>
+        <div class="unit-name-ja">前置詞 with</div>
+        <div class="unit-name-en">Preposition: with</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 200 80" width="200" height="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="70" cy="35" r="18" fill="#059669" opacity="0.85"/>
+            <rect x="88" y="32" width="24" height="5" rx="2.5" fill="#059669" opacity="0.6"/>
+            <circle cx="130" cy="35" r="18" fill="#34d399" opacity="0.85"/>
+            <text x="70" y="40" fill="white" font-size="9" font-weight="800" text-anchor="middle" font-family="sans-serif">A</text>
+            <text x="130" y="40" fill="white" font-size="9" font-weight="800" text-anchor="middle" font-family="sans-serif">B</text>
+            <text x="100" y="68" fill="#059669" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">一緒に・つながり</text>
+          </svg>
+        </div>
+        <div class="unit-desc">「つながり・付帯」の感覚から、同伴・所有・道具・様態・付帯状況（with O C）まで5セクション構成。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="prepositions-of.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 19</span>
+          <span class="unit-ch-tag">前置詞</span>
+        </div>
+        <div class="unit-name-ja">前置詞 of</div>
+        <div class="unit-name-en">Preposition: of</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 200 80" width="200" height="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="14" y="20" width="70" height="34" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+            <text x="49" y="42" fill="#92400e" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">source</text>
+            <text x="100" y="42" fill="#d97706" font-size="18" font-weight="900" text-anchor="middle" font-family="sans-serif">→</text>
+            <rect x="116" y="20" width="70" height="34" rx="8" fill="#fff7ed" stroke="#d97706" stroke-width="2" stroke-dasharray="5 3"/>
+            <text x="151" y="42" fill="#92400e" font-size="9" font-weight="700" text-anchor="middle" font-family="sans-serif">derived</text>
+            <text x="100" y="70" fill="#d97706" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">切り出して示す</text>
+          </svg>
+        </div>
+        <div class="unit-desc">「切り出して示す」感覚から、所属・部分・素材・感情の対象まで4セクション構成。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="prepositions-on.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 20</span>
+          <span class="unit-ch-tag">前置詞</span>
+        </div>
+        <div class="unit-name-ja">前置詞 on</div>
+        <div class="unit-name-en">Preposition: on</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 200 80" width="200" height="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="44" width="140" height="7" rx="3.5" fill="#0284c7" opacity="0.7"/>
+            <rect x="80" y="22" width="40" height="22" rx="7" fill="#0284c7" opacity="0.85"/>
+            <text x="100" y="38" fill="white" font-size="11" font-weight="900" text-anchor="middle" font-family="Georgia,serif">on</text>
+            <text x="100" y="68" fill="#0284c7" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">面に接触</text>
+          </svg>
+        </div>
+        <div class="unit-desc">「表面接触」の感覚から、場所・日付・テーマ・メディア・依存まで5セクション構成。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="prepositions-at.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 21</span>
+          <span class="unit-ch-tag">前置詞</span>
+        </div>
+        <div class="unit-name-ja">前置詞 at</div>
+        <div class="unit-name-en">Preposition: at</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 200 80" width="200" height="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="35" r="28" fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.35"/>
+            <circle cx="100" cy="35" r="16" fill="none" stroke="#7c3aed" stroke-width="2" opacity="0.55"/>
+            <circle cx="100" cy="35" r="7" fill="#7c3aed" opacity="0.9"/>
+            <text x="100" y="70" fill="#7c3aed" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">点・ポイント</text>
+          </svg>
+        </div>
+        <div class="unit-desc">「点」の感覚から、場所の地点・時刻・方向・目標・状態まで4セクション構成。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="prepositions-for.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 22</span>
+          <span class="unit-ch-tag">前置詞</span>
+        </div>
+        <div class="unit-name-ja">前置詞 for</div>
+        <div class="unit-name-en">Preposition: for</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 200 80" width="200" height="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <text x="38" y="44" fill="#16a34a" font-size="32" font-weight="900" text-anchor="middle" font-family="sans-serif">→</text>
+            <circle cx="140" cy="35" r="24" fill="#16a34a" opacity="0.12"/>
+            <circle cx="140" cy="35" r="16" fill="#16a34a" opacity="0.85"/>
+            <text x="140" y="40" fill="white" font-size="11" font-weight="900" text-anchor="middle" font-family="Georgia,serif">for</text>
+            <text x="100" y="70" fill="#16a34a" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">向かう先・目的</text>
+          </svg>
+        </div>
+        <div class="unit-desc">「目的・向かう先」の感覚から、用途・期間・交換・評価対象・支持まで5セクション構成。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
+      <a class="unit-card" href="prepositions-by.html">
+        <div class="unit-meta">
+          <span class="unit-num">Unit 23</span>
+          <span class="unit-ch-tag">前置詞</span>
+        </div>
+        <div class="unit-name-ja">前置詞 by</div>
+        <div class="unit-name-en">Preposition: by</div>
+        <div class="core-preview">
+          <svg viewBox="0 0 200 80" width="200" height="80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="92" y="8" width="5" height="54" rx="2.5" fill="#be185d" opacity="0.7"/>
+            <circle cx="116" cy="35" r="14" fill="#be185d" opacity="0.85"/>
+            <text x="116" y="40" fill="white" font-size="11" font-weight="900" text-anchor="middle" font-family="Georgia,serif">by</text>
+            <text x="100" y="72" fill="#be185d" font-size="7" font-weight="700" text-anchor="middle" font-family="sans-serif">そば・経由・通過</text>
+          </svg>
+        </div>
+        <div class="unit-desc">「そば・経由」の感覚から、近接・受動の行為者・手段・期限・差まで5セクション構成。</div>
+        <span class="unit-arrow">→</span>
+      </a>
+
     </div>
   </div>
 
 </div>
+
+<script>
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const idx = Array.from(card.closest('.units-grid').children).indexOf(card);
+        setTimeout(() => card.classList.add('revealed'), idx * 80);
+        cardObserver.unobserve(card);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.unit-card').forEach(card => cardObserver.observe(card));
+</script>
 </body>
 </html>

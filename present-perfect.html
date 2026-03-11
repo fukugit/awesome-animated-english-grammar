@@ -43,8 +43,11 @@
       animation: morphMark 4s ease-in-out infinite;
     }
     @keyframes morphMark {
-      0%, 100% { border-radius: 8px; transform: rotate(0deg); }
-      50% { border-radius: 50%; transform: rotate(180deg); }
+      0%   { border-radius: 8px;  transform: rotate(0deg) scale(1); }
+      25%  { border-radius: 30%; transform: rotate(90deg) scale(1.15); }
+      50%  { border-radius: 50%; transform: rotate(180deg) scale(1.0); }
+      75%  { border-radius: 30%; transform: rotate(270deg) scale(1.15); }
+      100% { border-radius: 8px;  transform: rotate(360deg) scale(1); }
     }
     .page-hero {
       background: var(--white); border-bottom: 1px solid var(--border);
@@ -187,14 +190,16 @@
     }
     .block {
       display: flex; flex-direction: column; align-items: center; gap: 5px;
-      opacity: 0; transform: translateY(16px);
-      transition: opacity 0.4s, transform 0.4s;
+      opacity: 0; transform: translateY(30px) scale(0.82);
+      transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .block.show { opacity: 1; transform: translateY(0); }
+    .block.show { opacity: 1; transform: translateY(0) scale(1); }
     .block .word {
       padding: 10px 16px; border-radius: 9px;
       font-weight: 700; font-size: 0.93rem; color: white; white-space: nowrap;
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s ease; cursor: default;
     }
+    .block .word:hover { transform: scale(1.1) translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
     .block .lbl { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.08em; color: var(--muted); }
     .block.s .word  { background: var(--blue); }
     .block.hv .word { background: var(--teal); }
@@ -203,9 +208,9 @@
 
     .perf-sentence {
       font-size: 1rem; font-style: italic; color: var(--muted);
-      opacity: 0; transition: opacity 0.4s 0.3s;
+      opacity: 0; transform: translateY(10px); transition: opacity 0.5s 0.3s ease, transform 0.5s 0.3s ease;
     }
-    .perf-sentence.show { opacity: 1; }
+    .perf-sentence.show { opacity: 1; transform: translateY(0); }
 
     .replay-btn {
       position: absolute; top: 14px; right: 14px;
@@ -213,10 +218,15 @@
       padding: 5px 12px; border-radius: 100px;
       border: 1px solid var(--border);
       background: var(--bg); color: var(--muted);
-      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.1s;
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
     }
-    .replay-btn:hover { background: var(--white); color: var(--text); }
-    .replay-btn:active { transform: scale(0.96); }
+    .replay-btn:hover { background: var(--white); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06); }
+    .replay-btn:active { transform: scale(0.94); }
+    @keyframes replaySpin {
+      from { transform: rotate(0deg) scale(0.9); }
+      to   { transform: rotate(360deg) scale(1); }
+    }
+    .replay-btn.spinning { animation: replaySpin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
     .note-box {
       background: var(--white); border: 1px solid var(--border);
@@ -600,8 +610,6 @@
     setTimeout(() => { lblPast?.classList.add('show'); lblNow?.classList.add('show'); arcPath?.classList.add('show'); }, 800);
   }
 
-  document.querySelector('.timeline-demo .replay-btn')?.addEventListener('click', playTimeline);
-
   // Block demos
   function animateBlocks(demoEl) {
     const blocks = demoEl.querySelectorAll('.block');
@@ -612,8 +620,15 @@
     if (sent) setTimeout(() => sent.classList.add('show'), blocks.length * 280 + 100);
   }
 
+  function spinBtn(btn) {
+    btn.classList.remove('spinning');
+    void btn.offsetWidth;
+    btn.classList.add('spinning');
+    btn.addEventListener('animationend', () => btn.classList.remove('spinning'), { once: true });
+  }
+  document.querySelector('.timeline-demo .replay-btn')?.addEventListener('click', (e) => { spinBtn(e.target); playTimeline(); });
   document.querySelectorAll('.perf-demo .replay-btn').forEach(btn => {
-    btn.addEventListener('click', () => animateBlocks(btn.closest('.perf-demo')));
+    btn.addEventListener('click', () => { spinBtn(btn); animateBlocks(btn.closest('.perf-demo')); });
   });
 
   const observer = new IntersectionObserver((entries) => {

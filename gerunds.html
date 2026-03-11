@@ -40,6 +40,11 @@
     .logo-mark {
       width: 26px; height: 26px; background: linear-gradient(135deg, #1e3a8a, #7c3aed);
       border-radius: 6px; flex-shrink: 0;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
     }
 
     /* ── Hero ── */
@@ -85,10 +90,12 @@
     .cl-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
     .cl {
       padding: 12px 20px; border-radius: 10px; font-size: 0.95rem; font-weight: 600;
-      opacity: 0; transform: translateY(14px); transition: opacity 0.4s ease, transform 0.4s ease;
-      text-align: center; line-height: 1.4;
+      opacity: 0; transform: translateY(30px) scale(0.82);
+      transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-align: center; line-height: 1.4; cursor: default;
     }
-    .cl.show { opacity: 1; transform: translateY(0); }
+    .cl.show { opacity: 1; transform: translateY(0) scale(1); }
+    .cl:hover { transform: scale(1.04) translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
     .cl.main   { background: #dbeafe; color: #1e3a8a; }
     .cl.ger    { background: var(--green-bg); color: #14532d; border: 2px solid var(--green); }
     .cl.sub    { background: #ccfbf1; color: #0f766e; }
@@ -97,24 +104,30 @@
     .cj {
       font-size: 0.95rem; font-weight: 800; color: var(--green);
       padding: 8px 14px; border-radius: 8px; background: var(--green-bg); border: 2px solid var(--green);
-      opacity: 0; transition: opacity 0.4s ease; white-space: nowrap;
+      opacity: 0; transform: scale(0.6);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: nowrap;
     }
-    .cj.show { opacity: 1; }
-    .cl-arrow { font-size: 1.4rem; color: var(--muted); opacity: 0; transition: opacity 0.4s ease; }
-    .cl-arrow.show { opacity: 1; }
+    .cj.show { opacity: 1; transform: scale(1); }
+    .cl-arrow { font-size: 1.4rem; color: var(--muted); opacity: 0; transform: translateX(-8px); transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .cl-arrow.show { opacity: 1; transform: translateX(0); }
     .demo-sent {
       font-style: italic; color: var(--muted); font-size: 1.05rem;
-      opacity: 0; transition: opacity 0.5s ease; text-align: center;
+      opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.5s ease; text-align: center;
     }
-    .demo-sent.show { opacity: 1; }
+    .demo-sent.show { opacity: 1; transform: translateY(0); }
     .replay-btn {
       position: absolute; top: 14px; right: 14px;
       font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 100px;
       border: 1px solid var(--border); background: var(--bg); color: var(--muted);
-      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.1s;
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
     }
-    .replay-btn:hover { background: var(--white); color: var(--text); }
-    .replay-btn:active { transform: scale(0.96); }
+    .replay-btn:hover { background: var(--white); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06); }
+    .replay-btn:active { transform: scale(0.94); }
+    @keyframes replaySpin {
+      from { transform: rotate(0deg) scale(0.9); }
+      to   { transform: rotate(360deg) scale(1); }
+    }
+    .replay-btn.spinning { animation: replaySpin 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
     /* ── 4 Roles Grid ── */
     .roles-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 24px; }
@@ -858,6 +871,9 @@
 
   document.querySelectorAll('.replay-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+      btn.classList.remove('spinning'); void btn.offsetWidth;
+      btn.classList.add('spinning');
+      btn.addEventListener('animationend', () => btn.classList.remove('spinning'), { once: true });
       const demo = btn.closest('.clause-demo');
       if (!demo) return;
       const items = demo.querySelectorAll('.cl-row > *');

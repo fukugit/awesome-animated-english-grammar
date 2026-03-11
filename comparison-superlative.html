@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>最上級 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f9f7f2;
+      --white: #fff;
+      --border: #e5e0d5;
+      --text: #1c1c1c;
+      --muted: #6b6460;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --green: #22c55e;
+      --purple: #a855f7;
+      --red: #ef4444;
+      --crimson: #dc2626;
+      --teal: #14b8a6;
+      --accent: #1e3a8a;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      height: 56px; background: var(--white); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 32px; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; font-weight: 800;
+      font-size: 0.92rem; text-decoration: none; color: var(--text);
+    }
+    .logo-mark {
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+      border-radius: 6px; flex-shrink: 0;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30,58,138,0); }
+      50% { transform: scale(1.12); box-shadow: 0 0 0 6px rgba(124,58,237,0); }
+    }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      background: var(--white); border-bottom: 1px solid var(--border); padding: 48px 48px 40px;
+    }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; }
+    .unit-meta-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .unit-num-badge {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 2px 9px; border-radius: 4px; background: var(--accent); color: white;
+    }
+    .ch-badge {
+      font-size: 0.68rem; font-weight: 700; padding: 2px 9px; border-radius: 4px;
+      background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+    }
+    .back-link a {
+      font-size: 0.85rem; color: var(--muted); text-decoration: none; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 4px; margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 8px; }
+    .page-title span { color: var(--crimson); }
+    .page-desc { color: var(--muted); font-size: 1rem; max-width: 680px; }
+
+    /* ── Content ── */
+    .content { max-width: 1200px; margin: 0 auto; padding: 48px 48px 80px; }
+
+    /* ── Section ── */
+    .section { margin-bottom: 64px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+    .gram-badge {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px; background: var(--bg);
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .section-title { font-size: 1.55rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 1rem; margin-bottom: 24px; margin-top: 6px; }
+
+    /* ── Clause Demo ── */
+    .clause-demo {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 36px 28px 28px; display: flex; flex-direction: column; align-items: center;
+      gap: 20px; margin-bottom: 20px; position: relative;
+    }
+    .cl-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .cl {
+      padding: 12px 18px; border-radius: 10px; font-size: 0.9rem; font-weight: 600;
+      opacity: 0; transform: translateY(30px) scale(0.82);
+      transition: opacity 0.5s cubic-bezier(0.34,1.56,0.64,1), transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+      text-align: center; line-height: 1.4; cursor: default;
+    }
+    .cl.show { opacity: 1; transform: translateY(0) scale(1); }
+    .cl:hover { transform: scale(1.04) translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+    .cl.main  { background: #dbeafe; color: #1e3a8a; }
+    .cl.sup   { background: #fee2e2; color: #991b1b; border: 2px solid var(--crimson); }
+    .cl.range { background: #fff7ed; color: #9a3412; }
+    .cl.eq    { background: #f3e8ff; color: #6b21a8; }
+    .cl.targ  { background: #ccfbf1; color: #0f766e; }
+    .cl-lbl { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; margin-top: 4px; opacity: 0.7; }
+
+    .cj {
+      font-size: 0.95rem; font-weight: 800; color: var(--crimson);
+      padding: 8px 14px; border-radius: 8px; background: #fee2e2; border: 2px solid var(--crimson);
+      opacity: 0; transform: scale(0.6);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1); white-space: nowrap;
+    }
+    .cj.show { opacity: 1; transform: scale(1); }
+
+    .cl-arrow {
+      font-size: 1.4rem; color: var(--muted);
+      opacity: 0; transform: translateX(-8px);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .cl-arrow.show { opacity: 1; transform: translateX(0); }
+
+    .demo-sent {
+      font-style: italic; color: var(--muted); font-size: 1rem;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease; text-align: center;
+    }
+    .demo-sent.show { opacity: 1; transform: translateY(0); }
+
+    .replay-btn {
+      position: absolute; top: 14px; right: 14px;
+      font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 100px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--muted);
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .replay-btn:hover { background: var(--white); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06); }
+    .replay-btn:active { transform: scale(0.94); }
+    @keyframes replaySpin {
+      from { transform: rotate(0deg) scale(0.9); }
+      to   { transform: rotate(360deg) scale(1); }
+    }
+    .replay-btn.spinning { animation: replaySpin 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+
+    /* ── Formula box ── */
+    .formula-box {
+      background: #fff1f2; border: 1px solid #fecdd3; border-radius: var(--radius);
+      padding: 20px 24px; margin-bottom: 20px;
+    }
+    .formula-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--crimson); margin-bottom: 10px;
+    }
+    .formula-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .f-block { padding: 6px 14px; border-radius: 8px; font-size: 0.88rem; font-weight: 700; }
+    .f-s   { background: #dbeafe; color: #1e3a8a; }
+    .f-v   { background: #dcfce7; color: #14532d; }
+    .f-sup { background: #fee2e2; color: #991b1b; border: 2px solid var(--crimson); }
+    .f-in  { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+    .f-of  { background: #f3e8ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+    .f-op  { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+
+    /* ── Note box ── */
+    .note-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 16px 20px; font-size: 0.95rem; color: var(--muted); margin-bottom: 20px; line-height: 1.75;
+    }
+    .note-box.red    { border-left-color: var(--crimson); }
+    .note-box.orange { border-left-color: var(--orange); }
+    .note-box.green  { border-left-color: var(--green); }
+    .note-box.purple { border-left-color: var(--purple); }
+    .note-box.teal   { border-left-color: var(--teal); }
+
+    /* ── Formation grid ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .form-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .form-card h4 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .form-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 0.85rem; }
+    .form-base { color: var(--text); font-weight: 600; }
+    .form-arr  { color: var(--muted); }
+    .form-sup  { color: var(--crimson); font-weight: 700; }
+
+    /* ── Emphasis pills ── */
+    .emph-strip {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .emph-pill {
+      background: var(--white); border: 1px solid var(--border); border-radius: 100px;
+      padding: 8px 18px; display: flex; flex-direction: column; align-items: center;
+    }
+    .emph-pill .pill-word { font-size: 1rem; font-weight: 800; color: var(--crimson); }
+    .emph-pill .pill-desc { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── Paraphrase chain ── */
+    .paraphrase-chain {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px 28px; margin-bottom: 20px;
+    }
+    .para-row {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+    }
+    .para-row:last-child { margin-bottom: 0; }
+    .para-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+      width: 80px; flex-shrink: 0; color: var(--muted);
+    }
+    .para-sent {
+      flex: 1; background: var(--bg); border-radius: 8px; padding: 10px 14px;
+      font-size: 0.9rem; font-weight: 600; line-height: 1.5;
+      opacity: 0; transform: translateX(-12px) scale(0.95);
+      transition: opacity 0.5s cubic-bezier(0.34,1.56,0.64,1), transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .para-sent.show { opacity: 1; transform: translateX(0) scale(1); }
+    .hl-r  { color: var(--crimson); font-weight: 700; }
+    .hl-b  { color: #1e3a8a; font-weight: 700; }
+    .hl-p  { color: var(--purple); font-weight: 700; }
+    .hl-t  { color: var(--teal); font-weight: 700; }
+    .hl-o  { color: var(--orange); font-weight: 700; }
+    .para-eq {
+      font-size: 1.2rem; color: var(--muted); flex-shrink: 0; font-weight: 700;
+    }
+
+    /* ── Special expression cards ── */
+    .special-cards {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px;
+    }
+    .special-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+    }
+    .special-card h4 { font-size: 0.88rem; font-weight: 800; color: var(--crimson); margin-bottom: 8px; }
+    .special-card .formula { font-size: 0.82rem; font-weight: 700; color: #991b1b; background: #fee2e2; padding: 4px 8px; border-radius: 6px; display: inline-block; margin-bottom: 6px; }
+    .special-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+    .special-card .ex { font-size: 0.82rem; font-weight: 600; margin-top: 6px; font-style: italic; color: var(--text); }
+
+    /* ── Examples Table ── */
+    .ex-table { width: 100%; border-collapse: collapse; font-size: 0.96rem; }
+    .ex-table thead th {
+      text-align: left; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); padding: 8px 12px; border-bottom: 2px solid var(--border);
+    }
+    .ex-table tbody td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .ex-table tbody tr:last-child td { border-bottom: none; }
+    .ex-table .en { font-weight: 600; }
+    .ex-table .ja { color: var(--muted); }
+
+    /* ── Podium Visual ── */
+    .podium-wrap {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px 28px; margin-bottom: 20px;
+    }
+    .podium-row { display: flex; align-items: flex-end; gap: 8px; justify-content: center; height: 120px; margin-bottom: 8px; }
+    .podium-col { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .podium-block {
+      width: 60px; border-radius: 6px 6px 0 0; display: flex; align-items: center;
+      justify-content: center; font-weight: 800; font-size: 0.8rem; color: white;
+    }
+    .p1 { height: 100px; background: linear-gradient(to top, #dc2626, #f87171); }
+    .p2 { height: 72px;  background: linear-gradient(to top, #6b21a8, #c084fc); }
+    .p3 { height: 50px;  background: linear-gradient(to top, #0f766e, #2dd4bf); }
+    .podium-lbl { font-size: 0.72rem; color: var(--muted); font-weight: 600; margin-top: 4px; }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--border); margin: 0 0 64px; }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 32px 24px 28px; }
+      .content { padding: 32px 24px 60px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .special-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    <span>Animated English Grammar</span>
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 15</span>
+      <span class="ch-badge">Chapter IV &nbsp;·&nbsp; 比較表現</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">最上級 <span>Superlative Degree</span></h1>
+    <p class="page-desc">the + -est / most による最上級の形成から、比較の範囲・強調・言い換えパターン・特殊表現まで全体を整理する。</p>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- ── 01: 最上級の形成ルール ── -->
+  <section class="section" id="formation">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">形成ルール</span>
+      <h2 class="section-title">最上級の形成 — the + -est / the most</h2>
+    </div>
+    <p class="section-intro">最上級は原則として <strong>the</strong> を付ける。形容詞・副詞が短ければ <strong>-est</strong>、長ければ <strong>most</strong> を使う。不規則形は比較級と対でまとめて覚える。</p>
+
+    <div class="form-grid">
+      <div class="form-card">
+        <h4>-est 型（1〜2音節の短い語）</h4>
+        <div class="form-item"><span class="form-base">fast</span><span class="form-arr">→</span><span class="form-sup">the fastest</span></div>
+        <div class="form-item"><span class="form-base">tall</span><span class="form-arr">→</span><span class="form-sup">the tallest</span></div>
+        <div class="form-item"><span class="form-base">happy</span><span class="form-arr">→</span><span class="form-sup">the happiest</span> <span style="font-size:0.75rem;color:var(--muted)">(y→i+est)</span></div>
+        <div class="form-item"><span class="form-base">big</span><span class="form-arr">→</span><span class="form-sup">the biggest</span> <span style="font-size:0.75rem;color:var(--muted)">(子音重ね)</span></div>
+        <div class="form-item"><span class="form-base">close</span><span class="form-arr">→</span><span class="form-sup">the closest</span> <span style="font-size:0.75rem;color:var(--muted)">(e+st)</span></div>
+      </div>
+      <div class="form-card">
+        <h4>most 型（3音節以上・-ful / -ous / -ive など）</h4>
+        <div class="form-item"><span class="form-base">beautiful</span><span class="form-arr">→</span><span class="form-sup">the most beautiful</span></div>
+        <div class="form-item"><span class="form-base">effective</span><span class="form-arr">→</span><span class="form-sup">the most effective</span></div>
+        <div class="form-item"><span class="form-base">carefully</span><span class="form-arr">→</span><span class="form-sup">the most carefully</span></div>
+        <div class="form-item"><span class="form-base">dangerous</span><span class="form-arr">→</span><span class="form-sup">the most dangerous</span></div>
+        <div class="form-item"><span class="form-base">innovative</span><span class="form-arr">→</span><span class="form-sup">the most innovative</span></div>
+      </div>
+      <div class="form-card">
+        <h4>不規則変化</h4>
+        <div class="form-item"><span class="form-base">good / well</span><span class="form-arr">→</span><span class="form-sup">the best</span></div>
+        <div class="form-item"><span class="form-base">bad / ill</span><span class="form-arr">→</span><span class="form-sup">the worst</span></div>
+        <div class="form-item"><span class="form-base">many / much</span><span class="form-arr">→</span><span class="form-sup">the most</span></div>
+        <div class="form-item"><span class="form-base">little</span><span class="form-arr">→</span><span class="form-sup">the least</span></div>
+        <div class="form-item"><span class="form-base">far</span><span class="form-arr">→</span><span class="form-sup">the farthest / furthest</span></div>
+      </div>
+      <div class="form-card">
+        <h4>副詞の最上級 — the を省略することも</h4>
+        <div class="form-item"><span class="form-base">fast</span><span class="form-arr">→</span><span class="form-sup">(the) fastest</span></div>
+        <div class="form-item"><span class="form-base">hard</span><span class="form-arr">→</span><span class="form-sup">(the) hardest</span></div>
+        <div class="form-item"><span class="form-base">early</span><span class="form-arr">→</span><span class="form-sup">(the) earliest</span></div>
+        <div style="font-size:0.8rem;color:var(--muted);margin-top:8px;line-height:1.6;">副詞の最上級では the を省略しても可。<br><em>She works hardest of all.</em></div>
+      </div>
+    </div>
+
+    <div class="note-box red">
+      <strong>最上級には必ず the:</strong><br>
+      • ❌ <em>This is most exciting game I've ever played.</em><br>
+      • ✅ <em>This is <strong>the</strong> most exciting game I've ever played.</em><br>
+      ただし副詞の最上級は the を省略できる: <em>She arrived <strong>(the)</strong> earliest.</em>
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 02: in / of で比較の範囲を示す ── -->
+  <section class="section" id="range">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">比較の範囲</span>
+      <h2 class="section-title">the + 最上級 + in / of — 比較の範囲</h2>
+    </div>
+    <p class="section-intro">最上級は必ず<strong>比較の範囲</strong>が前提にある。範囲を in か of で表し、その中で最も〜であることを示す。</p>
+
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>This trail</div>
+          <div class="cl-lbl">主語</div>
+        </div>
+        <div class="cj">is the most scenic</div>
+        <div class="cl sup">
+          <div>最上級</div>
+          <div class="cl-lbl">the + most + 形容詞</div>
+        </div>
+        <div class="cl range">
+          <div>in the national park</div>
+          <div class="cl-lbl">in + 場所・グループ</div>
+        </div>
+      </div>
+      <div class="demo-sent">This trail is the most scenic in the national park.</div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label">Formula — 最上級 + 範囲</div>
+      <div class="formula-row">
+        <span class="f-block f-s">S</span>
+        <span class="f-block f-v">be</span>
+        <span class="f-block f-sup">the + 最上級</span>
+        <span class="f-block f-in">in + 場所・グループ</span>
+        <span class="f-op">/</span>
+        <span class="f-block f-of">of + 複数名詞</span>
+      </div>
+    </div>
+
+    <div class="note-box teal">
+      <strong>in と of の使い分け:</strong><br>
+      • <em>in</em> — 場所・範囲・グループの<strong>中で</strong>: <em>the tallest building <strong>in</strong> the city</em><br>
+      • <em>of</em> — 複数の中から比較: <em>the most popular <strong>of</strong> the three options</em><br>
+      &emsp;of all も頻出: <em>She's the most skilled <strong>of all</strong> the applicants.</em>
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>例文</th><th>和訳</th><th>in / of</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="en">This coffee shop has <span class="hl-r">the longest queue</span> in the neighborhood every morning.</td>
+          <td class="ja">このコーヒーショップは毎朝、近所で一番行列が長い。</td>
+          <td style="color:var(--muted);font-size:0.85rem">in + 場所</td>
+        </tr>
+        <tr>
+          <td class="en">She gave <span class="hl-r">the most persuasive</span> presentation of all the candidates.</td>
+          <td class="ja">彼女は候補者の中で最も説得力のあるプレゼンをした。</td>
+          <td style="color:var(--muted);font-size:0.85rem">of all + 複数</td>
+        </tr>
+        <tr>
+          <td class="en">This is <span class="hl-r">the fastest route</span> between the two stations.</td>
+          <td class="ja">これが2つの駅の間で最も速いルートだ。</td>
+          <td style="color:var(--muted);font-size:0.85rem">between</td>
+        </tr>
+        <tr>
+          <td class="en">He scored <span class="hl-r">the highest</span> of the three candidates in the technical test.</td>
+          <td class="ja">彼は技術試験で3人の候補者の中で最高点を取った。</td>
+          <td style="color:var(--muted);font-size:0.85rem">of + 数詞</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 03: 最上級の強調 ── -->
+  <section class="section" id="emphasis">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">強調</span>
+      <h2 class="section-title">最上級の強調 — by far / much / the very</h2>
+    </div>
+    <p class="section-intro">最上級はそれ自体が強い表現だが、さらに程度を強める強調語を加えることができる。</p>
+
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>Her solution</div>
+          <div class="cl-lbl">主語</div>
+        </div>
+        <div class="cj">was by far</div>
+        <div class="cl sup">
+          <div>the most elegant</div>
+          <div class="cl-lbl">強調 + 最上級</div>
+        </div>
+        <div class="cl range">
+          <div>of all the proposals</div>
+          <div class="cl-lbl">比較の範囲</div>
+        </div>
+      </div>
+      <div class="demo-sent">Her solution was by far the most elegant of all the proposals.</div>
+    </div>
+
+    <div class="emph-strip">
+      <div class="emph-pill">
+        <span class="pill-word">by far</span>
+        <span class="pill-desc">断然・ずば抜けて</span>
+      </div>
+      <div class="emph-pill">
+        <span class="pill-word">much</span>
+        <span class="pill-desc">はるかに</span>
+      </div>
+      <div class="emph-pill">
+        <span class="pill-word">the very</span>
+        <span class="pill-desc">まさに最も〜</span>
+      </div>
+      <div class="emph-pill">
+        <span class="pill-word">easily</span>
+        <span class="pill-desc">優に・容易に</span>
+      </div>
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>強調語</th><th>例文</th><th>和訳</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong class="hl-r">by far</strong></td>
+          <td class="en">This is <span class="hl-r">by far the best</span> documentary I've seen this year.</td>
+          <td class="ja">これは今年見た中で断然最高のドキュメンタリーだ。</td>
+        </tr>
+        <tr>
+          <td><strong class="hl-r">much</strong></td>
+          <td class="en">The latest version is <span class="hl-r">much the fastest</span> we've released.</td>
+          <td class="ja">最新バージョンはリリースした中でずっと速い。</td>
+        </tr>
+        <tr>
+          <td><strong class="hl-r">the very</strong></td>
+          <td class="en">She picked <span class="hl-r">the very last seat</span> in the theatre.</td>
+          <td class="ja">彼女は劇場の最後の1席を取った。</td>
+        </tr>
+        <tr>
+          <td><strong class="hl-r">easily</strong></td>
+          <td class="en">That summit is <span class="hl-r">easily the hardest</span> hike in the region.</td>
+          <td class="ja">あの山頂は地域で優に最難関のハイキングコースだ。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note-box purple">
+      <strong>by far の位置:</strong><br>
+      by far は the の前に置く: <em><strong>by far</strong> the most expensive</em> ✅<br>
+      不定冠詞と混同しないように: <em>by far <strong>the</strong> best</em>（the は必須）
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 04: 最上級の言い換え ── -->
+  <section class="section" id="paraphrase">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">言い換え</span>
+      <h2 class="section-title">最上級の言い換え — 4つの等価表現</h2>
+    </div>
+    <p class="section-intro">最上級の意味は比較級・原級を使った構文でも表せる。同じ意味を異なる形で表現できることを理解すると、読解と英作文の両方で強くなる。</p>
+
+    <div class="paraphrase-chain" id="para-demo">
+      <div style="font-size:0.82rem;font-weight:700;color:var(--muted);margin-bottom:16px;">下の4文はすべて同じ意味</div>
+      <div class="para-row">
+        <span class="para-label">最上級</span>
+        <div class="para-sent"><span class="hl-r">The tallest</span> building in the city is the Apex Tower.</div>
+      </div>
+      <div class="para-row">
+        <span class="para-label">比較級①</span>
+        <div class="para-sent">Apex Tower is <span class="hl-b">taller than any other</span> building in the city.</div>
+      </div>
+      <div class="para-row">
+        <span class="para-label">原級 (否定)</span>
+        <div class="para-sent"><span class="hl-p">No other</span> building in the city is <span class="hl-p">as tall as</span> Apex Tower.</div>
+      </div>
+      <div class="para-row">
+        <span class="para-label">比較級②</span>
+        <div class="para-sent"><span class="hl-t">No other</span> building in the city is <span class="hl-t">taller than</span> Apex Tower.</div>
+      </div>
+    </div>
+
+    <div class="note-box orange">
+      <strong>言い換えのポイント:</strong><br>
+      最上級「X が最も〜だ」は次の3パターンで言い換えられる：<br>
+      ① <em>X is [比較級] than <strong>any other</strong> [単数名詞]</em> — 他のどれよりも〜<br>
+      ② <em><strong>No other</strong> [単数名詞] is as [原級] as X</em> — いかなるものも X ほど〜でない<br>
+      ③ <em><strong>No other</strong> [単数名詞] is [比較級] than X</em> — いかなるものも X より〜でない<br>
+      ③ では No other の後に <strong>単数名詞</strong>が来ることに注意。
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>表現タイプ</th><th>例文</th><th>和訳</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--crimson);font-weight:700;">最上級</td>
+          <td class="en">She is <span class="hl-r">the most productive</span> engineer on the team.</td>
+          <td class="ja">彼女はチームで最も生産性の高いエンジニアだ。</td>
+        </tr>
+        <tr>
+          <td style="color:#1e3a8a;font-weight:700;">比較級 + any other</td>
+          <td class="en">She is <span class="hl-b">more productive than any other</span> engineer on the team.</td>
+          <td class="ja">彼女はチームの他のどのエンジニアよりも生産性が高い。</td>
+        </tr>
+        <tr>
+          <td style="color:var(--purple);font-weight:700;">No other + as...as</td>
+          <td class="en"><span class="hl-p">No other</span> engineer on the team is <span class="hl-p">as productive as</span> she is.</td>
+          <td class="ja">チームの他のエンジニアはだれも彼女ほど生産性が高くない。</td>
+        </tr>
+        <tr>
+          <td style="color:var(--teal);font-weight:700;">No other + 比較級 than</td>
+          <td class="en"><span class="hl-t">No other</span> engineer on the team is <span class="hl-t">more productive than</span> she is.</td>
+          <td class="ja">チームの他のエンジニアはだれも彼女より生産性が高くない。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 05: 最上級的な特殊表現 ── -->
+  <section class="section" id="special">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="gram-badge">特殊表現</span>
+      <h2 class="section-title">最上級的な特殊表現</h2>
+    </div>
+    <p class="section-intro">最上級の意味や感覚を持ちながら、独自の構文パターンを持つ重要表現。それぞれの構造と意味をセットで押さえる。</p>
+
+    <div class="clause-demo" id="demo3">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>I have never</div>
+          <div class="cl-lbl">現在完了否定</div>
+        </div>
+        <div class="cl-arrow">→</div>
+        <div class="cl sup">
+          <div>tasted anything more</div>
+          <div class="cl-lbl">比較級</div>
+        </div>
+        <div class="cl range">
+          <div>complex than this ramen</div>
+          <div class="cl-lbl">than 節</div>
+        </div>
+      </div>
+      <div class="demo-sent">I have never tasted anything more complex than this ramen. (= the most complex ramen I've ever had)</div>
+    </div>
+
+    <div class="special-cards">
+      <div class="special-card">
+        <h4>one of the + 最上級</h4>
+        <div class="formula">one of the + 最上級 + 複数名詞</div>
+        <p>「最も〜なものの1つ」。後ろの名詞は必ず<strong>複数形</strong>。</p>
+        <div class="ex">She is one of the most influential designers in the industry.</div>
+      </div>
+      <div class="special-card">
+        <h4>have never p.p. 比較級</h4>
+        <div class="formula">have never V-en + 比較級</div>
+        <p>現在完了 + 否定 + 比較級で最上級の意味。「こんなに〜なものは今まで経験したことがない」</p>
+        <div class="ex">I have never read a more gripping thriller than this one.</div>
+      </div>
+      <div class="special-card">
+        <h4>cannot ... too</h4>
+        <div class="formula">cannot be too + 形容詞</div>
+        <p>「いくら〜してもしすぎることはない」。too を cannot で否定することで、最大限を推奨する。</p>
+        <div class="ex">You cannot be too careful when handling sensitive data.</div>
+      </div>
+    </div>
+
+    <div class="note-box green">
+      <strong>one of the + 最上級 の注意点:</strong><br>
+      • 後ろの名詞は必ず<strong>複数形</strong>: one of the best <strong>movies</strong> ✅ / one of the best movie ❌<br>
+      • 主語が one なので動詞は<strong>単数</strong>: <em>One of the most <strong>is</strong>...</em><br>
+      • 最上級の名詞の後に関係代名詞節を続けることも多い: <em>one of the best decisions <strong>that</strong> she ever made.</em>
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>表現</th><th>例文</th><th>和訳</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--crimson);font-weight:700;white-space:nowrap;">one of the 最上級</td>
+          <td class="en">This city is <span class="hl-r">one of the safest</span> places to live in the world.</td>
+          <td class="ja">この都市は世界で最も安全な場所の一つだ。</td>
+        </tr>
+        <tr>
+          <td style="color:#1e3a8a;font-weight:700;white-space:nowrap;">have never + 比較級</td>
+          <td class="en">I have never worked with <span class="hl-b">a more dedicated</span> team than this one.</td>
+          <td class="ja">これほど献身的なチームと仕事をしたことはない。</td>
+        </tr>
+        <tr>
+          <td style="color:var(--purple);font-weight:700;white-space:nowrap;">cannot ... too</td>
+          <td class="en">You <span class="hl-p">cannot prepare too thoroughly</span> for a job interview.</td>
+          <td class="ja">就職面接の準備はどれだけ念入りにしてもしすぎることはない。</td>
+        </tr>
+        <tr>
+          <td style="color:var(--teal);font-weight:700;white-space:nowrap;">nothing + 比較級 than</td>
+          <td class="en"><span class="hl-t">Nothing is</span> more motivating than seeing your progress in real time.</td>
+          <td class="ja">リアルタイムで自分の進捗を確認することほどモチベーションになるものはない。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+  function getAnimatables(demo) {
+    return Array.from(demo.querySelectorAll('.cl, .cj, .cl-arrow, .demo-sent'));
+  }
+  function resetDemo(demo) { getAnimatables(demo).forEach(el => el.classList.remove('show')); }
+  function playDemo(demo) {
+    resetDemo(demo);
+    getAnimatables(demo).forEach((el, i) => {
+      setTimeout(() => el.classList.add('show'), i * 140 + 80);
+    });
+  }
+
+  // Paraphrase chain animation
+  function playParaChain() {
+    const sents = document.querySelectorAll('.para-sent');
+    sents.forEach(s => s.classList.remove('show'));
+    sents.forEach((s, i) => setTimeout(() => s.classList.add('show'), i * 200 + 80));
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (entry.target.classList.contains('clause-demo')) {
+          playDemo(entry.target);
+        } else if (entry.target.classList.contains('paraphrase-chain')) {
+          playParaChain();
+        }
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.clause-demo, .paraphrase-chain').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.replay-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.classList.remove('spinning');
+      void btn.offsetWidth;
+      btn.classList.add('spinning');
+      btn.addEventListener('animationend', () => btn.classList.remove('spinning'), { once: true });
+      playDemo(btn.closest('.clause-demo'));
+    });
+  });
+</script>
+</body>
+</html>

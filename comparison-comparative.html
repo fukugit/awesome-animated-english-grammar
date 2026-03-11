@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>比較級 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f9f7f2;
+      --white: #fff;
+      --border: #e5e0d5;
+      --text: #1c1c1c;
+      --muted: #6b6460;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --green: #22c55e;
+      --purple: #a855f7;
+      --red: #ef4444;
+      --teal: #14b8a6;
+      --accent: #1e3a8a;
+      --amber: #d97706;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      height: 56px; background: var(--white); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 32px; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 0.92rem;
+      text-decoration: none; color: var(--text);
+    }
+    .logo-mark {
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+      border-radius: 6px; flex-shrink: 0;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30,58,138,0); }
+      50% { transform: scale(1.12); box-shadow: 0 0 0 6px rgba(124,58,237,0); }
+    }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      background: var(--white); border-bottom: 1px solid var(--border); padding: 48px 48px 40px;
+    }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; }
+    .unit-meta-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .unit-num-badge {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 2px 9px; border-radius: 4px; background: var(--accent); color: white;
+    }
+    .ch-badge {
+      font-size: 0.68rem; font-weight: 700; padding: 2px 9px; border-radius: 4px;
+      background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+    }
+    .back-link a {
+      font-size: 0.85rem; color: var(--muted); text-decoration: none; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 4px; margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 8px; }
+    .page-title span { color: var(--amber); }
+    .page-desc { color: var(--muted); font-size: 1rem; max-width: 680px; }
+
+    /* ── Content ── */
+    .content { max-width: 1200px; margin: 0 auto; padding: 48px 48px 80px; }
+
+    /* ── Section ── */
+    .section { margin-bottom: 64px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+    .gram-badge {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px; background: var(--bg);
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .section-title { font-size: 1.55rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 1rem; margin-bottom: 24px; margin-top: 6px; }
+
+    /* ── Clause Demo ── */
+    .clause-demo {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 36px 28px 28px; display: flex; flex-direction: column; align-items: center;
+      gap: 20px; margin-bottom: 20px; position: relative;
+    }
+    .cl-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .cl {
+      padding: 12px 18px; border-radius: 10px; font-size: 0.9rem; font-weight: 600;
+      opacity: 0; transform: translateY(30px) scale(0.82);
+      transition: opacity 0.5s cubic-bezier(0.34,1.56,0.64,1), transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+      text-align: center; line-height: 1.4; cursor: default;
+    }
+    .cl.show { opacity: 1; transform: translateY(0) scale(1); }
+    .cl:hover { transform: scale(1.04) translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+    .cl.main  { background: #dbeafe; color: #1e3a8a; }
+    .cl.comp  { background: #fef3c7; color: #92400e; border: 2px solid var(--amber); }
+    .cl.than  { background: #fff7ed; color: #9a3412; }
+    .cl.targ  { background: #ccfbf1; color: #0f766e; }
+    .cl.grad  { background: #f3e8ff; color: #6b21a8; }
+    .cl-lbl { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; margin-top: 4px; opacity: 0.7; }
+
+    .cj {
+      font-size: 0.95rem; font-weight: 800; color: var(--amber);
+      padding: 8px 14px; border-radius: 8px; background: #fef3c7; border: 2px solid var(--amber);
+      opacity: 0; transform: scale(0.6);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1); white-space: nowrap;
+    }
+    .cj.show { opacity: 1; transform: scale(1); }
+
+    .cl-arrow {
+      font-size: 1.4rem; color: var(--muted);
+      opacity: 0; transform: translateX(-8px);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .cl-arrow.show { opacity: 1; transform: translateX(0); }
+
+    .demo-sent {
+      font-style: italic; color: var(--muted); font-size: 1rem;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease; text-align: center;
+    }
+    .demo-sent.show { opacity: 1; transform: translateY(0); }
+
+    .replay-btn {
+      position: absolute; top: 14px; right: 14px;
+      font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 100px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--muted);
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .replay-btn:hover { background: var(--white); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06); }
+    .replay-btn:active { transform: scale(0.94); }
+    @keyframes replaySpin {
+      from { transform: rotate(0deg) scale(0.9); }
+      to   { transform: rotate(360deg) scale(1); }
+    }
+    .replay-btn.spinning { animation: replaySpin 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+
+    /* ── Formula box ── */
+    .formula-box {
+      background: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius);
+      padding: 20px 24px; margin-bottom: 20px;
+    }
+    .formula-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 10px;
+    }
+    .formula-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .f-block { padding: 6px 14px; border-radius: 8px; font-size: 0.88rem; font-weight: 700; }
+    .f-s { background: #dbeafe; color: #1e3a8a; }
+    .f-v { background: #dcfce7; color: #14532d; }
+    .f-cmp { background: #fef3c7; color: #92400e; border: 2px solid var(--amber); }
+    .f-than { background: #fff7ed; color: #9a3412; border: 1px solid #fed7aa; }
+    .f-t { background: #ccfbf1; color: #0f766e; }
+    .f-op { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+
+    /* ── Note box ── */
+    .note-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 16px 20px; font-size: 0.95rem; color: var(--muted); margin-bottom: 20px; line-height: 1.75;
+    }
+    .note-box.amber  { border-left-color: var(--amber); }
+    .note-box.orange { border-left-color: var(--orange); }
+    .note-box.green  { border-left-color: var(--green); }
+    .note-box.purple { border-left-color: var(--purple); }
+    .note-box.red    { border-left-color: var(--red); }
+    .note-box.teal   { border-left-color: var(--teal); }
+
+    /* ── Formation grid ── */
+    .form-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
+    }
+    .form-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+    }
+    .form-card h4 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .form-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 0.85rem; }
+    .form-base { color: var(--text); font-weight: 600; }
+    .form-arr { color: var(--muted); }
+    .form-comp { color: var(--amber); font-weight: 700; }
+
+    /* ── Intensifier grid ── */
+    .int-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .int-panel {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+    }
+    .int-panel h4 { font-size: 0.78rem; font-weight: 800; margin-bottom: 10px; }
+    .int-panel h4.strong { color: var(--orange); }
+    .int-panel h4.mild   { color: var(--teal); }
+    .int-tag {
+      display: inline-block; padding: 4px 10px; border-radius: 100px; font-size: 0.8rem; font-weight: 700;
+      margin: 3px 3px 3px 0;
+    }
+    .int-tag.strong-tag { background: #fff7ed; color: var(--orange); border: 1px solid #fed7aa; }
+    .int-tag.mild-tag   { background: #ccfbf1; color: #0f766e; border: 1px solid #99f6e4; }
+    .int-ex { font-size: 0.82rem; color: var(--muted); margin-top: 8px; font-style: italic; }
+
+    /* ── Progressive demo ── */
+    .prog-demo {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px 28px; margin-bottom: 20px;
+    }
+    .prog-bar-row { display: flex; align-items: flex-end; gap: 6px; margin-bottom: 12px; justify-content: center; }
+    .prog-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .prog-block {
+      width: 40px; border-radius: 6px 6px 0 0; background: linear-gradient(to top, #d97706, #fbbf24);
+      transition: height 1s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .prog-label { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+    .prog-caption { text-align: center; font-size: 0.85rem; color: var(--muted); font-style: italic; }
+
+    /* ── The...the pattern ── */
+    .the-the-box {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px 28px; margin-bottom: 20px;
+    }
+    .the-the-row {
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; justify-content: center;
+    }
+    .the-block {
+      background: #fef3c7; border: 2px solid var(--amber); border-radius: 10px;
+      padding: 10px 16px; font-weight: 700; font-size: 0.9rem; color: #92400e;
+      opacity: 0; transform: translateY(24px) scale(0.85);
+      transition: opacity 0.5s cubic-bezier(0.34,1.56,0.64,1), transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .the-block.show { opacity: 1; transform: translateY(0) scale(1); }
+    .the-comma { font-size: 1.2rem; color: var(--muted); font-weight: 700; }
+
+    /* ── That/those reference ── */
+    .ref-cards {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
+    }
+    .ref-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+    }
+    .ref-card h4 { font-size: 0.8rem; font-weight: 800; color: var(--amber); margin-bottom: 8px; }
+    .ref-card p  { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+    .ref-card .ex-line { font-size: 0.85rem; font-weight: 600; margin-top: 6px; font-style: italic; color: var(--text); }
+
+    /* ── Examples Table ── */
+    .ex-table { width: 100%; border-collapse: collapse; font-size: 0.96rem; }
+    .ex-table thead th {
+      text-align: left; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); padding: 8px 12px; border-bottom: 2px solid var(--border);
+    }
+    .ex-table tbody td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .ex-table tbody tr:last-child td { border-bottom: none; }
+    .ex-table .en { font-weight: 600; }
+    .ex-table .ja { color: var(--muted); }
+    .hl-a { color: var(--amber); font-weight: 700; }
+    .hl-o { color: var(--orange); font-weight: 700; }
+    .hl-t { color: var(--teal); font-weight: 700; }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--border); margin: 0 0 64px; }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 32px 24px 28px; }
+      .content { padding: 32px 24px 60px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .int-grid  { grid-template-columns: 1fr; }
+      .ref-cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    <span>Animated English Grammar</span>
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 14</span>
+      <span class="ch-badge">Chapter IV &nbsp;·&nbsp; 比較表現</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">比較級 <span>Comparative Degree</span></h1>
+    <p class="page-desc">-er / more を使った比較級の形成から than による比較構文、漸進変化・比例表現まで、比較級の全体像を整理する。</p>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- ── 01: 比較級の形成ルール ── -->
+  <section class="section" id="formation">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">形成ルール</span>
+      <h2 class="section-title">比較級の形成 — -er / more + 形容詞・副詞</h2>
+    </div>
+    <p class="section-intro">比較級の形は語の長さによって規則的に決まる。短い語は <strong>-er</strong>、長い語は <strong>more</strong> を前に置く。不規則変化はセットで暗記する。</p>
+
+    <div class="form-grid">
+      <div class="form-card">
+        <h4>-er 型（1〜2音節の短い語）</h4>
+        <div class="form-item"><span class="form-base">fast</span><span class="form-arr">→</span><span class="form-comp">faster</span></div>
+        <div class="form-item"><span class="form-base">tall</span><span class="form-arr">→</span><span class="form-comp">taller</span></div>
+        <div class="form-item"><span class="form-base">busy</span><span class="form-arr">→</span><span class="form-comp">busier</span> <span style="font-size:0.75rem;color:var(--muted)">(y→i+er)</span></div>
+        <div class="form-item"><span class="form-base">big</span><span class="form-arr">→</span><span class="form-comp">bigger</span> <span style="font-size:0.75rem;color:var(--muted)">(子音重ね)</span></div>
+        <div class="form-item"><span class="form-base">close</span><span class="form-arr">→</span><span class="form-comp">closer</span> <span style="font-size:0.75rem;color:var(--muted)">(e+r)</span></div>
+      </div>
+      <div class="form-card">
+        <h4>more 型（3音節以上・-ful / -ous / -ive など）</h4>
+        <div class="form-item"><span class="form-base">beautiful</span><span class="form-arr">→</span><span class="form-comp">more beautiful</span></div>
+        <div class="form-item"><span class="form-base">effective</span><span class="form-arr">→</span><span class="form-comp">more effective</span></div>
+        <div class="form-item"><span class="form-base">carefully</span><span class="form-arr">→</span><span class="form-comp">more carefully</span></div>
+        <div class="form-item"><span class="form-base">interesting</span><span class="form-arr">→</span><span class="form-comp">more interesting</span></div>
+        <div class="form-item"><span class="form-base">dangerous</span><span class="form-arr">→</span><span class="form-comp">more dangerous</span></div>
+      </div>
+      <div class="form-card">
+        <h4>不規則変化</h4>
+        <div class="form-item"><span class="form-base">good / well</span><span class="form-arr">→</span><span class="form-comp">better</span></div>
+        <div class="form-item"><span class="form-base">bad / ill</span><span class="form-arr">→</span><span class="form-comp">worse</span></div>
+        <div class="form-item"><span class="form-base">many / much</span><span class="form-arr">→</span><span class="form-comp">more</span></div>
+        <div class="form-item"><span class="form-base">little</span><span class="form-arr">→</span><span class="form-comp">less</span></div>
+        <div class="form-item"><span class="form-base">far</span><span class="form-arr">→</span><span class="form-comp">farther / further</span></div>
+      </div>
+      <div class="form-card">
+        <h4>注意が必要な2音節語</h4>
+        <div class="form-item"><span class="form-base">quiet</span><span class="form-arr">→</span><span class="form-comp">quieter</span> <span style="font-size:0.75rem;color:var(--muted)">(-er も可)</span></div>
+        <div class="form-item"><span class="form-base">clever</span><span class="form-arr">→</span><span class="form-comp">cleverer / more clever</span></div>
+        <div class="form-item"><span class="form-base">narrow</span><span class="form-arr">→</span><span class="form-comp">narrower</span></div>
+        <div class="form-item"><span class="form-base">common</span><span class="form-arr">→</span><span class="form-comp">more common</span></div>
+        <div class="form-item"><span class="form-base">remote</span><span class="form-arr">→</span><span class="form-comp">more remote</span></div>
+      </div>
+    </div>
+
+    <div class="note-box amber">
+      <strong>farther vs further:</strong><br>
+      • <em>farther</em> — 物理的な距離: The next gas station is <em>farther</em> away.<br>
+      • <em>further</em> — 抽象的な程度・追加: I need no <em>further</em> explanation.<br>
+      アメリカ英語では両者を混用することも多いが、公式試験では区別を意識する。
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 02: 比較級 than の基本 ── -->
+  <section class="section" id="than">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">基本構造</span>
+      <h2 class="section-title">比較級 than の基本構造</h2>
+    </div>
+    <p class="section-intro">「A は B より〜だ」という比較には <strong>[比較級] than [比較対象]</strong> を使う。than は接続詞または前置詞として機能する。</p>
+
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>The new algorithm</div>
+          <div class="cl-lbl">主語</div>
+        </div>
+        <div class="cj">is faster</div>
+        <div class="cl comp">
+          <div>than</div>
+          <div class="cl-lbl">比較の接続詞</div>
+        </div>
+        <div class="cl targ">
+          <div>the previous version</div>
+          <div class="cl-lbl">比較対象</div>
+        </div>
+      </div>
+      <div class="demo-sent">The new algorithm is 40% faster than the previous version.</div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label">Formula — 比較級</div>
+      <div class="formula-row">
+        <span class="f-block f-s">A</span>
+        <span class="f-block f-v">V</span>
+        <span class="f-block f-cmp">比較級</span>
+        <span class="f-block f-than">than</span>
+        <span class="f-block f-t">B</span>
+      </div>
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>例文</th><th>和訳</th><th>比較対象の形</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="en">This route is <span class="hl-a">shorter than</span> the highway.</td>
+          <td class="ja">このルートは高速より短い。</td>
+          <td style="color:var(--muted);font-size:0.85rem">名詞</td>
+        </tr>
+        <tr>
+          <td class="en">She communicates <span class="hl-a">more clearly than</span> her predecessor.</td>
+          <td class="ja">彼女は前任者より明確に伝達する。</td>
+          <td style="color:var(--muted);font-size:0.85rem">名詞</td>
+        </tr>
+        <tr>
+          <td class="en">The situation is <span class="hl-a">worse than</span> I expected.</td>
+          <td class="ja">状況は思っていたよりも悪い。</td>
+          <td style="color:var(--muted);font-size:0.85rem">節 (S + V)</td>
+        </tr>
+        <tr>
+          <td class="en">He earns <span class="hl-a">more than</span> twice what she does.</td>
+          <td class="ja">彼は彼女の2倍以上稼ぐ。</td>
+          <td style="color:var(--muted);font-size:0.85rem">倍数 + 関係節</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note-box green">
+      <strong>than I / than me — どちらが正しいか:</strong><br>
+      • <em>She is taller than <strong>I</strong> (am).</em> — 厳格な書き言葉 (than は接続詞)<br>
+      • <em>She is taller than <strong>me</strong>.</em> — 口語的・日常会話 (than は前置詞)<br>
+      どちらも容認されるが、意味が変わる場合は注意: <em>He likes her more than I</em> (do) ≠ <em>He likes her more than me</em>.
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 03: 差の大きさを強調 ── -->
+  <section class="section" id="intensifier">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">強調語</span>
+      <h2 class="section-title">差の大きさを表す強調語</h2>
+    </div>
+    <p class="section-intro">比較級の前に副詞を置くことで差の程度を調整できる。<strong>大きな差</strong>と<strong>わずかな差</strong>で使う語が異なる。</p>
+
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>The electric version</div>
+          <div class="cl-lbl">主語</div>
+        </div>
+        <div class="cj">is far</div>
+        <div class="cl comp">
+          <div>more efficient</div>
+          <div class="cl-lbl">比較級</div>
+        </div>
+        <div class="cj">than</div>
+        <div class="cl targ">
+          <div>the diesel model</div>
+          <div class="cl-lbl">比較対象</div>
+        </div>
+      </div>
+      <div class="demo-sent">The electric version is far more efficient than the diesel model.</div>
+    </div>
+
+    <div class="int-grid">
+      <div class="int-panel">
+        <h4 class="strong">大きな差 (Strong Emphasis)</h4>
+        <div>
+          <span class="int-tag strong-tag">much</span>
+          <span class="int-tag strong-tag">far</span>
+          <span class="int-tag strong-tag">even</span>
+          <span class="int-tag strong-tag">still</span>
+          <span class="int-tag strong-tag">a lot</span>
+          <span class="int-tag strong-tag">by far</span>
+        </div>
+        <div class="int-ex">This dataset is <strong>much</strong> larger than expected.<br>The new design is <strong>far</strong> more intuitive.</div>
+      </div>
+      <div class="int-panel">
+        <h4 class="mild">わずかな差 (Mild Emphasis)</h4>
+        <div>
+          <span class="int-tag mild-tag">a little</span>
+          <span class="int-tag mild-tag">slightly</span>
+          <span class="int-tag mild-tag">a bit</span>
+          <span class="int-tag mild-tag">somewhat</span>
+          <span class="int-tag mild-tag">marginally</span>
+        </div>
+        <div class="int-ex">His approach is <strong>slightly</strong> different from mine.<br>The temperature is <strong>a little</strong> higher than yesterday.</div>
+      </div>
+    </div>
+
+    <div class="note-box red">
+      <strong>very は比較級に使えない:</strong><br>
+      • ❌ <em>very better / very faster</em><br>
+      • ✅ <em><strong>much</strong> better / <strong>far</strong> faster</em><br>
+      very は原級（very good）に使うもの。比較級を強調するときは much / far / even / still を使う。
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 04: 比較級 and 比較級 ── -->
+  <section class="section" id="progressive">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">漸進変化</span>
+      <h2 class="section-title">比較級 and 比較級 — だんだん〜になる</h2>
+    </div>
+    <p class="section-intro">同じ比較級を and で繰り返すことで、<strong>変化が段階的に進む</strong>ことを表す。「ますます〜になっていく」のニュアンス。</p>
+
+    <div class="clause-demo" id="demo3">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>Remote work</div>
+          <div class="cl-lbl">主語</div>
+        </div>
+        <div class="cl-arrow">→</div>
+        <div class="cl comp">
+          <div>more and more</div>
+          <div class="cl-lbl">漸進強調</div>
+        </div>
+        <div class="cl grad">
+          <div>common</div>
+          <div class="cl-lbl">形容詞 (原級)</div>
+        </div>
+      </div>
+      <div class="demo-sent">Remote work is becoming more and more common across industries.</div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label">Formula — 漸進変化</div>
+      <div class="formula-row">
+        <span class="f-block f-cmp">比較級</span>
+        <span class="f-op">and</span>
+        <span class="f-block f-cmp">比較級</span>
+        <span class="f-op" style="margin-left:16px;">または</span>
+        <span class="f-block" style="background:#f3e8ff;color:#6b21a8;margin-left:16px;">more and more</span>
+        <span class="f-op">+</span>
+        <span class="f-block f-t">形容詞 (原級)</span>
+      </div>
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>例文</th><th>和訳</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="en">The startup is growing <span class="hl-a">bigger and bigger</span> each quarter.</td>
+          <td class="ja">そのスタートアップは四半期ごとにどんどん大きくなっている。</td>
+        </tr>
+        <tr>
+          <td class="en">AI tools are becoming <span class="hl-a">more and more</span> indispensable for developers.</td>
+          <td class="ja">AIツールは開発者にとってますます欠かせないものになっている。</td>
+        </tr>
+        <tr>
+          <td class="en">The hike got <span class="hl-a">harder and harder</span> as they climbed above 3,000 m.</td>
+          <td class="ja">標高3,000メートルを超えると、ハイキングはどんどん過酷になった。</td>
+        </tr>
+        <tr>
+          <td class="en">Plane tickets are getting <span class="hl-a">less and less</span> affordable.</td>
+          <td class="ja">航空券はどんどん手頃でなくなっている。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 05: the + 比較級, the + 比較級 ── -->
+  <section class="section" id="the-the">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="gram-badge">比例表現</span>
+      <h2 class="section-title">the + 比較級, the + 比較級 — すればするほど</h2>
+    </div>
+    <p class="section-intro">2つの比較級を the で対応させることで、一方の変化が他方を引き起こすという<strong>比例・連動</strong>の関係を表す。</p>
+
+    <div class="clause-demo" id="demo4">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl comp">
+          <div>The more you practice</div>
+          <div class="cl-lbl">条件節</div>
+        </div>
+        <div class="cl-arrow">→</div>
+        <div class="cl main">
+          <div>the better you perform</div>
+          <div class="cl-lbl">帰結節</div>
+        </div>
+      </div>
+      <div class="demo-sent">The more you practice, the better you perform under pressure.</div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label">Formula — 比例構文</div>
+      <div class="formula-row">
+        <span class="f-block f-cmp">The + 比較級</span>
+        <span class="f-op">S + V,</span>
+        <span class="f-block f-cmp">the + 比較級</span>
+        <span class="f-op">S + V.</span>
+      </div>
+    </div>
+
+    <div class="note-box teal">
+      <strong>語順のルール:</strong><br>
+      • The 比較級 節は <strong>前の節が条件</strong>、後の節が結果<br>
+      • 比較級の直後に形容詞・副詞が来るときは前置: <em>The <strong>hotter</strong> the weather, the more tired I feel.</em><br>
+      • 主語・動詞の省略も可: <em>The sooner, the better.</em>（省略形）
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>例文</th><th>和訳</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="en"><span class="hl-a">The higher</span> the altitude, <span class="hl-a">the thinner</span> the air becomes.</td>
+          <td class="ja">標高が高くなればなるほど、空気は薄くなる。</td>
+        </tr>
+        <tr>
+          <td class="en"><span class="hl-a">The more data</span> you feed the model, <span class="hl-a">the more accurate</span> its predictions get.</td>
+          <td class="ja">モデルにデータを与えれば与えるほど、予測精度が上がる。</td>
+        </tr>
+        <tr>
+          <td class="en"><span class="hl-a">The sooner</span> we address the issue, <span class="hl-a">the less</span> it will cost to fix.</td>
+          <td class="ja">早めに問題に対処すればするほど、修正費用が少なくて済む。</td>
+        </tr>
+        <tr>
+          <td class="en"><span class="hl-a">The longer</span> the interview lasted, <span class="hl-a">the more confident</span> she felt.</td>
+          <td class="ja">面接が長くなればなるほど、彼女は自信を持てた。</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 06: 比較対象の明示 — that / those ── -->
+  <section class="section" id="reference">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <span class="gram-badge">比較対象</span>
+      <h2 class="section-title">比較対象の明示 — that / those の使用</h2>
+    </div>
+    <p class="section-intro">比較対象に名詞の繰り返しを避けるため、<strong>that（単数）/ those（複数）</strong>を使って前出の名詞を受ける。</p>
+
+    <div class="clause-demo" id="demo5">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>The wages in this sector</div>
+          <div class="cl-lbl">比較対象 A</div>
+        </div>
+        <div class="cj">are higher than</div>
+        <div class="cl comp">
+          <div>those</div>
+          <div class="cl-lbl">= the wages (複数)</div>
+        </div>
+        <div class="cl targ">
+          <div>in the retail industry</div>
+          <div class="cl-lbl">修飾句</div>
+        </div>
+      </div>
+      <div class="demo-sent">The wages in this sector are higher than those in the retail industry.</div>
+    </div>
+
+    <div class="ref-cards">
+      <div class="ref-card">
+        <h4>that — 単数名詞を受ける</h4>
+        <p>前に出た<strong>単数の名詞</strong>を繰り返すのを避けるために使う。</p>
+        <div class="ex-line">The climate of Tokyo is milder than <strong>that</strong> of Hokkaido.</div>
+        <div class="ex-line">Her analysis is sharper than <strong>that</strong> of her colleague.</div>
+      </div>
+      <div class="ref-card">
+        <h4>those — 複数名詞を受ける</h4>
+        <p>前に出た<strong>複数の名詞</strong>を受けるときは those を使う。</p>
+        <div class="ex-line">The results here are better than <strong>those</strong> from last year.</div>
+        <div class="ex-line">City infrastructure costs are higher than <strong>those</strong> in rural areas.</div>
+      </div>
+    </div>
+
+    <div class="note-box amber">
+      <strong>よくある誤り:</strong><br>
+      • ❌ <em>The price of this phone is lower than <strong>it</strong> of that brand.</em><br>
+      • ✅ <em>The price of this phone is lower than <strong>that</strong> of that brand.</em><br>
+      <br>
+      • ❌ <em>The test scores here are higher than <strong>that</strong> of other schools.</em><br>
+      • ✅ <em>The test scores here are higher than <strong>those</strong> of other schools.</em>（scores = 複数）
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>例文</th><th>和訳</th><th>受ける名詞</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="en">The battery life of this device is longer than <span class="hl-a">that</span> of its rivals.</td>
+          <td class="ja">このデバイスのバッテリー寿命はライバル製品より長い。</td>
+          <td style="color:var(--muted);font-size:0.85rem">battery life (単数)</td>
+        </tr>
+        <tr>
+          <td class="en">The regulations in Europe are stricter than <span class="hl-a">those</span> in many other regions.</td>
+          <td class="ja">ヨーロッパの規制は多くの他の地域のものより厳しい。</td>
+          <td style="color:var(--muted);font-size:0.85rem">regulations (複数)</td>
+        </tr>
+        <tr>
+          <td class="en">His photography style is more distinct than <span class="hl-a">that</span> of most beginners.</td>
+          <td class="ja">彼の写真スタイルはほとんどの初心者より際立っている。</td>
+          <td style="color:var(--muted);font-size:0.85rem">style (単数)</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+  function getAnimatables(demo) {
+    return Array.from(demo.querySelectorAll('.cl, .cj, .cl-arrow, .the-block, .demo-sent'));
+  }
+  function resetDemo(demo) { getAnimatables(demo).forEach(el => el.classList.remove('show')); }
+  function playDemo(demo) {
+    resetDemo(demo);
+    getAnimatables(demo).forEach((el, i) => {
+      setTimeout(() => el.classList.add('show'), i * 140 + 80);
+    });
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { playDemo(entry.target); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.clause-demo').forEach(demo => observer.observe(demo));
+
+  document.querySelectorAll('.replay-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.classList.remove('spinning');
+      void btn.offsetWidth;
+      btn.classList.add('spinning');
+      btn.addEventListener('animationend', () => btn.classList.remove('spinning'), { once: true });
+      playDemo(btn.closest('.clause-demo'));
+    });
+  });
+</script>
+</body>
+</html>

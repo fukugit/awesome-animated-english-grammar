@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前置詞 on — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg:#f9f7f2;--white:#fff;--border:#e5e0d5;--text:#1c1c1c;--muted:#6b6460;
+      --accent:#1e3a8a;--prep:#0284c7;--prep-light:#e0f2fe;--prep-border:#7dd3fc;--radius:14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .nav{height:56px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.92rem;text-decoration:none;color:var(--text)}
+    .logo-mark{width:26px;height:26px;background:linear-gradient(135deg,#1e3a8a,#7c3aed);border-radius:6px;flex-shrink:0;animation:logoPulse 3s ease-in-out infinite}
+    @keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+    .page-hero{background:var(--white);border-bottom:1px solid var(--border);padding:48px 48px 40px}
+    .page-hero-inner{max-width:1200px;margin:0 auto}
+    .unit-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .unit-num-badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:2px 9px;border-radius:4px;background:var(--accent);color:white}
+    .ch-badge{font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:4px;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+    .back-link a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:16px;transition:color .2s}
+    .back-link a:hover{color:var(--text)}
+    .page-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+    .page-title span{color:var(--prep)}
+    .page-desc{color:var(--muted);font-size:1rem;max-width:680px}
+    .content{max-width:1200px;margin:0 auto;padding:48px 48px 80px}
+    .part-banner{background:var(--prep-light);border:1px solid var(--prep-border);border-radius:var(--radius);padding:36px 40px;margin-bottom:56px;display:flex;align-items:center;gap:36px}
+    .banner-prep{font-size:3.5rem;font-weight:900;color:var(--prep);font-family:Georgia,serif;flex-shrink:0;min-width:80px}
+    .banner-body{flex:1}
+    .banner-en{font-size:1.15rem;font-weight:800;color:#0369a1;margin-bottom:6px}
+    .banner-ja{font-size:.95rem;color:var(--muted);margin-bottom:14px;line-height:1.7}
+    .banner-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .banner-chip{font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:100px;background:#7dd3fc;color:#0c4a6e}
+    .core-vis{width:80px;height:55px;position:relative;flex-shrink:0}
+    .core-surface{position:absolute;bottom:0;left:0;right:0;height:6px;background:var(--prep);border-radius:3px}
+    .core-obj{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:24px;height:24px;border-radius:6px;background:var(--prep-light);border:2px solid var(--prep)}
+    .section{margin-bottom:64px}
+    .section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+    .gram-badge{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+    .section-title{font-size:1.55rem;font-weight:800}
+    .section-number{font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.1em}
+    .section-intro{color:var(--muted);font-size:1rem;margin-bottom:24px;margin-top:6px}
+    .clause-demo{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:20px;position:relative}
+    .cl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+    .cl{padding:12px 18px;border-radius:10px;font-size:.9rem;font-weight:600;opacity:0;transform:translateY(30px) scale(.82);transition:opacity .5s cubic-bezier(.34,1.56,.64,1),transform .5s cubic-bezier(.34,1.56,.64,1);text-align:center;line-height:1.4;cursor:default}
+    .cl.show{opacity:1;transform:translateY(0) scale(1)}
+    .cl:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+    .cl.sub{background:#dbeafe;color:#1e3a8a}
+    .cl.vrb{background:#dcfce7;color:#14532d}
+    .cl.obj{background:#f3e8ff;color:#6b21a8}
+    .cl.prc{background:var(--prep-light);color:#0369a1;border:2px solid var(--prep)}
+    .cl-lbl{font-size:.65rem;font-weight:800;letter-spacing:.08em;margin-top:4px;opacity:.7}
+    .cj{font-size:.95rem;font-weight:800;color:var(--prep);padding:8px 14px;border-radius:8px;background:var(--prep-light);border:2px solid var(--prep);opacity:0;transform:scale(.6);transition:opacity .35s ease,transform .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap}
+    .cj.show{opacity:1;transform:scale(1)}
+    .demo-sent{font-style:italic;color:var(--muted);font-size:1rem;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;text-align:center}
+    .demo-sent.show{opacity:1;transform:translateY(0)}
+    .replay-btn{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;border:1px solid var(--border);background:var(--bg);color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+    .replay-btn:hover{background:var(--white);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.12);transform:scale(1.06)}
+    @keyframes replaySpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .replay-btn.spinning{animation:replaySpin .4s cubic-bezier(.34,1.56,.64,1)}
+    .formula-box{background:var(--prep-light);border:1px solid var(--prep-border);border-radius:var(--radius);padding:20px 24px;margin-bottom:20px}
+    .formula-label{font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--prep);margin-bottom:10px}
+    .formula-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+    .formula-row:last-child{margin-bottom:0}
+    .f-block{padding:6px 14px;border-radius:8px;font-size:.88rem;font-weight:700}
+    .f-s{background:#dbeafe;color:#1e3a8a}
+    .f-v{background:#dcfce7;color:#14532d}
+    .f-p{background:var(--prep-light);color:#0369a1;border:2px solid var(--prep)}
+    .f-n{background:#f3e8ff;color:#6b21a8}
+    .f-op{font-size:.9rem;color:var(--muted);font-weight:600}
+    .note-box{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--prep);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;font-size:.95rem;color:var(--muted);margin-bottom:20px;line-height:1.75}
+    .note-box.compare{border-left-color:#06b6d4}
+    .note-box.warn{border-left-color:#f59e0b}
+    .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px}
+    .card h4{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--prep);margin-bottom:10px}
+    .c-item{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;font-size:.85rem}
+    .c-phrase{font-weight:700;color:var(--prep);min-width:140px;flex-shrink:0}
+    .c-ja{color:var(--muted)}
+    .ex-table{width:100%;border-collapse:collapse;font-size:.96rem;margin-bottom:20px}
+    .ex-table thead th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--border)}
+    .ex-table tbody td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    .ex-table tbody tr:last-child td{border-bottom:none}
+    .ex-table .en{font-weight:600}
+    .ex-table .ja{color:var(--muted)}
+    .hl{color:var(--prep);font-weight:700}
+    .divider{height:1px;background:var(--border);margin:0 0 64px}
+    .state-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+    .state-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:14px}
+    .state-phrase{font-size:.95rem;font-weight:800;color:var(--prep);margin-bottom:4px}
+    .state-ja{font-size:.8rem;color:var(--muted)}
+    @media(max-width:700px){.page-hero{padding:32px 24px 28px}.content{padding:32px 24px 60px}.part-banner{flex-direction:column;gap:16px;padding:24px}.card-grid{grid-template-columns:1fr}.state-grid{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><div class="logo-mark"></div><span>Animated English Grammar</span></a>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 20</span>
+      <span class="ch-badge">Chapter V &nbsp;·&nbsp; 前置詞</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">前置詞 <span>on</span></h1>
+    <p class="page-desc">表面との「接触」から広がる on の感覚。場所・日付・テーマ・メディア・依存まで、on の使い方を整理する。</p>
+  </div>
+</div>
+<main class="content">
+
+  <div class="part-banner">
+    <div class="banner-prep">on</div>
+    <div class="banner-body">
+      <div class="banner-en">on の感覚：「接触・面の上」</div>
+      <div class="banner-ja">on の根っこは「表面と接触している」感覚。物理的な面の上だけでなく、日付（カレンダーの面）・テーマ（議論の上に乗る話題）・メディア（画面/電波の面）・依存（〜の上に成り立つ）まで広がる。</div>
+      <div class="banner-chips">
+        <span class="banner-chip">表面接触</span>
+        <span class="banner-chip">日付・曜日</span>
+        <span class="banner-chip">話題・テーマ</span>
+        <span class="banner-chip">メディア・状態</span>
+        <span class="banner-chip">依存・継続</span>
+      </div>
+    </div>
+    <div class="core-vis">
+      <div class="core-surface"></div>
+      <div class="core-obj"></div>
+    </div>
+  </div>
+
+  <!-- 01 表面接触 -->
+  <section class="section" id="surface">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">表面接触</span>
+      <h2 class="section-title">on で「〜の上に・〜に接触して」</h2>
+    </div>
+    <p class="section-intro">最も基本的な on は「ある表面と接触している」状態。テーブルの上・壁・床・天井など、上下を問わず「面に触れている」すべての場面で使える。in（内部）や at（地点）との違いに注意。</p>
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>There is a map</div><div class="cl-lbl">主語句</div></div>
+        <div class="cj">on</div>
+        <div class="cl prc"><div>the wall of his office</div><div class="cl-lbl">面・場所</div></div>
+      </div>
+      <div class="demo-sent">There is a large map on the wall of his office.</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th><th>on の対象</th></tr></thead>
+      <tbody>
+        <tr><td class="en">The keys are <span class="hl">on</span> the table.</td><td class="ja">鍵はテーブルの上にある。</td><td style="color:var(--muted);font-size:.85rem">水平面</td></tr>
+        <tr><td class="en">There's a fly <span class="hl">on</span> the ceiling.</td><td class="ja">天井にハエがいる。</td><td style="color:var(--muted);font-size:.85rem">垂直・逆面も OK</td></tr>
+        <tr><td class="en">She has a ring <span class="hl">on</span> her finger.</td><td class="ja">彼女は指に指輪をしている。</td><td style="color:var(--muted);font-size:.85rem">身体への接触</td></tr>
+        <tr><td class="en">The house is <span class="hl">on</span> a hill.</td><td class="ja">家は丘の上にある。</td><td style="color:var(--muted);font-size:.85rem">地面・地形</td></tr>
+      </tbody>
+    </table>
+    <div class="note-box compare">
+      <strong>in / on / at の比較（場所）:</strong><br>
+      • <em>in the box</em>（箱の内部） vs <em>on the box</em>（箱の表面上）<br>
+      • <em>at the corner</em>（角という地点） vs <em>on the corner</em>（角の面/通りに接して）
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 02 日付・曜日 -->
+  <section class="section" id="date">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">日付・曜日</span>
+      <h2 class="section-title">on で「〜に（特定の日）」</h2>
+    </div>
+    <p class="section-intro">日付・曜日には on を使う。カレンダーの特定の1日という「面の上」に乗るイメージ。時刻の at、月・年の in と合わせて整理しよう。</p>
+    <div class="card-grid">
+      <div class="card">
+        <h4>曜日・特定日</h4>
+        <div class="c-item"><span class="c-phrase">on Monday</span><span class="c-ja">月曜日に</span></div>
+        <div class="c-item"><span class="c-phrase">on Friday morning</span><span class="c-ja">金曜日の朝に</span></div>
+        <div class="c-item"><span class="c-phrase">on July 4th</span><span class="c-ja">7月4日に</span></div>
+        <div class="c-item"><span class="c-phrase">on Christmas Day</span><span class="c-ja">クリスマス当日に</span></div>
+      </div>
+      <div class="card">
+        <h4>記念日・特別な日</h4>
+        <div class="c-item"><span class="c-phrase">on my birthday</span><span class="c-ja">誕生日に</span></div>
+        <div class="c-item"><span class="c-phrase">on the weekend</span><span class="c-ja">週末に（米）</span></div>
+        <div class="c-item"><span class="c-phrase">on New Year's Eve</span><span class="c-ja">大晦日に</span></div>
+        <div class="c-item"><span class="c-phrase">on the day of the exam</span><span class="c-ja">試験当日に</span></div>
+      </div>
+    </div>
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>We have a meeting</div><div class="cl-lbl">主語句</div></div>
+        <div class="cj">on</div>
+        <div class="cl prc"><div>Thursday morning</div><div class="cl-lbl">特定の日時</div></div>
+      </div>
+      <div class="demo-sent">We have an important meeting on Thursday morning.</div>
+    </div>
+    <div class="note-box warn">
+      <strong>in / on / at（時間の比較）:</strong><br>
+      • <em>at</em> 7 o'clock — 時刻の点<br>
+      • <em>on</em> Monday / July 4th — 特定の1日<br>
+      • <em>in</em> January / 2024 / winter — 幅のある期間の枠
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 03 話題・テーマ -->
+  <section class="section" id="topic">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">話題・テーマ</span>
+      <h2 class="section-title">on で「〜について（専門的・本格的）」</h2>
+    </div>
+    <p class="section-intro"><em>on</em> は「〜の上に展開する」感覚から、書籍・講演・研究の「テーマ・主題」を指す。<em>about</em> より専門的・体系的なニュアンスがある。</p>
+    <div class="card-grid">
+      <div class="card">
+        <h4>on — 専門・体系的</h4>
+        <div class="c-item"><span class="c-phrase">a book on history</span><span class="c-ja">歴史の（専門）書</span></div>
+        <div class="c-item"><span class="c-phrase">a lecture on quantum physics</span><span class="c-ja">量子物理学の講義</span></div>
+        <div class="c-item"><span class="c-phrase">research on climate change</span><span class="c-ja">気候変動の研究</span></div>
+      </div>
+      <div class="card">
+        <h4>about — 一般的・会話的</h4>
+        <div class="c-item"><span class="c-phrase">talk about history</span><span class="c-ja">歴史について話す</span></div>
+        <div class="c-item"><span class="c-phrase">a story about love</span><span class="c-ja">愛についての話</span></div>
+        <div class="c-item"><span class="c-phrase">worry about climate</span><span class="c-ja">気候について心配する</span></div>
+      </div>
+    </div>
+    <div class="clause-demo" id="demo3">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>She</div><div class="cl-lbl">主語</div></div>
+        <div class="cl vrb"><div>gave a lecture</div><div class="cl-lbl">動詞句</div></div>
+        <div class="cj">on</div>
+        <div class="cl prc"><div>renewable energy</div><div class="cl-lbl">テーマ</div></div>
+      </div>
+      <div class="demo-sent">She gave a lecture on renewable energy at the conference.</div>
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 04 メディア・状態 -->
+  <section class="section" id="media">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">メディア・状態</span>
+      <h2 class="section-title">on で「〜を通じて・〜の状態で」</h2>
+    </div>
+    <p class="section-intro">テレビ・電話・ネットなど、信号や情報が「乗る面・波」をイメージした on。また「on + 名詞」で「〜の状態にある」という慣用的な用法も重要。</p>
+    <div class="card-grid">
+      <div class="card">
+        <h4>メディア・通信</h4>
+        <div class="c-item"><span class="c-phrase">on TV / the radio</span><span class="c-ja">テレビ/ラジオで</span></div>
+        <div class="c-item"><span class="c-phrase">on the phone</span><span class="c-ja">電話中・電話で</span></div>
+        <div class="c-item"><span class="c-phrase">on the internet</span><span class="c-ja">インターネット上で</span></div>
+        <div class="c-item"><span class="c-phrase">on social media</span><span class="c-ja">SNSで</span></div>
+      </div>
+      <div class="card">
+        <h4>状態を表す慣用句</h4>
+        <div class="c-item"><span class="c-phrase">on fire</span><span class="c-ja">燃えている・絶好調</span></div>
+        <div class="c-item"><span class="c-phrase">on sale</span><span class="c-ja">発売中・セール中</span></div>
+        <div class="c-item"><span class="c-phrase">on duty</span><span class="c-ja">勤務中</span></div>
+        <div class="c-item"><span class="c-phrase">on vacation</span><span class="c-ja">休暇中</span></div>
+      </div>
+    </div>
+    <div class="clause-demo" id="demo4">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>I</div><div class="cl-lbl">主語</div></div>
+        <div class="cl vrb"><div>saw the news</div><div class="cl-lbl">動詞句</div></div>
+        <div class="cj">on</div>
+        <div class="cl prc"><div>TV</div><div class="cl-lbl">メディア</div></div>
+      </div>
+      <div class="demo-sent">I saw the news on TV last night and couldn't believe it.</div>
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 05 依存・継続 -->
+  <section class="section" id="depend">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="gram-badge">依存・継続</span>
+      <h2 class="section-title">on で「〜に依存する・〜し続ける」</h2>
+    </div>
+    <p class="section-intro">「〜の上に成り立つ」感覚から依存・依拠の on。また <strong>keep / carry / go on -ing</strong> で「〜し続ける」という継続の用法も重要な動詞句。</p>
+    <div class="card-grid">
+      <div class="card">
+        <h4>依存・依拠</h4>
+        <div class="c-item"><span class="c-phrase">rely on</span><span class="c-ja">〜に頼る</span></div>
+        <div class="c-item"><span class="c-phrase">depend on</span><span class="c-ja">〜次第・〜に依存する</span></div>
+        <div class="c-item"><span class="c-phrase">count on</span><span class="c-ja">〜を当てにする</span></div>
+        <div class="c-item"><span class="c-phrase">be based on</span><span class="c-ja">〜に基づく</span></div>
+      </div>
+      <div class="card">
+        <h4>継続（on + -ing）</h4>
+        <div class="c-item"><span class="c-phrase">keep on trying</span><span class="c-ja">試し続ける</span></div>
+        <div class="c-item"><span class="c-phrase">carry on working</span><span class="c-ja">働き続ける</span></div>
+        <div class="c-item"><span class="c-phrase">go on talking</span><span class="c-ja">話し続ける</span></div>
+        <div class="c-item"><span class="c-phrase">hold on</span><span class="c-ja">待つ・しがみつく</span></div>
+      </div>
+    </div>
+    <div class="clause-demo" id="demo5">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>You</div><div class="cl-lbl">主語</div></div>
+        <div class="cl vrb"><div>can always rely</div><div class="cl-lbl">動詞句</div></div>
+        <div class="cj">on</div>
+        <div class="cl prc"><div>her</div><div class="cl-lbl">依存対象</div></div>
+      </div>
+      <div class="demo-sent">You can always rely on her in a crisis — she never lets you down.</div>
+    </div>
+  </section>
+
+</main>
+<script>
+  function getAnimatables(d){return Array.from(d.querySelectorAll(".cl,.cj,.demo-sent"))}
+  function resetDemo(d){getAnimatables(d).forEach(e=>e.classList.remove("show"))}
+  function playDemo(d){resetDemo(d);getAnimatables(d).forEach((e,i)=>setTimeout(()=>e.classList.add("show"),i*140+80))}
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){playDemo(e.target);obs.unobserve(e.target)}})},{threshold:.3});
+  document.querySelectorAll(".clause-demo").forEach(d=>obs.observe(d));
+  document.querySelectorAll(".replay-btn").forEach(b=>{b.addEventListener("click",()=>{b.classList.remove("spinning");void b.offsetWidth;b.classList.add("spinning");b.addEventListener("animationend",()=>b.classList.remove("spinning"),{once:true});playDemo(b.closest(".clause-demo"))})});
+</script>
+</body>
+</html>

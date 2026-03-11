@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前置詞 by — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg:#f9f7f2;--white:#fff;--border:#e5e0d5;--text:#1c1c1c;--muted:#6b6460;
+      --accent:#1e3a8a;--prep:#be185d;--prep-light:#fff1f2;--prep-border:#fecdd3;--radius:14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .nav{height:56px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.92rem;text-decoration:none;color:var(--text)}
+    .logo-mark{width:26px;height:26px;background:linear-gradient(135deg,#1e3a8a,#7c3aed);border-radius:6px;flex-shrink:0;animation:logoPulse 3s ease-in-out infinite}
+    @keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+    .page-hero{background:var(--white);border-bottom:1px solid var(--border);padding:48px 48px 40px}
+    .page-hero-inner{max-width:1200px;margin:0 auto}
+    .unit-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .unit-num-badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:2px 9px;border-radius:4px;background:var(--accent);color:white}
+    .ch-badge{font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:4px;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+    .back-link a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:16px;transition:color .2s}
+    .back-link a:hover{color:var(--text)}
+    .page-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+    .page-title span{color:var(--prep)}
+    .page-desc{color:var(--muted);font-size:1rem;max-width:680px}
+    .content{max-width:1200px;margin:0 auto;padding:48px 48px 80px}
+    .part-banner{background:var(--prep-light);border:1px solid var(--prep-border);border-radius:var(--radius);padding:36px 40px;margin-bottom:56px;display:flex;align-items:center;gap:36px}
+    .banner-prep{font-size:3.5rem;font-weight:900;color:var(--prep);font-family:Georgia,serif;flex-shrink:0;min-width:80px}
+    .banner-body{flex:1}
+    .banner-en{font-size:1.15rem;font-weight:800;color:#9f1239;margin-bottom:6px}
+    .banner-ja{font-size:.95rem;color:var(--muted);margin-bottom:14px;line-height:1.7}
+    .banner-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .banner-chip{font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:100px;background:#fecdd3;color:#9f1239}
+    .core-vis{display:flex;align-items:center;gap:10px;flex-shrink:0}
+    .core-v{width:3px;height:40px;background:var(--prep);border-radius:2px}
+    .core-dot{width:14px;height:14px;border-radius:50%;background:var(--prep)}
+    .section{margin-bottom:64px}
+    .section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+    .gram-badge{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+    .section-title{font-size:1.55rem;font-weight:800}
+    .section-number{font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.1em}
+    .section-intro{color:var(--muted);font-size:1rem;margin-bottom:24px;margin-top:6px}
+    .clause-demo{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:20px;position:relative}
+    .cl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+    .cl{padding:12px 18px;border-radius:10px;font-size:.9rem;font-weight:600;opacity:0;transform:translateY(30px) scale(.82);transition:opacity .5s cubic-bezier(.34,1.56,.64,1),transform .5s cubic-bezier(.34,1.56,.64,1);text-align:center;line-height:1.4;cursor:default}
+    .cl.show{opacity:1;transform:translateY(0) scale(1)}
+    .cl:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+    .cl.sub{background:#dbeafe;color:#1e3a8a}
+    .cl.vrb{background:#dcfce7;color:#14532d}
+    .cl.obj{background:#f3e8ff;color:#6b21a8}
+    .cl.prc{background:var(--prep-light);color:#9f1239;border:2px solid var(--prep)}
+    .cl-lbl{font-size:.65rem;font-weight:800;letter-spacing:.08em;margin-top:4px;opacity:.7}
+    .cj{font-size:.95rem;font-weight:800;color:var(--prep);padding:8px 14px;border-radius:8px;background:var(--prep-light);border:2px solid var(--prep);opacity:0;transform:scale(.6);transition:opacity .35s ease,transform .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap}
+    .cj.show{opacity:1;transform:scale(1)}
+    .demo-sent{font-style:italic;color:var(--muted);font-size:1rem;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;text-align:center}
+    .demo-sent.show{opacity:1;transform:translateY(0)}
+    .replay-btn{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;border:1px solid var(--border);background:var(--bg);color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+    .replay-btn:hover{background:var(--white);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.12);transform:scale(1.06)}
+    @keyframes replaySpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .replay-btn.spinning{animation:replaySpin .4s cubic-bezier(.34,1.56,.64,1)}
+    .note-box{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--prep);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;font-size:.95rem;color:var(--muted);margin-bottom:20px;line-height:1.75}
+    .note-box.compare{border-left-color:#06b6d4}
+    .note-box.warn{border-left-color:#f59e0b}
+    .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px}
+    .card h4{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--prep);margin-bottom:10px}
+    .c-item{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;font-size:.85rem}
+    .c-phrase{font-weight:700;color:var(--prep);min-width:150px;flex-shrink:0}
+    .c-ja{color:var(--muted)}
+    .ex-table{width:100%;border-collapse:collapse;font-size:.96rem;margin-bottom:20px}
+    .ex-table thead th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--border)}
+    .ex-table tbody td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    .ex-table tbody tr:last-child td{border-bottom:none}
+    .ex-table .en{font-weight:600}
+    .ex-table .ja{color:var(--muted)}
+    .hl{color:var(--prep);font-weight:700}
+    .divider{height:1px;background:var(--border);margin:0 0 64px}
+    @media(max-width:700px){.page-hero{padding:32px 24px 28px}.content{padding:32px 24px 60px}.part-banner{flex-direction:column;gap:16px;padding:24px}.card-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><div class="logo-mark"></div><span>Animated English Grammar</span></a>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 23</span>
+      <span class="ch-badge">Chapter V &nbsp;·&nbsp; 前置詞</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">前置詞 <span>by</span></h1>
+    <p class="page-desc">「そば・経由」から広がる by の感覚。近接・受動態の行為者・手段・期限・差まで、by の使い方を整理する。</p>
+  </div>
+</div>
+<main class="content">
+
+  <div class="part-banner">
+    <div class="banner-prep">by</div>
+    <div class="banner-body">
+      <div class="banner-en">by の感覚：「そば・経由・通過」</div>
+      <div class="banner-ja">by の根っこは「すぐそばを通る・そこに位置する」感覚。近接（そばに）から、行為者（その人を経由して）・手段（〜を通じて）・期限（その時点を通過するまでに）・差（その分だけ隔たって）まで広がる。</div>
+      <div class="banner-chips">
+        <span class="banner-chip">近接・そば</span>
+        <span class="banner-chip">行為者（受動）</span>
+        <span class="banner-chip">手段・方法</span>
+        <span class="banner-chip">期限</span>
+        <span class="banner-chip">差・増減</span>
+      </div>
+    </div>
+    <div class="core-vis">
+      <div class="core-v"></div>
+      <div class="core-dot"></div>
+    </div>
+  </div>
+
+  <!-- 01 近接・そば -->
+  <section class="section" id="beside">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">近接・そば</span>
+      <h2 class="section-title">by で「〜のそばに・隣に」</h2>
+    </div>
+    <p class="section-intro">最も物理的な by は「すぐそば・脇」にある感覚。beside とほぼ同義で使えるが、by の方がより一般的。「通り過ぎる」という通過のイメージも持つ。</p>
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>She</div><div class="cl-lbl">主語</div></div>
+        <div class="cl vrb"><div>sat</div><div class="cl-lbl">動詞</div></div>
+        <div class="cj">by</div>
+        <div class="cl prc"><div>the fireplace</div><div class="cl-lbl">場所（そば）</div></div>
+      </div>
+      <div class="demo-sent">She sat by the fireplace and read quietly all evening.</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">He stood <span class="hl">by</span> the window.</td><td class="ja">窓のそばに立っていた。</td></tr>
+        <tr><td class="en">A path runs <span class="hl">by</span> the river.</td><td class="ja">川沿いに道が走っている。</td></tr>
+        <tr><td class="en">The car drove <span class="hl">by</span> without stopping.</td><td class="ja">車は止まらずに通り過ぎた。</td></tr>
+        <tr><td class="en">Come and sit <span class="hl">by</span> me.</td><td class="ja">私の隣に来て座って。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 02 行為者（受動態） -->
+  <section class="section" id="agent">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">行為者・受動態</span>
+      <h2 class="section-title">by で「〜によって（受動態の行為者）」</h2>
+    </div>
+    <p class="section-intro">受動態で欠かせない by。「その人を経由して行われた」という感覚で行為者を示す。「誰によって」「何によって」という原因・行為者の両方に使える。</p>
+    <div class="card-grid">
+      <div class="card">
+        <h4>人・組織が行為者</h4>
+        <div class="c-item"><span class="c-phrase">written by</span><span class="c-ja">〜によって書かれた</span></div>
+        <div class="c-item"><span class="c-phrase">designed by</span><span class="c-ja">〜によってデザインされた</span></div>
+        <div class="c-item"><span class="c-phrase">built by</span><span class="c-ja">〜によって建てられた</span></div>
+      </div>
+      <div class="card">
+        <h4>原因・力が行為者</h4>
+        <div class="c-item"><span class="c-phrase">caused by</span><span class="c-ja">〜によって引き起こされた</span></div>
+        <div class="c-item"><span class="c-phrase">damaged by</span><span class="c-ja">〜によって損傷された</span></div>
+        <div class="c-item"><span class="c-phrase">surprised by</span><span class="c-ja">〜に驚かされた</span></div>
+      </div>
+    </div>
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>The novel</div><div class="cl-lbl">主語</div></div>
+        <div class="cl vrb"><div>was written</div><div class="cl-lbl">受動態</div></div>
+        <div class="cj">by</div>
+        <div class="cl prc"><div>a teenager</div><div class="cl-lbl">行為者</div></div>
+      </div>
+      <div class="demo-sent">The novel was written by a teenager and became an international bestseller.</div>
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 03 手段・方法 -->
+  <section class="section" id="means">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">手段・方法</span>
+      <h2 class="section-title">by で「〜を使って・〜によって（手段・方法）」</h2>
+    </div>
+    <p class="section-intro"><strong>by + 名詞（無冠詞）</strong> で交通手段・通信手段・方法を示す。<em>by accident / by chance / by mistake</em> のような慣用表現も重要。with（具体的な道具）と比べ、by はより抽象的な「手段・経路」全般に使う。</p>
+    <div class="card-grid">
+      <div class="card">
+        <h4>交通・通信手段</h4>
+        <div class="c-item"><span class="c-phrase">by train / car / bus</span><span class="c-ja">電車/車/バスで</span></div>
+        <div class="c-item"><span class="c-phrase">by plane</span><span class="c-ja">飛行機で</span></div>
+        <div class="c-item"><span class="c-phrase">by email / phone</span><span class="c-ja">メール/電話で</span></div>
+        <div class="c-item"><span class="c-phrase">by hand</span><span class="c-ja">手で・手作りで</span></div>
+      </div>
+      <div class="card">
+        <h4>偶然・必然の慣用句</h4>
+        <div class="c-item"><span class="c-phrase">by accident</span><span class="c-ja">偶然に・うっかり</span></div>
+        <div class="c-item"><span class="c-phrase">by chance</span><span class="c-ja">偶然に</span></div>
+        <div class="c-item"><span class="c-phrase">by mistake</span><span class="c-ja">間違えて</span></div>
+        <div class="c-item"><span class="c-phrase">by design</span><span class="c-ja">意図的に</span></div>
+      </div>
+    </div>
+    <div class="clause-demo" id="demo3">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>She</div><div class="cl-lbl">主語</div></div>
+        <div class="cl vrb"><div>solved the puzzle</div><div class="cl-lbl">動詞句</div></div>
+        <div class="cl vrb"><div>entirely</div><div class="cl-lbl">副詞</div></div>
+        <div class="cj">by</div>
+        <div class="cl prc"><div>accident</div><div class="cl-lbl">方法</div></div>
+      </div>
+      <div class="demo-sent">She solved the puzzle entirely by accident while looking for something else.</div>
+    </div>
+    <div class="note-box compare">
+      <strong>by train vs on the train:</strong><br>
+      • <em>travel <strong>by</strong> train</em>（手段として電車を使う — 抽象的）<br>
+      • <em>I'm <strong>on</strong> the train right now</em>（今まさに電車の中にいる — 場所）
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 04 期限 -->
+  <section class="section" id="deadline">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">期限</span>
+      <h2 class="section-title">by で「〜までに（期限・締め切り）」</h2>
+    </div>
+    <p class="section-intro">「その時点を通過するまでに完了する」感覚の期限の by。until / till（その時点まで継続する）との区別が大切。by は「完了」、until は「継続」。</p>
+    <div class="card-grid">
+      <div class="card">
+        <h4>by — 期限・締め切り</h4>
+        <div class="c-item"><span class="c-phrase">by Friday</span><span class="c-ja">金曜日までに</span></div>
+        <div class="c-item"><span class="c-phrase">by 5 pm</span><span class="c-ja">午後5時までに</span></div>
+        <div class="c-item"><span class="c-phrase">by the end of the month</span><span class="c-ja">月末までに</span></div>
+        <div class="c-item"><span class="c-phrase">by now</span><span class="c-ja">今頃はもう</span></div>
+      </div>
+      <div class="card">
+        <h4>until — 継続・ずっと</h4>
+        <div class="c-item"><span class="c-phrase">wait until Friday</span><span class="c-ja">金曜日まで待つ</span></div>
+        <div class="c-item"><span class="c-phrase">work until midnight</span><span class="c-ja">真夜中まで働く</span></div>
+        <div class="c-item"><span class="c-phrase">sleep until noon</span><span class="c-ja">正午まで寝る</span></div>
+      </div>
+    </div>
+    <div class="clause-demo" id="demo4">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>Please submit your report</div><div class="cl-lbl">動詞句</div></div>
+        <div class="cj">by</div>
+        <div class="cl prc"><div>this Friday</div><div class="cl-lbl">期限</div></div>
+      </div>
+      <div class="demo-sent">Please submit your report by this Friday without fail.</div>
+    </div>
+    <div class="note-box warn">
+      <strong>by vs until の使い分け:</strong><br>
+      • <em>Finish it <strong>by</strong> noon.</em>（正午までに仕上げる → 完了の期限）<br>
+      • <em>She worked <strong>until</strong> noon.</em>（正午まで働き続けた → 継続の終点）
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 05 差・増減 -->
+  <section class="section" id="margin">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="gram-badge">差・増減</span>
+      <h2 class="section-title">by で「〜の差で・〜だけ（増減・比較）」</h2>
+    </div>
+    <p class="section-intro">「その分だけ隔たっている」感覚から、差・増減・比較の by。試合での点差・数値の増減・寸法の差などに使う。数字を伴うことが多い。</p>
+    <div class="card-grid">
+      <div class="card">
+        <h4>差・マージン</h4>
+        <div class="c-item"><span class="c-phrase">win by 3 points</span><span class="c-ja">3点差で勝つ</span></div>
+        <div class="c-item"><span class="c-phrase">lose by a goal</span><span class="c-ja">1点差で負ける</span></div>
+        <div class="c-item"><span class="c-phrase">taller by 5 cm</span><span class="c-ja">5センチ背が高い</span></div>
+      </div>
+      <div class="card">
+        <h4>増減・変化の幅</h4>
+        <div class="c-item"><span class="c-phrase">increase by 20%</span><span class="c-ja">20%増加する</span></div>
+        <div class="c-item"><span class="c-phrase">reduce by half</span><span class="c-ja">半分に減らす</span></div>
+        <div class="c-item"><span class="c-phrase">dropped by $10</span><span class="c-ja">10ドル下がった</span></div>
+      </div>
+    </div>
+    <div class="clause-demo" id="demo5">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>The temperature</div><div class="cl-lbl">主語</div></div>
+        <div class="cl vrb"><div>dropped</div><div class="cl-lbl">動詞</div></div>
+        <div class="cj">by</div>
+        <div class="cl prc"><div>five degrees</div><div class="cl-lbl">変化の幅</div></div>
+      </div>
+      <div class="demo-sent">The temperature dropped by five degrees overnight.</div>
+    </div>
+    <div class="note-box">
+      <strong>by の慣用句まとめ:</strong><br>
+      <em>by the way</em>（ところで）・<em>by far</em>（断然・はるかに）・<em>one by one</em>（一つずつ）・<em>step by step</em>（段階的に）・<em>side by side</em>（並んで）
+    </div>
+  </section>
+
+</main>
+<script>
+  function getAnimatables(d){return Array.from(d.querySelectorAll(".cl,.cj,.demo-sent"))}
+  function resetDemo(d){getAnimatables(d).forEach(e=>e.classList.remove("show"))}
+  function playDemo(d){resetDemo(d);getAnimatables(d).forEach((e,i)=>setTimeout(()=>e.classList.add("show"),i*140+80))}
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){playDemo(e.target);obs.unobserve(e.target)}})},{threshold:.3});
+  document.querySelectorAll(".clause-demo").forEach(d=>obs.observe(d));
+  document.querySelectorAll(".replay-btn").forEach(b=>{b.addEventListener("click",()=>{b.classList.remove("spinning");void b.offsetWidth;b.classList.add("spinning");b.addEventListener("animationend",()=>b.classList.remove("spinning"),{once:true});playDemo(b.closest(".clause-demo"))})});
+</script>
+</body>
+</html>

@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>副詞 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg: #f9f7f2;
+      --white: #fff;
+      --border: #e5e0d5;
+      --text: #1c1c1c;
+      --muted: #6b6460;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --green: #22c55e;
+      --purple: #a855f7;
+      --red: #ef4444;
+      --teal: #14b8a6;
+      --accent: #1e3a8a;
+      --cyan: #0891b2;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    .nav {
+      height: 56px; background: var(--white); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 32px; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 0.92rem;
+      text-decoration: none; color: var(--text);
+    }
+    .logo-mark {
+      width: 26px; height: 26px;
+      background: linear-gradient(135deg, #1e3a8a, #7c3aed);
+      border-radius: 6px; flex-shrink: 0;
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30,58,138,0); }
+      50% { transform: scale(1.12); box-shadow: 0 0 0 6px rgba(124,58,237,0); }
+    }
+
+    /* ── Page Hero ── */
+    .page-hero {
+      background: var(--white); border-bottom: 1px solid var(--border); padding: 48px 48px 40px;
+    }
+    .page-hero-inner { max-width: 1200px; margin: 0 auto; }
+    .unit-meta-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .unit-num-badge {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 2px 9px; border-radius: 4px; background: var(--accent); color: white;
+    }
+    .ch-badge {
+      font-size: 0.68rem; font-weight: 700; padding: 2px 9px; border-radius: 4px;
+      background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+    }
+    .back-link a {
+      font-size: 0.85rem; color: var(--muted); text-decoration: none; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 4px; margin-bottom: 16px; transition: color 0.2s;
+    }
+    .back-link a:hover { color: var(--text); }
+    .page-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; margin-bottom: 8px; }
+    .page-title span { color: var(--cyan); }
+    .page-desc { color: var(--muted); font-size: 1rem; max-width: 680px; }
+
+    /* ── Content ── */
+    .content { max-width: 1200px; margin: 0 auto; padding: 48px 48px 80px; }
+
+    /* ── Section ── */
+    .section { margin-bottom: 64px; }
+    .section-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+    .gram-badge {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px; background: var(--bg);
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .section-title { font-size: 1.55rem; font-weight: 800; }
+    .section-number { font-size: 0.75rem; font-weight: 700; color: var(--muted); letter-spacing: 0.1em; }
+    .section-intro { color: var(--muted); font-size: 1rem; margin-bottom: 24px; margin-top: 6px; }
+
+    /* ── Clause Demo ── */
+    .clause-demo {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 36px 28px 28px; display: flex; flex-direction: column; align-items: center;
+      gap: 20px; margin-bottom: 20px; position: relative;
+    }
+    .cl-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .cl {
+      padding: 12px 18px; border-radius: 10px; font-size: 0.9rem; font-weight: 600;
+      opacity: 0; transform: translateY(30px) scale(0.82);
+      transition: opacity 0.5s cubic-bezier(0.34,1.56,0.64,1), transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+      text-align: center; line-height: 1.4; cursor: default;
+    }
+    .cl.show { opacity: 1; transform: translateY(0) scale(1); }
+    .cl:hover { transform: scale(1.04) translateY(-2px); box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+    .cl.main  { background: #dbeafe; color: #1e3a8a; }
+    .cl.verb  { background: #dcfce7; color: #14532d; }
+    .cl.adv   { background: #cffafe; color: #164e63; border: 2px solid var(--cyan); }
+    .cl.pos   { background: #f0f9ff; color: #075985; }
+    .cl-lbl { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em; margin-top: 4px; opacity: 0.7; }
+
+    .cj {
+      font-size: 0.95rem; font-weight: 800; color: var(--cyan);
+      padding: 8px 14px; border-radius: 8px; background: #cffafe; border: 2px solid var(--cyan);
+      opacity: 0; transform: scale(0.6);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1); white-space: nowrap;
+    }
+    .cj.show { opacity: 1; transform: scale(1); }
+
+    .cl-arrow {
+      font-size: 1.4rem; color: var(--muted);
+      opacity: 0; transform: translateX(-8px);
+      transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .cl-arrow.show { opacity: 1; transform: translateX(0); }
+
+    .demo-sent {
+      font-style: italic; color: var(--muted); font-size: 1rem;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease; text-align: center;
+    }
+    .demo-sent.show { opacity: 1; transform: translateY(0); }
+
+    .replay-btn {
+      position: absolute; top: 14px; right: 14px;
+      font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 100px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--muted);
+      cursor: pointer; transition: background 0.2s, color 0.2s, transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .replay-btn:hover { background: var(--white); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.12); transform: scale(1.06); }
+    .replay-btn:active { transform: scale(0.94); }
+    @keyframes replaySpin {
+      from { transform: rotate(0deg) scale(0.9); }
+      to   { transform: rotate(360deg) scale(1); }
+    }
+    .replay-btn.spinning { animation: replaySpin 0.4s cubic-bezier(0.34,1.56,0.64,1); }
+
+    /* ── Formula box ── */
+    .formula-box {
+      background: #ecfeff; border: 1px solid #a5f3fc; border-radius: var(--radius);
+      padding: 20px 24px; margin-bottom: 20px;
+    }
+    .formula-label {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 10px;
+    }
+    .formula-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .formula-row:last-child { margin-bottom: 0; }
+    .f-block { padding: 6px 14px; border-radius: 8px; font-size: 0.88rem; font-weight: 700; }
+    .f-s   { background: #dbeafe; color: #1e3a8a; }
+    .f-v   { background: #dcfce7; color: #14532d; }
+    .f-adv { background: #cffafe; color: #164e63; border: 2px solid var(--cyan); }
+    .f-op  { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+
+    /* ── Note box ── */
+    .note-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 16px 20px; font-size: 0.95rem; color: var(--muted); margin-bottom: 20px; line-height: 1.75;
+    }
+    .note-box.amber  { border-left-color: #d97706; }
+    .note-box.green  { border-left-color: var(--green); }
+    .note-box.purple { border-left-color: var(--purple); }
+    .note-box.red    { border-left-color: var(--red); }
+    .note-box.teal   { border-left-color: var(--teal); }
+
+    /* ── Category grid (Section 01) ── */
+    .cat-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px;
+    }
+    .cat-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px;
+      padding: 16px; border-top: 3px solid transparent;
+    }
+    .cat-card.manner { border-top-color: var(--cyan); }
+    .cat-card.freq   { border-top-color: var(--green); }
+    .cat-card.degree { border-top-color: #d97706; }
+    .cat-card.place  { border-top-color: var(--purple); }
+    .cat-card.time   { border-top-color: var(--orange); }
+    .cat-card.sent   { border-top-color: var(--red); }
+    .cat-card h4 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .cat-card h4.manner { color: var(--cyan); }
+    .cat-card h4.freq   { color: #16a34a; }
+    .cat-card h4.degree { color: #d97706; }
+    .cat-card h4.place  { color: #9333ea; }
+    .cat-card h4.time   { color: var(--orange); }
+    .cat-card h4.sent   { color: var(--red); }
+    .cat-card .cat-q    { font-size: 0.75rem; color: var(--muted); margin-bottom: 8px; }
+    .cat-card .cat-ex   { font-size: 0.85rem; color: var(--text); font-weight: 600; }
+    .cat-card .cat-words { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── Position grid (Section 02) ── */
+    .pos-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 20px;
+    }
+    .pos-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+    }
+    .pos-card h4 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 8px;
+    }
+    .pos-rule { font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; line-height: 1.6; }
+    .pos-ex { font-size: 0.85rem; font-style: italic; color: var(--text); font-weight: 600; }
+    .pos-types { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+
+    /* ── Frequency spectrum (Section 03) ── */
+    .freq-spectrum {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px 28px; margin-bottom: 20px;
+    }
+    .freq-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .freq-row:last-child { margin-bottom: 0; }
+    .freq-word { width: 96px; font-weight: 700; font-size: 0.88rem; color: var(--text); flex-shrink: 0; }
+    .freq-pct  { width: 40px; font-size: 0.75rem; color: var(--muted); flex-shrink: 0; text-align: right; }
+    .freq-bar-wrap { flex: 1; background: #e5e7eb; border-radius: 100px; height: 8px; }
+    .freq-bar { height: 8px; border-radius: 100px; background: linear-gradient(to right, #0891b2, #38bdf8); }
+
+    /* ── Degree scale (Section 04) ── */
+    .deg-scale {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px 28px; margin-bottom: 20px;
+    }
+    .deg-bar-track {
+      display: flex; align-items: flex-end; gap: 6px; justify-content: center; margin-bottom: 16px;
+    }
+    .deg-col { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .deg-block { width: 44px; border-radius: 6px 6px 0 0; }
+    .deg-label { font-size: 0.72rem; color: var(--muted); font-weight: 600; text-align: center; }
+    .deg-caption { text-align: center; font-size: 0.85rem; color: var(--muted); font-style: italic; }
+
+    .deg-note-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
+    }
+    .deg-note-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+    }
+    .deg-note-card h4 { font-size: 0.78rem; font-weight: 800; margin-bottom: 8px; }
+    .deg-note-card .ex { font-size: 0.85rem; color: var(--muted); font-style: italic; line-height: 1.75; }
+
+    /* ── Formation grid (Section 05) ── */
+    .form-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;
+    }
+    .form-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+    }
+    .form-card h4 {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .form-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; font-size: 0.85rem; }
+    .form-base { color: var(--text); font-weight: 600; }
+    .form-arr  { color: var(--muted); }
+    .form-adv  { color: var(--cyan); font-weight: 700; }
+
+    /* ── Same-form grid (Section 05) ── */
+    .same-form-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;
+    }
+    .sf-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px;
+    }
+    .sf-word  { font-size: 1rem; font-weight: 800; color: var(--cyan); margin-bottom: 4px; }
+    .sf-lines { font-size: 0.8rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── Pair cards (Section 06) ── */
+    .pair-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;
+    }
+    .pair-card {
+      background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 18px;
+    }
+    .pair-header { display: flex; gap: 8px; align-items: baseline; margin-bottom: 12px; }
+    .pair-word-a { font-size: 1rem; font-weight: 800; color: var(--text); }
+    .pair-vs     { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
+    .pair-word-b { font-size: 1rem; font-weight: 800; color: var(--cyan); }
+    .pair-row    { margin-bottom: 8px; }
+    .pair-row .meaning { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+    .pair-row .ex-line { font-size: 0.85rem; color: var(--muted); font-style: italic; }
+    .pair-row .hl  { color: var(--cyan); font-weight: 700; font-style: normal; }
+    .pair-row .hln { color: var(--text); font-weight: 700; font-style: normal; }
+
+    /* ── Examples Table ── */
+    .ex-table { width: 100%; border-collapse: collapse; font-size: 0.96rem; }
+    .ex-table thead th {
+      text-align: left; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); padding: 8px 12px; border-bottom: 2px solid var(--border);
+    }
+    .ex-table tbody td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .ex-table tbody tr:last-child td { border-bottom: none; }
+    .ex-table .en { font-weight: 600; }
+    .ex-table .ja { color: var(--muted); }
+    .hl-c { color: var(--cyan); font-weight: 700; }
+    .hl-g { color: #16a34a; font-weight: 700; }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--border); margin: 0 0 64px; }
+
+    @media (max-width: 600px) {
+      .page-hero { padding: 32px 24px 28px; }
+      .content   { padding: 32px 24px 60px; }
+      .cat-grid  { grid-template-columns: 1fr 1fr; }
+      .pos-grid  { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .same-form-grid { grid-template-columns: 1fr 1fr; }
+      .pair-grid { grid-template-columns: 1fr; }
+      .deg-note-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    <span>Animated English Grammar</span>
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 16</span>
+      <span class="ch-badge">Chapter III &nbsp;·&nbsp; 名詞の修飾と接続</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">副詞 <span>Adverbs</span></h1>
+    <p class="page-desc">副詞の6分類・位置ルール・頻度副詞・程度副詞・-ly 形成・紛らわしいペアまで、副詞のしくみを整理する。</p>
+  </div>
+</div>
+
+<main class="content">
+
+  <!-- ── 01: 副詞の役割と分類 ── -->
+  <section class="section" id="categories">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">分類</span>
+      <h2 class="section-title">副詞の役割と6分類</h2>
+    </div>
+    <p class="section-intro">副詞は動詞・形容詞・他の副詞、あるいは文全体を修飾し、<strong>How? / How often? / How much? / Where? / When?</strong> などの情報を加える。機能によって6つに分類できる。</p>
+
+    <div class="cat-grid">
+      <div class="cat-card manner">
+        <h4 class="manner">様態 Manner</h4>
+        <div class="cat-q">Q: How?（どのように）</div>
+        <div class="cat-ex">She speaks <strong>clearly</strong>.</div>
+        <div class="cat-words">carefully / quickly / well / loudly</div>
+      </div>
+      <div class="cat-card freq">
+        <h4 class="freq">頻度 Frequency</h4>
+        <div class="cat-q">Q: How often?（どのくらいの頻度で）</div>
+        <div class="cat-ex">He <strong>always</strong> arrives early.</div>
+        <div class="cat-words">always / usually / often / rarely</div>
+      </div>
+      <div class="cat-card degree">
+        <h4 class="degree">程度 Degree</h4>
+        <div class="cat-q">Q: How much?（どの程度）</div>
+        <div class="cat-ex">That is <strong>quite</strong> surprising.</div>
+        <div class="cat-words">very / quite / rather / too / enough</div>
+      </div>
+      <div class="cat-card place">
+        <h4 class="place">場所 Place</h4>
+        <div class="cat-q">Q: Where?（どこで）</div>
+        <div class="cat-ex">Wait <strong>here</strong>.</div>
+        <div class="cat-words">here / there / outside / nearby / abroad</div>
+      </div>
+      <div class="cat-card time">
+        <h4 class="time">時 Time</h4>
+        <div class="cat-q">Q: When?（いつ）</div>
+        <div class="cat-ex">Call me <strong>tomorrow</strong>.</div>
+        <div class="cat-words">now / then / soon / yesterday / recently</div>
+      </div>
+      <div class="cat-card sent">
+        <h4 class="sent">文修飾 Sentence</h4>
+        <div class="cat-q">Q: 話し手の態度・評価</div>
+        <div class="cat-ex"><strong>Fortunately</strong>, no one was hurt.</div>
+        <div class="cat-words">fortunately / obviously / frankly / sadly</div>
+      </div>
+    </div>
+
+    <div class="clause-demo" id="demo-role">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>The students</div>
+          <div class="cl-lbl">主語</div>
+        </div>
+        <div class="cl verb">
+          <div>listened</div>
+          <div class="cl-lbl">動詞</div>
+        </div>
+        <div class="cl adv">
+          <div>attentively</div>
+          <div class="cl-lbl">様態副詞</div>
+        </div>
+      </div>
+      <div class="demo-sent">The students listened attentively to the lecture.</div>
+    </div>
+
+    <div class="note-box">
+      副詞は形容詞と違い、<strong>名詞を直接修飾しない</strong>。<em>a very good book</em>（✓）に対し <em>a very book</em>（✗）は不可。<em>friendly</em> は形容詞（<em>a friendly person</em>）であり副詞ではないため、<em>She smiled friendly</em>（✗）とは言えない。<em>She smiled in a friendly way</em>（✓）と言い換える。
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 02: 副詞の位置ルール ── -->
+  <section class="section" id="position">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">位置</span>
+      <h2 class="section-title">副詞の位置ルール</h2>
+    </div>
+    <p class="section-intro">副詞は種類によって「置ける場所」が決まっている。文末・動詞直前・文頭の3ポジションを整理する。</p>
+
+    <div class="pos-grid">
+      <div class="pos-card">
+        <h4>End Position（文末）</h4>
+        <div class="pos-rule">様態・場所・時の副詞の基本位置。目的語がある場合は目的語の後に置く。</div>
+        <div class="pos-ex">She presented the report clearly.</div>
+        <div class="pos-types">様態 / 場所 / 時</div>
+      </div>
+      <div class="pos-card">
+        <h4>Mid Position（動詞直前）</h4>
+        <div class="pos-rule">頻度副詞の定位置。be 動詞・助動詞の直後、一般動詞の直前に置く。</div>
+        <div class="pos-ex">He has <em>always</em> kept his word.</div>
+        <div class="pos-types">頻度 / always・often・never など</div>
+      </div>
+      <div class="pos-card">
+        <h4>Front Position（文頭）</h4>
+        <div class="pos-rule">時・場所・文修飾副詞は文頭に置けて強調になる。コンマを伴うことが多い。</div>
+        <div class="pos-ex"><em>Fortunately,</em> the test results were negative.</div>
+        <div class="pos-types">文修飾 / 時 / 場所（強調時）</div>
+      </div>
+    </div>
+
+    <div class="clause-demo" id="demo-pos">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>She</div>
+          <div class="cl-lbl">主語</div>
+        </div>
+        <div class="cl adv">
+          <div>rarely</div>
+          <div class="cl-lbl">頻度副詞（Mid）</div>
+        </div>
+        <div class="cl verb">
+          <div>makes</div>
+          <div class="cl-lbl">一般動詞</div>
+        </div>
+        <div class="cl pos">
+          <div>mistakes</div>
+          <div class="cl-lbl">目的語</div>
+        </div>
+      </div>
+      <div class="demo-sent">She rarely makes mistakes under pressure.</div>
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label">Position Rule — 頻度副詞の挿入位置</div>
+      <div class="formula-row">
+        <span class="f-block f-s">S</span>
+        <span class="f-op">+</span>
+        <span class="f-block f-adv">freq. adv</span>
+        <span class="f-op">+</span>
+        <span class="f-block f-v">一般動詞</span>
+      </div>
+      <div class="formula-row">
+        <span class="f-block f-s">S</span>
+        <span class="f-op">+</span>
+        <span class="f-block f-v">be / aux</span>
+        <span class="f-op">+</span>
+        <span class="f-block f-adv">freq. adv</span>
+      </div>
+    </div>
+
+    <div class="note-box teal">
+      <strong>副詞を動詞と目的語の間に入れないこと:</strong><br>
+      ✗ <em>She reads often books.</em><br>
+      ✓ <em>She often reads books.</em><br>
+      ✓ <em>She reads books often.</em><br>
+      日本語の語順につられて動詞と目的語の間に挿入する誤りが頻出する。
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 03: 頻度副詞 ── -->
+  <section class="section" id="frequency">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">頻度副詞</span>
+      <h2 class="section-title">頻度副詞のスペクトルと位置</h2>
+    </div>
+    <p class="section-intro">頻度副詞は <strong>always</strong>（100%）から <strong>never</strong>（0%）まで連続的に分布する。それぞれの意味合いと文中での位置を確認する。</p>
+
+    <div class="freq-spectrum">
+      <div class="freq-row">
+        <div class="freq-word">always</div>
+        <div class="freq-pct">100%</div>
+        <div class="freq-bar-wrap"><div class="freq-bar" style="width:100%"></div></div>
+      </div>
+      <div class="freq-row">
+        <div class="freq-word">usually</div>
+        <div class="freq-pct">80%</div>
+        <div class="freq-bar-wrap"><div class="freq-bar" style="width:80%"></div></div>
+      </div>
+      <div class="freq-row">
+        <div class="freq-word">often</div>
+        <div class="freq-pct">60%</div>
+        <div class="freq-bar-wrap"><div class="freq-bar" style="width:60%"></div></div>
+      </div>
+      <div class="freq-row">
+        <div class="freq-word">sometimes</div>
+        <div class="freq-pct">40%</div>
+        <div class="freq-bar-wrap"><div class="freq-bar" style="width:40%"></div></div>
+      </div>
+      <div class="freq-row">
+        <div class="freq-word">rarely</div>
+        <div class="freq-pct">20%</div>
+        <div class="freq-bar-wrap"><div class="freq-bar" style="width:20%"></div></div>
+      </div>
+      <div class="freq-row">
+        <div class="freq-word">never</div>
+        <div class="freq-pct">0%</div>
+        <div class="freq-bar-wrap"><div class="freq-bar" style="width:2%"></div></div>
+      </div>
+    </div>
+
+    <div class="clause-demo" id="demo-freq">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl main">
+          <div>My father</div>
+          <div class="cl-lbl">主語</div>
+        </div>
+        <div class="cl adv">
+          <div>often</div>
+          <div class="cl-lbl">頻度副詞</div>
+        </div>
+        <div class="cl verb">
+          <div>cooks dinner</div>
+          <div class="cl-lbl">動詞句</div>
+        </div>
+      </div>
+      <div class="demo-sent">My father often cooks dinner on weekends.</div>
+    </div>
+
+    <table class="ex-table">
+      <thead>
+        <tr><th>例文</th><th>和訳</th><th>位置パターン</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="en">She is <span class="hl-c">always</span> on time.</td>
+          <td class="ja">彼女はいつも時間通りだ。</td>
+          <td style="color:var(--muted);font-size:0.85rem">be 動詞の直後</td>
+        </tr>
+        <tr>
+          <td class="en">I <span class="hl-c">usually</span> walk to the station.</td>
+          <td class="ja">普段は駅まで歩く。</td>
+          <td style="color:var(--muted);font-size:0.85rem">一般動詞の直前</td>
+        </tr>
+        <tr>
+          <td class="en">He has <span class="hl-c">never</span> visited Tokyo.</td>
+          <td class="ja">彼は東京に来たことがない。</td>
+          <td style="color:var(--muted);font-size:0.85rem">助動詞の直後</td>
+        </tr>
+        <tr>
+          <td class="en"><span class="hl-c">Sometimes</span> I forget where I put my keys.</td>
+          <td class="ja">鍵をどこに置いたか忘れることがある。</td>
+          <td style="color:var(--muted);font-size:0.85rem">文頭（強調）</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note-box green">
+      <strong>rarely / seldom / hardly ever — 否定的意味を持つ頻度副詞:</strong><br>
+      これらは意味に否定のニュアンスを内包するため、文中でさらに <em>not</em> を加えると二重否定になる。<br>
+      ✗ <em>She rarely doesn't finish her work.</em>（二重否定で意味が逆転）<br>
+      ✓ <em>She rarely finishes her work on time.</em>
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 04: 程度副詞の使い分け ── -->
+  <section class="section" id="degree">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">程度副詞</span>
+      <h2 class="section-title">程度副詞の使い分け</h2>
+    </div>
+    <p class="section-intro">程度副詞は形容詞・副詞の直前に置いてその強さを調整する。<strong>very</strong> が最も汎用的だが、文脈によって選択が変わる。<strong>too</strong> と <strong>enough</strong> は特別なルールを持つ。</p>
+
+    <div class="deg-scale">
+      <div class="deg-bar-track">
+        <div class="deg-col">
+          <div class="deg-block" style="height:80px;background:linear-gradient(to top,#0e7490,#22d3ee)"></div>
+          <div class="deg-label">extremely</div>
+        </div>
+        <div class="deg-col">
+          <div class="deg-block" style="height:68px;background:linear-gradient(to top,#0891b2,#38bdf8)"></div>
+          <div class="deg-label">very</div>
+        </div>
+        <div class="deg-col">
+          <div class="deg-block" style="height:56px;background:linear-gradient(to top,#0891b2,#7dd3fc)"></div>
+          <div class="deg-label">quite</div>
+        </div>
+        <div class="deg-col">
+          <div class="deg-block" style="height:44px;background:linear-gradient(to top,#38bdf8,#bae6fd)"></div>
+          <div class="deg-label">rather</div>
+        </div>
+        <div class="deg-col">
+          <div class="deg-block" style="height:44px;background:linear-gradient(to top,#38bdf8,#bae6fd)"></div>
+          <div class="deg-label">fairly</div>
+        </div>
+        <div class="deg-col">
+          <div class="deg-block" style="height:30px;background:linear-gradient(to top,#bae6fd,#e0f2fe)"></div>
+          <div class="deg-label">a little</div>
+        </div>
+        <div class="deg-col">
+          <div class="deg-block" style="height:16px;background:#e0f2fe"></div>
+          <div class="deg-label">barely</div>
+        </div>
+      </div>
+      <div class="deg-caption">Strong → Weak（程度副詞のスケール）</div>
+    </div>
+
+    <div class="deg-note-grid">
+      <div class="deg-note-card">
+        <h4 style="color:var(--red)">too — 否定的ニュアンス</h4>
+        <div class="ex">
+          The coffee is <strong>too</strong> hot to drink.<br>
+          → 飲めないほど熱い（問題あり）<br><br>
+          <strong>too + adj + to-V</strong> のパターンが最も頻出。<br>
+          It's <strong>too</strong> cold <em>for swimming</em>.
+        </div>
+      </div>
+      <div class="deg-note-card">
+        <h4 style="color:#16a34a">enough — 形容詞・副詞の後置</h4>
+        <div class="ex">
+          She is confident <strong>enough</strong> to lead the team.<br>
+          → リードするのに十分な自信<br><br>
+          <strong>adj / adv + enough + to-V</strong> の語順を守る。<br>
+          He runs fast <strong>enough</strong> to win.
+        </div>
+      </div>
+      <div class="deg-note-card">
+        <h4 style="color:#b45309">quite vs rather</h4>
+        <div class="ex">
+          <strong>quite</strong> — 比較的ニュートラル<br>
+          The film was <strong>quite</strong> good. (まあよかった)<br><br>
+          <strong>rather</strong> — やや否定的・驚きを含む<br>
+          The exam was <strong>rather</strong> difficult. (かなり大変だった)
+        </div>
+      </div>
+      <div class="deg-note-card">
+        <h4 style="color:#9333ea">very vs much</h4>
+        <div class="ex">
+          <strong>very</strong> + 原級形容詞・副詞<br>
+          She is <strong>very</strong> talented. ✓<br><br>
+          <strong>much</strong> + 比較級・過去分詞<br>
+          He is <strong>much</strong> taller than me. ✓<br>
+          I was <strong>much</strong> surprised. ✓
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box amber">
+      <strong>very は原級のみ、much は比較級・過去分詞に:</strong><br>
+      ✓ <em>very fast</em>（形容詞の原級）&ensp;✗ <em>very faster</em><br>
+      ✓ <em>much faster</em>（比較級）&ensp;✓ <em>much surprised</em>（過去分詞）<br>
+      感情を表す過去分詞（surprised / pleased / disappointed）には <em>very</em> よりも <em>very much</em> や <em>deeply</em> が自然な場合が多い。
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 05: -lyの形成と同形副詞 ── -->
+  <section class="section" id="formation">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="gram-badge">語形成</span>
+      <h2 class="section-title">-ly による副詞の形成と同形副詞</h2>
+    </div>
+    <p class="section-intro">多くの副詞は形容詞に <strong>-ly</strong> を付けて作る。語尾によってスペルが変わるルールがある。また <strong>-ly なしで形容詞と同じ形をとる副詞</strong>（flat adverbs）も重要。</p>
+
+    <div class="form-grid">
+      <div class="form-card">
+        <h4>基本 + -ly</h4>
+        <div class="form-item"><span class="form-base">quick</span><span class="form-arr">→</span><span class="form-adv">quickly</span></div>
+        <div class="form-item"><span class="form-base">slow</span><span class="form-arr">→</span><span class="form-adv">slowly</span></div>
+        <div class="form-item"><span class="form-base">bright</span><span class="form-arr">→</span><span class="form-adv">brightly</span></div>
+        <div class="form-item"><span class="form-base">clear</span><span class="form-arr">→</span><span class="form-adv">clearly</span></div>
+        <div class="form-item"><span class="form-base">soft</span><span class="form-arr">→</span><span class="form-adv">softly</span></div>
+      </div>
+      <div class="form-card">
+        <h4>-y → -ily</h4>
+        <div class="form-item"><span class="form-base">happy</span><span class="form-arr">→</span><span class="form-adv">happily</span></div>
+        <div class="form-item"><span class="form-base">easy</span><span class="form-arr">→</span><span class="form-adv">easily</span></div>
+        <div class="form-item"><span class="form-base">heavy</span><span class="form-arr">→</span><span class="form-adv">heavily</span></div>
+        <div class="form-item"><span class="form-base">angry</span><span class="form-arr">→</span><span class="form-adv">angrily</span></div>
+        <div class="form-item"><span class="form-base">noisy</span><span class="form-arr">→</span><span class="form-adv">noisily</span></div>
+      </div>
+      <div class="form-card">
+        <h4>-le → -ly（e を除いて）</h4>
+        <div class="form-item"><span class="form-base">gentle</span><span class="form-arr">→</span><span class="form-adv">gently</span></div>
+        <div class="form-item"><span class="form-base">simple</span><span class="form-arr">→</span><span class="form-adv">simply</span></div>
+        <div class="form-item"><span class="form-base">possible</span><span class="form-arr">→</span><span class="form-adv">possibly</span></div>
+        <div class="form-item"><span class="form-base">comfortable</span><span class="form-arr">→</span><span class="form-adv">comfortably</span></div>
+        <div class="form-item"><span class="form-base">able</span><span class="form-arr">→</span><span class="form-adv">ably</span></div>
+      </div>
+      <div class="form-card">
+        <h4>-ic → -ically</h4>
+        <div class="form-item"><span class="form-base">basic</span><span class="form-arr">→</span><span class="form-adv">basically</span></div>
+        <div class="form-item"><span class="form-base">dramatic</span><span class="form-arr">→</span><span class="form-adv">dramatically</span></div>
+        <div class="form-item"><span class="form-base">economic</span><span class="form-arr">→</span><span class="form-adv">economically</span></div>
+        <div class="form-item"><span class="form-base">scientific</span><span class="form-arr">→</span><span class="form-adv">scientifically</span></div>
+        <div class="form-item"><span class="form-base">automatic</span><span class="form-arr">→</span><span class="form-adv">automatically</span></div>
+      </div>
+    </div>
+
+    <p style="font-size:0.88rem;font-weight:700;color:var(--muted);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px;">形容詞と同形の副詞（Flat Adverbs）</p>
+    <div class="same-form-grid">
+      <div class="sf-card">
+        <div class="sf-word">fast</div>
+        <div class="sf-lines">He drives <strong>fast</strong>. (副詞)<br><em>fastly</em> は誤り</div>
+      </div>
+      <div class="sf-card">
+        <div class="sf-word">hard</div>
+        <div class="sf-lines">Work <strong>hard</strong>. (副詞)<br><em>hardly</em> は別の意味</div>
+      </div>
+      <div class="sf-card">
+        <div class="sf-word">late</div>
+        <div class="sf-lines">She arrived <strong>late</strong>. (副詞)<br><em>lately</em> は別の意味</div>
+      </div>
+      <div class="sf-card">
+        <div class="sf-word">early</div>
+        <div class="sf-lines">Get up <strong>early</strong>. (副詞)<br><em>earlily</em> は誤り</div>
+      </div>
+      <div class="sf-card">
+        <div class="sf-word">high</div>
+        <div class="sf-lines">Jump <strong>high</strong>. (副詞)<br><em>highly</em> は別の意味</div>
+      </div>
+      <div class="sf-card">
+        <div class="sf-word">near</div>
+        <div class="sf-lines">Come <strong>near</strong>. (副詞)<br><em>nearly</em> は別の意味</div>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- ── 06: 紛らわしいペア ── -->
+  <section class="section" id="pairs">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <span class="gram-badge">紛らわしいペア</span>
+      <h2 class="section-title">-ly あり／なしで意味が変わるペア</h2>
+    </div>
+    <p class="section-intro">同じ語幹から生まれた形容詞・副詞と -ly 副詞では意味が大きく異なるケースがある。誤用が多いペアを比較して整理する。</p>
+
+    <div class="pair-grid">
+      <div class="pair-card">
+        <div class="pair-header">
+          <span class="pair-word-a">hard</span>
+          <span class="pair-vs">vs</span>
+          <span class="pair-word-b">hardly</span>
+        </div>
+        <div class="pair-row">
+          <div class="meaning">hard（副詞）— 一生懸命・強く</div>
+          <div class="ex-line">She studied <span class="hln">hard</span> for the final exam.</div>
+        </div>
+        <div class="pair-row">
+          <div class="meaning">hardly — ほとんど〜ない</div>
+          <div class="ex-line">I can <span class="hl">hardly</span> hear you in this noise.</div>
+        </div>
+      </div>
+      <div class="pair-card">
+        <div class="pair-header">
+          <span class="pair-word-a">late</span>
+          <span class="pair-vs">vs</span>
+          <span class="pair-word-b">lately</span>
+        </div>
+        <div class="pair-row">
+          <div class="meaning">late（副詞）— 遅く・遅れて</div>
+          <div class="ex-line">The flight arrived <span class="hln">late</span> due to the storm.</div>
+        </div>
+        <div class="pair-row">
+          <div class="meaning">lately — 最近・近頃</div>
+          <div class="ex-line">Have you been sleeping well <span class="hl">lately</span>?</div>
+        </div>
+      </div>
+      <div class="pair-card">
+        <div class="pair-header">
+          <span class="pair-word-a">near</span>
+          <span class="pair-vs">vs</span>
+          <span class="pair-word-b">nearly</span>
+        </div>
+        <div class="pair-row">
+          <div class="meaning">near（副詞）— 近くに・近くへ</div>
+          <div class="ex-line">Come <span class="hln">near</span> so I can show you.</div>
+        </div>
+        <div class="pair-row">
+          <div class="meaning">nearly — ほぼ・もう少しで</div>
+          <div class="ex-line">It's <span class="hl">nearly</span> midnight — time to go.</div>
+        </div>
+      </div>
+      <div class="pair-card">
+        <div class="pair-header">
+          <span class="pair-word-a">high</span>
+          <span class="pair-vs">vs</span>
+          <span class="pair-word-b">highly</span>
+        </div>
+        <div class="pair-row">
+          <div class="meaning">high（副詞）— 高く（物理的）</div>
+          <div class="ex-line">The eagle soared <span class="hln">high</span> above the valley.</div>
+        </div>
+        <div class="pair-row">
+          <div class="meaning">highly — 非常に・高度に（抽象）</div>
+          <div class="ex-line">She is <span class="hl">highly</span> regarded in her field.</div>
+        </div>
+      </div>
+      <div class="pair-card">
+        <div class="pair-header">
+          <span class="pair-word-a">deep</span>
+          <span class="pair-vs">vs</span>
+          <span class="pair-word-b">deeply</span>
+        </div>
+        <div class="pair-row">
+          <div class="meaning">deep（副詞）— 深く（物理的）</div>
+          <div class="ex-line">Dig <span class="hln">deep</span> to find the buried pipe.</div>
+        </div>
+        <div class="pair-row">
+          <div class="meaning">deeply — 深く（感情・抽象的）</div>
+          <div class="ex-line">She was <span class="hl">deeply</span> moved by the performance.</div>
+        </div>
+      </div>
+      <div class="pair-card">
+        <div class="pair-header">
+          <span class="pair-word-a">close</span>
+          <span class="pair-vs">vs</span>
+          <span class="pair-word-b">closely</span>
+        </div>
+        <div class="pair-row">
+          <div class="meaning">close（副詞）— 近くに（距離）</div>
+          <div class="ex-line">Stand <span class="hln">close</span> to the sensor to activate it.</div>
+        </div>
+        <div class="pair-row">
+          <div class="meaning">closely — 綿密に・注意深く</div>
+          <div class="ex-line">Examine the contract <span class="hl">closely</span> before signing.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note-box red">
+      <strong>テスト頻出:</strong> <em>hardly</em> / <em>barely</em> / <em>scarcely</em> はいずれも「ほとんど〜ない」を意味し、否定の意味を内包している。<br>
+      ✗ <em>I can't <strong>hardly</strong> see anything.</em>（二重否定 — 非標準）<br>
+      ✓ <em>I can <strong>hardly</strong> see anything.</em>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  function getAnimatables(demo) {
+    return Array.from(demo.querySelectorAll('.cl, .cj, .cl-arrow, .demo-sent'));
+  }
+  function resetDemo(demo) { getAnimatables(demo).forEach(el => el.classList.remove('show')); }
+  function playDemo(demo) {
+    resetDemo(demo);
+    getAnimatables(demo).forEach((el, i) => {
+      setTimeout(() => el.classList.add('show'), i * 140 + 80);
+    });
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { playDemo(entry.target); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.clause-demo').forEach(demo => observer.observe(demo));
+
+  document.querySelectorAll('.replay-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.classList.remove('spinning');
+      void btn.offsetWidth;
+      btn.classList.add('spinning');
+      btn.addEventListener('animationend', () => btn.classList.remove('spinning'), { once: true });
+      playDemo(btn.closest('.clause-demo'));
+    });
+  });
+</script>
+</body>
+</html>
