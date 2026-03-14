@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前置詞 to — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg:#f9f7f2;--white:#fff;--border:#e5e0d5;--text:#1c1c1c;--muted:#6b6460;
+      --accent:#1e3a8a;--prep:#1d4ed8;--prep-light:#eff6ff;--prep-border:#bfdbfe;--radius:14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .nav{height:56px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.92rem;text-decoration:none;color:var(--text)}
+    .logo-mark{width:26px;height:26px;background:linear-gradient(135deg,#1e3a8a,#7c3aed);border-radius:6px;flex-shrink:0;animation:logoPulse 3s ease-in-out infinite}
+    @keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+    .page-hero{background:var(--white);border-bottom:1px solid var(--border);padding:48px 48px 40px}
+    .page-hero-inner{max-width:1200px;margin:0 auto}
+    .unit-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .unit-num-badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:2px 9px;border-radius:4px;background:var(--accent);color:white}
+    .ch-badge{font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:4px;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+    .back-link a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:16px;transition:color .2s}
+    .back-link a:hover{color:var(--text)}
+    .page-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+    .page-title span{color:var(--prep)}
+    .page-desc{color:var(--muted);font-size:1rem;max-width:680px}
+    .content{max-width:1200px;margin:0 auto;padding:48px 48px 80px}
+    .part-banner{background:var(--prep-light);border:1px solid var(--prep-border);border-radius:var(--radius);padding:36px 40px;margin-bottom:56px;display:flex;align-items:center;gap:36px}
+    .banner-prep{font-size:3.5rem;font-weight:900;color:var(--prep);font-family:Georgia,serif;flex-shrink:0;min-width:80px}
+    .banner-body{flex:1}
+    .banner-en{font-size:1.15rem;font-weight:800;color:#1e40af;margin-bottom:6px}
+    .banner-ja{font-size:.95rem;color:var(--muted);margin-bottom:14px;line-height:1.7}
+    .banner-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .banner-chip{font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:100px;background:#bfdbfe;color:#1e40af}
+    .core-vis{display:flex;align-items:center;gap:10px;flex-shrink:0}
+    .core-v{width:3px;height:40px;background:var(--prep);border-radius:2px}
+    .core-dot{width:14px;height:14px;border-radius:50%;background:var(--prep)}
+    .section{margin-bottom:64px}
+    .section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+    .gram-badge{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+    .section-title{font-size:1.55rem;font-weight:800}
+    .section-number{font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.1em}
+    .section-intro{color:var(--muted);font-size:1rem;margin-bottom:24px;margin-top:6px}
+    .clause-demo{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:20px;position:relative}
+    .cl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+    .cl{padding:12px 18px;border-radius:10px;font-size:.9rem;font-weight:600;opacity:0;transform:translateY(30px) scale(.82);transition:opacity .5s cubic-bezier(.34,1.56,.64,1),transform .5s cubic-bezier(.34,1.56,.64,1);text-align:center;line-height:1.4;cursor:default}
+    .cl.show{opacity:1;transform:translateY(0) scale(1)}
+    .cl:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+    .cl.sub{background:#dbeafe;color:#1e3a8a}
+    .cl.vrb{background:#dcfce7;color:#14532d}
+    .cl.obj{background:#f3e8ff;color:#6b21a8}
+    .cl.prc{background:var(--prep-light);color:#1e40af;border:2px solid var(--prep)}
+    .cl-lbl{font-size:.65rem;font-weight:800;letter-spacing:.08em;margin-top:4px;opacity:.7}
+    .cj{font-size:.95rem;font-weight:800;color:var(--prep);padding:8px 14px;border-radius:8px;background:var(--prep-light);border:2px solid var(--prep);opacity:0;transform:scale(.6);transition:opacity .35s ease,transform .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap}
+    .cj.show{opacity:1;transform:scale(1)}
+    .demo-sent{font-style:italic;color:var(--muted);font-size:1rem;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;text-align:center}
+    .demo-sent.show{opacity:1;transform:translateY(0)}
+    .replay-btn{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;border:1px solid var(--border);background:var(--bg);color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+    .replay-btn:hover{background:var(--white);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.12);transform:scale(1.06)}
+    @keyframes replaySpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .replay-btn.spinning{animation:replaySpin .4s cubic-bezier(.34,1.56,.64,1)}
+    .note-box{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--prep);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;font-size:.95rem;color:var(--muted);margin-bottom:20px;line-height:1.75}
+    .note-box.compare{border-left-color:#06b6d4}
+    .note-box.warn{border-left-color:#f59e0b}
+    .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px}
+    .card h4{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--prep);margin-bottom:10px}
+    .c-item{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;font-size:.85rem}
+    .c-phrase{font-weight:700;color:var(--prep);min-width:150px;flex-shrink:0}
+    .c-ja{color:var(--muted)}
+    .ex-table{width:100%;border-collapse:collapse;font-size:.96rem;margin-bottom:20px}
+    .ex-table thead th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--border)}
+    .ex-table tbody td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    .ex-table tbody tr:last-child td{border-bottom:none}
+    .ex-table .en{font-weight:600}
+    .ex-table .ja{color:var(--muted)}
+    .hl{color:var(--prep);font-weight:700}
+    .divider{height:1px;background:var(--border);margin:0 0 64px}
+    @media(max-width:700px){.page-hero{padding:32px 24px 28px}.content{padding:32px 24px 60px}.part-banner{flex-direction:column;gap:16px;padding:24px}.card-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><div class="logo-mark"></div><span>Animated English Grammar</span></a>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 27</span>
+      <span class="ch-badge">Chapter V &nbsp;·&nbsp; 前置詞</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">前置詞 <span>to</span></h1>
+    <p class="page-desc">「矢印」のイメージ。方向・到達・対象・変化の到達点まで、toの多様な用法を図解で整理する。</p>
+  </div>
+</div>
+<main class="content">
+
+  <div class="part-banner">
+    <div class="banner-prep">to</div>
+    <div class="banner-body">
+      <div class="banner-en">「矢印」— 向かう先・到達・つながり</div>
+      <div class="banner-ja">出発点から目的地へ向かう矢印のイメージ。到達する先・対象・変化の行き先・時間の終点を表す。</div>
+      <div class="banner-chips">
+        <span class="banner-chip">方向・到達</span>
+        <span class="banner-chip">対象・向き合い</span>
+        <span class="banner-chip">変化の到達点</span>
+        <span class="banner-chip">不定詞</span>
+        <span class="banner-chip">時間・比率</span>
+      </div>
+    </div>
+    <div class="core-vis">
+      <div class="core-v"></div>
+      <div class="core-dot"></div>
+    </div>
+  </div>
+
+  <!-- 01 方向・到達 -->
+  <section class="section" id="direction">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">場所</span>
+      <h2 class="section-title">to で「〜へ、〜まで（方向・到達）」</h2>
+    </div>
+    <p class="section-intro">「〜へ、〜まで」移動の方向と到達点を表す最も基本的な用法。</p>
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>I</div><div class="cl-lbl">主語</div></div>
+        <div class="cl vrb"><div>go</div><div class="cl-lbl">動詞</div></div>
+        <div class="cj">to</div>
+        <div class="cl prc"><div>Tokyo</div><div class="cl-lbl">到達点</div></div>
+      </div>
+      <div class="demo-sent">東京へ行く</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">I go <span class="hl">to</span> school every day.</td><td class="ja">毎日学校へ行く。</td></tr>
+        <tr><td class="en">She came <span class="hl">to</span> the party.</td><td class="ja">彼女はパーティーに来た。</td></tr>
+        <tr><td class="en">He walked <span class="hl">to</span> the station.</td><td class="ja">彼は駅まで歩いた。</td></tr>
+        <tr><td class="en">The road leads <span class="hl">to</span> the city.</td><td class="ja">その道は市街地へ続く。</td></tr>
+      </tbody>
+    </table>
+    <div class="note-box">
+      toは「出発点から見た到達点」を示す。arrive at との違い：go to（向かう動作）vs arrive at（到達の完了）
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 02 対象・向き合い -->
+  <section class="section" id="target">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">対象</span>
+      <h2 class="section-title">to で「〜に対して・〜に（対象・向き合い）」</h2>
+    </div>
+    <p class="section-intro">行動や感情の向かう先・対象を表す。「〜に対して」「〜と話す」など。</p>
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>She</div><div class="cl-lbl">主語</div></div>
+        <div class="cl vrb"><div>talks</div><div class="cl-lbl">動詞</div></div>
+        <div class="cj">to</div>
+        <div class="cl prc"><div>him</div><div class="cl-lbl">対象</div></div>
+      </div>
+      <div class="demo-sent">彼に話しかける</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">Listen <span class="hl">to</span> the music.</td><td class="ja">音楽を聴く。</td></tr>
+        <tr><td class="en">She is kind <span class="hl">to</span> everyone.</td><td class="ja">彼女は誰にでも親切だ。</td></tr>
+        <tr><td class="en">He said goodbye <span class="hl">to</span> her.</td><td class="ja">彼は彼女に別れを告げた。</td></tr>
+        <tr><td class="en">This rule applies <span class="hl">to</span> everyone.</td><td class="ja">このルールは全員に適用される。</td></tr>
+      </tbody>
+    </table>
+    <div class="note-box">
+      talk to（話しかける向き）vs talk with（対等に話す）。toは「向き・方向性」を強調。
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 03 変化の到達点 -->
+  <section class="section" id="change">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">変化</span>
+      <h2 class="section-title">to で「〜に変わる（変化の到達点）」</h2>
+    </div>
+    <p class="section-intro">A → B の「B」の位置に置いて、変化・変換の行き先を表す。</p>
+    <div class="clause-demo" id="demo3">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>Water</div><div class="cl-lbl">主語</div></div>
+        <div class="cl vrb"><div>changes</div><div class="cl-lbl">動詞</div></div>
+        <div class="cj">to</div>
+        <div class="cl prc"><div>ice</div><div class="cl-lbl">変化先</div></div>
+      </div>
+      <div class="demo-sent">水が氷に変わる</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">He turned <span class="hl">to</span> a doctor.</td><td class="ja">彼は医者になった。</td></tr>
+        <tr><td class="en">The traffic light changed <span class="hl">to</span> red.</td><td class="ja">信号が赤に変わった。</td></tr>
+        <tr><td class="en">From bad <span class="hl">to</span> worse.</td><td class="ja">悪化するばかり。</td></tr>
+        <tr><td class="en">She grew from a child <span class="hl">to</span> an adult.</td><td class="ja">子供から大人に成長した。</td></tr>
+      </tbody>
+    </table>
+    <div class="note-box compare">
+      from A to B のパターンが変化を表す定番表現。「出発点(from) → 到達点(to)」の構造。
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 04 不定詞の to -->
+  <section class="section" id="infinitive">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">不定詞</span>
+      <h2 class="section-title">不定詞の to で「〜する（方向性を持つ動作）」</h2>
+    </div>
+    <p class="section-intro">want to do / try to do など不定詞のtoは「これから行う動作の方向性」を示す。</p>
+    <div class="clause-demo" id="demo4">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>I want</div><div class="cl-lbl">動詞句</div></div>
+        <div class="cj">to</div>
+        <div class="cl prc"><div>go</div><div class="cl-lbl">動詞原形</div></div>
+      </div>
+      <div class="demo-sent">行きたい（行く方向への意欲）</div>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h4>動詞 + to + 動詞原形</h4>
+        <div class="c-item"><span class="c-phrase">want to do</span><span class="c-ja">〜したい</span></div>
+        <div class="c-item"><span class="c-phrase">need to do</span><span class="c-ja">〜する必要がある</span></div>
+        <div class="c-item"><span class="c-phrase">try to do</span><span class="c-ja">〜しようとする</span></div>
+        <div class="c-item"><span class="c-phrase">decide to do</span><span class="c-ja">〜することに決める</span></div>
+      </div>
+      <div class="card">
+        <h4>to + 動詞原形（名詞句）</h4>
+        <div class="c-item"><span class="c-phrase">the desire to win</span><span class="c-ja">勝ちたいという願望</span></div>
+        <div class="c-item"><span class="c-phrase">the ability to speak</span><span class="c-ja">話す能力</span></div>
+        <div class="c-item"><span class="c-phrase">a chance to learn</span><span class="c-ja">学ぶ機会</span></div>
+        <div class="c-item"><span class="c-phrase">time to rest</span><span class="c-ja">休む時間</span></div>
+      </div>
+    </div>
+    <div class="note-box">
+      不定詞のtoは「矢印として未来の動作を指す」。go to sleep のtoも「眠りへ向かう」というイメージ。
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 05 時間・比率 -->
+  <section class="section" id="time-ratio">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="gram-badge">時間・比率</span>
+      <h2 class="section-title">to で「〜分前・〜対〜（時間・比率）」</h2>
+    </div>
+    <p class="section-intro">時刻（〜分前）、比率（〜対〜）、比較の基準など。</p>
+    <div class="clause-demo" id="demo5">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>10 minutes</div><div class="cl-lbl">時間</div></div>
+        <div class="cj">to</div>
+        <div class="cl prc"><div>midnight</div><div class="cl-lbl">基準時刻</div></div>
+      </div>
+      <div class="demo-sent">真夜中の10分前</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">It's ten <span class="hl">to</span> eight.</td><td class="ja">8時10分前（7:50）。</td></tr>
+        <tr><td class="en">The score is three <span class="hl">to</span> one.</td><td class="ja">スコアは3対1。</td></tr>
+        <tr><td class="en">She prefers coffee <span class="hl">to</span> tea.</td><td class="ja">彼女はお茶よりコーヒーが好き。</td></tr>
+        <tr><td class="en"><span class="hl">To</span> my surprise, he won.</td><td class="ja">驚いたことに、彼が勝った。</td></tr>
+      </tbody>
+    </table>
+    <div class="note-box">
+      prefer A to B（BよりAを好む）もtoのコア「BよりAへ向かう」。to my surprise = 私の驚きへ向けて = 驚いたことに。
+    </div>
+  </section>
+
+</main>
+<script>
+  function getAnimatables(d){return Array.from(d.querySelectorAll(".cl,.cj,.demo-sent"))}
+  function resetDemo(d){getAnimatables(d).forEach(e=>e.classList.remove("show"))}
+  function playDemo(d){resetDemo(d);getAnimatables(d).forEach((e,i)=>setTimeout(()=>e.classList.add("show"),i*140+80))}
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){playDemo(e.target);obs.unobserve(e.target)}})},{threshold:.3});
+  document.querySelectorAll(".clause-demo").forEach(d=>obs.observe(d));
+  document.querySelectorAll(".replay-btn").forEach(b=>{b.addEventListener("click",()=>{b.classList.remove("spinning");void b.offsetWidth;b.classList.add("spinning");b.addEventListener("animationend",()=>b.classList.remove("spinning"),{once:true});playDemo(b.closest(".clause-demo"))})});
+</script>
+</body>
+</html>

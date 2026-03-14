@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>特殊な仮定法表現 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg:#f9f7f2;--white:#fff;--border:#e5e0d5;--text:#1c1c1c;--muted:#6b6460;
+      --accent:#1e3a8a;--subj:#0f766e;--subj-light:#f0fdfa;--subj-border:#99f6e4;--radius:14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .nav{height:56px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.92rem;text-decoration:none;color:var(--text)}
+    .logo-mark{width:26px;height:26px;background:linear-gradient(135deg,#1e3a8a,#7c3aed);border-radius:6px;flex-shrink:0}
+    @keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+    @keyframes morphMark{0%,100%{border-radius:6px}50%{border-radius:50%}}
+    .logo-mark{animation:logoPulse 3s ease-in-out infinite,morphMark 6s ease-in-out infinite}
+
+    .page-hero{background:var(--white);border-bottom:1px solid var(--border);padding:48px 48px 40px}
+    .page-hero-inner{max-width:1200px;margin:0 auto}
+    .unit-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .unit-num-badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:2px 9px;border-radius:4px;background:var(--accent);color:white}
+    .ch-badge{font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:4px;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+    .back-link a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:16px;transition:color .2s}
+    .back-link a:hover{color:var(--text)}
+    .page-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+    .page-title span{color:var(--subj)}
+    .page-desc{color:var(--muted);font-size:1rem;max-width:680px}
+
+    .content{max-width:1200px;margin:0 auto;padding:48px 48px 80px}
+
+    /* ── Concept Banner ── */
+    .concept-banner{background:var(--subj-light);border:1px solid var(--subj-border);border-radius:var(--radius);padding:36px 40px;margin-bottom:56px;display:flex;align-items:center;gap:36px}
+    .banner-icon{font-size:3rem;flex-shrink:0;min-width:80px;text-align:center;animation:floatIcon 3s ease-in-out infinite}
+    @keyframes floatIcon{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    .banner-body{flex:1}
+    .banner-en{font-size:1.15rem;font-weight:800;color:#134e4a;margin-bottom:6px}
+    .banner-ja{font-size:.95rem;color:var(--muted);margin-bottom:14px;line-height:1.7}
+    .banner-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .banner-chip{font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:100px;background:var(--subj-border);color:#134e4a}
+
+    .section{margin-bottom:64px}
+    .section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+    .gram-badge{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+    .section-title{font-size:1.55rem;font-weight:800}
+    .section-number{font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.1em}
+    .section-intro{color:var(--muted);font-size:1rem;margin-bottom:24px;margin-top:6px}
+
+    /* ── Clause Demo ── */
+    .clause-demo{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:20px;position:relative}
+    .cl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+    .cl{padding:12px 18px;border-radius:10px;font-size:.9rem;font-weight:600;opacity:0;transform:translateY(30px) scale(.82);transition:opacity .5s cubic-bezier(.34,1.56,.64,1),transform .5s cubic-bezier(.34,1.56,.64,1);text-align:center;line-height:1.4;cursor:default}
+    .cl.show{opacity:1;transform:translateY(0) scale(1)}
+    .cl:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+    .cl.wish{background:var(--subj-light);color:#134e4a;border:2px solid var(--subj-border)}
+    .cl.cond{background:#f5f3ff;color:#5b21b6;border:2px solid #ddd6fe}
+    .cl.cond2{background:#fff1f2;color:#881337;border:2px solid #fecdd3}
+    .cl.main{background:#fef3c7;color:#92400e;border:2px solid #fde68a}
+    .cl.conj{background:#f1f5f9;color:#475569;border:1px solid #cbd5e1}
+    .cl-lbl{font-size:.65rem;font-weight:800;letter-spacing:.08em;margin-top:4px;opacity:.7}
+    .demo-sent{font-style:italic;color:var(--muted);font-size:1rem;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;text-align:center}
+    .demo-sent.show{opacity:1;transform:translateY(0)}
+    .replay-btn{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;border:1px solid var(--border);background:var(--bg);color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+    .replay-btn:hover{background:var(--white);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.12);transform:scale(1.06)}
+    @keyframes replaySpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .replay-btn.spinning{animation:replaySpin .4s cubic-bezier(.34,1.56,.64,1)}
+
+    .note-box{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--subj);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;font-size:.95rem;color:var(--muted);margin-bottom:20px;line-height:1.75}
+    .note-box.compare{border-left-color:#06b6d4}
+    .note-box.warn{border-left-color:#f59e0b}
+    .note-box.ok{border-left-color:#16a34a}
+    .note-box.purple{border-left-color:#7c3aed}
+    .note-box.rose{border-left-color:#9f1239}
+
+    .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px}
+    .card h4{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--subj);margin-bottom:10px}
+    .c-item{margin-bottom:8px;font-size:.88rem;line-height:1.7}
+    .c-en{font-weight:700;color:var(--subj)}
+    .c-ja{color:var(--muted)}
+
+    .ex-table{width:100%;border-collapse:collapse;font-size:.96rem;margin-bottom:20px}
+    .ex-table thead th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--border)}
+    .ex-table tbody td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    .ex-table tbody tr:last-child td{border-bottom:none}
+    .ex-table .en{font-weight:600}
+    .ex-table .ja{color:var(--muted)}
+    .hl{color:var(--subj);font-weight:700}
+    .hl2{color:#7c3aed;font-weight:700}
+    .hl3{color:#9f1239;font-weight:700}
+    .divider{height:1px;background:var(--border);margin:0 0 64px}
+
+    /* ── Wish Grid ── */
+    .wish-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+    .wish-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 24px}
+    .wish-card.present{border-top:3px solid var(--subj)}
+    .wish-card.past{border-top:3px solid #9f1239}
+    .wc-label{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+    .wc-label.present{color:var(--subj)}
+    .wc-label.past{color:#9f1239}
+    .wc-formula{font-size:.85rem;font-family:'Courier New',monospace;font-weight:700;margin-bottom:12px;padding:8px 12px;border-radius:8px;background:var(--bg)}
+    .wc-ex{font-size:.9rem;line-height:1.7}
+    .wc-en{font-weight:700;display:block;margin-bottom:4px}
+    .wc-ja{color:var(--muted);font-size:.85rem;display:block}
+
+    /* ── As if Demo ── */
+    .asif-box{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:24px 28px;margin-bottom:20px}
+    .asif-sent{font-size:1rem;font-weight:600;margin-bottom:10px}
+    .asif-breakdown{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+    .asif-part{padding:6px 14px;border-radius:8px;font-size:.82rem;font-weight:700}
+    .asif-main-cl{background:#dbeafe;color:#1e3a8a}
+    .asif-conn{background:var(--subj-light);color:#134e4a;border:1px solid var(--subj-border)}
+    .asif-sub-cl{background:#f5f3ff;color:#5b21b6}
+    .asif-ja{color:var(--muted);font-size:.88rem}
+
+    @media(max-width:700px){.page-hero{padding:32px 24px 28px}.content{padding:32px 24px 60px}.concept-banner{flex-direction:column;gap:16px;padding:24px}.card-grid,.wish-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    Animated English Grammar
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 26</span>
+      <span class="ch-badge">Chapter VI — 仮定法</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 一覧へ戻る</a></div>
+    <h1 class="page-title"><span>特殊な</span>仮定法表現</h1>
+    <p class="page-desc">I wish / if only / as if / without など、仮定法を使った慣用的表現を整理する。実際の会話・文章で頻繁に登場する重要パターン。</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- Concept Banner -->
+  <div class="concept-banner">
+    <div class="banner-icon">✨</div>
+    <div class="banner-body">
+      <div class="banner-en">Special Subjunctive Expressions</div>
+      <div class="banner-ja">仮定法の基本形（if節）以外のパターン。日常英語・フォーマル文章に多数登場する。</div>
+      <div class="banner-chips">
+        <span class="banner-chip">I wish</span>
+        <span class="banner-chip">If only</span>
+        <span class="banner-chip">as if / as though</span>
+        <span class="banner-chip">Without / But for</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">I wish</span>
+      <h2 class="section-title">I wish + 仮定法過去（現在への願望）</h2>
+    </div>
+    <p class="section-intro">「〜ならよかったのに」「〜であればよいのに」と<strong>現在の状況に不満・願望</strong>を表す。wish の後ろに仮定法過去を使う。</p>
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn" onclick="replay('demo1')">↺ replay</button>
+      <div class="cl-row">
+        <div class="cl wish" data-delay="0">
+          <div>I wish</div>
+          <div class="cl-lbl">願望</div>
+        </div>
+        <div class="cl cond" data-delay="250">
+          <div>I <span style="color:#7c3aed;font-weight:900">could fly</span></div>
+          <div class="cl-lbl">仮定法過去（could + 原形）</div>
+        </div>
+      </div>
+      <div class="demo-sent" data-delay="600">飛べたらいいのになあ。（実際には飛べない）</div>
+    </div>
+    <div class="wish-grid">
+      <div class="wish-card present">
+        <div class="wc-label present">現在への願望</div>
+        <div class="wc-formula">I wish + S + <span style="color:var(--subj)">過去形</span></div>
+        <div class="wc-ex">
+          <span class="wc-en">I wish I <span class="hl">were</span> taller.</span>
+          <span class="wc-ja">背が高ければなあ。（今は低い）</span>
+        </div>
+        <div class="wc-ex" style="margin-top:10px">
+          <span class="wc-en">She wishes she <span class="hl">had</span> a car.</span>
+          <span class="wc-ja">車があればいいのに。（持っていない）</span>
+        </div>
+      </div>
+      <div class="wish-card present">
+        <div class="wc-label present">よく使う表現</div>
+        <div class="wc-ex">
+          <span class="wc-en">I wish I <span class="hl">knew</span> the answer.</span>
+          <span class="wc-ja">答えを知っていれば。（知らない）</span>
+        </div>
+        <div class="wc-ex" style="margin-top:10px">
+          <span class="wc-en">I wish you <span class="hl">were</span> here.</span>
+          <span class="wc-ja">あなたがここにいてくれたら。</span>
+        </div>
+        <div class="wc-ex" style="margin-top:10px">
+          <span class="wc-en">I wish it <span class="hl">would</span> stop raining.</span>
+          <span class="wc-ja">雨が止んでくれればいいのに。（変化への願望）</span>
+        </div>
+      </div>
+    </div>
+    <div class="note-box">
+      <strong>would を使う場合：</strong> I wish + would は、主語の意志や変化への願望・軽い苛立ちを表す。<br>
+      例: I wish he <strong>would</strong> stop talking. （彼が話すのをやめてくれればいいのに）
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Section 2 -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">I wish + 過去完了</span>
+      <h2 class="section-title">I wish + 仮定法過去完了（過去への後悔）</h2>
+    </div>
+    <p class="section-intro">「〜していたらよかったのに」と<strong>過去の行動への後悔</strong>を表す。wish の後ろに仮定法過去完了（had + 過去分詞）を使う。</p>
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn" onclick="replay('demo2')">↺ replay</button>
+      <div class="cl-row">
+        <div class="cl wish" data-delay="0">
+          <div>I wish</div>
+          <div class="cl-lbl">後悔</div>
+        </div>
+        <div class="cl cond2" data-delay="250">
+          <div>I <span style="color:#9f1239;font-weight:900">had taken</span> that opportunity</div>
+          <div class="cl-lbl">仮定法過去完了（had + pp）</div>
+        </div>
+      </div>
+      <div class="demo-sent" data-delay="600">あのチャンスを掴んでいればよかったのに。（実際は逃した）</div>
+    </div>
+    <div class="wish-grid">
+      <div class="wish-card past">
+        <div class="wc-label past">過去への後悔</div>
+        <div class="wc-formula">I wish + S + <span style="color:#9f1239">had + pp</span></div>
+        <div class="wc-ex">
+          <span class="wc-en">I wish I <span class="hl3">had studied</span> harder.</span>
+          <span class="wc-ja">もっと勉強していればよかった。</span>
+        </div>
+        <div class="wc-ex" style="margin-top:10px">
+          <span class="wc-en">I wish she <span class="hl3">had told</span> me sooner.</span>
+          <span class="wc-ja">もっと早く教えてくれればよかった。</span>
+        </div>
+      </div>
+      <div class="wish-card past">
+        <div class="wc-label past">よく使う表現</div>
+        <div class="wc-ex">
+          <span class="wc-en">I wish I <span class="hl3">hadn't said</span> that.</span>
+          <span class="wc-ja">あんなこと言わなければよかった。</span>
+        </div>
+        <div class="wc-ex" style="margin-top:10px">
+          <span class="wc-en">I wish we <span class="hl3">had met</span> earlier.</span>
+          <span class="wc-ja">もっと早く出会えていれば。</span>
+        </div>
+        <div class="wc-ex" style="margin-top:10px">
+          <span class="wc-en">I wish he <span class="hl3">had been</span> more careful.</span>
+          <span class="wc-ja">もっと慎重だったらよかったのに。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Section 3 -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">as if / as though</span>
+      <h2 class="section-title">まるで〜のように</h2>
+    </div>
+    <p class="section-intro">「まるで〜のように」と事実に反する様子を表す。as if / as though の後ろに仮定法を使う。現在の反実 → 過去形、過去の反実 → 過去完了形。</p>
+    <div class="clause-demo" id="demo3">
+      <button class="replay-btn" onclick="replay('demo3')">↺ replay</button>
+      <div class="cl-row">
+        <div class="cl main" data-delay="0">
+          <div>He talks</div>
+          <div class="cl-lbl">主節</div>
+        </div>
+        <div class="cl wish" data-delay="200">
+          <div>as if he <span style="color:#134e4a;font-weight:900">knew</span> everything</div>
+          <div class="cl-lbl">as if + 仮定法過去</div>
+        </div>
+      </div>
+      <div class="demo-sent" data-delay="600">まるで何でも知っているかのように話す。（実際は知らない）</div>
+    </div>
+    <div class="asif-box">
+      <div class="asif-sent">She acts <span class="hl">as if</span> she <span class="hl">were</span> the boss.</div>
+      <div class="asif-breakdown">
+        <span class="asif-part asif-main-cl">She acts</span>
+        <span class="asif-part asif-conn">as if</span>
+        <span class="asif-part asif-sub-cl">she were the boss</span>
+      </div>
+      <div class="asif-ja">まるでボスであるかのように振る舞う。（実際はボスでない）</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>種類</th><th>例文</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="en">現在の反実<br><small>（as if + 過去形）</small></td>
+          <td class="en">He looks <span class="hl">as if</span> he <span class="hl">were</span> sick.</td>
+          <td class="ja">まるで病気のように見える。（実際は違うかも）</td>
+        </tr>
+        <tr>
+          <td class="en">過去の反実<br><small>（as if + 過去完了）</small></td>
+          <td class="en">She talks <span class="hl">as if</span> she <span class="hl">had been</span> there.</td>
+          <td class="ja">まるでそこにいたかのように話す。（実際はいなかった）</td>
+        </tr>
+        <tr>
+          <td class="en">as though<br><small>（= as if）</small></td>
+          <td class="en">He stared at me <span class="hl">as though</span> he <span class="hl">had seen</span> a ghost.</td>
+          <td class="ja">幽霊を見たかのように私を見つめた。</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note-box compare">
+      <strong>口語の as if：</strong> 実際には直説法（as if he knows everything）も口語では使われるが、正式には仮定法を使う。
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Section 4 -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">If only</span>
+      <h2 class="section-title">〜さえあれば / 〜だったらよかったのに</h2>
+    </div>
+    <p class="section-intro">I wish と同じく仮定法を使うが、<strong>より強い感情・切望</strong>を表す。過去形 → 現在への願望、過去完了 → 過去への後悔。</p>
+    <div class="clause-demo" id="demo4">
+      <button class="replay-btn" onclick="replay('demo4')">↺ replay</button>
+      <div class="cl-row">
+        <div class="cl wish" data-delay="0">
+          <div><span style="color:#134e4a;font-weight:900">If only</span></div>
+          <div class="cl-lbl">強い願望・後悔</div>
+        </div>
+        <div class="cl cond" data-delay="250">
+          <div>I <span style="color:#7c3aed;font-weight:900">could go</span> back in time!</div>
+          <div class="cl-lbl">仮定法過去</div>
+        </div>
+      </div>
+      <div class="demo-sent" data-delay="600">時間を遡れたらなあ！（強い願望）</div>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h4>If only + 過去形（現在）</h4>
+        <div class="c-item">
+          <span class="c-en">If only I <span class="hl2">had</span> more money!</span><br>
+          <span class="c-ja">お金がもっとあればなあ！</span>
+        </div>
+        <div class="c-item" style="margin-top:10px">
+          <span class="c-en">If only she <span class="hl2">were</span> here now.</span><br>
+          <span class="c-ja">今ここに彼女がいてくれたら。</span>
+        </div>
+      </div>
+      <div class="card">
+        <h4>If only + 過去完了（過去）</h4>
+        <div class="c-item">
+          <span class="c-en">If only I <span class="hl3">had known</span>!</span><br>
+          <span class="c-ja">知っていたらよかったのに！</span>
+        </div>
+        <div class="c-item" style="margin-top:10px">
+          <span class="c-en">If only he <span class="hl3">hadn't left</span>.</span><br>
+          <span class="c-ja">彼が去らなければよかったのに。</span>
+        </div>
+      </div>
+    </div>
+    <div class="note-box">
+      <strong>I wish vs If only：</strong> 意味はほぼ同じだが、If only のほうが感情が強く、しばしばエクスクラメーション（!）と一緒に使われる。
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Section 5 -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="gram-badge">Without / But for</span>
+      <h2 class="section-title">〜がなければ / 〜がなかったなら</h2>
+    </div>
+    <p class="section-intro">Without / But for は「〜がなければ」という仮定を作る前置詞句。if節の代わりに使え、フォーマルな文体でよく使われる。</p>
+    <div class="clause-demo" id="demo5">
+      <button class="replay-btn" onclick="replay('demo5')">↺ replay</button>
+      <div class="cl-row">
+        <div class="cl wish" data-delay="0">
+          <div><span style="color:#134e4a;font-weight:900">Without</span> your help</div>
+          <div class="cl-lbl">Without + 名詞（If節の代わり）</div>
+        </div>
+        <div class="cl conj" data-delay="200">,</div>
+        <div class="cl main" data-delay="400">
+          <div>I would have failed</div>
+          <div class="cl-lbl">主節（仮定法過去完了）</div>
+        </div>
+      </div>
+      <div class="demo-sent" data-delay="700">あなたの助けがなければ、失敗していただろう。</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>表現</th><th>例文</th><th>同義の if 文</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="en"><span class="hl">Without</span> + 名詞</td>
+          <td class="en"><span class="hl">Without</span> water, nothing <span class="hl">could</span> live.</td>
+          <td class="ja">→ If there were no water …<br>水がなければ、何も生きられない。</td>
+        </tr>
+        <tr>
+          <td class="en"><span class="hl">Without</span> + 名詞</td>
+          <td class="en"><span class="hl">Without</span> your advice, I <span class="hl">would have</span> made a mistake.</td>
+          <td class="ja">→ If it had not been for your advice …<br>あなたのアドバイスがなければ、ミスしていただろう。</td>
+        </tr>
+        <tr>
+          <td class="en"><span class="hl">But for</span> + 名詞</td>
+          <td class="en"><span class="hl">But for</span> the rain, we <span class="hl">could have</span> played.</td>
+          <td class="ja">→ If it had not been for the rain …<br>雨がなければ、遊べたのに。</td>
+        </tr>
+        <tr>
+          <td class="en">If it <span class="hl">were</span> not for</td>
+          <td class="en">If it <span class="hl">were</span> not for music, life would be dull.</td>
+          <td class="ja">音楽がなければ、人生は退屈だろう。（現在）</td>
+        </tr>
+        <tr>
+          <td class="en">If it <span class="hl">had</span> not been for</td>
+          <td class="en">If it <span class="hl">had</span> not been for his effort, we would have lost.</td>
+          <td class="ja">彼の努力がなければ、負けていただろう。（過去）</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note-box ok">
+      <strong>まとめ：</strong> Without / But for は前置詞句なので動詞の形に気をつけなくてよいのが便利。<br>
+      現在の反実 → 主節に <strong>would + 原形</strong>、過去の反実 → 主節に <strong>would have + pp</strong>。
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const allDemos = document.querySelectorAll('.clause-demo');
+  function animateDemo(demo) {
+    const els = demo.querySelectorAll('[data-delay]');
+    els.forEach(el => el.classList.remove('show'));
+    els.forEach(el => {
+      const delay = parseInt(el.getAttribute('data-delay'));
+      setTimeout(() => el.classList.add('show'), delay + 100);
+    });
+  }
+  function replay(id) {
+    const btn = document.querySelector(`#${id} .replay-btn`);
+    btn.classList.add('spinning');
+    setTimeout(() => btn.classList.remove('spinning'), 400);
+    animateDemo(document.getElementById(id));
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateDemo(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  allDemos.forEach(demo => observer.observe(demo));
+</script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前置詞 below — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg:#f9f7f2;--white:#fff;--border:#e5e0d5;--text:#1c1c1c;--muted:#6b6460;
+      --accent:#1e3a8a;--prep:#57534e;--prep-light:#fafaf9;--prep-border:#d6d3d1;--radius:14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .nav{height:56px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.92rem;text-decoration:none;color:var(--text)}
+    .logo-mark{width:26px;height:26px;background:linear-gradient(135deg,#1e3a8a,#7c3aed);border-radius:6px;flex-shrink:0;animation:logoPulse 3s ease-in-out infinite}
+    @keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+    .page-hero{background:var(--white);border-bottom:1px solid var(--border);padding:48px 48px 40px}
+    .page-hero-inner{max-width:1200px;margin:0 auto}
+    .unit-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .unit-num-badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:2px 9px;border-radius:4px;background:var(--accent);color:white}
+    .ch-badge{font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:4px;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+    .back-link a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:16px;transition:color .2s}
+    .back-link a:hover{color:var(--text)}
+    .page-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+    .page-title span{color:var(--prep)}
+    .page-desc{color:var(--muted);font-size:1rem;max-width:680px}
+    .content{max-width:1200px;margin:0 auto;padding:48px 48px 80px}
+    .part-banner{background:var(--prep-light);border:1px solid var(--prep-border);border-radius:var(--radius);padding:36px 40px;margin-bottom:56px;display:flex;align-items:center;gap:36px}
+    .banner-prep{font-size:3.5rem;font-weight:900;color:var(--prep);font-family:Georgia,serif;flex-shrink:0;min-width:80px}
+    .banner-body{flex:1}
+    .banner-en{font-size:1.15rem;font-weight:800;color:#44403c;margin-bottom:6px}
+    .banner-ja{font-size:.95rem;color:var(--muted);margin-bottom:14px;line-height:1.7}
+    .banner-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .banner-chip{font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:100px;background:#d6d3d1;color:#44403c}
+    .core-vis{display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .section{margin-bottom:64px}
+    .section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+    .gram-badge{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+    .section-title{font-size:1.55rem;font-weight:800}
+    .section-number{font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.1em}
+    .section-intro{color:var(--muted);font-size:1rem;margin-bottom:24px;margin-top:6px}
+    .clause-demo{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:20px;position:relative}
+    .cl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+    .cl{padding:12px 18px;border-radius:10px;font-size:.9rem;font-weight:600;opacity:0;transform:translateY(30px) scale(.82);transition:opacity .5s cubic-bezier(.34,1.56,.64,1),transform .5s cubic-bezier(.34,1.56,.64,1);text-align:center;line-height:1.4;cursor:default}
+    .cl.show{opacity:1;transform:translateY(0) scale(1)}
+    .cl:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+    .cl.sub{background:#dbeafe;color:#1e3a8a}
+    .cl.vrb{background:#dcfce7;color:#14532d}
+    .cl.obj{background:#f3e8ff;color:#6b21a8}
+    .cl.prc{background:var(--prep-light);color:#44403c;border:2px solid var(--prep)}
+    .cl-lbl{font-size:.65rem;font-weight:800;letter-spacing:.08em;margin-top:4px;opacity:.7}
+    .cj{font-size:.95rem;font-weight:800;color:var(--prep);padding:8px 14px;border-radius:8px;background:var(--prep-light);border:2px solid var(--prep);opacity:0;transform:scale(.6);transition:opacity .35s ease,transform .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap}
+    .cj.show{opacity:1;transform:scale(1)}
+    .demo-sent{font-style:italic;color:var(--muted);font-size:1rem;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;text-align:center}
+    .demo-sent.show{opacity:1;transform:translateY(0)}
+    .replay-btn{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;border:1px solid var(--border);background:var(--bg);color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+    .replay-btn:hover{background:var(--white);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.12);transform:scale(1.06)}
+    @keyframes replaySpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .replay-btn.spinning{animation:replaySpin .4s cubic-bezier(.34,1.56,.64,1)}
+    .note-box{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--prep);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;font-size:.95rem;color:var(--muted);margin-bottom:20px;line-height:1.75}
+    .note-box.compare{border-left-color:#06b6d4}
+    .note-box.warn{border-left-color:#f59e0b}
+    .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px}
+    .card h4{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--prep);margin-bottom:10px}
+    .c-item{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;font-size:.85rem}
+    .c-phrase{font-weight:700;color:var(--prep);min-width:150px;flex-shrink:0}
+    .c-ja{color:var(--muted)}
+    .ex-table{width:100%;border-collapse:collapse;font-size:.96rem;margin-bottom:20px}
+    .ex-table thead th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--border)}
+    .ex-table tbody td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    .ex-table tbody tr:last-child td{border-bottom:none}
+    .ex-table .en{font-weight:600}
+    .ex-table .ja{color:var(--muted)}
+    .hl{color:var(--prep);font-weight:700}
+    .divider{height:1px;background:var(--border);margin:0 0 64px}
+    @media(max-width:700px){.page-hero{padding:32px 24px 28px}.content{padding:32px 24px 60px}.part-banner{flex-direction:column;gap:16px;padding:24px}.card-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><div class="logo-mark"></div><span>Animated English Grammar</span></a>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 33</span>
+      <span class="ch-badge">Chapter V &nbsp;·&nbsp; 前置詞</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">前置詞 <span>below</span></h1>
+    <p class="page-desc">「基準より低い位置」のイメージ。below は above の反対で、静的に基準点より下であることを表す。</p>
+  </div>
+</div>
+<main class="content">
+
+  <div class="part-banner">
+    <div class="banner-prep">below</div>
+    <div class="banner-body">
+      <div class="banner-en">「下方」— 基準より低い位置</div>
+      <div class="banner-ja">静的に基準点より低いところにある。above の対義語。温度・水準・地位が基準を下回る場合に使う。</div>
+      <div class="banner-chips">
+        <span class="banner-chip">低い位置</span>
+        <span class="banner-chip">基準以下</span>
+        <span class="banner-chip">序列が下</span>
+        <span class="banner-chip">書面で下に</span>
+      </div>
+    </div>
+    <div class="core-vis">
+      <svg width="70" height="60" viewBox="0 0 70 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="4" y1="20" x2="66" y2="20" stroke="#57534e" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="35" cy="46" r="8" fill="#57534e" opacity="0.9"/>
+        <line x1="35" y1="22" x2="35" y2="36" stroke="#57534e" stroke-width="1.5" stroke-dasharray="3 3"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 01 低い位置 -->
+  <section class="section" id="position">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">位置</span>
+      <h2 class="section-title">below で「〜より低い場所に（静的な下方）」</h2>
+    </div>
+    <p class="section-intro">基準点より低い場所に静的に位置する。</p>
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cj">below</div>
+        <div class="cl prc"><div>sea level</div><div class="cl-lbl">基準点</div></div>
+      </div>
+      <div class="demo-sent">The city lies several meters below sea level.</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">The submarine dived <span class="hl">below</span> the surface.</td><td class="ja">潜水艦が水面下に潜った。</td></tr>
+        <tr><td class="en">The valley lay <span class="hl">below</span> the mountain.</td><td class="ja">谷は山の下に広がっていた。</td></tr>
+        <tr><td class="en">She lives in the apartment <span class="hl">below</span> mine.</td><td class="ja">彼女は私の部屋の下の階に住んでいる。</td></tr>
+        <tr><td class="en">The ship sank <span class="hl">below</span> the waves.</td><td class="ja">船が波の下に沈んだ。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 02 基準以下 -->
+  <section class="section" id="under-standard">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">程度</span>
+      <h2 class="section-title">below で「〜を下回る（基準・平均以下）」</h2>
+    </div>
+    <p class="section-intro">平均・基準・期待値を下回ることを表す。温度・数値・成績などに広く使う。</p>
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cj">below</div>
+        <div class="cl prc"><div>average</div><div class="cl-lbl">基準</div></div>
+      </div>
+      <div class="demo-sent">His performance this quarter fell below average.</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">Temperatures fell <span class="hl">below</span> zero.</td><td class="ja">気温が零度以下に落ちた。</td></tr>
+        <tr><td class="en">His performance was <span class="hl">below</span> par.</td><td class="ja">彼の成績は基準以下だった。</td></tr>
+        <tr><td class="en">Sales were <span class="hl">below</span> target this month.</td><td class="ja">今月の売上は目標以下だった。</td></tr>
+        <tr><td class="en">The quality is <span class="hl">below</span> standard.</td><td class="ja">品質は基準を下回っている。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 03 序列が下 -->
+  <section class="section" id="rank">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">階級</span>
+      <h2 class="section-title">below で「〜より下の立場（序列・階級）」</h2>
+    </div>
+    <p class="section-intro">社会的・組織的に下位の立場を表す。above（上位）の対義語として使う。</p>
+    <div class="clause-demo" id="demo3">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cj">below</div>
+        <div class="cl prc"><div>the manager</div><div class="cl-lbl">上位</div></div>
+        <div class="cl vrb"><div>in rank</div><div class="cl-lbl">序列</div></div>
+      </div>
+      <div class="demo-sent">He is directly below the manager in rank.</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">He is <span class="hl">below</span> me in the company ranking.</td><td class="ja">彼は会社の序列で私より下だ。</td></tr>
+        <tr><td class="en">Private is <span class="hl">below</span> sergeant.</td><td class="ja">一等兵は軍曹より下位だ。</td></tr>
+        <tr><td class="en">That kind of behavior is <span class="hl">below</span> you.</td><td class="ja">そのような振る舞いはあなたに似つかわしくない。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 04 書面・文書での位置 -->
+  <section class="section" id="document">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">文書</span>
+      <h2 class="section-title">below で「以下・下記に（文書・テキスト内）」</h2>
+    </div>
+    <p class="section-intro">文書・テキスト・フォームなどで「この下に・以下に」と参照する際に使う。</p>
+    <div class="clause-demo" id="demo4">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl vrb"><div>see</div><div class="cl-lbl">動詞</div></div>
+        <div class="cj">below</div>
+        <div class="cl prc"><div>for details</div><div class="cl-lbl">参照先</div></div>
+      </div>
+      <div class="demo-sent">Please see below for the full list of instructions.</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">Please see the instructions <span class="hl">below</span>.</td><td class="ja">以下の説明を参照してください。</td></tr>
+        <tr><td class="en">Fill in the form <span class="hl">below</span>.</td><td class="ja">以下のフォームに記入してください。</td></tr>
+        <tr><td class="en">As shown in the chart <span class="hl">below</span>.</td><td class="ja">下のグラフが示すように。</td></tr>
+        <tr><td class="en">Sign your name <span class="hl">below</span> the line.</td><td class="ja">線の下に署名してください。</td></tr>
+      </tbody>
+    </table>
+    <div class="note-box compare">
+      <strong>above / below と over / under の比較:</strong><br>
+      • <em><strong>above</strong></em>（上方向・基準超過）←→ <em><strong>below</strong></em>（下方向・基準未満）：静的な位置・程度の対比。<br>
+      • <em><strong>over</strong></em>（弧を描く・動的・覆い）←→ <em><strong>under</strong></em>（真下・制御下・進行中）：より動的・幅広い用法を持つ。<br>
+      例：<em>above average</em> / <em>below average</em>（成績の話）/ <em>over the fence</em>（柵を越えて）/ <em>under the table</em>（テーブルの真下）
+    </div>
+  </section>
+
+</main>
+<script>
+  function getAnimatables(d){return Array.from(d.querySelectorAll(".cl,.cj,.demo-sent"))}
+  function resetDemo(d){getAnimatables(d).forEach(e=>e.classList.remove("show"))}
+  function playDemo(d){resetDemo(d);getAnimatables(d).forEach((e,i)=>setTimeout(()=>e.classList.add("show"),i*140+80))}
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){playDemo(e.target);obs.unobserve(e.target)}})},{threshold:.3});
+  document.querySelectorAll(".clause-demo").forEach(d=>obs.observe(d));
+  document.querySelectorAll(".replay-btn").forEach(b=>{b.addEventListener("click",()=>{b.classList.remove("spinning");void b.offsetWidth;b.classList.add("spinning");b.addEventListener("animationend",()=>b.classList.remove("spinning"),{once:true});playDemo(b.closest(".clause-demo"))})});
+</script>
+</body>
+</html>

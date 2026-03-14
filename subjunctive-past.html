@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仮定法過去 — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg:#f9f7f2;--white:#fff;--border:#e5e0d5;--text:#1c1c1c;--muted:#6b6460;
+      --accent:#1e3a8a;--subj:#7c3aed;--subj-light:#f5f3ff;--subj-border:#ddd6fe;--radius:14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .nav{height:56px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.92rem;text-decoration:none;color:var(--text)}
+    .logo-mark{width:26px;height:26px;background:linear-gradient(135deg,#1e3a8a,#7c3aed);border-radius:6px;flex-shrink:0;animation:logoPulse 3s ease-in-out infinite}
+    @keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+    @keyframes morphMark{0%,100%{border-radius:6px}50%{border-radius:50%}}
+    .logo-mark{animation:logoPulse 3s ease-in-out infinite,morphMark 6s ease-in-out infinite}
+
+    .page-hero{background:var(--white);border-bottom:1px solid var(--border);padding:48px 48px 40px}
+    .page-hero-inner{max-width:1200px;margin:0 auto}
+    .unit-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .unit-num-badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:2px 9px;border-radius:4px;background:var(--accent);color:white}
+    .ch-badge{font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:4px;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+    .back-link a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:16px;transition:color .2s}
+    .back-link a:hover{color:var(--text)}
+    .page-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+    .page-title span{color:var(--subj)}
+    .page-desc{color:var(--muted);font-size:1rem;max-width:680px}
+
+    .content{max-width:1200px;margin:0 auto;padding:48px 48px 80px}
+
+    /* ── Concept Banner ── */
+    .concept-banner{background:var(--subj-light);border:1px solid var(--subj-border);border-radius:var(--radius);padding:36px 40px;margin-bottom:56px;display:flex;align-items:center;gap:36px}
+    .banner-icon{font-size:3rem;flex-shrink:0;min-width:80px;text-align:center;animation:floatIcon 3s ease-in-out infinite}
+    @keyframes floatIcon{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    .banner-body{flex:1}
+    .banner-en{font-size:1.15rem;font-weight:800;color:#5b21b6;margin-bottom:6px}
+    .banner-ja{font-size:.95rem;color:var(--muted);margin-bottom:14px;line-height:1.7}
+    .banner-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .banner-chip{font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:100px;background:var(--subj-border);color:#5b21b6}
+    .formula-showcase{background:var(--white);border:2px solid var(--subj-border);border-radius:12px;padding:20px 28px;flex-shrink:0;min-width:220px}
+    .formula-label{font-size:.65rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+    .formula-line{font-size:.95rem;font-weight:700;color:var(--subj);font-family:'Courier New',monospace;line-height:2}
+
+    .section{margin-bottom:64px}
+    .section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+    .gram-badge{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+    .section-title{font-size:1.55rem;font-weight:800}
+    .section-number{font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.1em}
+    .section-intro{color:var(--muted);font-size:1rem;margin-bottom:24px;margin-top:6px}
+
+    /* ── Clause Demo ── */
+    .clause-demo{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:20px;position:relative}
+    .cl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+    .cl{padding:12px 18px;border-radius:10px;font-size:.9rem;font-weight:600;opacity:0;transform:translateY(30px) scale(.82);transition:opacity .5s cubic-bezier(.34,1.56,.64,1),transform .5s cubic-bezier(.34,1.56,.64,1);text-align:center;line-height:1.4;cursor:default}
+    .cl.show{opacity:1;transform:translateY(0) scale(1)}
+    .cl:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+    .cl.sub{background:#dbeafe;color:#1e3a8a}
+    .cl.vrb{background:#dcfce7;color:#14532d}
+    .cl.obj{background:#f3e8ff;color:#6b21a8}
+    .cl.cond{background:var(--subj-light);color:#5b21b6;border:2px solid var(--subj-border)}
+    .cl.main{background:#fef3c7;color:#92400e;border:2px solid #fde68a}
+    .cl.conj{background:#f1f5f9;color:#475569;border:1px solid #cbd5e1}
+    .cl-lbl{font-size:.65rem;font-weight:800;letter-spacing:.08em;margin-top:4px;opacity:.7}
+    .cj{font-size:.95rem;font-weight:800;color:var(--subj);padding:8px 14px;border-radius:8px;background:var(--subj-light);border:2px solid var(--subj-border);opacity:0;transform:scale(.6);transition:opacity .35s ease,transform .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap}
+    .cj.show{opacity:1;transform:scale(1)}
+    .demo-sent{font-style:italic;color:var(--muted);font-size:1rem;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;text-align:center}
+    .demo-sent.show{opacity:1;transform:translateY(0)}
+    .replay-btn{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;border:1px solid var(--border);background:var(--bg);color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+    .replay-btn:hover{background:var(--white);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.12);transform:scale(1.06)}
+    @keyframes replaySpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .replay-btn.spinning{animation:replaySpin .4s cubic-bezier(.34,1.56,.64,1)}
+
+    /* ── Note / Card ── */
+    .note-box{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--subj);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;font-size:.95rem;color:var(--muted);margin-bottom:20px;line-height:1.75}
+    .note-box.compare{border-left-color:#06b6d4}
+    .note-box.warn{border-left-color:#f59e0b}
+    .note-box.ok{border-left-color:#16a34a}
+    .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px}
+    .card h4{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--subj);margin-bottom:10px}
+    .c-item{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;font-size:.85rem}
+    .c-en{font-weight:700;color:var(--subj);min-width:120px;flex-shrink:0}
+    .c-ja{color:var(--muted)}
+    .ex-table{width:100%;border-collapse:collapse;font-size:.96rem;margin-bottom:20px}
+    .ex-table thead th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--border)}
+    .ex-table tbody td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    .ex-table tbody tr:last-child td{border-bottom:none}
+    .ex-table .en{font-weight:600}
+    .ex-table .ja{color:var(--muted)}
+    .hl{color:var(--subj);font-weight:700}
+    .divider{height:1px;background:var(--border);margin:0 0 64px}
+
+    /* ── Reality vs Hypothesis ── */
+    .vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+    .vs-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px 24px}
+    .vs-card.real{border-top:3px solid #16a34a}
+    .vs-card.hypo{border-top:3px solid var(--subj)}
+    .vs-label{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+    .vs-label.real{color:#16a34a}
+    .vs-label.hypo{color:var(--subj)}
+    .vs-sent{font-size:.95rem;font-weight:600;margin-bottom:6px;line-height:1.6}
+    .vs-ja{font-size:.85rem;color:var(--muted)}
+
+    /* ── Modal Grid ── */
+    .modal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+    .modal-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 18px}
+    .modal-word{font-size:1.1rem;font-weight:900;color:var(--subj);font-family:'Courier New',monospace;margin-bottom:6px}
+    .modal-nuance{font-size:.8rem;font-weight:700;color:var(--muted);margin-bottom:10px;letter-spacing:.05em}
+    .modal-ex{font-size:.85rem;line-height:1.7}
+    .modal-ex .en{font-weight:600;display:block}
+    .modal-ex .ja{color:var(--muted);display:block}
+
+    @media(max-width:700px){.page-hero{padding:32px 24px 28px}.content{padding:32px 24px 60px}.concept-banner{flex-direction:column;gap:16px;padding:24px}.card-grid,.vs-grid,.modal-grid{grid-template-columns:1fr}.formula-showcase{min-width:unset}}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="index.html">
+    <div class="logo-mark"></div>
+    Animated English Grammar
+  </a>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 24</span>
+      <span class="ch-badge">Chapter VI — 仮定法</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 一覧へ戻る</a></div>
+    <h1 class="page-title">仮定法<span>過去</span></h1>
+    <p class="page-desc">現在の事実に反する仮定を表す構文。「もし〜なら（実際はそうでないが）…だろうに」という反実仮想を、過去形を使って表現する。</p>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- Concept Banner -->
+  <div class="concept-banner">
+    <div class="banner-icon">🌀</div>
+    <div class="banner-body">
+      <div class="banner-en">Contrary-to-fact in the Present</div>
+      <div class="banner-ja">現在の事実に反する仮定。過去形を用いることで「現実とはズレた世界」を表現する。</div>
+      <div class="banner-chips">
+        <span class="banner-chip">If + 過去形</span>
+        <span class="banner-chip">would / could / might + 原形</span>
+        <span class="banner-chip">were（be動詞）</span>
+        <span class="banner-chip">反実仮想</span>
+      </div>
+    </div>
+    <div class="formula-showcase">
+      <div class="formula-label">基本公式</div>
+      <div class="formula-line">If S + <span style="color:#7c3aed">過去形</span>,</div>
+      <div class="formula-line">S + <span style="color:#92400e">would</span> + 原形</div>
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">基本構造</span>
+      <h2 class="section-title">形と意味</h2>
+    </div>
+    <p class="section-intro">If節に動詞の過去形を使い、主節に「would/could/might + 動詞原形」を置く。現在・未来の事実に反する仮定を表す。</p>
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn" onclick="replay('demo1')">↺ replay</button>
+      <div class="cl-row">
+        <div class="cl cond" data-delay="0">
+          <div>If I were rich</div>
+          <div class="cl-lbl">IF節（過去形）</div>
+        </div>
+        <div class="cl conj" data-delay="200">,</div>
+        <div class="cl main" data-delay="400">
+          <div>I would travel the world</div>
+          <div class="cl-lbl">主節（would + 原形）</div>
+        </div>
+      </div>
+      <div class="demo-sent" data-delay="700">もし私がお金持ちなら（実際はそうでない）、世界中を旅するだろうに。</div>
+    </div>
+    <div class="note-box">
+      <strong>ポイント：</strong> If節が過去形でも、<em>意味は現在のこと</em>。「今の事実に反する」ことを過去形で表すのが仮定法の約束事。
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>英文</th><th>訳</th><th>実際の事実</th></tr></thead>
+      <tbody>
+        <tr><td class="en">If I <span class="hl">had</span> more time, I <span class="hl">would read</span> more books.</td><td class="ja">時間がもっとあれば、もっと本を読むのに。</td><td class="ja">→ 実際は時間がない</td></tr>
+        <tr><td class="en">If she <span class="hl">knew</span> your address, she <span class="hl">would visit</span> you.</td><td class="ja">彼女があなたの住所を知っていれば、訪ねてくるのに。</td><td class="ja">→ 実際は知らない</td></tr>
+        <tr><td class="en">If it <span class="hl">were</span> sunny, we <span class="hl">could go</span> out.</td><td class="ja">晴れていれば、外出できるのに。</td><td class="ja">→ 実際は晴れていない</td></tr>
+        <tr><td class="en">If he <span class="hl">lived</span> nearby, we <span class="hl">might see</span> him more often.</td><td class="ja">彼が近くに住んでいれば、もっと会えるかもしれないのに。</td><td class="ja">→ 実際は遠くに住んでいる</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Section 2 -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">be動詞</span>
+      <h2 class="section-title">were の使い方</h2>
+    </div>
+    <p class="section-intro">仮定法過去でbe動詞を使う場合、主語が何であっても <strong>were</strong> を使うのが原則。口語では was も許容されるが、書き言葉や試験では were が正式。</p>
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn" onclick="replay('demo2')">↺ replay</button>
+      <div class="cl-row">
+        <div class="cl cond" data-delay="0">
+          <div>If I <span style="color:#7c3aed;font-weight:900">were</span> you</div>
+          <div class="cl-lbl">主語 I でも were</div>
+        </div>
+        <div class="cl conj" data-delay="200">,</div>
+        <div class="cl main" data-delay="400">
+          <div>I would apologize</div>
+          <div class="cl-lbl">主節</div>
+        </div>
+      </div>
+      <div class="demo-sent" data-delay="700">私があなたなら（実際はそうでないが）、謝るでしょう。</div>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h4>✅ 仮定法では were</h4>
+        <div class="c-item"><span class="c-en">If I were …</span><span class="c-ja">私が〜なら</span></div>
+        <div class="c-item"><span class="c-en">If he were …</span><span class="c-ja">彼が〜なら</span></div>
+        <div class="c-item"><span class="c-en">If she were …</span><span class="c-ja">彼女が〜なら</span></div>
+        <div class="c-item"><span class="c-en">If it were …</span><span class="c-ja">それが〜なら</span></div>
+      </div>
+      <div class="card">
+        <h4>慣用表現</h4>
+        <div class="c-item"><span class="c-en">If I were you</span><span class="c-ja">あなたの立場なら</span></div>
+        <div class="c-item"><span class="c-en">If I were in your shoes</span><span class="c-ja">あなたの立場なら</span></div>
+        <div class="c-item"><span class="c-en">If it were possible</span><span class="c-ja">可能なら</span></div>
+        <div class="c-item"><span class="c-en">Were I to …</span><span class="c-ja">もし〜するとすれば（倒置）</span></div>
+      </div>
+    </div>
+    <div class="note-box warn">
+      <strong>注意：</strong> "If I was you" は口語では聞かれるが、仮定法の正式な形は <strong>were</strong>。試験・作文では were を使う。
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Section 3 -->
+  <div class="section" id="s3">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">直説法 vs 仮定法</span>
+      <h2 class="section-title">現実と仮定の対比</h2>
+    </div>
+    <p class="section-intro">直説法（普通のif文）は実現可能な条件を表す。仮定法過去は現在の事実に反することを表す。形の違いに注目。</p>
+    <div class="vs-grid">
+      <div class="vs-card real">
+        <div class="vs-label real">直説法（条件文）</div>
+        <div class="vs-sent">If it <span style="color:#16a34a;font-weight:700">rains</span> tomorrow, I <span style="color:#16a34a;font-weight:700">will</span> stay home.</div>
+        <div class="vs-ja">明日雨なら（可能性あり）、家にいます。</div>
+      </div>
+      <div class="vs-card hypo">
+        <div class="vs-label hypo">仮定法（反実仮想）</div>
+        <div class="vs-sent">If it <span style="color:#7c3aed;font-weight:700">rained</span> now, I <span style="color:#7c3aed;font-weight:700">would</span> stay home.</div>
+        <div class="vs-ja">今雨だったら（実際は晴れ）、家にいるのに。</div>
+      </div>
+      <div class="vs-card real">
+        <div class="vs-label real">直説法</div>
+        <div class="vs-sent">If you <span style="color:#16a34a;font-weight:700">have</span> time, please help me.</div>
+        <div class="vs-ja">時間があれば手伝ってください。（普通の依頼）</div>
+      </div>
+      <div class="vs-card hypo">
+        <div class="vs-label hypo">仮定法</div>
+        <div class="vs-sent">If you <span style="color:#7c3aed;font-weight:700">had</span> time, you <span style="color:#7c3aed;font-weight:700">could help</span> me.</div>
+        <div class="vs-ja">時間があれば（実際はない）手伝えるのに。</div>
+      </div>
+    </div>
+    <div class="note-box compare">
+      <strong>見分け方：</strong> 動詞が現在形 → 直説法（実現可能な条件）。動詞が過去形 + 主節に would/could/might → 仮定法（反実仮想）。
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Section 4 -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">助動詞の選択</span>
+      <h2 class="section-title">would / could / might</h2>
+    </div>
+    <p class="section-intro">主節の助動詞は would だけでなく could・might も使える。ニュアンスの違いを押さえておく。</p>
+    <div class="modal-grid">
+      <div class="modal-card">
+        <div class="modal-word">would</div>
+        <div class="modal-nuance">〜だろうに（意志・確信）</div>
+        <div class="modal-ex">
+          <span class="en">If I <span class="hl">had</span> wings, I <span class="hl">would fly</span> to you.</span>
+          <span class="ja">翼があれば、あなたのところへ飛んで行くのに。</span>
+        </div>
+      </div>
+      <div class="modal-card">
+        <div class="modal-word">could</div>
+        <div class="modal-nuance">〜できるのに（能力・可能性）</div>
+        <div class="modal-ex">
+          <span class="en">If I <span class="hl">were</span> taller, I <span class="hl">could play</span> basketball.</span>
+          <span class="ja">もっと背が高ければ、バスケができるのに。</span>
+        </div>
+      </div>
+      <div class="modal-card">
+        <div class="modal-word">might</div>
+        <div class="modal-nuance">〜かもしれないのに（弱い可能性）</div>
+        <div class="modal-ex">
+          <span class="en">If he <span class="hl">tried</span>, he <span class="hl">might succeed</span>.</span>
+          <span class="ja">挑戦すれば、成功するかもしれないのに。</span>
+        </div>
+      </div>
+    </div>
+    <div class="note-box">
+      <strong>まとめ：</strong> would（〜だろうに）> could（〜できるのに）> might（〜かもしれないのに）の順に確信度が下がる。
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Section 5 -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <span class="gram-badge">応用</span>
+      <h2 class="section-title">If なし・倒置・Without</h2>
+    </div>
+    <p class="section-intro">仮定法は if を使わずに表現することもできる。代表的なパターンを確認する。</p>
+    <div class="clause-demo" id="demo5">
+      <button class="replay-btn" onclick="replay('demo5')">↺ replay</button>
+      <div class="cl-row">
+        <div class="cl cond" data-delay="0">
+          <div><span style="color:#7c3aed;font-weight:900">Were</span> I a bird</div>
+          <div class="cl-lbl">倒置（= If I were a bird）</div>
+        </div>
+        <div class="cl conj" data-delay="200">,</div>
+        <div class="cl main" data-delay="400">
+          <div>I would fly to you</div>
+          <div class="cl-lbl">主節</div>
+        </div>
+      </div>
+      <div class="demo-sent" data-delay="700">もし私が鳥なら、あなたのところへ飛んで行くのに。</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>パターン</th><th>例文</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="en"><span class="hl">Were</span> S + …</td>
+          <td class="en"><span class="hl">Were</span> I free, I would join you.</td>
+          <td class="ja">暇なら（= If I were free）一緒に行くのに。</td>
+        </tr>
+        <tr>
+          <td class="en"><span class="hl">Without</span> + 名詞</td>
+          <td class="en"><span class="hl">Without</span> your help, I would fail.</td>
+          <td class="ja">あなたの助けがなければ、失敗するだろう。</td>
+        </tr>
+        <tr>
+          <td class="en"><span class="hl">But for</span> + 名詞</td>
+          <td class="en"><span class="hl">But for</span> the rain, we could play.</td>
+          <td class="ja">雨でなければ、遊べるのに。</td>
+        </tr>
+        <tr>
+          <td class="en">to不定詞句</td>
+          <td class="en">To hear him speak, you would think he's British.</td>
+          <td class="ja">彼が話すのを聞けば、イギリス人だと思うだろう。</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note-box ok">
+      <strong>倒置のポイント：</strong> Were / Had / Should で始まる倒置形は書き言葉・フォーマルな文体でよく使われる。If を使った形と同じ意味。
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const allDemos = document.querySelectorAll('.clause-demo');
+
+  function animateDemo(demo) {
+    const els = demo.querySelectorAll('[data-delay]');
+    els.forEach(el => { el.classList.remove('show'); });
+    els.forEach(el => {
+      const delay = parseInt(el.getAttribute('data-delay'));
+      setTimeout(() => el.classList.add('show'), delay + 100);
+    });
+  }
+
+  function replay(id) {
+    const btn = document.querySelector(`#${id} .replay-btn`);
+    btn.classList.add('spinning');
+    setTimeout(() => btn.classList.remove('spinning'), 400);
+    animateDemo(document.getElementById(id));
+  }
+
+  // IntersectionObserver for scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateDemo(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  allDemos.forEach(demo => observer.observe(demo));
+
+  // Unit card scroll reveal on index
+  document.querySelectorAll('.cl').forEach(el => {
+    if (!el.closest('.clause-demo')) return;
+  });
+</script>
+</body>
+</html>

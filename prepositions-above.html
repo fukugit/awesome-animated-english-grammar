@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前置詞 above — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg:#f9f7f2;--white:#fff;--border:#e5e0d5;--text:#1c1c1c;--muted:#6b6460;
+      --accent:#1e3a8a;--prep:#0369a1;--prep-light:#f0f9ff;--prep-border:#bae6fd;--radius:14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .nav{height:56px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.92rem;text-decoration:none;color:var(--text)}
+    .logo-mark{width:26px;height:26px;background:linear-gradient(135deg,#1e3a8a,#7c3aed);border-radius:6px;flex-shrink:0;animation:logoPulse 3s ease-in-out infinite}
+    @keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+    .page-hero{background:var(--white);border-bottom:1px solid var(--border);padding:48px 48px 40px}
+    .page-hero-inner{max-width:1200px;margin:0 auto}
+    .unit-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .unit-num-badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:2px 9px;border-radius:4px;background:var(--accent);color:white}
+    .ch-badge{font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:4px;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+    .back-link a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:16px;transition:color .2s}
+    .back-link a:hover{color:var(--text)}
+    .page-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+    .page-title span{color:var(--prep)}
+    .page-desc{color:var(--muted);font-size:1rem;max-width:680px}
+    .content{max-width:1200px;margin:0 auto;padding:48px 48px 80px}
+    .part-banner{background:var(--prep-light);border:1px solid var(--prep-border);border-radius:var(--radius);padding:36px 40px;margin-bottom:56px;display:flex;align-items:center;gap:36px}
+    .banner-prep{font-size:3.5rem;font-weight:900;color:var(--prep);font-family:Georgia,serif;flex-shrink:0;min-width:80px}
+    .banner-body{flex:1}
+    .banner-en{font-size:1.15rem;font-weight:800;color:#075985;margin-bottom:6px}
+    .banner-ja{font-size:.95rem;color:var(--muted);margin-bottom:14px;line-height:1.7}
+    .banner-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .banner-chip{font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:100px;background:#bae6fd;color:#075985}
+    .core-vis{display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .section{margin-bottom:64px}
+    .section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+    .gram-badge{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+    .section-title{font-size:1.55rem;font-weight:800}
+    .section-number{font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.1em}
+    .section-intro{color:var(--muted);font-size:1rem;margin-bottom:24px;margin-top:6px}
+    .clause-demo{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:20px;position:relative}
+    .cl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+    .cl{padding:12px 18px;border-radius:10px;font-size:.9rem;font-weight:600;opacity:0;transform:translateY(30px) scale(.82);transition:opacity .5s cubic-bezier(.34,1.56,.64,1),transform .5s cubic-bezier(.34,1.56,.64,1);text-align:center;line-height:1.4;cursor:default}
+    .cl.show{opacity:1;transform:translateY(0) scale(1)}
+    .cl:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+    .cl.sub{background:#dbeafe;color:#1e3a8a}
+    .cl.vrb{background:#dcfce7;color:#14532d}
+    .cl.obj{background:#f3e8ff;color:#6b21a8}
+    .cl.prc{background:var(--prep-light);color:#075985;border:2px solid var(--prep)}
+    .cl-lbl{font-size:.65rem;font-weight:800;letter-spacing:.08em;margin-top:4px;opacity:.7}
+    .cj{font-size:.95rem;font-weight:800;color:var(--prep);padding:8px 14px;border-radius:8px;background:var(--prep-light);border:2px solid var(--prep);opacity:0;transform:scale(.6);transition:opacity .35s ease,transform .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap}
+    .cj.show{opacity:1;transform:scale(1)}
+    .demo-sent{font-style:italic;color:var(--muted);font-size:1rem;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;text-align:center}
+    .demo-sent.show{opacity:1;transform:translateY(0)}
+    .replay-btn{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;border:1px solid var(--border);background:var(--bg);color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+    .replay-btn:hover{background:var(--white);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.12);transform:scale(1.06)}
+    @keyframes replaySpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .replay-btn.spinning{animation:replaySpin .4s cubic-bezier(.34,1.56,.64,1)}
+    .note-box{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--prep);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;font-size:.95rem;color:var(--muted);margin-bottom:20px;line-height:1.75}
+    .note-box.compare{border-left-color:#06b6d4}
+    .note-box.warn{border-left-color:#f59e0b}
+    .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px}
+    .card h4{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--prep);margin-bottom:10px}
+    .c-item{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;font-size:.85rem}
+    .c-phrase{font-weight:700;color:var(--prep);min-width:150px;flex-shrink:0}
+    .c-ja{color:var(--muted)}
+    .ex-table{width:100%;border-collapse:collapse;font-size:.96rem;margin-bottom:20px}
+    .ex-table thead th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--border)}
+    .ex-table tbody td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    .ex-table tbody tr:last-child td{border-bottom:none}
+    .ex-table .en{font-weight:600}
+    .ex-table .ja{color:var(--muted)}
+    .hl{color:var(--prep);font-weight:700}
+    .divider{height:1px;background:var(--border);margin:0 0 64px}
+    @media(max-width:700px){.page-hero{padding:32px 24px 28px}.content{padding:32px 24px 60px}.part-banner{flex-direction:column;gap:16px;padding:24px}.card-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><div class="logo-mark"></div><span>Animated English Grammar</span></a>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 31</span>
+      <span class="ch-badge">Chapter V &nbsp;·&nbsp; 前置詞</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">前置詞 <span>above</span></h1>
+    <p class="page-desc">「基準より高い位置」のイメージ。above は over と違い静的で、「基準点の上」という感覚。</p>
+  </div>
+</div>
+<main class="content">
+
+  <div class="part-banner">
+    <div class="banner-prep">above</div>
+    <div class="banner-body">
+      <div class="banner-en">「上方」— 基準より高い位置</div>
+      <div class="banner-ja">静的に基準点より高いところにある。above の対義語は below。身体的な高さだけでなく、程度・地位・価値が上であることを表す。</div>
+      <div class="banner-chips">
+        <span class="banner-chip">高い位置</span>
+        <span class="banner-chip">基準を超える</span>
+        <span class="banner-chip">地位・階級</span>
+        <span class="banner-chip">慣用表現</span>
+      </div>
+    </div>
+    <div class="core-vis">
+      <svg width="70" height="60" viewBox="0 0 70 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="4" y1="42" x2="66" y2="42" stroke="#0369a1" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="35" cy="18" r="8" fill="#0369a1" opacity="0.9"/>
+        <line x1="35" y1="28" x2="35" y2="40" stroke="#0369a1" stroke-width="1.5" stroke-dasharray="3 3"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 01 高い位置 -->
+  <section class="section" id="position">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">位置</span>
+      <h2 class="section-title">above で「〜より高い場所に（静的な上方）」</h2>
+    </div>
+    <p class="section-intro">基準点より高い場所に静的に位置する。</p>
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>The plane flew</div><div class="cl-lbl">動詞句</div></div>
+        <div class="cj">above</div>
+        <div class="cl prc"><div>the clouds</div><div class="cl-lbl">基準点</div></div>
+      </div>
+      <div class="demo-sent">The plane flew above the clouds on its way to Tokyo.</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">The temperature is <span class="hl">above</span> zero.</td><td class="ja">気温は零度以上だ。</td></tr>
+        <tr><td class="en">Her voice rose <span class="hl">above</span> the noise.</td><td class="ja">彼女の声が雑音を超えて聞こえた。</td></tr>
+        <tr><td class="en">The sun climbed <span class="hl">above</span> the horizon.</td><td class="ja">太陽が地平線の上に昇った。</td></tr>
+        <tr><td class="en">He held the trophy <span class="hl">above</span> his head.</td><td class="ja">彼はトロフィーを頭の上に掲げた。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 02 基準・程度を超える -->
+  <section class="section" id="standard">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">程度</span>
+      <h2 class="section-title">above で「〜を上回る（基準・期待を超える）」</h2>
+    </div>
+    <p class="section-intro">平均・期待・基準値を上回ることを表す。</p>
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>Her score</div><div class="cl-lbl">主語</div></div>
+        <div class="cl vrb"><div>is</div><div class="cl-lbl">動詞</div></div>
+        <div class="cj">above</div>
+        <div class="cl prc"><div>average</div><div class="cl-lbl">基準</div></div>
+      </div>
+      <div class="demo-sent">Her score is clearly above average in every subject.</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">His performance was <span class="hl">above</span> expectations.</td><td class="ja">彼の成績は期待を上回った。</td></tr>
+        <tr><td class="en">The quality is <span class="hl">above</span> standard.</td><td class="ja">品質は標準以上だ。</td></tr>
+        <tr><td class="en">Temperatures are <span class="hl">above</span> normal for this time of year.</td><td class="ja">この時期にしては気温が高い。</td></tr>
+        <tr><td class="en">She earned <span class="hl">above</span> the minimum wage.</td><td class="ja">彼女は最低賃金以上を稼いだ。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 03 地位・階級 -->
+  <section class="section" id="rank">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">階級</span>
+      <h2 class="section-title">above で「〜より上位（地位・序列）」</h2>
+    </div>
+    <p class="section-intro">社会的・組織的に上位の立場を表す。</p>
+    <div class="clause-demo" id="demo3">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl sub"><div>He ranks</div><div class="cl-lbl">動詞句</div></div>
+        <div class="cj">above</div>
+        <div class="cl prc"><div>me</div><div class="cl-lbl">比較対象</div></div>
+      </div>
+      <div class="demo-sent">He ranks above me in the company hierarchy.</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">She is <span class="hl">above</span> me in the company hierarchy.</td><td class="ja">彼女は会社の序列で私より上だ。</td></tr>
+        <tr><td class="en">He's <span class="hl">above</span> reproach.</td><td class="ja">彼は非難の余地がない。</td></tr>
+        <tr><td class="en">The general is <span class="hl">above</span> the colonel.</td><td class="ja">将軍は大佐より上位だ。</td></tr>
+        <tr><td class="en">She considers herself <span class="hl">above</span> such matters.</td><td class="ja">彼女はそのようなことに関わるのは格下と思っている。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 04 above all / 慣用表現 -->
+  <section class="section" id="idioms">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">慣用</span>
+      <h2 class="section-title">above all / above board — 慣用表現</h2>
+    </div>
+    <p class="section-intro">「何よりも」「疑う余地なく」などの慣用表現。</p>
+    <div class="clause-demo" id="demo4">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cj">Above all,</div>
+        <div class="cl vrb"><div>be honest</div><div class="cl-lbl">命令文</div></div>
+      </div>
+      <div class="demo-sent">Above all, be honest — that is the most important thing.</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en"><span class="hl">Above all</span>, stay safe.</td><td class="ja">何よりも安全でいてください。</td></tr>
+        <tr><td class="en">She is <span class="hl">above</span> suspicion.</td><td class="ja">彼女は疑いの余地がない。</td></tr>
+        <tr><td class="en">The project is <span class="hl">above</span> board.</td><td class="ja">そのプロジェクトは公正に行われている。</td></tr>
+        <tr><td class="en">He rises <span class="hl">above</span> petty concerns.</td><td class="ja">彼はくだらない問題には超然としている。</td></tr>
+      </tbody>
+    </table>
+    <div class="note-box compare">
+      <strong>above と over の使い分け:</strong><br>
+      • <em><strong>above</strong></em>：静的に「基準点より高い」。位置・程度・階級に使う。<br>
+      • <em><strong>over</strong></em>：「弧を描いて超える」動的なイメージ。覆い・移動・完了にも広がる。<br>
+      例：<em>above the clouds</em>（雲より上の位置）vs <em>fly over the city</em>（街の上空を飛ぶ）
+    </div>
+  </section>
+
+</main>
+<script>
+  function getAnimatables(d){return Array.from(d.querySelectorAll(".cl,.cj,.demo-sent"))}
+  function resetDemo(d){getAnimatables(d).forEach(e=>e.classList.remove("show"))}
+  function playDemo(d){resetDemo(d);getAnimatables(d).forEach((e,i)=>setTimeout(()=>e.classList.add("show"),i*140+80))}
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){playDemo(e.target);obs.unobserve(e.target)}})},{threshold:.3});
+  document.querySelectorAll(".clause-demo").forEach(d=>obs.observe(d));
+  document.querySelectorAll(".replay-btn").forEach(b=>{b.addEventListener("click",()=>{b.classList.remove("spinning");void b.offsetWidth;b.classList.add("spinning");b.addEventListener("animationend",()=>b.classList.remove("spinning"),{once:true});playDemo(b.closest(".clause-demo"))})});
+</script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前置詞 during — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg:#f9f7f2;--white:#fff;--border:#e5e0d5;--text:#1c1c1c;--muted:#6b6460;
+      --accent:#1e3a8a;--prep:#0891b2;--prep-light:#ecfeff;--prep-border:#a5f3fc;--radius:14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .nav{height:56px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.92rem;text-decoration:none;color:var(--text)}
+    .logo-mark{width:26px;height:26px;background:linear-gradient(135deg,#1e3a8a,#7c3aed);border-radius:6px;flex-shrink:0;animation:logoPulse 3s ease-in-out infinite}
+    @keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+    .page-hero{background:var(--white);border-bottom:1px solid var(--border);padding:48px 48px 40px}
+    .page-hero-inner{max-width:1200px;margin:0 auto}
+    .unit-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .unit-num-badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:2px 9px;border-radius:4px;background:var(--accent);color:white}
+    .ch-badge{font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:4px;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+    .back-link a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:16px;transition:color .2s}
+    .back-link a:hover{color:var(--text)}
+    .page-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+    .page-title span{color:var(--prep)}
+    .page-desc{color:var(--muted);font-size:1rem;max-width:680px}
+    .content{max-width:1200px;margin:0 auto;padding:48px 48px 80px}
+    .part-banner{background:var(--prep-light);border:1px solid var(--prep-border);border-radius:var(--radius);padding:36px 40px;margin-bottom:56px;display:flex;align-items:center;gap:36px}
+    .banner-prep{font-size:3.5rem;font-weight:900;color:var(--prep);font-family:Georgia,serif;flex-shrink:0;min-width:80px}
+    .banner-body{flex:1}
+    .banner-en{font-size:1.15rem;font-weight:800;color:#0e7490;margin-bottom:6px}
+    .banner-ja{font-size:.95rem;color:var(--muted);margin-bottom:14px;line-height:1.7}
+    .banner-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .banner-chip{font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:100px;background:#a5f3fc;color:#0e7490}
+    .core-vis{display:flex;align-items:center;gap:10px;flex-shrink:0}
+    .core-v{width:3px;height:40px;background:var(--prep);border-radius:2px}
+    .core-dot{width:14px;height:14px;border-radius:50%;background:var(--prep)}
+    .section{margin-bottom:64px}
+    .section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+    .gram-badge{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+    .section-title{font-size:1.55rem;font-weight:800}
+    .section-number{font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.1em}
+    .section-intro{color:var(--muted);font-size:1rem;margin-bottom:24px;margin-top:6px}
+    .clause-demo{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:20px;position:relative}
+    .cl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+    .cl{padding:12px 18px;border-radius:10px;font-size:.9rem;font-weight:600;opacity:0;transform:translateY(30px) scale(.82);transition:opacity .5s cubic-bezier(.34,1.56,.64,1),transform .5s cubic-bezier(.34,1.56,.64,1);text-align:center;line-height:1.4;cursor:default}
+    .cl.show{opacity:1;transform:translateY(0) scale(1)}
+    .cl:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+    .cl.sub{background:#dbeafe;color:#1e3a8a}
+    .cl.vrb{background:#dcfce7;color:#14532d}
+    .cl.obj{background:#f3e8ff;color:#6b21a8}
+    .cl.prc{background:var(--prep-light);color:#0e7490;border:2px solid var(--prep)}
+    .cl-lbl{font-size:.65rem;font-weight:800;letter-spacing:.08em;margin-top:4px;opacity:.7}
+    .cj{font-size:.95rem;font-weight:800;color:var(--prep);padding:8px 14px;border-radius:8px;background:var(--prep-light);border:2px solid var(--prep);opacity:0;transform:scale(.6);transition:opacity .35s ease,transform .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap}
+    .cj.show{opacity:1;transform:scale(1)}
+    .demo-sent{font-style:italic;color:var(--muted);font-size:1rem;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;text-align:center}
+    .demo-sent.show{opacity:1;transform:translateY(0)}
+    .replay-btn{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;border:1px solid var(--border);background:var(--bg);color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+    .replay-btn:hover{background:var(--white);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.12);transform:scale(1.06)}
+    @keyframes replaySpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .replay-btn.spinning{animation:replaySpin .4s cubic-bezier(.34,1.56,.64,1)}
+    .note-box{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--prep);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;font-size:.95rem;color:var(--muted);margin-bottom:20px;line-height:1.75}
+    .note-box.compare{border-left-color:#06b6d4}
+    .note-box.warn{border-left-color:#f59e0b}
+    .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px}
+    .card h4{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--prep);margin-bottom:10px}
+    .c-item{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;font-size:.85rem}
+    .c-phrase{font-weight:700;color:var(--prep);min-width:150px;flex-shrink:0}
+    .c-ja{color:var(--muted)}
+    .ex-table{width:100%;border-collapse:collapse;font-size:.96rem;margin-bottom:20px}
+    .ex-table thead th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--border)}
+    .ex-table tbody td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    .ex-table tbody tr:last-child td{border-bottom:none}
+    .ex-table .en{font-weight:600}
+    .ex-table .ja{color:var(--muted)}
+    .hl{color:var(--prep);font-weight:700}
+    .divider{height:1px;background:var(--border);margin:0 0 64px}
+    @media(max-width:700px){.page-hero{padding:32px 24px 28px}.content{padding:32px 24px 60px}.part-banner{flex-direction:column;gap:16px;padding:24px}.card-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><div class="logo-mark"></div><span>Animated English Grammar</span></a>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 42</span>
+      <span class="ch-badge">Chapter V &nbsp;·&nbsp; 前置詞</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">前置詞 <span>during</span></h1>
+    <p class="page-desc">「期間の内部」のイメージ。「〜の間・〜中」という継続と一時的な点、duringとforの違いを整理する。</p>
+  </div>
+</div>
+<main class="content">
+
+  <div class="part-banner">
+    <div class="banner-prep">during</div>
+    <div class="banner-body">
+      <div class="banner-en">「期間の内部」— 〜の間・〜中</div>
+      <div class="banner-ja">特定の期間の内部に位置するイメージ。「〜の間ずっと（継続）」または「〜の期間のある時点」を表す。forとの違いに注意。</div>
+      <div class="banner-chips">
+        <span class="banner-chip">期間中ずっと</span>
+        <span class="banner-chip">期間内のある時点</span>
+        <span class="banner-chip">イベントの最中</span>
+        <span class="banner-chip">during vs for</span>
+      </div>
+    </div>
+    <div class="core-vis">
+      <div class="core-v"></div>
+      <div class="core-dot"></div>
+    </div>
+  </div>
+
+  <!-- 01 期間中ずっと -->
+  <section class="section" id="throughout">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">継続</span>
+      <h2 class="section-title">期間中ずっと</h2>
+    </div>
+    <p class="section-intro">特定の期間の最初から最後まで継続して何かが起きていることを表す。「〜の間ずっと」という完全な継続のニュアンス。</p>
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl prc"><div>during</div><div class="cl-lbl">前置詞</div></div>
+        <div class="cl obj"><div>the summer</div><div class="cl-lbl">期間</div></div>
+      </div>
+      <div class="demo-sent">夏の間ずっと</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">She studied abroad <span class="hl">during</span> the year.</td><td class="ja">その年の間ずっと海外留学した。</td></tr>
+        <tr><td class="en">He worked night shifts <span class="hl">during</span> the winter.</td><td class="ja">冬の間夜勤をした。</td></tr>
+        <tr><td class="en">It rained <span class="hl">during</span> our entire vacation.</td><td class="ja">休暇中ずっと雨が降った。</td></tr>
+        <tr><td class="en">The city was quiet <span class="hl">during</span> the holiday.</td><td class="ja">休暇中、街は静かだった。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 02 期間内のある時点 -->
+  <section class="section" id="point">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">時点</span>
+      <h2 class="section-title">期間内のある時点</h2>
+    </div>
+    <p class="section-intro">期間全体ではなく、その期間のある一点で何かが起きたことを表す。「〜の最中に（ある時点で）」というニュアンス。</p>
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl prc"><div>during</div><div class="cl-lbl">前置詞</div></div>
+        <div class="cl obj"><div>the lecture</div><div class="cl-lbl">期間</div></div>
+        <div class="cl vrb"><div>he fell asleep</div><div class="cl-lbl">出来事</div></div>
+      </div>
+      <div class="demo-sent">講義中に居眠りした</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">He phoned <span class="hl">during</span> the meeting.</td><td class="ja">会議中に電話した。</td></tr>
+        <tr><td class="en">She received the news <span class="hl">during</span> breakfast.</td><td class="ja">朝食中にそのニュースを受け取った。</td></tr>
+        <tr><td class="en"><span class="hl">During</span> the movie, I kept thinking about work.</td><td class="ja">映画の最中、仕事のことが頭から離れなかった。</td></tr>
+        <tr><td class="en">Something strange happened <span class="hl">during</span> the night.</td><td class="ja">夜中に何か奇妙なことが起きた。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 03 イベント・状況の最中 -->
+  <section class="section" id="event">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">状況</span>
+      <h2 class="section-title">イベント・状況の最中</h2>
+    </div>
+    <p class="section-intro">戦争・危機・インターンなど特定のイベントや状況が続いている間を表す。during the war / during the crisis のような形でよく使われる。</p>
+    <div class="clause-demo" id="demo3">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl prc"><div>during</div><div class="cl-lbl">前置詞</div></div>
+        <div class="cl obj"><div>the war</div><div class="cl-lbl">状況</div></div>
+      </div>
+      <div class="demo-sent">戦争中・戦時中</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">Many people suffered <span class="hl">during</span> the earthquake.</td><td class="ja">地震の最中、多くの人が苦しんだ。</td></tr>
+        <tr><td class="en">He served in the military <span class="hl">during</span> the conflict.</td><td class="ja">紛争中、軍に仕えた。</td></tr>
+        <tr><td class="en"><span class="hl">During</span> the crisis, leadership was crucial.</td><td class="ja">危機の最中、リーダーシップが重要だった。</td></tr>
+        <tr><td class="en">She discovered her passion <span class="hl">during</span> the internship.</td><td class="ja">インターン中に情熱を見つけた。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 04 during vs for -->
+  <section class="section" id="during-vs-for">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">比較</span>
+      <h2 class="section-title">during vs for</h2>
+    </div>
+    <p class="section-intro">during と for はどちらも「期間」に関わるが、使い方が異なる。during は特定の期間（名詞）を取り、for は期間の長さ（数字）を取る。</p>
+    <div class="clause-demo" id="demo4">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl prc"><div>during the holidays</div><div class="cl-lbl">特定の期間</div></div>
+        <div class="cl vrb"><div>vs</div><div class="cl-lbl"></div></div>
+        <div class="cl obj"><div>for two weeks</div><div class="cl-lbl">期間の長さ</div></div>
+      </div>
+      <div class="demo-sent">during + 特定の期間（名詞）/ for + 期間の長さ（数字）</div>
+    </div>
+    <div class="card-grid">
+      <div class="card">
+        <h4>during ＋ 名詞</h4>
+        <div class="c-item"><span class="c-phrase">during the holidays</span><span class="c-ja">休暇の間</span></div>
+        <div class="c-item"><span class="c-phrase">during my stay</span><span class="c-ja">滞在中</span></div>
+        <div class="c-item"><span class="c-phrase">during the meeting</span><span class="c-ja">会議中</span></div>
+        <div class="c-item"><span class="c-phrase">during childhood</span><span class="c-ja">子供の頃</span></div>
+      </div>
+      <div class="card">
+        <h4>for ＋ 期間</h4>
+        <div class="c-item"><span class="c-phrase">for two weeks</span><span class="c-ja">2週間</span></div>
+        <div class="c-item"><span class="c-phrase">for a long time</span><span class="c-ja">長い間</span></div>
+        <div class="c-item"><span class="c-phrase">for three hours</span><span class="c-ja">3時間</span></div>
+        <div class="c-item"><span class="c-phrase">for centuries</span><span class="c-ja">何世紀もの間</span></div>
+      </div>
+    </div>
+    <div class="note-box">
+      <strong>during vs for の使い分け:</strong><br>
+      • <em>I studied <strong>during</strong> the holidays.</em>（休暇という特定の期間の中で）<br>
+      • <em>I studied <strong>for</strong> two weeks.</em>（2週間という長さの間）
+    </div>
+  </section>
+
+</main>
+<script>
+  function getAnimatables(d){return Array.from(d.querySelectorAll(".cl,.cj,.demo-sent"))}
+  function resetDemo(d){getAnimatables(d).forEach(e=>e.classList.remove("show"))}
+  function playDemo(d){resetDemo(d);getAnimatables(d).forEach((e,i)=>setTimeout(()=>e.classList.add("show"),i*140+80))}
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){playDemo(e.target);obs.unobserve(e.target)}})},{threshold:.3});
+  document.querySelectorAll(".clause-demo").forEach(d=>obs.observe(d));
+  document.querySelectorAll(".replay-btn").forEach(b=>{b.addEventListener("click",()=>{b.classList.remove("spinning");void b.offsetWidth;b.classList.add("spinning");b.addEventListener("animationend",()=>b.classList.remove("spinning"),{once:true});playDemo(b.closest(".clause-demo"))})});
+</script>
+</body>
+</html>

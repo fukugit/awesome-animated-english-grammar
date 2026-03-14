@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前置詞 around — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg:#f9f7f2;--white:#fff;--border:#e5e0d5;--text:#1c1c1c;--muted:#6b6460;
+      --accent:#1e3a8a;--prep:#a21caf;--prep-light:#fdf4ff;--prep-border:#f0abfc;--radius:14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .nav{height:56px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.92rem;text-decoration:none;color:var(--text)}
+    .logo-mark{width:26px;height:26px;background:linear-gradient(135deg,#1e3a8a,#7c3aed);border-radius:6px;flex-shrink:0;animation:logoPulse 3s ease-in-out infinite}
+    @keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+    .page-hero{background:var(--white);border-bottom:1px solid var(--border);padding:48px 48px 40px}
+    .page-hero-inner{max-width:1200px;margin:0 auto}
+    .unit-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .unit-num-badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:2px 9px;border-radius:4px;background:var(--accent);color:white}
+    .ch-badge{font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:4px;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+    .back-link a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:16px;transition:color .2s}
+    .back-link a:hover{color:var(--text)}
+    .page-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+    .page-title span{color:var(--prep)}
+    .page-desc{color:var(--muted);font-size:1rem;max-width:680px}
+    .content{max-width:1200px;margin:0 auto;padding:48px 48px 80px}
+    .part-banner{background:var(--prep-light);border:1px solid var(--prep-border);border-radius:var(--radius);padding:36px 40px;margin-bottom:56px;display:flex;align-items:center;gap:36px}
+    .banner-prep{font-size:3.5rem;font-weight:900;color:var(--prep);font-family:Georgia,serif;flex-shrink:0;min-width:80px}
+    .banner-body{flex:1}
+    .banner-en{font-size:1.15rem;font-weight:800;color:#86198f;margin-bottom:6px}
+    .banner-ja{font-size:.95rem;color:var(--muted);margin-bottom:14px;line-height:1.7}
+    .banner-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .banner-chip{font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:100px;background:#f0abfc;color:#86198f}
+    .core-vis{display:flex;align-items:center;gap:10px;flex-shrink:0}
+    .core-v{width:3px;height:40px;background:var(--prep);border-radius:2px}
+    .core-dot{width:14px;height:14px;border-radius:50%;background:var(--prep)}
+    .section{margin-bottom:64px}
+    .section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+    .gram-badge{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+    .section-title{font-size:1.55rem;font-weight:800}
+    .section-number{font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.1em}
+    .section-intro{color:var(--muted);font-size:1rem;margin-bottom:24px;margin-top:6px}
+    .clause-demo{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:20px;position:relative}
+    .cl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+    .cl{padding:12px 18px;border-radius:10px;font-size:.9rem;font-weight:600;opacity:0;transform:translateY(30px) scale(.82);transition:opacity .5s cubic-bezier(.34,1.56,.64,1),transform .5s cubic-bezier(.34,1.56,.64,1);text-align:center;line-height:1.4;cursor:default}
+    .cl.show{opacity:1;transform:translateY(0) scale(1)}
+    .cl:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+    .cl.sub{background:#dbeafe;color:#1e3a8a}
+    .cl.vrb{background:#dcfce7;color:#14532d}
+    .cl.obj{background:#f3e8ff;color:#6b21a8}
+    .cl.prc{background:var(--prep-light);color:#86198f;border:2px solid var(--prep)}
+    .cl-lbl{font-size:.65rem;font-weight:800;letter-spacing:.08em;margin-top:4px;opacity:.7}
+    .cj{font-size:.95rem;font-weight:800;color:var(--prep);padding:8px 14px;border-radius:8px;background:var(--prep-light);border:2px solid var(--prep);opacity:0;transform:scale(.6);transition:opacity .35s ease,transform .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap}
+    .cj.show{opacity:1;transform:scale(1)}
+    .demo-sent{font-style:italic;color:var(--muted);font-size:1rem;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;text-align:center}
+    .demo-sent.show{opacity:1;transform:translateY(0)}
+    .replay-btn{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;border:1px solid var(--border);background:var(--bg);color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+    .replay-btn:hover{background:var(--white);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.12);transform:scale(1.06)}
+    @keyframes replaySpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .replay-btn.spinning{animation:replaySpin .4s cubic-bezier(.34,1.56,.64,1)}
+    .note-box{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--prep);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;font-size:.95rem;color:var(--muted);margin-bottom:20px;line-height:1.75}
+    .note-box.compare{border-left-color:#06b6d4}
+    .note-box.warn{border-left-color:#f59e0b}
+    .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px}
+    .card h4{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--prep);margin-bottom:10px}
+    .c-item{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;font-size:.85rem}
+    .c-phrase{font-weight:700;color:var(--prep);min-width:150px;flex-shrink:0}
+    .c-ja{color:var(--muted)}
+    .ex-table{width:100%;border-collapse:collapse;font-size:.96rem;margin-bottom:20px}
+    .ex-table thead th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--border)}
+    .ex-table tbody td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    .ex-table tbody tr:last-child td{border-bottom:none}
+    .ex-table .en{font-weight:600}
+    .ex-table .ja{color:var(--muted)}
+    .hl{color:var(--prep);font-weight:700}
+    .divider{height:1px;background:var(--border);margin:0 0 64px}
+    @media(max-width:700px){.page-hero{padding:32px 24px 28px}.content{padding:32px 24px 60px}.part-banner{flex-direction:column;gap:16px;padding:24px}.card-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><div class="logo-mark"></div><span>Animated English Grammar</span></a>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 37</span>
+      <span class="ch-badge">Chapter V &nbsp;·&nbsp; 前置詞</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">前置詞 <span>around</span></h1>
+    <p class="page-desc">「まわりを回る・囲む」のイメージ。周囲・おおよそ・あちこち・回避まで、aroundの感覚を整理する。</p>
+  </div>
+</div>
+<main class="content">
+
+  <div class="part-banner">
+    <div class="banner-prep">around</div>
+    <div class="banner-body">
+      <div class="banner-en">「周囲」— まわりを回る・囲む</div>
+      <div class="banner-ja">ある点・物体のまわりを回転するイメージ。周囲を囲む、おおよその場所・時間、あちこち移動を表す。</div>
+      <div class="banner-chips">
+        <span class="banner-chip">周囲・囲み</span>
+        <span class="banner-chip">おおよそ</span>
+        <span class="banner-chip">あちこち移動</span>
+        <span class="banner-chip">回避・迂回</span>
+      </div>
+    </div>
+    <div class="core-vis">
+      <div class="core-v"></div>
+      <div class="core-dot"></div>
+    </div>
+  </div>
+
+  <!-- 01 周囲・囲む -->
+  <section class="section" id="surrounding">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">位置</span>
+      <h2 class="section-title">around で「〜を囲んで・まわりに（周囲）」</h2>
+    </div>
+    <p class="section-intro">around の最も物理的な用法は「まわりを囲む」感覚。テーブルを囲んで座る・首に巻く・庭を囲む柵など、中心点のまわりをぐるりと囲む状態を表す。</p>
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl vrb" data-delay="0"><div>sit</div><div class="cl-lbl">動詞</div></div>
+        <div class="cj" data-delay="200">around</div>
+        <div class="cl prc" data-delay="400"><div>the table</div><div class="cl-lbl">中心（囲み）</div></div>
+      </div>
+      <div class="demo-sent" data-delay="700">テーブルを囲んで座る</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">She wrapped a scarf <span class="hl">around</span> her neck.</td><td class="ja">スカーフを首に巻いた。</td></tr>
+        <tr><td class="en">The children gathered <span class="hl">around</span> the teacher.</td><td class="ja">先生のまわりに集まった。</td></tr>
+        <tr><td class="en">There's a fence <span class="hl">around</span> the garden.</td><td class="ja">庭のまわりに柵がある。</td></tr>
+        <tr><td class="en">He put his arm <span class="hl">around</span> her shoulder.</td><td class="ja">彼女の肩に腕を回した。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 02 おおよそ -->
+  <section class="section" id="approximate">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">数量</span>
+      <h2 class="section-title">around で「だいたい〜（おおよその数・時間）」</h2>
+    </div>
+    <p class="section-intro">ある数値・時間の「まわり」という感覚から、おおよそ・約を表す around。about とほぼ同義で使えるが、around は口語でより自然に響く。</p>
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cj" data-delay="0">around</div>
+        <div class="cl prc" data-delay="200"><div>5 o'clock</div><div class="cl-lbl">おおよその時間</div></div>
+      </div>
+      <div class="demo-sent" data-delay="700">だいたい5時頃</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">It costs <span class="hl">around</span> 200 dollars.</td><td class="ja">だいたい200ドルくらいかかる。</td></tr>
+        <tr><td class="en">She'll arrive <span class="hl">around</span> noon.</td><td class="ja">正午頃着くだろう。</td></tr>
+        <tr><td class="en"><span class="hl">Around</span> 50 people attended.</td><td class="ja">だいたい50人が参加した。</td></tr>
+        <tr><td class="en">It's somewhere <span class="hl">around</span> here.</td><td class="ja">この辺のどこかにある。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 03 あちこち移動 -->
+  <section class="section" id="movement">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">動作</span>
+      <h2 class="section-title">around で「あちこち・あたりを（移動・探索）」</h2>
+    </div>
+    <p class="section-intro">ぐるりと「まわる」感覚から、特定の方向なくあちこち動き回る around。look around（見て回る）・walk around（歩き回る）・turn around（振り返る）などが代表的。</p>
+    <div class="clause-demo" id="demo3">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl vrb" data-delay="0"><div>travel</div><div class="cl-lbl">動詞</div></div>
+        <div class="cj" data-delay="200">around</div>
+        <div class="cl prc" data-delay="400"><div>the world</div><div class="cl-lbl">範囲</div></div>
+      </div>
+      <div class="demo-sent" data-delay="700">世界中を旅する</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">We looked <span class="hl">around</span> the museum.</td><td class="ja">美術館の中を見て回った。</td></tr>
+        <tr><td class="en">He walked <span class="hl">around</span> town all day.</td><td class="ja">一日中街を歩き回った。</td></tr>
+        <tr><td class="en">She turned <span class="hl">around</span> and smiled.</td><td class="ja">振り返って微笑んだ。</td></tr>
+        <tr><td class="en">The kids were running <span class="hl">around</span> the park.</td><td class="ja">公園を走り回っていた。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 04 回避・迂回 -->
+  <section class="section" id="avoidance">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">回避</span>
+      <h2 class="section-title">around で「〜を避けて・迂回して（回避・迂回）」</h2>
+    </div>
+    <p class="section-intro">障害物の「まわりを通る」感覚から、回避・迂回を表す around。get around（回避する・迂回する）・find a way around（抜け道を見つける）が代表的。</p>
+    <div class="clause-demo" id="demo4">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl vrb" data-delay="0"><div>get</div><div class="cl-lbl">動詞</div></div>
+        <div class="cj" data-delay="200">around</div>
+        <div class="cl prc" data-delay="400"><div>the problem</div><div class="cl-lbl">回避対象</div></div>
+      </div>
+      <div class="demo-sent" data-delay="700">問題を回避する</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">We found a way <span class="hl">around</span> the obstacle.</td><td class="ja">障害物を迂回する方法を見つけた。</td></tr>
+        <tr><td class="en">She always finds a way <span class="hl">around</span> the rules.</td><td class="ja">いつもルールを巧みに避ける。</td></tr>
+        <tr><td class="en">Is there any way <span class="hl">around</span> this issue?</td><td class="ja">この問題を回避する方法はありますか？</td></tr>
+        <tr><td class="en">He drove <span class="hl">around</span> the traffic jam.</td><td class="ja">渋滞を迂回した。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+<script>
+  function getAnimatables(d){return Array.from(d.querySelectorAll(".cl,.cj,.demo-sent"))}
+  function resetDemo(d){getAnimatables(d).forEach(e=>e.classList.remove("show"))}
+  function playDemo(d){resetDemo(d);getAnimatables(d).forEach((e,i)=>setTimeout(()=>e.classList.add("show"),i*140+80))}
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){playDemo(e.target);obs.unobserve(e.target)}})},{threshold:.3});
+  document.querySelectorAll(".clause-demo").forEach(d=>obs.observe(d));
+  document.querySelectorAll(".replay-btn").forEach(b=>{b.addEventListener("click",()=>{b.classList.remove("spinning");void b.offsetWidth;b.classList.add("spinning");b.addEventListener("animationend",()=>b.classList.remove("spinning"),{once:true});playDemo(b.closest(".clause-demo"))})});
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前置詞 after — Animated English Grammar</title>
+  <style>
+    :root {
+      --bg:#f9f7f2;--white:#fff;--border:#e5e0d5;--text:#1c1c1c;--muted:#6b6460;
+      --accent:#1e3a8a;--prep:#b91c1c;--prep-light:#fff1f2;--prep-border:#fecaca;--radius:14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    .nav{height:56px;background:var(--white);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 32px;position:sticky;top:0;z-index:100}
+    .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:.92rem;text-decoration:none;color:var(--text)}
+    .logo-mark{width:26px;height:26px;background:linear-gradient(135deg,#1e3a8a,#7c3aed);border-radius:6px;flex-shrink:0;animation:logoPulse 3s ease-in-out infinite}
+    @keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+    .page-hero{background:var(--white);border-bottom:1px solid var(--border);padding:48px 48px 40px}
+    .page-hero-inner{max-width:1200px;margin:0 auto}
+    .unit-meta-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .unit-num-badge{font-size:.68rem;font-weight:700;letter-spacing:.08em;padding:2px 9px;border-radius:4px;background:var(--accent);color:white}
+    .ch-badge{font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:4px;background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+    .back-link a{font-size:.85rem;color:var(--muted);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;margin-bottom:16px;transition:color .2s}
+    .back-link a:hover{color:var(--text)}
+    .page-title{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}
+    .page-title span{color:var(--prep)}
+    .page-desc{color:var(--muted);font-size:1rem;max-width:680px}
+    .content{max-width:1200px;margin:0 auto;padding:48px 48px 80px}
+    .part-banner{background:var(--prep-light);border:1px solid var(--prep-border);border-radius:var(--radius);padding:36px 40px;margin-bottom:56px;display:flex;align-items:center;gap:36px}
+    .banner-prep{font-size:3.5rem;font-weight:900;color:var(--prep);font-family:Georgia,serif;flex-shrink:0;min-width:80px}
+    .banner-body{flex:1}
+    .banner-en{font-size:1.15rem;font-weight:800;color:#991b1b;margin-bottom:6px}
+    .banner-ja{font-size:.95rem;color:var(--muted);margin-bottom:14px;line-height:1.7}
+    .banner-chips{display:flex;gap:8px;flex-wrap:wrap}
+    .banner-chip{font-size:.75rem;font-weight:700;padding:4px 12px;border-radius:100px;background:#fecaca;color:#991b1b}
+    .core-vis{display:flex;align-items:center;gap:10px;flex-shrink:0}
+    .core-v{width:3px;height:40px;background:var(--prep);border-radius:2px}
+    .core-dot{width:14px;height:14px;border-radius:50%;background:var(--prep)}
+    .section{margin-bottom:64px}
+    .section-header{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+    .gram-badge{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:100px;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+    .section-title{font-size:1.55rem;font-weight:800}
+    .section-number{font-size:.75rem;font-weight:700;color:var(--muted);letter-spacing:.1em}
+    .section-intro{color:var(--muted);font-size:1rem;margin-bottom:24px;margin-top:6px}
+    .clause-demo{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px 28px;display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:20px;position:relative}
+    .cl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+    .cl{padding:12px 18px;border-radius:10px;font-size:.9rem;font-weight:600;opacity:0;transform:translateY(30px) scale(.82);transition:opacity .5s cubic-bezier(.34,1.56,.64,1),transform .5s cubic-bezier(.34,1.56,.64,1);text-align:center;line-height:1.4;cursor:default}
+    .cl.show{opacity:1;transform:translateY(0) scale(1)}
+    .cl:hover{transform:scale(1.04) translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+    .cl.sub{background:#dbeafe;color:#1e3a8a}
+    .cl.vrb{background:#dcfce7;color:#14532d}
+    .cl.obj{background:#f3e8ff;color:#6b21a8}
+    .cl.prc{background:var(--prep-light);color:#991b1b;border:2px solid var(--prep)}
+    .cl-lbl{font-size:.65rem;font-weight:800;letter-spacing:.08em;margin-top:4px;opacity:.7}
+    .cj{font-size:.95rem;font-weight:800;color:var(--prep);padding:8px 14px;border-radius:8px;background:var(--prep-light);border:2px solid var(--prep);opacity:0;transform:scale(.6);transition:opacity .35s ease,transform .35s cubic-bezier(.34,1.56,.64,1);white-space:nowrap}
+    .cj.show{opacity:1;transform:scale(1)}
+    .demo-sent{font-style:italic;color:var(--muted);font-size:1rem;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;text-align:center}
+    .demo-sent.show{opacity:1;transform:translateY(0)}
+    .replay-btn{position:absolute;top:14px;right:14px;font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:100px;border:1px solid var(--border);background:var(--bg);color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.05em}
+    .replay-btn:hover{background:var(--white);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.12);transform:scale(1.06)}
+    @keyframes replaySpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .replay-btn.spinning{animation:replaySpin .4s cubic-bezier(.34,1.56,.64,1)}
+    .note-box{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--prep);border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;font-size:.95rem;color:var(--muted);margin-bottom:20px;line-height:1.75}
+    .note-box.compare{border-left-color:#06b6d4}
+    .note-box.warn{border-left-color:#f59e0b}
+    .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px}
+    .card h4{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--prep);margin-bottom:10px}
+    .c-item{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;font-size:.85rem}
+    .c-phrase{font-weight:700;color:var(--prep);min-width:150px;flex-shrink:0}
+    .c-ja{color:var(--muted)}
+    .ex-table{width:100%;border-collapse:collapse;font-size:.96rem;margin-bottom:20px}
+    .ex-table thead th{text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:2px solid var(--border)}
+    .ex-table tbody td{padding:11px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+    .ex-table tbody tr:last-child td{border-bottom:none}
+    .ex-table .en{font-weight:600}
+    .ex-table .ja{color:var(--muted)}
+    .hl{color:var(--prep);font-weight:700}
+    .divider{height:1px;background:var(--border);margin:0 0 64px}
+    @media(max-width:700px){.page-hero{padding:32px 24px 28px}.content{padding:32px 24px 60px}.part-banner{flex-direction:column;gap:16px;padding:24px}.card-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><div class="logo-mark"></div><span>Animated English Grammar</span></a>
+</nav>
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="unit-meta-row">
+      <span class="unit-num-badge">Unit 41</span>
+      <span class="ch-badge">Chapter V &nbsp;·&nbsp; 前置詞</span>
+    </div>
+    <div class="back-link"><a href="index.html">← 目次に戻る</a></div>
+    <h1 class="page-title">前置詞 <span>after</span></h1>
+    <p class="page-desc">「後を追う」のイメージ。時間的後・追跡・世話・模倣まで、afterの感覚を整理する。</p>
+  </div>
+</div>
+<main class="content">
+
+  <div class="part-banner">
+    <div class="banner-prep">after</div>
+    <div class="banner-body">
+      <div class="banner-en">「後を追う」— 時間・追跡・模倣</div>
+      <div class="banner-ja">ある基準点の後ろを追いかけるイメージ。時間的「後」だけでなく、追跡・世話・模倣・〜にちなんでも表す。</div>
+      <div class="banner-chips">
+        <span class="banner-chip">時間的後</span>
+        <span class="banner-chip">追跡・追求</span>
+        <span class="banner-chip">世話をする</span>
+        <span class="banner-chip">〜にちなんで</span>
+      </div>
+    </div>
+    <div class="core-vis">
+      <div class="core-v"></div>
+      <div class="core-dot"></div>
+    </div>
+  </div>
+
+  <!-- 01 時間的後 -->
+  <section class="section" id="time">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <span class="gram-badge">時間</span>
+      <h2 class="section-title">時間的後</h2>
+    </div>
+    <p class="section-intro">最も基本的な after の使い方。ある時点・出来事の「後に」を表す。day after day のように繰り返しの表現にも使われる。</p>
+    <div class="clause-demo" id="demo1">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl prc"><div>after</div><div class="cl-lbl">前置詞</div></div>
+        <div class="cl obj"><div>school</div><div class="cl-lbl">基準時点</div></div>
+      </div>
+      <div class="demo-sent">放課後</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">Let's meet <span class="hl">after</span> lunch.</td><td class="ja">昼食後に会いましょう。</td></tr>
+        <tr><td class="en"><span class="hl">After</span> the rain, the air was fresh.</td><td class="ja">雨の後、空気が新鮮だった。</td></tr>
+        <tr><td class="en">She left right <span class="hl">after</span> the meeting.</td><td class="ja">会議が終わってすぐ帰った。</td></tr>
+        <tr><td class="en">Day <span class="hl">after</span> day, he practiced.</td><td class="ja">毎日毎日、彼は練習した。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 02 追跡・追求 -->
+  <section class="section" id="chase">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <span class="gram-badge">追跡</span>
+      <h2 class="section-title">追跡・追求</h2>
+    </div>
+    <p class="section-intro">「後を追う」という感覚から、物や人・夢を追いかける追跡・追求の用法。run after / chase after / go after などのフレーズが重要。</p>
+    <div class="clause-demo" id="demo2">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl vrb"><div>run</div><div class="cl-lbl">動詞</div></div>
+        <div class="cl prc"><div>after</div><div class="cl-lbl">前置詞</div></div>
+        <div class="cl obj"><div>the bus</div><div class="cl-lbl">追跡対象</div></div>
+      </div>
+      <div class="demo-sent">バスを追いかける</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">The dog ran <span class="hl">after</span> the ball.</td><td class="ja">犬がボールを追いかけた。</td></tr>
+        <tr><td class="en">She's been <span class="hl">after</span> that job for months.</td><td class="ja">数ヶ月その仕事を求めてきた。</td></tr>
+        <tr><td class="en">He chased <span class="hl">after</span> his dreams.</td><td class="ja">夢を追い求めた。</td></tr>
+        <tr><td class="en">The police went <span class="hl">after</span> the suspect.</td><td class="ja">警察は容疑者を追った。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 03 世話をする -->
+  <section class="section" id="care">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <span class="gram-badge">世話</span>
+      <h2 class="section-title">世話をする</h2>
+    </div>
+    <p class="section-intro">look after（世話をする）、take after（似ている）など、after を使う重要な句動詞。「後ろに目を向ける＝見守る」感覚から来ている。</p>
+    <div class="clause-demo" id="demo3">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl vrb"><div>look</div><div class="cl-lbl">動詞</div></div>
+        <div class="cl prc"><div>after</div><div class="cl-lbl">前置詞</div></div>
+        <div class="cl obj"><div>the children</div><div class="cl-lbl">世話対象</div></div>
+      </div>
+      <div class="demo-sent">子供たちの世話をする</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">She looks <span class="hl">after</span> her elderly parents.</td><td class="ja">高齢の親の世話をしている。</td></tr>
+        <tr><td class="en">He takes <span class="hl">after</span> his father in looks.</td><td class="ja">見た目が父親に似ている。</td></tr>
+        <tr><td class="en">Can you look <span class="hl">after</span> my cat while I'm away?</td><td class="ja">不在中に猫の面倒を見てもらえますか？</td></tr>
+        <tr><td class="en">She always looks <span class="hl">after</span> her teammates.</td><td class="ja">いつもチームメイトを気にかけている。</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <div class="divider"></div>
+
+  <!-- 04 〜にちなんで -->
+  <section class="section" id="named">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <span class="gram-badge">模倣</span>
+      <h2 class="section-title">〜にちなんで</h2>
+    </div>
+    <p class="section-intro">named after（〜にちなんで命名された）は非常によく使われる表現。「後を追って・倣って」という感覚が起源。様式・流行に倣う意味にも使われる。</p>
+    <div class="clause-demo" id="demo4">
+      <button class="replay-btn">↺ Replay</button>
+      <div class="cl-row">
+        <div class="cl vrb"><div>named</div><div class="cl-lbl">動詞</div></div>
+        <div class="cl prc"><div>after</div><div class="cl-lbl">前置詞</div></div>
+        <div class="cl obj"><div>his grandfather</div><div class="cl-lbl">由来</div></div>
+      </div>
+      <div class="demo-sent">祖父にちなんで命名</div>
+    </div>
+    <table class="ex-table">
+      <thead><tr><th>例文</th><th>和訳</th></tr></thead>
+      <tbody>
+        <tr><td class="en">The city is named <span class="hl">after</span> a famous explorer.</td><td class="ja">有名な探検家にちなんで名付けられた。</td></tr>
+        <tr><td class="en">The child was named <span class="hl">after</span> her grandmother.</td><td class="ja">祖母にちなんで命名された。</td></tr>
+        <tr><td class="en">He painted in the style <span class="hl">after</span> Picasso.</td><td class="ja">ピカソの様式に倣って描いた。</td></tr>
+        <tr><td class="en"><span class="hl">After</span> the fashion of the Renaissance.</td><td class="ja">ルネサンスの様式にならって。</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+<script>
+  function getAnimatables(d){return Array.from(d.querySelectorAll(".cl,.cj,.demo-sent"))}
+  function resetDemo(d){getAnimatables(d).forEach(e=>e.classList.remove("show"))}
+  function playDemo(d){resetDemo(d);getAnimatables(d).forEach((e,i)=>setTimeout(()=>e.classList.add("show"),i*140+80))}
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){playDemo(e.target);obs.unobserve(e.target)}})},{threshold:.3});
+  document.querySelectorAll(".clause-demo").forEach(d=>obs.observe(d));
+  document.querySelectorAll(".replay-btn").forEach(b=>{b.addEventListener("click",()=>{b.classList.remove("spinning");void b.offsetWidth;b.classList.add("spinning");b.addEventListener("animationend",()=>b.classList.remove("spinning"),{once:true});playDemo(b.closest(".clause-demo"))})});
+</script>
+</body>
+</html>
